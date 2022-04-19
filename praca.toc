@@ -1,0 +1,45 @@
+\contentsline {chapter}{Wstęp}{4}{chapter*.2}%
+\contentsline {chapter}{\numberline {1}Prezentacja zagadnienia bezpilotowych statków latających oraz koncepcji ich wykorzystania}{5}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Historia BSP}{5}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Technologia i producenci BSP}{5}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Zastosowania BSP}{5}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Dostosowywanie drona do wymagań użytkownika}{5}{section.1.4}%
+\contentsline {chapter}{\numberline {2}Przegląd i prezentacja technologii mobilnych z uwzględnieniem aspektów tworzenia aplikacji i komunikacji M2M}{6}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Komunikacja M2M}{6}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Cel}{6}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Wymagania}{7}{subsection.2.1.2}%
+\contentsline {section}{\numberline {2.2}Technologie komunikacji M2M}{8}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Ogólna klasyfikacja technolgi M2M}{8}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}LoRa}{8}{subsection.2.2.2}%
+\contentsline {subsubsection}{Cechy}{9}{subsubsection*.4}%
+\contentsline {subsubsection}{Ograniczenie przepustowości}{10}{subsubsection*.5}%
+\contentsline {subsection}{\numberline {2.2.3}Narow band IoT}{10}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.2.4}NB-IoT vs Lora}{10}{subsection.2.2.4}%
+\contentsline {section}{\numberline {2.3}Komunikacja bezprzewodowa w dronach konsumenckich}{10}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}WiFi}{11}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Lightbridge}{12}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}OcuSync}{12}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}FHSS i OFDM}{14}{subsection.2.3.4}%
+\contentsline {subsection}{\numberline {2.3.5}Przewaga OcuSync nad Lightbridge}{16}{subsection.2.3.5}%
+\contentsline {section}{\numberline {2.4}Sterowanie dronami za pomocą API dostarczaonego od producenta}{16}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}DJI SDK}{17}{subsection.2.4.1}%
+\contentsline {chapter}{\numberline {3}Projekt mobilnego systemu zarządzania i sterowania BSP}{18}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Wymagania funkcjonalne}{18}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Wymagania pozafunkcjonalne}{18}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Stos technologiczny}{18}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Java}{18}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Kotlin}{18}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}DJI Mobile SDK}{18}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Lombook}{19}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.5}Springboot}{19}{subsection.3.3.5}%
+\contentsline {subsection}{\numberline {3.3.6}Android}{19}{subsection.3.3.6}%
+\contentsline {section}{\numberline {3.4}Uzasadnienie warstwy pośredniczącej}{19}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Wysokopoziomowy diagram systemu}{19}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Diagram komponentów}{19}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Diagram klas i sekwencji}{19}{section.3.7}%
+\contentsline {subsection}{\numberline {3.7.1}Gradle}{19}{subsection.3.7.1}%
+\contentsline {section}{\numberline {3.8}Wykorzystane urządzenia}{19}{section.3.8}%
+\contentsline {chapter}{\numberline {4}Implementacja systemu}{20}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Testy systemu oraz prezentacja użycia na wybranym case study}{21}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Scenariusz testowy autonomicznego lotu pomiędzy dwoma punktami}{21}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Scenariusz testowy autonomicznego lotu patrolowego}{21}{section.5.2}%
