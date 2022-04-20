@@ -1,0 +1,220 @@
+%Łukasz DZIEŁ
+%tel: +48 883 533 374
+%email: lukasz.dziel@wat.edu.pl
+%wersja: 20220316
+%testowano w środowisku: TeXLive2021 (instalacja pełna z iso) + TeXstudio 4.2.2
+
+\documentclass[13pt, a4paper, twoside]{scrartcl}
+
+\usepackage[left=20mm,right=20mm,top=25mm,bottom=25mm,bindingoffset=10mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{mathptmx}
+\usepackage{courier}
+
+\usepackage[normalem]{ulem}
+
+\usepackage{sectsty}
+\allsectionsfont{\normalfont\bfseries\fontsize{14}{18}\selectfont}
+
+\usepackage[titles]{tocloft}
+\setcounter{tocdepth}{2}
+\renewcommand{\cftsecfont}{\fontsize{12}{14}\selectfont}
+\renewcommand{\cftsecpagefont}{\fontsize{12}{14}\selectfont}
+\renewcommand{\cftsecleader}{\fontsize{12}{14}\selectfont\cftdotfill{1}}
+\renewcommand{\cftsecindent}{0mm}
+\renewcommand{\cftsecnumwidth}{22mm}
+\renewcommand{\cftsecaftersnum}{. }
+\renewcommand{\cftbeforesecskip}{2mm}
+
+\renewcommand{\cftsubsecfont}{\fontsize{11}{13}\selectfont}
+\renewcommand{\cftsubsecpagefont}{\fontsize{11}{13}\selectfont}
+\renewcommand{\cftsubsecindent}{5mm}
+\renewcommand{\cftsubsecnumwidth}{8mm}
+\renewcommand{\cftsubsecaftersnum}{. }
+\renewcommand{\cftbeforesubsecskip}{2mm}
+\renewcommand{\cftsubsecleader}{\fontsize{11}{13}\selectfont\cftdotfill{1}}
+
+\renewcommand{\cftsubsubsecfont}{\fontsize{11}{13}\selectfont}
+\renewcommand{\cftsubsubsecpagefont}{\fontsize{11}{13}\selectfont}
+\renewcommand{\cftsubsubsecindent}{5mm}
+\renewcommand{\cftsubsubsecnumwidth}{12mm}
+\renewcommand{\cftsubsubsecaftersnum}{. }
+\renewcommand{\cftbeforesubsubsecskip}{0mm}
+\renewcommand{\cftsubsubsecleader}{\fontsize{11}{13}\selectfont\cftdotfill{1}}
+
+\renewcommand{\cftfigindent}{0mm}
+\renewcommand{\cftfignumwidth}{15mm}
+\renewcommand{\cftfigpresnum}{Rys. }
+\renewcommand{\cftfigaftersnum}{. }
+\renewcommand{\cftfigleader}{\normalfont\cftdotfill{1}}
+
+\renewcommand{\cfttabindent}{0mm}
+\renewcommand{\cfttabnumwidth}{15mm}
+\renewcommand{\cfttabpresnum}{Tab. }
+\renewcommand{\cfttabaftersnum}{. }
+\renewcommand{\cfttabfont}{\normalfont}
+\renewcommand{\cfttableader}{\normalfont\cftdotfill{1}}
+
+\usepackage{amsmath,amsfonts,amsthm}
+
+\usepackage{color}
+\usepackage{float}
+
+\usepackage{verbatimbox}
+\def\verbarg{{\fontsize{11}{13}\selectfont\makebox[7mm]{\arabic{VerbboxLineNo}}}\hspace{12mm}}
+
+\usepackage[plain]{algorithm}
+\floatstyle{plaintop}
+\restylefloat{algorithm}
+\floatname{algorithm}{Alg.}
+
+\usepackage[pdftex]{graphicx}
+
+\renewcommand\thesection{Rozdział \Roman{section}}
+\renewcommand\thesubsection{\Roman{section}.\arabic{subsection}}
+% \renewcommand\thesubsubsection{\Roman{section}.\arabic{subsection}.\arabic{subsubsection}}
+
+\usepackage{longtable}
+\usepackage[font=bf, labelfont=bf, belowskip=-0mm]{caption}
+\captionsetup[figure]{name=Rys., labelsep=period}
+\captionsetup[table]{name=Tab.,  labelsep=period}
+\captionsetup[lstlisting]{margin=0pt, font=bf, labelsep=period}
+\captionsetup[algorithm]{font=bf, labelsep=period}
+
+\usepackage{listings}
+\usepackage{color}
+
+\usepackage{url}
+\urlstyle{ttfamily}
+
+
+\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
+\newcommand{\myurl}[1]{\urlstyle{same}\url{#1}}
+
+\usepackage{hyperref}
+
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[RO, LE]{\thepage}
+\fancyhead[RE, LO]{}
+\fancyfoot{}
+\renewcommand\headrulewidth{0pt}
+
+\fancypagestyle{firststyle}{
+\fancyhead[RO, LE]{}
+\fancyhead[RE, LO]{}
+}
+
+\setlength\parindent{27pt}
+
+\newcommand{\inserttitlepage}{
+    \thispagestyle{firststyle}
+    \begin{center}
+        \fontsize{22}{14}\textbf{WOJSKOWA~~AKADEMIA~~TECHNICZNA}\\
+        \fontsize{12}{10}\textbf{im. Jarosława Dąbrowskiego}
+    \end{center}
+    \vspace{-7mm}
+    \rule{\linewidth}{0.5pt}
+    \begin{center}
+        \fontsize{20}{10}{\textbf{WYDZIAŁ~~CYBERNETYKI}}
+    \end{center}
+    
+    \vspace{5mm}
+    
+    \begin{center}
+        \includegraphics[width=40mm]{./defs/WAT.png}
+    \end{center}
+
+    \vspace{0mm}
+
+    \begin{center}
+        {{\fontsize{26}{10} \selectfont {PRACA DYPLOMOWA}}}\\
+        \vspace{3mm}
+        {\fontsize{20}{10} \selectfont \stopien}
+    \end{center}
+    
+    \vspace{5mm}
+    
+    \begin{longtable*}{p{.18\textwidth} p{.75\textwidth}}
+        \fontsize{14}{20}\selectfont{Temat pracy:} &\fontsize{16}{20}\selectfont{\textbf{\noindent\temat}} \\
+    \end{longtable*}
+    
+    \vspace{5mm}
+    
+    \begin{center}
+        \textrm{\textbf{\fontsize{14}{20}\selectfont{\kierunek}}}\\
+        \scriptsize\textrm{...........................................................................................................\\{{\scriptsize{(kierunek studiów)}}}}\\~\\
+        \vspace{5mm}    
+        \textrm{\textbf{\fontsize{14}{20}\selectfont{\specjalnosc}}}\\
+        \scriptsize\textrm{...........................................................................................................\\\scriptsize{(specjalność)}}\\
+    \end{center}
+   
+    \vspace{5mm}
+
+    \begin{longtable*}{p{.5\textwidth} p{.5\textwidth}}
+        \textrm{Dyplomant:}\vspace{5mm} & 	\textrm{Promotor:}\\
+        \textrm{\textbf{\autor}}  & \textrm{\textbf{\promotor}} \\
+    \end{longtable*}
+    
+    \begin{center} 
+    \rule{\linewidth}{0.5pt}
+    \fontsize{12}{10} \textbf{\data} \end{center}
+    
+     
+    \clearpage
+    
+    \thispagestyle{firststyle}
+    
+    \fontsize{14}{20} \selectfont{\textbf{OŚWIADCZENIE}}\\
+    
+    \begin{center}
+        \fontsize{14}{20} \selectfont \textit{\ifdefined\zgoda  Wyrażam zgodę / \sout{nie wyrażam zgody} \else \sout{Wyrażam zgodę} / {nie wyrażam zgody} \fi $^{*}$\\na udostępnianie mojej pracy przez Archiwum WAT}
+    \end{center}
+    
+    ~\\
+    
+    \begin{longtable*}{p{.6\textwidth} c}
+    Dnia ...................... & 	....................................\\
+    ~ & \fontsize{10}{10} \selectfont (podpis)\\
+    \end{longtable*}
+    \textit{$^{*}$ Niepotrzebne skreślić}
+    \newpage
+    \normalsize
+    
+    \tableofcontents
+    
+    \newpage
+}
+
+\defcaptionname{polish}{\refname}{Bibliografia}
+
+\definecolor{mygray}{rgb}{0.95,0.95,0.95}
+
+\renewcommand{\lstlistingname}{Kod.}
+
+\lstset{
+    basicstyle=\ttfamily\footnotesize,
+    numbers=left,
+    numberstyle=\ttfamily\footnotesize\color{black},
+    numbersep=5pt,
+    showspaces=false,
+    breaklines=true,
+    keepspaces=true,
+    tabsize=2,
+    xleftmargin=20pt,
+    framexleftmargin=20pt,
+    captionpos=tc,
+    backgroundcolor=\color{mygray},
+    keywordstyle=\color{black},
+    inputencoding=utf8
+}
+
+\newcommand{\source}[1]{\vspace{0mm} \noindent\fontsize{10}{10}\selectfont{Źródło: {#1}}\normalsize\vspace{0mm}}
+
+\newcommand{\TODO}[1]{
+    {\large \color{red}{\underline{\textbf{TODO: #1}}}} 
+}
