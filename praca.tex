@@ -1,145 +1,33 @@
-\documentclass[12pt, a4paper, twoside]{report}
-\usepackage[left=3cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
-\usepackage{amsmath}
-\renewcommand{\baselinestretch}{1.3} 
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage[]{longtable}
-\usepackage{enumerate}
-\usepackage{array}
-\usepackage[pdftex]{graphicx}
-\usepackage{indentfirst}
-\usepackage{booktabs}
-\usepackage{color}
-\usepackage{parskip}
-\usepackage{pgfplots}
-\usepackage{titlesec}
-\usepackage[]{gensymb}
-\usepackage{fancyhdr}
-% \usepackage{vcell}
-\usepackage{microtype}
-\usepackage{hyperref}
-\usepackage[T1]{fontenc}
-% \usepackage[T1]{polski}
-\usepackage[utf8]{inputenc}
-\usepackage[]{lmodern}
-\usepackage[]{textcomp}
-\usepackage{subcaption}
-\usepackage{multirow}
-\usepackage[]{afterpage}
-\usepackage{listings}
-\captionsetup{compatibility=false}
-\lstset{ %
-  language=Python,
-  basicstyle=\footnotesize\ttfamily,
-  numbers=left,
-  stepnumber=1,
-  showstringspaces=false,
-  tabsize=1,
-  columns=fullflexible,
-  frame=single,
-  breaklines=true,
-  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
-}
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhead[RO, LE]{\thepage}
-\fancyhead[RE, LO]{}
-\fancyfoot{}
-\renewcommand\headrulewidth{0pt}
-\renewcommand\footrulewidth{0pt}
+%Łukasz DZIEŁ
+%tel: +48 883 533 374
+%email: lukasz.dziel@wat.edu.pl
+%wersja: 20220316
+%testowano w środowisku: TeXLive2021 (instalacja pełna z iso) + TeXstudio 4.2.2
 
+\input{./defs/WAT-WCY-1.0.tex}
+\newcommand{\kierunek}{INFORMATYKA}
+\newcommand{\stopien}{STUDIA II$^{\mathrm{o}}$} %Odpowiednie usunąć
+\newcommand{\temat}{MOBILNY SYSTEM ZARZĄDZANIA I STEROWANIA BEZPILOTOWYM STATKIEM LATAJĄCYM}
+\newcommand{\data}{Warszawa 2022}
+\newcommand{\autor}{Norbert WASZKOWIAK}
+\newcommand{\promotor}{dr inż. Michał DYK}
+\newcommand{\zgoda}{TAK} %W przypadku braku zgody zakomentować tą linię
 \newcommand{\bibTitle}[1]{``#1''}
-    
-\def\blankpage{%
-      \clearpage%
-      \thispagestyle{empty}%
-      %\addtocounter{page}{0}%
-      \null%
-      \clearpage}
-
-\fancypagestyle{plain}{%
-\fancyhf{}% clears all header and footer fields
-\fancyhead[LE,RO]{\thepage}%
-\renewcommand{\headrulewidth}{0pt}%
-\renewcommand{\footrulewidth}{0.4pt}}
+\newcommand{\specjalnosc}{SYSTEMY INFORMATYCZNE}
 
 
-\titleformat{\section}[display]
-  {\normalfont\Large\raggedleft}
-  {\MakeUppercase{\sectiontitlename}
-    \rlap{ \resizebox{!}{1.5cm}{\thesection} \rule{5cm}{1.5cm}}}
-  {10pt}{\Huge}
-\titlespacing*{\section}{0pt}{30pt}{50pt} % odstępy w tytule głównym
 
 \begin{document}
 
-\begin{titlepage}
-\begin{center} % wypośrodkuj
-\Large \textbf{WOJSKOWA AKADEMIA TECHNICZNA}\\[1mm]
-\Large {WYDZIAŁ CYBERNETYKI}\\[1mm]
-\end{center}
+\inserttitlepage
 
-\vspace{0.5cm}
-\begin{center}
-	\includegraphics[scale= 0.3]{Obrazy/Logo_WAT.jpg} % wstawia wycentrowany plik graficzny 	<logo.pdf> z podkatalogu <graphics> i ustawia jest wysokość (zachowując proporcje) równą 3 cm
-\end{center}
-\begin{center}
-	\Huge {Praca dyplomowa magisterska} \\
-	\vspace{0.5cm}
-	Mobilny system zarządzania i sterowania bezpilotowym statkiem latającym
-\end{center}
-
-\vspace{0.5cm} % wstawia odstęp pionowy 
-
-\begin{center}
-	\Large {Norbert Waszkowiak}
-\end{center}
-
-
-\vspace{1cm}
-%\hfill
-
-\hfill
-\begin{minipage}[t]{0.45\textwidth}
-	\begin{flushleft}
-		\begin{Large}
-			\textbf  {Promotor}: \\ 
-			dr inż. Michał Dyk \\
-			\vspace{0.5cm}
-			Potwierdzam przyjęcie pracy
-		\end{Large}
-	\end{flushleft}
-\end{minipage}
-
-\vspace{4cm}
-
-\begin{center} 
-Warszawa, 2022
-\end{center}
-
-\end{titlepage}
-
-  % Spis treści ]\\\\\\\\\\\\\\\\
-
-\tableofcontents % wstawia spis treści
-
-
- % Główna część pracy \\\\\\\\\\\\
- 
-\section*{Wstęp} % rozdział nienumerowany (dlatego *)
-\addcontentsline{toc}{section}{Wstęp} % uwzględnia nienumerowany rozdział <Wstęp> w <Spisie treści>
-\hspace{1cm}Wstep - text
-
-Zadania do zrealizowania w pracy:
-\begin{itemize}
-\item Prezentacja zagadnienia BSP oraz koncepcji ich wykorzystania;
-\item Przegląd i prezentacja technologii mobilnych z uwzględnieniem aspektów tworzenia aplikacji i komunikacji M2M;
-\item Projekt mobilnego systemu zarządzania i sterowania bezpilotowym statkiem latającym;
-\item Implementacja systemu;
-\item Testy systemu oraz prezentacja użycia na wybranym case study.
-\end{itemize}
-\newpage	
+\section*{Wstęp} 
+\addcontentsline{toc}{section}{Wstęp}
+    
+% Zwarte wprowadzenie w temat i cele pracy z nawiązaniem do dziedziny przedmiotowej oraz rozwiązanego problemu. Uzasadnienie potrzeby i zastosowania wyników pracy. Przedstawienie układu i streszczenie zawartości rozdziałów pracy (2-3 zdania na rozdział).\\
+% Zaleca się, aby tekst wstępu nie przekraczał dwóch stron.
+     
+\clearpage
 
 \section{Prezentacja zagadnienia bezpilotowych statków latających oraz koncepcji ich wykorzystania}
 \hspace{1cm}text
@@ -152,9 +40,7 @@ Zadania do zrealizowania w pracy:
 \subsection{Dostosowywanie drona do wymagań użytkownika}
 \hspace{1cm}text
 
-% \subsection{}
-% \subsubsection{}
-
+\newpage 
 \section{Przegląd i prezentacja technologii mobilnych z uwzględnieniem aspektów tworzenia aplikacji i komunikacji M2M}
 \hspace{1cm}W tym rozdziale przedstawiono technologie komunikacji bezprzewodowej wykorzystywane w komunikacji M2M, ze szczególnym uwzględnieniem komunikacji pomiędzy bezzałogowym statkiem powietrznym, a kontrolerem. Analizę wykorzystywanych rodzajów komunikacji dokonano na podstawie oferty najpopularniejszego producenta dronów konsumenckich DJI.
 
@@ -220,7 +106,7 @@ odległościach. Na krótkie dystanse mamy przeznaczone do tego no. Bluetooth cz
 \end{itemize}
 
 
-\subsubsubsection{Cechy}
+\myparagraph{Cechy}
 \hspace{1cm}Technologie tą wyróżniają następujące cechy:
 \begin{itemize}
   \item Pojedyncza bramka może pokryć obszar aż $100km^2$;
@@ -230,7 +116,7 @@ odległościach. Na krótkie dystanse mamy przeznaczone do tego no. Bluetooth cz
 \end{itemize}
 
 
-\subsubsubsection{Ograniczenie przepustowości}
+\myparagraph{Ograniczenie przepustowości}
 \hspace{1cm}W sieci LoRa wszystkie klasy ramek wymagają potwierdzenia, co wiąże się z tym, że po każdym potwierdzeniu ramko przez urządzenie końcowe w dowolnym oknie czasowym następuje okres wyłączenie, w celu zachowanie zgodności z przepisami dotyczącymi cyklu pracy. W związku z tym, aby uniknąć wyczerpania limitu pojemności przez sieć i urządzenia końcowe, muszą one ograniczyć liczbę potwierdzeń. Również w podsieciach LoRa po przesłaniu danych następuje okres wyłączenia, w którym na danym kanale nie są wysyłane żadne dane. Te dwa okresy, tzn. okres wysyłania danych i wstrzymania transmisji stanowi cykl pracy, dlatego  to w sieci LoRa przepustowość jest ograniczona cyklem pracy.\cite{LoRa-article}
 
 \subsubsection{Narow band IoT}
@@ -271,8 +157,9 @@ odległościach. Na krótkie dystanse mamy przeznaczone do tego no. Bluetooth cz
 
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=10cm]{Obrazy/dji-tello.jpg}
-  \caption{DJI Tello\cite{dji-store}}
+  \includegraphics[width=10cm]{./Obrazy/dji-tello.jpg}
+  \caption{DJI Tello}
+  \source{\myurl{https://store.dji.com}}
   \end{figure}
 
   \hspace{1cm}W swojej ofercie DJI ma również dostępnego drona \emph{DJI Mini SE}, który również korzysta z technologii WiFi, ale w swoim wyposażaniu posiada dedykowany do niego kontroler. Taka konfiguracja pozwala na uzyskanie zasięgu do 2 km. \cite{dji-mavic-mini-se-spec}
@@ -293,17 +180,18 @@ transmisji można było wybrać tylko przed startem bezzałogowego statku powiet
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=8cm]{Obrazy/dji-google.png}
-  \caption{Pierwsza wersja gogli do FPV od DJI \cite{dji-gogle}}
+  \includegraphics[width=8cm]{./Obrazy/dji-google.png}
+  \caption{Pierwsza wersja gogli do FPV od DJI}
+  \source{\myurl{https://u.cyfrowe.pl/600x0/2/7/2_732250420.png}}
   \end{figure}
   
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=8cm]{Obrazy/dji-air-unit.png}
-  \caption{Dji OcuSync Air Unit\cite{dji-store}}
+  \includegraphics[width=8cm]{./Obrazy/dji-air-unit.png}
+  \caption{Dji OcuSync Air Unit}
+  \source{\myurl{https://store.dji.com}}
   \end{figure}
-  
 
 \hspace{1cm}Wraz z wydaniem nowej wersji zaprezentowano gogle DJI przeznaczone do transmisji obrazu w trybie FPV (ang. first person view, widok pierwszo-osobowy) i również OcuSync Aircraft System, czyli zintegrowanego systemu umożliwiającego sterowanie i transmisji obrazu z wykorzystaniem tej technologi w dronach i pojazdach DIY.
 
@@ -312,15 +200,17 @@ transmisji można było wybrać tylko przed startem bezzałogowego statku powiet
 
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=8cm]{Obrazy/dji-phantom-v2.jpg}
-  \caption{DJI Phantom v2.0\cite{dji-store}}
+  \includegraphics[width=8cm]{./Obrazy/dji-phantom-v2.jpg}
+  \caption{DJI Phantom v2.0}
+  \source{\myurl{https://store.dji.com}}
   \end{figure}
   
 
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=8cm]{Obrazy/dji-rc-plus.png}
-  \caption{DJI RC plus\cite{dji-store}}
+  \includegraphics[width=8cm]{./Obrazy/dji-rc-plus.png}
+  \caption{DJI RC plus}
+  \source{\myurl{https://store.dji.com}}
   \end{figure}
   
 
@@ -333,21 +223,24 @@ transmisji można było wybrać tylko przed startem bezzałogowego statku powiet
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=14cm]{Obrazy/ocusync_spectrum_1.png}
-\caption{Widmo OFDM i FHSS\cite{ocusync-yt}}
+\includegraphics[width=14cm]{./Obrazy/ocusync_spectrum_1.png}
+\caption{Widmo OFDM i FHSS}
+\source{\myurl{https://www.youtube.com/watch?v=gfqcSv9sR0A}}
 \end{figure}
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=14cm]{Obrazy/ocusync_spectrum_2.png}
-\caption{Widmo OcuSync z zaznaczoną modulacja FHSS i OFDM\cite{ocusync-yt}}
+\includegraphics[width=14cm]{./Obrazy/ocusync_spectrum_2.png}
+\caption{Widmo OcuSync z zaznaczoną modulacja FHSS i OFDM}
+\source{\myurl{https://www.youtube.com/watch?v=gfqcSv9sR0A}}
 \end{figure}
 
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=14cm]{Obrazy/ocusync_vs_lightbridge.png}
-\caption{Porównanie widma OcuSync i Lightbridge \cite{ocusync-yt}}
+\includegraphics[width=14cm]{./Obrazy/ocusync_vs_lightbridge.png}
+\caption{Porównanie widma OcuSync i Lightbridge}
+\source{\myurl{https://www.youtube.com/watch?v=gfqcSv9sR0A}}
 \end{figure}
 
 \newpage
@@ -374,6 +267,7 @@ transmisji można było wybrać tylko przed startem bezzałogowego statku powiet
   \end{enumerate}
 \end{itemize}
 
+\newpage
 \section{Projekt mobilnego systemu zarządzania i sterowania BSP}
 \subsection{Wymagania funkcjonalne}
 \hspace{1cm}text
@@ -406,120 +300,216 @@ transmisji można było wybrać tylko przed startem bezzałogowego statku powiet
 \subsection{Wykorzystane urządzenia}
 \hspace{1cm}text
 
+\newpage
 \section{Implementacja systemu}
 \hspace{1cm}text
 
+\newpage
 \section{Testy systemu oraz prezentacja użycia na wybranym case study}
 \hspace{1cm}text
 \subsection{Scenariusz testowy autonomicznego lotu pomiędzy dwoma punktami}
 \hspace{1cm}text
 \subsection{Scenariusz testowy autonomicznego lotu patrolowego}
 
-% \begin{lstlisting}[caption=Metoda save\_sample()]
-% @staticmethod
-% def __save_sample(item, tmp_sample: pd.DataFrame, data_type):
-%     file_name = InvestingDownloader.__get_file_name(item, data_type)
-%     tmp_sample.sort_index(inplace=True)
-%     tmp_sample.to_csv('tmp_model_settings.csv')
-%     db = pymongo.MongoClient("mongodb://127.0.0.1:27017/")["database"]
-%     fs = gridfs.GridFS(db)
-%     with fs.new_file(filename=file_name) as fp:
-%         fp.write(open('tmp_model_settings.csv', 'rb'))
-            
-% \end{lstlisting}
+\newpage
+\section{TMP}
+
+\subsection{Tytuł podrozdziału}
+W procesie dyplomowania tekst pracy jest przetwarzany elektronicznie za pośrednictwem systemów USOS APD (Archiwum Prac Dyplomowych) oraz JSA (Jednolity System Antyplagiatowy). Plik pracy zapisany w formacie ,,pdf'' winien mieć nazwę nadana wg schematu: \textit{,,WAT, myślnik, numer indeksu studenta, myślnik, data wysłania w formacie dd-mm-rrrr''}, np. \textit{,,WAT-12345-01.05.2021.pdf''}. Plik umieszczany jest w systemie USOS APD poprzez indywidualne konto Dyplomanta.
+
+Do pracy można załączyć dodatkowe pliki w formacie ,,docx''/,,pdf''.`'
+W przypadku innych formatów (w tym „zip”) , należy je zapisać na płycie CD/DVD, opisanej trwale (niezmywalnym mazakiem) następująco: skrót nazwy uczelni, nazwa wydziału, kierunek studiów, specjalność, numer albumu studenta, imię i nazwisko studenta, temat pracy dyplomowej, własnoręczny podpis studenta. 
+
+\subsection{Tytuł podrozdziału}
+
+W tekście pracy kolejne wątki tematyczne należy oddzielać poprzez wcięciami akapitowe. W strukturze pracy zalecane jest:
+\begin{itemize} 
+    \item w przypadku wprowadzenia podrozdziałów wyróżnienie co najmniej dwóch na danym poziomie zagłębienia.
+\end{itemize}
+
+Praca powinna zawierać oryginalny tekst. W przypadku cytowania należy stosować przypisy dolne. W przypadku odwołania do literatury lub źródeł internetowych należy wstawiać hiperłącza do odpowiednich pozycji z bibliografii, np. [1].
+ 
+Wszystkie skróty w pracy przy pierwszym ich użyciu powinny być rozwinięte (wyjaśnione). Pojedyncze litery z końca wierszy powinny być przeniesione na początek kolejnych wierszy poprzez wprowadzenie tzw. ,,twardej spacji'' pomiędzy tą literą a kolejnym wyrazem (np. w edytorze Microsoft Word poprzez kombinację klawiszy Ctrl+Shift+Spacja).
+
+Pracę mogą kończyć spisy rysunków i tabel – zalecane jest ich wprowadzenie w przypadku wystąpienia dużej liczby rysunków lub tabel w tekście pracy (powyżej 10). Praca może być uzupełniona załącznikami. W przypadku braku w pracy spisów rysunków i tabel lub załączników należy usunąć je ze struktury pracy oraz spisu treści.
+
+Dla tekstu, tytułów, podpisów należy stosować style Wydziału (docx) lub zdefiniowane w~tym szablonie.\\
+Układ marginesów i numerów stron przewidziany jest do wydruku dwustronnego.\\
+Wydruk pracy nie jest wymagany.
 
 
-\begin{thebibliography}{999}
+Tabele i rysunki należy wyśrodkować. Dla podpisów stosowane są style Wydziału (docx) lub otoczenie table i tabular oraz figure (LaTeX):
+\begin{itemize}
+    \item Nazwa tabeli umieszczona ponad tabelą;
+    \item Podpis rysunku umieszczony pod rysunkiem;
+    \item Źródło rysunku lub danych w tabeli pod tabelą/rysunkiem.
+\end{itemize}
+Numeracja tabel i rysunków powinna być ciągła i automatyczna w całej pracy.
+\begin{table}[H]
+    \caption{Nazwa tabeli}
+    \label{tab1}
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|}
+                \hline
+                \textbf{Lp}     & \textbf{Kolumna 1}    & \textbf{Kolumna 2}    & \textbf{Kolumna 3}    \\ \hline
+                1.              & Zawartość tabeli      & Zawartość tabeli      & Zawartość tabeli   \\ \hline
+        \end{tabular}
+    \end{center}
+    \source{Badania własne. Jeżeli dane pochodzą z literatury lub zasobów sieci Internet, należy podać ich źródło. W~innym przypadku można podać: Badania własne.}
+\end{table}
+
+Dla wzorów zaleca się stosować wyśrodkowanie. Numerację automatyczną ciągłą w~całej pracy należy wyrównać do prawej strony – przykład poniżej:
+\begin{equation}
+    \label{eq1}
+    \displaystyle \sum_{j=0}^{n}a_{ij} \leq 1, i = \overline{1, n}
+\end{equation}
+
+Kod źródłowy oraz algorytmy umieszcza się w tabelach dwukolumnowych (docx), lub otoczenia lstlisting i algorithm (LaTeX), z numeracją wierszy w pierwszej kolumnie:
+\begin{itemize}
+    \item Tekst w tabeli kodu źródłowego: czcionka Courier New 11 pkt., wyjustowany do lewej;
+    \item Nazwa kodu źródłowego umieszczona ponad kodem;
+    \item Nazwa algorytmu umieszczona ponad algorytmem;
+    \item Źródło kodu lub algorytmu poniżej.
+\end{itemize}
+
+\begin{lstlisting}[language=Verilog, caption=Nazwa kodu źródłowego \label{TbECMont}]
+    int silnia (int a)
+    {
+        return (a == 1) ? a : a * silnia(a-1);
+    }
+\end{lstlisting}
+\source{Badania własne. Jeżeli dane pochodzą z literatury lub zasobów sieci Internet, należy podać ich źródło. W~innym przypadku można podać: Badania własne.}
+
+\begin{algorithm}[H]
+    \caption{Nazwa algorytmu}
+    \label{alg_nazwa}
+    \hrule
+\begin{verbnobox}[\verbarg]
+wczytaj(n)
+inicjuj tab[1..n]
+dla i ← 1 do n powtarzaj
+    wczytaj tab[i]
+dla i ← 1 do n powtarzaj
+    dla j ← i + 1 do n powtarzaj
+        jeżeli tab[j] < tab[j - 1] to
+            pom ← tab[j]
+            tab[j] ← tab[j - 1]
+            tab[j - 1] ← pom
+dla i ← 1 do n powtarzaj
+    wypisz(tab[i])
+\end{verbnobox}
+    \hrule
+    \source{Badania własne. Jeżeli dane pochodzą z literatury lub zasobów sieci Internet, należy podać ich źródło. W~innym przypadku można podać: Badania własne.}
+\end{algorithm}
+
+%Odniesienie do rysunku \ref{rys01.png}\\
+%
+%Odniesienie do tabeli \ref{tab1}\\
+%
+%Odniesienie do wzoru \ref{eq1}\\
+%
+%Odniesienie do algorytmu \ref{alg_nazwa}\\
+%
+%Odniesienie do kodu \ref{TbECMont}\\
+%
+%Odniesienie do bibliografii \cite{pos3}
+
+\clearpage \section*{Podsumowanie} \addcontentsline{toc}{section}{Podsumowanie}
+
+Podsumowanie powinno korespondować z tematem i założonymi celami pracy. Zaleca się, aby zawierało syntetyczne podsumowanie wyników z odniesieniem do stopnia realizacji oraz wskazaniem najważniejszych osiągnięć i słabszych stron pracy. Może również obejmować omówienie podobieństw i różnic między uzyskanymi a publikowanymi wynikami innych autorów. Ponadto, winno przedstawiać dalsze interesujące kierunki rozwoju pracy.
+
+\clearpage \begin{thebibliography}{999}
+\addcontentsline{toc}{section}{\refname}
 
 \bibitem{NB-IoT_vs_Lora}
 \bibTitle{NB-IoT vs Lora}
-\url{https://ubidots.com/blog/lorawan-vs-nb-iot/#lorawan-vs-nb-iot-a-quick-overview}
+\myurl{https://ubidots.com/blog/lorawan-vs-nb-iot/\#lorawan-vs-nb-iot-a-quick-overview} [dostęp: 20-04-2022];
 
 \bibitem{m2m-web}
 \bibTitle{machine-to-machine (M2M)}
-\url{https://www.techtarget.com/iotagenda/definition/machine-to-machine-M2M}
+\myurl{https://www.techtarget.com/iotagenda/definition/machine-to-machine-M2M} [dostęp: 20-04-2022];
 
 \bibitem{LPWA-wiki}
 \bibTitle{LPWA wikipedia}
-\url{https://pl.wikipedia.org/wiki/LPWAN}
+\myurl{https://pl.wikipedia.org/wiki/LPWAN} [dostęp: 20-04-2022];
 
 \bibitem{LoRa-article}
 \bibTitle{LoRa Technology - An Overview, IEEE, 2018}
-\url{https://ieeexplore.ieee.org/document/8474715}
+\myurl{https://ieeexplore.ieee.org/document/8474715} [dostęp: 20-04-2022];
 
 
 \bibitem{nbiot-article}
 \bibTitle{On the Performance of Narrow-band Internet of
 Things (NB-IoT) for Delay-tolerant Services, IEEE, 2019}
-\url{https://ieeexplore.ieee.org/document/8768871}
-
-% \bibitem{chollet} F. Chollet,
-% \bibTitle{Deep Learning. Praca z językiem Python i biblioteką Keras}, Helion,  2019;
+\myurl{https://ieeexplore.ieee.org/document/8768871} [dostęp: 20-04-2022];
 
 \bibitem{dji-wiki}
 \bibTitle{Wikipedia: SZ DJI Technology Co., Ltd.},
-\url{https://pl.wikipedia.org/wiki/DJI}, 2022;
+\myurl{https://pl.wikipedia.org/wiki/DJI} [dostęp: 20-04-2022];
 
 \bibitem{dji-mavic-mini-se-spec}
 \bibTitle{DJI Mavic Mini SE},
-\url{https://www.dji.com/pl/mini-se?site=brandsite&from=nav}, 2022;
+\myurl{https://www.dji.com/pl/mini-se?site=brandsite&from=nav} [dostęp: 20-04-2022];
 
 \bibitem{dji-store}
 \bibTitle{DJI store},
-\url{https://store.dji.com}, 2022;
+\myurl{https://store.dji.com} [dostęp: 20-04-2022];
 
 \bibitem{lightbridge-dji}
 \bibTitle{DJI Lightbridge},
-\url{https://www.dji.com/pl/dji-lightbridge/info}, 2022;
+\myurl{https://www.dji.com/pl/dji-lightbridge/info} [dostęp: 20-04-2022];
 
 \bibitem{lightbridge2-dji}
 \bibTitle{DJI Lightbridge2},
-\url{https://www.dji.com/pl/lightbridge-2/info#specs}, 2022;
+\myurl{https://www.dji.com/pl/lightbridge-2/info\#specs} [dostęp: 20-04-2022];
 
 \bibitem{OFDM-wiki}
 \bibTitle{Wikipedia: OFDM},
-\url{https://pl.wikipedia.org/wiki/OFDM}, 2022;
+\myurl{https://pl.wikipedia.org/wiki/OFDM} [dostęp: 20-04-2022];
 
 \bibitem{FHSS-wiki}
 \bibTitle{Wikipedia: FHSS},
-\url{https://pl.wikipedia.org/wiki/FHSS}, 2022;
+\myurl{https://pl.wikipedia.org/wiki/FHSS} [dostęp: 20-04-2022];
 
 \bibitem{ocusync-yt}
 \bibTitle{DJI Mavic 2 - Ocusync 2.0 What is it \& What's Compatible ? + How is it different from Lightbridge},
-\url{https://www.youtube.com/watch?v=gfqcSv9sR0A}, 2022;
+\myurl{https://www.youtube.com/watch?v=gfqcSv9sR0A} [dostęp: 20-04-2022];
 
 \bibitem{dji-gogle}
 \bibTitle{DJI Gogle},
-\url{https://u.cyfrowe.pl/600x0/2/7/2_732250420.png}, 2022;
+\myurl{https://u.cyfrowe.pl/600x0/2/7/2_732250420.png} [dostęp: 20-04-2022];
 
-% \bibitem{sghblockchain}
-% \bibTitle{Blockchain. Kolejny etap cyfrowej rewolucji?},
-% \url{https://ssl-administracja.sgh.waw.pl/pl/br//gazeta/archiwum/Documents/342_wiosna_2018_blockhain.pdf/}, 2018;
-
-% \bibitem{dash}
-% \bibTitle{Introduction to Dash},
-% \url{https://dash.plotly.com/introduction}, 2021;
-
-% \bibitem{oreilly} D. Osinga,
-% \bibTitle{Deep Learning. Receptury}, Helion,  2019;
-
-% \bibitem{valentino} Valentino Zocca, Gianmario Spacagna, Daniel Slater, Peter Roelants,
-% \bibTitle{Deep Learning. Uczenie głębokie z językiem Python. Sztuczna inteligencja i sieci neuronowe}, Helion,  2018;
-
-% \bibitem{oreilly} D. Osinga,
-% \bibTitle{Deep Learning. Receptury}, Helion,  2019;
-
-% \bibitem{zrozumiec_bitcoina} Silas Barta, Robert P. Murphy,
-% \bibTitle{Zrozumieć Bitcoina. Techniczn i ekonomiczny przewodnik po kryptowalutach}, Fijorr,  2018;
-
-% \bibitem{zrozumiec_bitcoina} Anna Iwona Piotrowska,
-% \bibTitle{Bitcoin. Płatnicze i inwestycyjne zastosowania kryptowaluty}, CeDeWu,  2018;
+\bibitem{pos1}Nazwisko i inicjały imion: Tytuł książki. Wydawnictwo, miejsce wydania, rok wydania
+\bibitem {pos2}	Larose D.T.: Odkrywanie wiedzy z danych - wprowadzenie do eksploracji danych. Wydawnictwo Naukowe PWN, Warszawa, 2006
+\bibitem{pos3}Nazwisko i inicjały imion: Tytuł artykułu w czasopiśmie. Nazwa czasopisma, tom (nr wydania), numery stron, rok wydania
+\bibitem{pos4} Ackoff R. L.: Management misinformation systems. Management Science, 14 (4), 147-156, 1961
+\bibitem{pos5}Nazwisko i inicjały imion: Tytuł wystąpienia konferencyjnego. Nazwa materiałów konferencyjnych i konferencji, miejsce konferencji, data konferencji
+\bibitem{pos6}Jandos J., Vorisek J.: Enterprise Web 2.0. Proceedings of the 13th International Business Information Management Association (IBIMA), Marrakech, Morocco, 9-10.11.2009
+\bibitem {pos7}	Pełny adres strony internetowej [dostęp: dzień-miesiąc-rok]
+\bibitem {pos8}	https://azure.microsoft.com/pl-pl/overview/machine-learning-algorithms/\#popular-algorithms [dostęp: 10-12-2021]
 
 
 \end{thebibliography}
 
+\clearpage
+
 \listoffigures
+\addcontentsline{toc}{section}{Spis rysunków}
 
 \listoftables
+\addcontentsline{toc}{section}{Spis tabel}
+
+\clearpage \section*{Załączniki}
+\addcontentsline{toc}{section}{Załączniki}
+\begin{enumerate}
+    \item Płyta CD/DVD zawierająca:
+    \begin{enumerate}
+        \item Prezentację wyników pracy dyplomowej
+        \item Kody źródłowe oprogramowania
+        \item Biblioteki programowe niezbędne do zbudowania i uruchomienia oprogramowania
+        \item ...
+    \end{enumerate}
+    \item ...
+\end{enumerate}
 
 \end{document}
