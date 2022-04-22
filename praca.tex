@@ -12,8 +12,8 @@
 \newcommand{\autor}{Norbert WASZKOWIAK}
 \newcommand{\promotor}{dr inż. Michał DYK}
 \newcommand{\zgoda}{TAK} %W przypadku braku zgody zakomentować tą linię
-\newcommand{\bibTitle}[1]{``#1''}
 \newcommand{\specjalnosc}{SYSTEMY INFORMATYCZNE}
+\newcommand{\bibTitle}[1]{``#1''}
 
 
 
@@ -26,16 +26,122 @@
     
 % Zwarte wprowadzenie w temat i cele pracy z nawiązaniem do dziedziny przedmiotowej oraz rozwiązanego problemu. Uzasadnienie potrzeby i zastosowania wyników pracy. Przedstawienie układu i streszczenie zawartości rozdziałów pracy (2-3 zdania na rozdział).\\
 % Zaleca się, aby tekst wstępu nie przekraczał dwóch stron.
-     
+     o skrotach bsp
 \clearpage
 
 \section{Prezentacja zagadnienia bezpilotowych statków latających oraz koncepcji ich wykorzystania}
 \hspace{1cm}text
 \subsection{Historia BSP}
-\hspace{1cm}text
+\subsubsection{Definicja BSP}
+\hspace{1cm}W nomenklaturze związanej z domeną bezpilotowych statków latających można znaleźć wiele tożsamych terminów na określanie bezpilotowy statek latajacych, są to m. in.:
+\begin{itemize}
+  \item Bezzałogowy statek powietrzny, BSP (ang. \textit{unmanned aerial vehicle}, UAV);
+  \item Bezzałogowy system powietrzny (ang. \textit{unmanned aerial system}, UAS);
+  \item Samolot zdalnie sterowany (ang. \textit{remotely piloted aircraft}, RPA);
+  \item Dron (ang. \textit{drone}),
+\end{itemize}
+
+Wszystkie terminy odnoszą sie do jednego obiektu i będą w tej pracy używane zamiennie. Każdy z tych terminów kładzie nacisk na inne cechę która kwalifikuje takich wechikuł jako dron. Amerykański pisarz zajmuący sie zagadnieniami systemów bezzałogowych i technologi obronnych,  Kelsey Artheon na łamach czasopisma "Popular Science" definuje to pojęcie następująco: "dron oznacza każdy bezzałogowy zdalnie sterowany pojazd latający, bez względu na to czy jest to malutki, sterowany radiem helikotper-zabawka, czy też ważacy 14,5 tony Global Hawk, wart 104 mln dolarów. Jeżeli coś lata i jest sterowane przez pilota z ziemi, to pasuje do potocznej definicji drona". \footnote{\cite{arton-kelsey}} \cite{dron-ibuk} 
+
+\hspace{1cm}Warunkiem koniecznym według autora do zakwalifikowania wechikułu jako bezzałogowy statek powietrzny są:
+\begin{itemize}
+  \item \textbf{bezpilotowość} - wechikuł na swoim pokładzie nie posiada pilota
+  \item \textbf{dwukierunkowość} - wechikuł musi mieć możliwość powortu/wylądowania. Jest to podstawowa cecha odróźniająca drony od pocisków manewrujących, 
+  \item  \textbf{sterowalność} - możliwość zmiany kierunku lotu w trakcie jego wykonywania
+\end{itemize}
+
+\subsubsection{Błędnie sklasyfikowane wechikuły}
+
+\hspace{1cm}Po zdefiniowaniu czym jest dron, można sie zastnowić co było pierwszym elementem spełniającym tą definicje. Autor tej pracy, przyjmuje, że kluczowym elemenetem umożliwiającym zakwalifkikowanie obiketu jako dron jest możliwość zmiany trajektori lotu w trakcie jego działania. W literaturze często wskazywane są dwa obiekty jako prekursory dronów, tzn. gołąb Archytasa z Tarentu i balony zawierające ładunki wybuchowe wykorzystane w konfilikcie między Austrią i Wenecją w 1849r. Pierwszy rzekomy prekursor nie umożliwia sterowania obiektem po jego wystartowaniu, więc tym samym nie jest to zgodne z przytoczonymi definicjami. Ten wynalazek można uznać za pierwszą rakiet, robota, ale nie drona. Drugi przykład, balony na gorące powietrze również nie mogą zostać uznane za droną z tego samego powody. W dodatku pomysł austriaków zakończył sie niepowodzeniem, ponieważ wiatr zwiał balony na ich własne pozycje. \cite{dron-ibuk}. 
+
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=8cm]{./Obrazy/golab.jpg}
+  \caption{Latający gołąb Archytasa z Tarentu}
+  \source{\myurl{https://input.niezalezna.pl//259fef5fd.jpg}}
+  \end{figure}
+
+\subsubsection{Pierwszy dron}
+
+\hspace{1cm}Podczas I wojny światowej podjęto liczbe próby skonstruowania bezpilotowych statków latajacych, ale żaden z nich nie został ukończony na przed skończeniem wojny. Przykładowo wechikuł Kettering Bug, był w stanie dolecieć na odpowiednią odelgłość, ale jego sterowanie polegało na wyliczeniu przez operatora dokładną liczbę obrotów silinika, lecz w takim wypadku bliżej takiemu samolotowi bliżej do torpedy niż do drona. 
+
+W 1931r. Królewskie Siły Powietrzne (ang. Royal Air Force) na podstawie samolotu szkolnego \textit{De Havilland DH-60T ”Tiger Moth”} opracowli pierwszy bezpilotowy statek powietrzny \textit{DH-82B "Queen Bee"}. Samolot ten miał służyć jako ruchomy cel do ćwiczeń dla obslugi dział przewciw lotniczych, steerowany przez pilota za pomocą fal radiowych. Jego oficjalna prezentacja została jednak przerwana, poniważ ówczesne systemy oborny powietrznej były mało skuteczne, do tego stopnia, że strzelającym skończyła sie amunicja, zanim zestrzelili oni bezpilotowy samolot. Wechikuł też spełnia wszystkie wymagania określone wczęsniej przez autora, więc uznaje on go za pierwszego drona.\cite{queen-bee}\cite{dron-ibuk}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=8cm]{./Obrazy/queen-bee.jpg}
+  \caption{De Havilland Queen Bee i premier Wielkiej Brytanii Winston Churchill}
+  \source{\myurl{https://www.iwm.org.uk/collections/item/object/205195356}}
+  \end{figure}
+
+Równolegle w tym samym okresie, a konkretnie w 1935 roku powstał identyczny samalot dla amerykańskich odbiorców: \textit{Radioplane OQ-2}, który był stworzony pierwotnie jako bezałogowiec, a nie przez modyfikacje tak jak dron brytyjski.
+
+\subsubsection{Pierwsze drony rozpoznawcze}
+\hspace{1cm}W okresie po II wojnie światowej USA dalej kontynuowało prace nad dronami, za pomocą firmy \textit{Ryan Aeronautical Company} i ich serii dronów produkowanych od 1951r. \textit{Firebee}, czego efektem był m.in. \textit{Ryan Model 147 Lightning Bug} opracowany w 1962r. Ten dron rozpoznawczy napędzany była za pomocą silnika rakietowego. Nie posiadał on sprzętu do lądowania i startowania z ziemi. Jego lądowanie odbywała się za pomocą spadochronu w który był wyposarzony i przechwyceniu w locie przez heliktoper. Start odbywał sie z pokładu samolotu, tak samo jak pociski rakietowe, dron ten był umieszaczany pod skrzydłem samolotu z którego odbywał start w powietrzy.\cite{dron-ibuk}\cite{firebee-wiki}
+
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=8cm]{./Obrazy/Model_147_RPV.png}
+  \caption{Ryan Model 147 Lightning Bug umieszczony pod skrzydłem samolotu transportowego}
+  \source{\myurl{https://en.wikipedia.org/wiki/File:Model_147_RPV_pictured_in_flight_under_wing_pylon_of_a_carrier_aircraft.png}}
+  \end{figure}
+
+\subsubsection{Ikona wśród BSP}
+
+\hspace{1cm}Zdecydowanie do najpopularniejszego BSP na świecie należy zaliczyć \textit{MQ-1 Predator}. Przez amrykańskiego producenta \textit{General Atomics} jest on klasyfikowany jako zdalnie sterowany statek powietrzny, jest to amerykański. Pierwsze jego wersje nie posiadały na swoim pokładzie żadnych pocisków, ponieważ amerykanie nie byli pewni czy jest to zgodne z obowiązującym układem dotyczącym całkowitej likwidacji pocisków rakietowych średniego zasięgu (ang. \textit{Intemediate-range Nuclear Forces (INF) Traty}). Po wydarzeniach z 11 września 2001 r. została podjęta decyzja o uzbrojeniu Predatorów w pociski i skierowania ich do akcji. Umożliwiło to prowadzenie operacji militarnych bez ponoszenia strat w żołnierzach. Dron te był wykrozystywany przez USA w trakcie konfilktów w Afganistanie, Iraku czy Pakistanie. USA na przestrzeni lat 2009-2021 stało się światowym liderem w używaniu dronów bojowych. \cite{dron-ibuk}\cite{predator-wiki} 
+
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=8cm]{./Obrazy/predator.jpg}
+  \caption{MQ-1 Predator, wyposażony w rakiety AGM-114 Hellfire}
+  \source{\myurl{https://en.wikipedia.org/wiki/File:MQ-1_Predator,_armed_with_AGM-114_Hellfire_missiles.jpg}}
+  \end{figure}
+
+\subsubsection{Dronykonsumenckie}
+\hspace{1cm}Autorowi trudno wskazać początek "bum" na drony konsumenckie, ale jest on przekonany, że początek może wskazywać na okolice roku 2013r. Arguemntuje to tym, że wtedy miała miejsce premiera bezzałogowego statku powietrznego \textit{Phantom} od obecnie najpopularniejszego producenta dronów konsumenckich \textit{DJI}.   
+
+TODO: TUTAJ TRZEBA COS DOPISAC
+
+\subsubsection{Konfilikt na Ukrainie}
+\hspace{1cm}W kontekście bezzałogowych statków powietrznych nie można pominąć aktualnego konfilktu zbrojnego na ukranie. Należego go rozpatrywać w dwóch aspektach przewagi, która Ukranina uzyskuje dzięki tureckim dronom \textit{Bayraktar TB2} i wykorzystaniu dronów konsumenckich od ludności cywilnej do przeprowadzenia rozpoznania powietrznego. 
+
+\hspace{1cm}Rząd ukraiński zwrócił sie z prośbą do swoich obywatli o przekazanie swoich dronów na potrzeby armii. Są one wykorzystywane do bezpiecznego prowadzenie rozpoznania przez wojska ukraińskie. Dostarczają one obraz na żywo, wraz ze swoimi współrzednymi geograficznymi, pozwala to budować przewage informacyjną na polu bitwy, a ten konfilikt szczególnie uświadomił jak ważna jest informacja w dzisiejszych konfliktach zborjnych.\cite{fotografia-drony-ukraina}
+
+\hspace{1cm}Czytając artykuły poświecone droną Bayraktar w kontekście konfiliktu na Ukrainie można odnieść jakby było to jedyny element budujący ich siłe. Autor nie może sie z tym zgodzić, ale nie da sie zaprzeczyć że ich rola jest znacząca. Głownym celem tej maszyny jest prowadzenie rozpoznania, ale mogą być one doposażone w cztery pociski kierowane o zasięgu 8km. Sam dron jest jedną z tańszych opcji na ryku, bo jego cena wacha się między 2-6 mln dolarów, a drony z najwyższej półki siegają 100mln dolarów. Dron o rozpiętości skrzydeł rzędu 12 metrów i 6,5 metra długości może szybować przez 27h lub przelecieć 150km. Wzbija się na pułap 8200m i rozwija prędkośc do 220km/h za sprawą silnika Rotax 912 iS o mocy 100 koni mechnicznych. \cite{bayraktar-chip}\cite{bayraktar-pap}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=8cm]{./Obrazy/Bayraktar_TB2_ukraina.jpg}
+  \caption{Bayraktar TB2}
+  \source{\myurl{https://www.instalki.pl/images/newsy/03-2022/Bayraktar_TB2_ukraina.jpg}}
+  \end{figure}
+
+
 \subsection{Technologia i producenci BSP}
 \hspace{1cm}text
+
 \subsection{Zastosowania BSP}
+\hspace{1cm}Bezpilotowe statki latające znalazły szereg zastosowań, pierowotnie były wykorzystywane głównie w obszarze militarnym, dopiero później dostrzegł w nich potencjał obszar cywilny.  
+
+\subsubsection{Militarne zastosowania BSP}
+\hspace{1cm}Bezałogowe statki powietrzne w kontekście militarnym można dokonać podziąłu na następujące kategorie \cite{konkurs-mon}: 
+\begin{itemize}
+  \item \textbf{operacyjno-rozpoznawcze}: BSP umożliwiające, rozpoznawanie oraz śledzenie obiektu/celu, a także monitorowanie i kontrole obszaru zainteresowania, np. granic lub strefy przybrzeżnej. Przykładem takieg dronu jest Lockheed Martin RQ-170 Sentinel;
+  \item \textbf{bojowe}: BSP przenoszącce i używające środki bojowe/ środki rażenia np. Bayraktar TB2;
+  \item \textbf{amunicja krążąca}: BSP umożliwijące wykrywanie, rozpoznanie oraz atak na wyznaczony cel poprzez autodestrukcje np. WB Electronics Warmate;
+  \item \textbf{wsparcia}: BSP umożliwiające ewakuacje lub dostawe amunicji, wyposażenia, środków medycznych i żywności do wysuniętych stanowisk wojsk własnych. np. Kaman KARGO UAV 
+\end{itemize}
+
+\subsubsection{Rolnictwo}
+\subsubsection{Transport towarów i osób}
+\subsubsection{Kinematografia i transmisje sportowe}
+\subsubsection{Ratownictwo}
+
+\hspace{1cm} http://han.wat.edu.pl/han/ibuk/https/libra.ibuk.pl/reader/drony-wprowadzenie-technologie-zastosowania-sarah-e-kreps-203891
+
 \hspace{1cm}text
 \subsection{Dostosowywanie drona do wymagań użytkownika}
 \hspace{1cm}text
@@ -162,7 +268,7 @@ odległościach. Na krótkie dystanse mamy przeznaczone do tego no. Bluetooth cz
   \source{\myurl{https://store.dji.com}}
   \end{figure}
 
-  \hspace{1cm}W swojej ofercie DJI ma również dostępnego drona \emph{DJI Mini SE}, który również korzysta z technologii WiFi, ale w swoim wyposażaniu posiada dedykowany do niego kontroler. Taka konfiguracja pozwala na uzyskanie zasięgu do 2 km. \cite{dji-mavic-mini-se-spec}
+\hspace{1cm}W swojej ofercie DJI ma również dostępnego drona \emph{DJI Mini SE}, który również korzysta z technologii WiFi, ale w swoim wyposażaniu posiada dedykowany do niego kontroler. Taka konfiguracja pozwala na uzyskanie zasięgu do 2 km. \cite{dji-mavic-mini-se-spec}
 
 \hspace{1cm}WiFi jest także bardzo podatne na wszelkie zakłócenia, wynikające z ukształtowania terenu czy zaszumienia sieci pochodzącego z istniejących sieci domowych. Wyprodukowanie drona w tej technolgi jest najtańszą dostępną opcją, która umożliwia transmisje obrazu, jednak należy pamiętać, aby nie stawiać jej przy tym za dużych wymagań. WiFi stanowi bardzo dobry punkt startowy w komunikacji bezprzewodowej bezzałogowych statków powietrznych.
 
@@ -198,7 +304,7 @@ transmisji można było wybrać tylko przed startem bezzałogowego statku powiet
 \hspace{1cm}Producent w trakcie swojej historii doprowadził do pewnych nieścisłości, mimo że dron \emph{Phantom 4 pro v 2.0} korzystał teoretycznie z najnowszej wersji OcuSync, ale nie posiadał on możliwości zmiany kanałów transmisji w trakcie lotu, opóźnienie zależało też od tego, czy korzystano z kontrolera dołączonego do zestawu, czy jego droższej, lepiej wyposażonej wersji: \emph{DJI RC Plus}.
   
 
-\begin{figure}[!htbp]
+\begin{figure}[!ht]
   \centering
   \includegraphics[width=8cm]{./Obrazy/dji-phantom-v2.jpg}
   \caption{DJI Phantom v2.0}
@@ -206,7 +312,7 @@ transmisji można było wybrać tylko przed startem bezzałogowego statku powiet
   \end{figure}
   
 
-\begin{figure}[!htbp]
+\begin{figure}[!ht]
   \centering
   \includegraphics[width=8cm]{./Obrazy/dji-rc-plus.png}
   \caption{DJI RC plus}
@@ -217,6 +323,7 @@ transmisji można było wybrać tylko przed startem bezzałogowego statku powiet
 
 \hspace{1cm}Wersja 2.0 wprowadziła dalsze ulepszenia, m.in. kontorlowanie dronów na jeszcze większe dystanse i z jeszcze mniejszymi opóźnieniami, a także kompatybilność wsteczną po aktualizacji oprogramowania.
 
+\newpage
 \subsubsection{FHSS i  OFDM}
 
 \hspace{1cm}Zarówno Lightbridge, jak i OcuSync używają szyfrowanej modulacji OFDM (ang. Orthogonal Frequency-Division Multiplexing, zwielokrotnianie z ortogonalnym podziałem częstotliwości)) dla transmisji obrazu i z formy FHSS (ang. Frequency-Hopping Spread Spectrum) dla transmisji sygnałów sterowania. Kanał dla transmisji obrazu nie zmienia się w trakcie całego lotu, pod warunkiem, że nie następują zakłócenia, albo użytkownik nie ustawi ręcznie innej częstotliwości. Z kolei metoda FHSS "skacze" po częstotliwościach w całym dostępnym widmie, w tym nawet w pasmie przenzaczonym do transmij obrazu.\cite{FHSS-wiki} \cite{OFDM-wiki}
@@ -416,10 +523,19 @@ dla i ← 1 do n powtarzaj
 
 \clearpage \section*{Podsumowanie} \addcontentsline{toc}{section}{Podsumowanie}
 
-Podsumowanie powinno korespondować z tematem i założonymi celami pracy. Zaleca się, aby zawierało syntetyczne podsumowanie wyników z odniesieniem do stopnia realizacji oraz wskazaniem najważniejszych osiągnięć i słabszych stron pracy. Może również obejmować omówienie podobieństw i różnic między uzyskanymi a publikowanymi wynikami innych autorów. Ponadto, winno przedstawiać dalsze interesujące kierunki rozwoju pracy.
+% Podsumowanie powinno korespondować z tematem i założonymi celami pracy. Zaleca się, aby zawierało syntetyczne podsumowanie wyników z odniesieniem do stopnia realizacji oraz wskazaniem najważniejszych osiągnięć i słabszych stron pracy. Może również obejmować omówienie podobieństw i różnic między uzyskanymi a publikowanymi wynikami innych autorów. Ponadto, winno przedstawiać dalsze interesujące kierunki rozwoju pracy.
 
 \clearpage \begin{thebibliography}{999}
 \addcontentsline{toc}{section}{\refname}
+
+\bibitem{dron-ibuk}
+Sarah E. Kreps
+\bibTitle{Drony. Wprowadzenie Technologie Zastosowania}
+Wydawnictwo Naukowe PWN, Warszawa, 2019;
+
+\bibitem{arton-kelsey}
+A. Kelsey
+\bibTitle{Flying Robots 101: Everthing You Need to Know about Drones}, Popular Science, TODO TOM, TODO STRONY, 08-03-2013
 
 \bibitem{NB-IoT_vs_Lora}
 \bibTitle{NB-IoT vs Lora}
@@ -447,6 +563,22 @@ Things (NB-IoT) for Delay-tolerant Services, IEEE, 2019}
 \bibTitle{Wikipedia: SZ DJI Technology Co., Ltd.},
 \myurl{https://pl.wikipedia.org/wiki/DJI} [dostęp: 20-04-2022];
 
+\bibitem{queen-bee}
+\bibTitle{De Havilland DH-82 "Tiger Moth" ("Queen Bee"), 1931},
+\myurl{http://www.samolotypolskie.pl/samoloty/782/126/De-Havilland-DH-82-Tiger-Moth-Queen-Bee} [dostęp: 22-04-2022];
+
+\bibitem{fotografia-drony-ukraina}
+\bibTitle{Wojna w Ukrainie: Pasjonaci dronów namierzają rosyjskie wojska},
+\myurl{https://fotoblogia.pl/17711,wojna-w-ukrainie-pasjonaci-dronow-namierzaja-rosyjskie-wojska} [dostęp: 22-04-2022];
+
+\bibitem{bayraktar-chip}
+\bibTitle{Tureckie drony na Ukrainie pokazały wojnę przyszłości. Bayraktar TB2 wyrządzają ogromne szkody},
+\myurl{https://www.chip.pl/2022/03/tureckie-drony-w-ukrainie-pokazaly-wojne-przyszlosci-bayraktar-tb2-wyrzadzaja-ogromne-szkody/} [dostęp: 22-04-2022];
+
+\bibitem{bayraktar-pap}
+\bibTitle{Zaskakująca skuteczność Bayraktarów. Ekspert o rosnącej roli dronów w wojnie},
+\myurl{https://www.pap.pl/aktualnosci/news\%2C1129159\%2Czaskakujaca-skutecznosc-bayraktarow-ekspert-o-rosnacej-roli-dronow-w} [dostęp: 22-04-2022];
+
 \bibitem{dji-mavic-mini-se-spec}
 \bibTitle{DJI Mavic Mini SE},
 \myurl{https://www.dji.com/pl/mini-se?site=brandsite&from=nav} [dostęp: 20-04-2022];
@@ -467,6 +599,14 @@ Things (NB-IoT) for Delay-tolerant Services, IEEE, 2019}
 \bibTitle{Wikipedia: OFDM},
 \myurl{https://pl.wikipedia.org/wiki/OFDM} [dostęp: 20-04-2022];
 
+\bibitem{firebee-wiki}
+\bibTitle{Wikipedia: Ryan Model 147 Lightning Bug},
+\myurl{https://en.wikipedia.org/wiki/Ryan_Model_147} [dostęp: 22-04-2022];
+
+\bibitem{predator-wiki}
+\bibTitle{Wikipedia: MQ-1 Predator},
+\myurl{https://en.wikipedia.org/wiki/General_Atomics_MQ-1_Predator} [dostęp: 22-04-2022];
+
 \bibitem{FHSS-wiki}
 \bibTitle{Wikipedia: FHSS},
 \myurl{https://pl.wikipedia.org/wiki/FHSS} [dostęp: 20-04-2022];
@@ -478,6 +618,10 @@ Things (NB-IoT) for Delay-tolerant Services, IEEE, 2019}
 \bibitem{dji-gogle}
 \bibTitle{DJI Gogle},
 \myurl{https://u.cyfrowe.pl/600x0/2/7/2_732250420.png} [dostęp: 20-04-2022];
+
+\bibitem{konkurs-mon}
+\bibTitle{Konkurs MON na bezzałogowe sytemy powietrzne, lądowe, morskie},
+\myurl{https://www.wojsko-polskie.pl/wat/articles/aktualnosci-w/konkurs-mon-na-bezzalogowe-systemy-powietrzne-ladowe-i-morskie/} [dostęp: 21-04-2022];
 
 \bibitem{pos1}Nazwisko i inicjały imion: Tytuł książki. Wydawnictwo, miejsce wydania, rok wydania
 \bibitem {pos2}	Larose D.T.: Odkrywanie wiedzy z danych - wprowadzenie do eksploracji danych. Wydawnictwo Naukowe PWN, Warszawa, 2006
