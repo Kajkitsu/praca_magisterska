@@ -30,10 +30,10 @@
 \clearpage
 
 \section{Prezentacja zagadnienia bezpilotowych statków latających oraz koncepcji ich wykorzystania}
-\hspace{1cm}text
-\subsection{Historia BSP}
-\subsubsection{Definicja BSP}
-\hspace{1cm}W nomenklaturze związanej z domeną bezpilotowych statków latających można znaleźć wiele tożsamych terminów na określanie bezpilotowy statek latajacych, są to m. in.:
+\hspace{1cm}TODO text
+
+\subsection{Definicja BSP}
+\hspace{1cm}W nomenklaturze związanej z domeną bezpilotowych statków latających można znaleźć wiele tożsamych terminów na określanie bezpilotowych statków latających, są to m.in.:
 \begin{itemize}
   \item Bezzałogowy statek powietrzny, BSP (ang. \textit{unmanned aerial vehicle}, UAV);
   \item Bezzałogowy system powietrzny (ang. \textit{unmanned aerial system}, UAS);
@@ -41,18 +41,20 @@
   \item Dron (ang. \textit{drone}),
 \end{itemize}
 
-Wszystkie terminy odnoszą sie do jednego obiektu i będą w tej pracy używane zamiennie. Każdy z tych terminów kładzie nacisk na inne cechę która kwalifikuje takich wechikuł jako dron. Amerykański pisarz zajmuący sie zagadnieniami systemów bezzałogowych i technologi obronnych,  Kelsey Artheon na łamach czasopisma "Popular Science" definuje to pojęcie następująco: "dron oznacza każdy bezzałogowy zdalnie sterowany pojazd latający, bez względu na to czy jest to malutki, sterowany radiem helikotper-zabawka, czy też ważacy 14,5 tony Global Hawk, wart 104 mln dolarów. Jeżeli coś lata i jest sterowane przez pilota z ziemi, to pasuje do potocznej definicji drona". \footnote{\cite{arton-kelsey}} \cite{dron-ibuk} 
+Każdy z tych terminów kładzie nacisk na inną cechę, ale wszystkie nadal odnoszą się do jednego obiektu i będą w tej pracy używane zamiennie. Amerykański pisarz zajmujący się zagadnieniami systemów bezzałogowych i technologi obronnych,  Kelsey Artheon na łamach czasopisma "Popular Science" definiuje to pojęcie następująco: "dron oznacza każdy bezzałogowy zdalnie sterowany pojazd latający, bez względu na to, czy jest to malutki, sterowany radiem helikopter-zabawka, czy też ważący 14,5 tony Global Hawk, wart 104 mln dolarów. Jeżeli coś lata i jest sterowane przez pilota z ziemi, to pasuje do potocznej definicji drona". \footnote{A. Kelsey, \textit{Flying Robots 101: Everthing You Need to Know about Drones}, Popular Science\cite{arton-kelsey}} \cite{dron-ibuk} 
 
-\hspace{1cm}Warunkiem koniecznym według autora do zakwalifikowania wechikułu jako bezzałogowy statek powietrzny są:
+\hspace{1cm}Warunkiem koniecznym według autora do zakwalifikowania wehikułu jako bezzałogowy statek powietrzny są:
 \begin{itemize}
-  \item \textbf{bezpilotowość} - wechikuł na swoim pokładzie nie posiada pilota
-  \item \textbf{dwukierunkowość} - wechikuł musi mieć możliwość powortu/wylądowania. Jest to podstawowa cecha odróźniająca drony od pocisków manewrujących, 
-  \item  \textbf{sterowalność} - możliwość zmiany kierunku lotu w trakcie jego wykonywania
+  \item \textbf{bezpilotowość} - wehikuł na swoim pokładzie nie posiada pilota;
+  \item \textbf{dwukierunkowość} - wehikuł musi mieć możliwość powrotu/wylądowania. Jest to podstawowa cecha odróżniająca drony od pocisków manewrujących; 
+  \item  \textbf{sterowalność} - możliwość zmiany kierunku lotu w trakcie jego wykonywania.
 \end{itemize}
 
-\subsubsection{Błędnie sklasyfikowane wechikuły}
+\subsection{Historia BSP}
+\hspace{1cm}Bezpilotowe statki latające z racji, że są całkiem nową domeną, mają też stosunkowo krótką, ale interesującą historię.
 
-\hspace{1cm}Po zdefiniowaniu czym jest dron, można sie zastnowić co było pierwszym elementem spełniającym tą definicje. Autor tej pracy, przyjmuje, że kluczowym elemenetem umożliwiającym zakwalifkikowanie obiketu jako dron jest możliwość zmiany trajektori lotu w trakcie jego działania. W literaturze często wskazywane są dwa obiekty jako prekursory dronów, tzn. gołąb Archytasa z Tarentu i balony zawierające ładunki wybuchowe wykorzystane w konfilikcie między Austrią i Wenecją w 1849r. Pierwszy rzekomy prekursor nie umożliwia sterowania obiektem po jego wystartowaniu, więc tym samym nie jest to zgodne z przytoczonymi definicjami. Ten wynalazek można uznać za pierwszą rakiet, robota, ale nie drona. Drugi przykład, balony na gorące powietrze również nie mogą zostać uznane za droną z tego samego powody. W dodatku pomysł austriaków zakończył sie niepowodzeniem, ponieważ wiatr zwiał balony na ich własne pozycje. \cite{dron-ibuk}. 
+\subsubsection{Błędnie klasyfikowane wehikuły}
+\hspace{1cm}Po zdefiniowaniu czym jest dron, można się zastanowić, co było pierwszym elementem spełniającym tę definicję. Autor tej pracy uważa, że kluczowym elementem umożliwiającym zakwalifikowanie obiektu jako dron jest możliwość zmiany trajektorii lotu w trakcie jego działania. W literaturze często wskazywane są dwa obiekty jako prekursory dronów, tzn. gołąb Archytasa z Tarentu i balony zawierające ładunki wybuchowe wykorzystane w konflikcie między Austrią i Wenecją w 1849 r. Pierwszy rzekomy prekursor nie umożliwia sterowania obiektem po jego wystartowaniu, więc tym samym nie jest to zgodne z przytoczonymi definicjami. Ten wynalazek można uznać za pierwszą rakiet, robota, ale nie drona. Drugi przykład, balony na gorące powietrze również nie mogą zostać uznane za bezzałogowy statek powietrzny z tego samego powody. W dodatku pomysł Austriaków zakończył się niepowodzeniem, ponieważ wiatr zwiał balony na ich własne pozycje.\cite{dron-ibuk}. 
 
 
 \begin{figure}[!ht]
@@ -62,11 +64,11 @@ Wszystkie terminy odnoszą sie do jednego obiektu i będą w tej pracy używane 
   \source{\myurl{https://input.niezalezna.pl//259fef5fd.jpg}}
   \end{figure}
 
-\subsubsection{Pierwszy dron}
+\subsubsection{Pierwszy pełnoprawny dron}
 
-\hspace{1cm}Podczas I wojny światowej podjęto liczbe próby skonstruowania bezpilotowych statków latajacych, ale żaden z nich nie został ukończony na przed skończeniem wojny. Przykładowo wechikuł Kettering Bug, był w stanie dolecieć na odpowiednią odelgłość, ale jego sterowanie polegało na wyliczeniu przez operatora dokładną liczbę obrotów silinika, lecz w takim wypadku bliżej takiemu samolotowi bliżej do torpedy niż do drona. 
+\hspace{1cm}Podczas I wojny światowej podjęto liczne próby skonstruowania bezpilotowych statków latających, ale żaden z nich nie został ukończony na przed skończeniem wojny. Przykładowo wehikuł Kettering Bug, był w stanie dolecieć na odpowiednią odległość, ale jego sterowanie polegało na wyliczeniu przez operatora dokładną liczbę obrotów silnika, lecz w takim wypadku bliżej takiemu samolotowi bliżej do torpedy niż do drona. 
 
-W 1931r. Królewskie Siły Powietrzne (ang. Royal Air Force) na podstawie samolotu szkolnego \textit{De Havilland DH-60T ”Tiger Moth”} opracowli pierwszy bezpilotowy statek powietrzny \textit{DH-82B "Queen Bee"}. Samolot ten miał służyć jako ruchomy cel do ćwiczeń dla obslugi dział przewciw lotniczych, steerowany przez pilota za pomocą fal radiowych. Jego oficjalna prezentacja została jednak przerwana, poniważ ówczesne systemy oborny powietrznej były mało skuteczne, do tego stopnia, że strzelającym skończyła sie amunicja, zanim zestrzelili oni bezpilotowy samolot. Wechikuł też spełnia wszystkie wymagania określone wczęsniej przez autora, więc uznaje on go za pierwszego drona.\cite{queen-bee}\cite{dron-ibuk}
+W 1931r. Królewskie Siły Powietrzne (ang. Royal Air Force) na podstawie samolotu szkolnego \textit{De Havilland DH-60T ”Tiger Moth”} opracowły pierwszy bezpilotowy statek powietrzny \textit{DH-82B "Queen Bee"}. Samolot ten miał służyć jako ruchomy cel do ćwiczeń dla obslugi dział przeciw lotniczych, sterowany przez pilota za pomocą fal radiowych. Jego oficjalna prezentacja została jednak przerwana, ponieważ ówczesne systemy obrony powietrznej były mało skuteczne, do tego stopnia, że strzelającym skończyła się amunicja, zanim zestrzelili oni bezpilotowy samolot. Wehikuł też spełnia wszystkie wymagania określone wcześniej przez autora, więc uznaje on go za pierwszego drona.\cite{queen-bee}\cite{dron-ibuk}
 
 \begin{figure}[!ht]
   \centering
@@ -75,10 +77,10 @@ W 1931r. Królewskie Siły Powietrzne (ang. Royal Air Force) na podstawie samolo
   \source{\myurl{https://www.iwm.org.uk/collections/item/object/205195356}}
   \end{figure}
 
-Równolegle w tym samym okresie, a konkretnie w 1935 roku powstał identyczny samalot dla amerykańskich odbiorców: \textit{Radioplane OQ-2}, który był stworzony pierwotnie jako bezałogowiec, a nie przez modyfikacje tak jak dron brytyjski.
+Równolegle w tym samym okresie, a konkretnie w 1935 roku powstał identyczny samolot dla amerykańskich odbiorców: \textit{Radioplane OQ-2}, który był już pierwotnie stworzony jako bezzałogowiec, a nie przez modyfikacje tak jak dron brytyjski.
 
 \subsubsection{Pierwsze drony rozpoznawcze}
-\hspace{1cm}W okresie po II wojnie światowej USA dalej kontynuowało prace nad dronami, za pomocą firmy \textit{Ryan Aeronautical Company} i ich serii dronów produkowanych od 1951r. \textit{Firebee}, czego efektem był m.in. \textit{Ryan Model 147 Lightning Bug} opracowany w 1962r. Ten dron rozpoznawczy napędzany była za pomocą silnika rakietowego. Nie posiadał on sprzętu do lądowania i startowania z ziemi. Jego lądowanie odbywała się za pomocą spadochronu w który był wyposarzony i przechwyceniu w locie przez heliktoper. Start odbywał sie z pokładu samolotu, tak samo jak pociski rakietowe, dron ten był umieszaczany pod skrzydłem samolotu z którego odbywał start w powietrzy.\cite{dron-ibuk}\cite{firebee-wiki}
+\hspace{1cm}W okresie po II wojnie światowej USA kontynuowało prace nad dronami, za pomocą firmy \textit{Ryan Aeronautical Company} i ich serii dronów produkowanych od 1951r. \textit{Firebee}, czego efektem był m.in. \textit{Ryan Model 147 Lightning Bug} opracowany w 1962r. Ten dron rozpoznawczy napędzany był za pomocą silnika rakietowego. Nie posiadał on sprzętu do lądowania i startowania z ziemi, tak więc jego lądowanie odbywała się za pomocą spadochronu, w który był wyposażony i przechwyceniu w locie przez helikopter. Start odbywał się z pokładu samolotu. Tak samo, jak pociski rakietowe, dron ten był umieszczany pod skrzydłem, z którego odbywał start w powietrzu.\cite{dron-ibuk}\cite{firebee-wiki}
 
 
 \begin{figure}[!ht]
@@ -90,7 +92,7 @@ Równolegle w tym samym okresie, a konkretnie w 1935 roku powstał identyczny sa
 
 \subsubsection{Ikona wśród BSP}
 
-\hspace{1cm}Zdecydowanie do najpopularniejszego BSP na świecie należy zaliczyć \textit{MQ-1 Predator}. Przez amrykańskiego producenta \textit{General Atomics} jest on klasyfikowany jako zdalnie sterowany statek powietrzny, jest to amerykański. Pierwsze jego wersje nie posiadały na swoim pokładzie żadnych pocisków, ponieważ amerykanie nie byli pewni czy jest to zgodne z obowiązującym układem dotyczącym całkowitej likwidacji pocisków rakietowych średniego zasięgu (ang. \textit{Intemediate-range Nuclear Forces (INF) Traty}). Po wydarzeniach z 11 września 2001 r. została podjęta decyzja o uzbrojeniu Predatorów w pociski i skierowania ich do akcji. Umożliwiło to prowadzenie operacji militarnych bez ponoszenia strat w żołnierzach. Dron te był wykrozystywany przez USA w trakcie konfilktów w Afganistanie, Iraku czy Pakistanie. USA na przestrzeni lat 2009-2021 stało się światowym liderem w używaniu dronów bojowych. \cite{dron-ibuk}\cite{predator-wiki} 
+\hspace{1cm}Zdecydowanie do najpopularniejszego BSP na świecie należy zaliczyć \textit{MQ-1 Predator}. Przez amerykańskiego producenta \textit{General Atomics} jest on klasyfikowany jako zdalnie sterowany statek powietrzny. Pierwsze jego wersje nie posiadały na swoim pokładzie żadnych pocisków, ponieważ amerykanie nie byli pewni czy jest to zgodne z obowiązującym układem dotyczącym całkowitej likwidacji pocisków rakietowych średniego zasięgu (ang. \textit{Intemediate-range Nuclear Forces (INF) Traty}). Po wydarzeniach z 11 września 2001 r. została podjęta decyzja o uzbrojeniu Predatorów w pociski i skierowania ich do akcji. Umożliwiło to prowadzenie operacji militarnych bez ponoszenia strat w żołnierzach. Drony te był wykorzystywane w trakcie konfliktów w Afganistanie, Iraku czy Pakistanie. USA na przestrzeni lat 2009-2021 stało się światowym liderem w używaniu dronów bojowych. \cite{dron-ibuk}\cite{predator-wiki} 
 
 
 \begin{figure}[!ht]
@@ -100,17 +102,15 @@ Równolegle w tym samym okresie, a konkretnie w 1935 roku powstał identyczny sa
   \source{\myurl{https://en.wikipedia.org/wiki/File:MQ-1_Predator,_armed_with_AGM-114_Hellfire_missiles.jpg}}
   \end{figure}
 
-\subsubsection{Dronykonsumenckie}
-\hspace{1cm}Autorowi trudno wskazać początek "bum" na drony konsumenckie, ale jest on przekonany, że początek może wskazywać na okolice roku 2013r. Arguemntuje to tym, że wtedy miała miejsce premiera bezzałogowego statku powietrznego \textit{Phantom} od obecnie najpopularniejszego producenta dronów konsumenckich \textit{DJI}.   
-
-TODO: TUTAJ TRZEBA COS DOPISAC
+\subsubsection{Drony cywilne}
+\hspace{1cm}Trudno zaprzeczyć stwierdzeniu, że wojna przyczynia się do szybszego rozwoju, bo to właśnie rozwiązania opracowane dla armii przenoszone są często do życia codziennego. Było tak z herbatą ekspresową, jest tak i teraz z bezzałogowymi statkami powietrznym. Tylko ich rola jest inna, za ich pomocą nie prowadzi się działań wojennych, a nagrywa sceny do filmów czy prowadzi transmisje skoków narciarskich z ciekawszej perspektywy. Drony wyposażone w odpowiednie czujniki powietrza służą też do inspekcji przez zarządy miast, czy obywatele nie spalają w swoich piecach śmieci. Obecny rok można wskazywać jako okres największego zainteresowania tą technologią na rynku cywilnym. Początek tego okresu można próbować określać na 2013 r., czyli datę premiery pierwszej wersji bezzałogowego statku powietrznego \textit{Phantom} od obecnie najpopularniejszego producenta dronów konsumenckich \textit{DJI}.   
 
 \subsubsection{Konfilikt na Ukrainie}
-\hspace{1cm}W kontekście bezzałogowych statków powietrznych nie można pominąć aktualnego konfilktu zbrojnego na ukranie. Należego go rozpatrywać w dwóch aspektach przewagi, która Ukranina uzyskuje dzięki tureckim dronom \textit{Bayraktar TB2} i wykorzystaniu dronów konsumenckich od ludności cywilnej do przeprowadzenia rozpoznania powietrznego. 
+\hspace{1cm}W kontekście bezzałogowych statków powietrznych nie można pominąć aktualnego konfliktu zbrojnego na Ukrainie. Należy go rozpatrywać w dwóch aspektach: przewagi, która armia ukraińska uzyskuje dzięki tureckim dronom \textit{Bayraktar TB2} i wykorzystaniu dronów konsumenckich od ludności cywilnej do przeprowadzenia rozpoznania powietrznego.
 
-\hspace{1cm}Rząd ukraiński zwrócił sie z prośbą do swoich obywatli o przekazanie swoich dronów na potrzeby armii. Są one wykorzystywane do bezpiecznego prowadzenie rozpoznania przez wojska ukraińskie. Dostarczają one obraz na żywo, wraz ze swoimi współrzednymi geograficznymi, pozwala to budować przewage informacyjną na polu bitwy, a ten konfilikt szczególnie uświadomił jak ważna jest informacja w dzisiejszych konfliktach zborjnych.\cite{fotografia-drony-ukraina}
+Rząd ukraiński zwrócił się z prośbą do swoich obywateli o przekazanie swoich dronów na potrzeby armii. Są one wykorzystywane do bezpiecznego prowadzenie rozpoznania przez wojska ukraińskie. Dostarczają one obraz na żywo, wraz ze swoimi współrzędnymi geograficznymi, pozwala to budować przewagę informacyjną na polu bitwy, a ten konflikt szczególnie uświadomił, jak ważna jest informacja dzisiaj informacja na polu bitwy.\cite{fotografia-drony-ukraina}
 
-\hspace{1cm}Czytając artykuły poświecone droną Bayraktar w kontekście konfiliktu na Ukrainie można odnieść jakby było to jedyny element budujący ich siłe. Autor nie może sie z tym zgodzić, ale nie da sie zaprzeczyć że ich rola jest znacząca. Głownym celem tej maszyny jest prowadzenie rozpoznania, ale mogą być one doposażone w cztery pociski kierowane o zasięgu 8km. Sam dron jest jedną z tańszych opcji na ryku, bo jego cena wacha się między 2-6 mln dolarów, a drony z najwyższej półki siegają 100mln dolarów. Dron o rozpiętości skrzydeł rzędu 12 metrów i 6,5 metra długości może szybować przez 27h lub przelecieć 150km. Wzbija się na pułap 8200m i rozwija prędkośc do 220km/h za sprawą silnika Rotax 912 iS o mocy 100 koni mechnicznych. \cite{bayraktar-chip}\cite{bayraktar-pap}
+Czytając artykuły poświęcone dronom Bayraktar w kontekście konfliktu, można odnieść wrażenie, jakby było to jedyny element budujący ich siłę. Autor nie może się z tym zgodzić, ale nie da się zaprzeczyć, że ich rola jest znacząca. Głównym celem tej maszyny jest prowadzenie rozpoznania, ale mogą być one doposażone w cztery pociski kierowane o zasięgu 8 km. Sam dron jest jedną z tańszych opcji na ryku, bo jego cena wacha się między 2-6 mln dolarów, a drony z najwyższej półki sięgają 100 mln dolarów. Dron o rozpiętości skrzydeł rzędu 12 metrów i 6,5 metra długości może szybować przez 27 godzin lub przelecieć 150 km. Wzbija się na pułap 8200 m i rozwija prędkość do 220 km/h za sprawą silnika \textit{Rotax 912 iS} o mocy 100 koni mechanicznych. \cite{bayraktar-chip}\cite{bayraktar-pap}
 
 \begin{figure}[!ht]
   \centering
@@ -121,7 +121,18 @@ TODO: TUTAJ TRZEBA COS DOPISAC
 
 
 \subsection{Technologia i producenci BSP}
-\hspace{1cm}text
+\hspace{1cm}Przy porównywaniu producetów dronów należy pamiętać że wymagania stawiane na rynku cywilnym i militarnym znacznie się różnią. Dodatkowo rynek cywilny jest zdominowany przez praktycznie jedno producenta, z militarny z kolei jest za to bardziej zróżnicowany.
+
+\subsubsection{Shenzhen DJI Sciences and Technologies Ltd.}
+\hspace{1cm}Shenzhen DJI Sciences and Technologies Ltd., znany powszechnie pod nazwą handlową DJI, jest obecnie największym producentem dronów konsumenckich. Z siedzibą w chińskiej "dolinie krzemowej" Shenzhen.
+
+Firma została założona w 2006 r. , a swój pierwszy sukces odniosła w 2013 r. kiedy wpuściła na ryenk pierwszy model drona \textit{Phantom} Był to BSP przeznaczony dla początkujacych operatorów, a na tle konkurencji wyrózniała go łatwość obsługi. W kolejnych latach firma nadal sie rozwijała, a w 2015 r. wraz z wypuszczeniem trzeciej wersji drona \textit{Phantom} stała się największym producentem na świecie. W 2016 r. firma ta posiadała 50\% udziałow w światowym rynku, a rok pózniej już 72\%. W 2020 r. było około 74\%, podczas gdy żadna inna firma w tym samym czasie nie posiadała więcej niż 5\% udziału w światowym rynku.\cite{dji-wiki}\cite{dji-market-share}
+
+W 2020 r. BSP firmy DJI były wykorzystane przez Chiny do przypominania ludzią o obowiązku noszenia maseczek na twarzy w celu ograniczenia rozprzestrzeniania sie wirsua COVID-19. Z tego samego powodu w takich krajach jak Maroko czy Arabia Sudyjska drony mierzyły temperatury przmieszczającającej sie populacji w teranach silnie zurbanizowanych.
+
+\subsubsection{Yuneec International}
+
+\hspace{1cm}Yuneec International to drugi największy producent dronów konsumenckich, w rynku światowym posiada zaledwie 5\% udziałow. Firma ta została założona w 1999 r., a jej obecna siedziba znajduje się w Jiangsu w Chinach.
 
 \subsection{Zastosowania BSP}
 \hspace{1cm}Bezpilotowe statki latające znalazły szereg zastosowań, pierowotnie były wykorzystywane głównie w obszarze militarnym, dopiero później dostrzegł w nich potencjał obszar cywilny.  
@@ -253,7 +264,7 @@ odległościach. Na krótkie dystanse mamy przeznaczone do tego no. Bluetooth cz
 \hspace{1cm}Zarówno LoRa jak i NB-IoT należą do wspomnianej wcześniej technologi LPWAN. Podstawowa różnice pomiędzy tymi dwoma technologiami można dostrzec w zużyciu baterii, prędkości transmisji i opóźnień.
 
 \subsection{Komunikacja bezprzewodowa w dronach konsumenckich}
-\hspace{1cm}Shenzhen DJI Sciences and Technologies Ltd., znany powszechnie pod nazwą handlową DJI, jest obecnie największym rpoducentem dronów konsumenckich. W 2020r. firma ta posiadała 70\% udziału w światowym rynku. \cite{dji-wiki} Przeglądając katalog ich produktów, można wyróżnić tylko 3 technologie komunikacji bezprzewodowej: wzomocnione WiFi (ang. enhanced WiFi), Lightbridge, OcuSync.
+\hspace{1cm}Przeglądając katalog największego producenta dronów konsumenckich DJI, można wyróżnić tylko 3 technologie komunikacji bezprzewodowej: wzomocnione WiFi (ang. enhanced WiFi), Lightbridge, OcuSync.
 
 \subsubsection{WiFi}
 \hspace{1cm}WiFi nie zostało wprowadzone ściśle do komunikacji bezprzewodowej statków powietrznych, ale odnajduje się w tym całkiem dobrze. Jest ona wykorzystywana głównie w bardziej budżetowych wersjach dronów, ze względu na możliwość skorzystanie przez producenta z posiadanej przez użytkownika infrastruktury (smartfonów), czy niskiej ceny komponentów.
@@ -561,11 +572,15 @@ Things (NB-IoT) for Delay-tolerant Services, IEEE, 2019}
 
 \bibitem{dji-wiki}
 \bibTitle{Wikipedia: SZ DJI Technology Co., Ltd.},
-\myurl{https://pl.wikipedia.org/wiki/DJI} [dostęp: 20-04-2022];
+\myurl{https://en.wikipedia.org/wiki/DJI} [dostęp: 20-04-2022];
 
 \bibitem{queen-bee}
 \bibTitle{De Havilland DH-82 "Tiger Moth" ("Queen Bee"), 1931},
 \myurl{http://www.samolotypolskie.pl/samoloty/782/126/De-Havilland-DH-82-Tiger-Moth-Queen-Bee} [dostęp: 22-04-2022];
+
+\bibitem{dji-market-share}
+\bibTitle{DJI market share: here’s exactly how rapidly it has grown in just a few years},
+\myurl{https://www.thedronegirl.com/2018/09/18/dji-market-share/} [dostęp: 22404-2022];
 
 \bibitem{fotografia-drony-ukraina}
 \bibTitle{Wojna w Ukrainie: Pasjonaci dronów namierzają rosyjskie wojska},
