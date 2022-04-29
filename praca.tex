@@ -13,8 +13,8 @@
 \newcommand{\promotor}{dr inż. Michał DYK}
 \newcommand{\zgoda}{TAK} %W przypadku braku zgody zakomentować tą linię
 \newcommand{\specjalnosc}{SYSTEMY INFORMATYCZNE}
-\newcommand{\bibTitle}[1]{``#1''}
 
+\newcommand{\bibTitle}[1]{``#1''}
 
 
 \begin{document}
@@ -26,35 +26,36 @@
     
 % Zwarte wprowadzenie w temat i cele pracy z nawiązaniem do dziedziny przedmiotowej oraz rozwiązanego problemu. Uzasadnienie potrzeby i zastosowania wyników pracy. Przedstawienie układu i streszczenie zawartości rozdziałów pracy (2-3 zdania na rozdział).\\
 % Zaleca się, aby tekst wstępu nie przekraczał dwóch stron.
-     o skrotach bsp
+
+
+% \hspace{1cm}W pierwszym rozdziale przedstawiono definicje BSP. Następnie przyjrzano sie jej historii z uwzględnieniem tego kiedy obiekt może być zakwalifikowny jako BSP. Potem przedstawiono czołowych producntów tej technolgii i przykładowe zastosowania. Rozdział zakończono analizą możliwości dostoswywania statków do wymagań użytkownika.
 \clearpage
 
 \section{Prezentacja zagadnienia bezpilotowych statków latających oraz koncepcji ich wykorzystania}
-\hspace{1cm}TODO text
-
 \subsection{Definicja BSP}
-\hspace{1cm}W nomenklaturze związanej z domeną bezpilotowych statków latających można znaleźć wiele tożsamych terminów na określanie bezpilotowych statków latających, są to m.in.:
+W nomenklaturze związanej z domeną bezpilotowych statków latających można znaleźć wiele tożsamych terminów na określanie bezpilotowych statków latających, są to m.in.:
 \begin{itemize}
+  \setlength\itemsep{1mm} %TODO
   \item Bezzałogowy statek powietrzny, BSP (ang. \textit{unmanned aerial vehicle}, UAV);
   \item Bezzałogowy system powietrzny (ang. \textit{unmanned aerial system}, UAS);
   \item Samolot zdalnie sterowany (ang. \textit{remotely piloted aircraft}, RPA);
   \item Dron (ang. \textit{drone}),
 \end{itemize}
 
-Każdy z tych terminów kładzie nacisk na inną cechę, ale wszystkie nadal odnoszą się do jednego obiektu i będą w tej pracy używane zamiennie. Amerykański pisarz zajmujący się zagadnieniami systemów bezzałogowych i technologi obronnych,  Kelsey Artheon na łamach czasopisma "Popular Science" definiuje to pojęcie następująco: "dron oznacza każdy bezzałogowy zdalnie sterowany pojazd latający, bez względu na to, czy jest to malutki, sterowany radiem helikopter-zabawka, czy też ważący 14,5 tony Global Hawk, wart 104 mln dolarów. Jeżeli coś lata i jest sterowane przez pilota z ziemi, to pasuje do potocznej definicji drona". \footnote{A. Kelsey, \textit{Flying Robots 101: Everthing You Need to Know about Drones}, Popular Science\cite{arton-kelsey}} \cite{dron-ibuk} 
+Każdy z tych terminów kładzie nacisk na inną cechę, ale wszystkie nadal odnoszą się do jednego obiektu i będą w tej pracy używane zamiennie. 
 
-\hspace{1cm}Warunkiem koniecznym według autora do zakwalifikowania wehikułu jako bezzałogowy statek powietrzny są:
+Amerykański pisarz zajmujący się zagadnieniami systemów bezzałogowych i technologi obronnych,  Kelsey Artheon na łamach czasopisma \textit{Popular Science} definiuje to pojęcie następująco: "dron oznacza każdy bezzałogowy zdalnie sterowany pojazd latający, bez względu na to, czy jest to malutki, sterowany radiem helikopter-zabawka, czy też ważący 14,5 tony Global Hawk, wart 104 mln dolarów. Jeżeli coś lata i jest sterowane przez pilota z ziemi, to pasuje do potocznej definicji drona". \footnote{A. Kelsey, \textit{Flying Robots 101: Everthing You Need to Know about Drones}, Popular Science\cite{arton-kelsey}} Biorąc to pod uwagę, można zdefiniować następujące warunki do zakwalifikowania obiektu jako bezzałogowy statek powietrzny:
 \begin{itemize}
-  \item \textbf{bezpilotowość} - wehikuł na swoim pokładzie nie posiada pilota;
-  \item \textbf{dwukierunkowość} - wehikuł musi mieć możliwość powrotu/wylądowania. Jest to podstawowa cecha odróżniająca drony od pocisków manewrujących; 
-  \item  \textbf{sterowalność} - możliwość zmiany kierunku lotu w trakcie jego wykonywania.
+  \item \textbf{bezpilotowość} - na swoim pokładzie nie posiada pilota;
+  \item \textbf{dwukierunkowość} - musi mieć możliwość powrotu/wylądowania (Jest to podstawowa cecha odróżniająca drony od pocisków manewrujących); 
+  \item \textbf{sterowalność} - możliwość zmiany kierunku lotu w trakcie jego wykonywania.\cite{dron-ibuk}\cite{arton-kelsey}
 \end{itemize}
 
 \subsection{Historia BSP}
-\hspace{1cm}Bezpilotowe statki latające z racji, że są całkiem nową domeną, mają też stosunkowo krótką, ale interesującą historię.
+Po przedstawieniu definicji BSP można przystąpić do przedstawienia historii całej tej domeny, wraz ze wskazaniem jej początku w poprawny sposób.
 
-\subsubsection{Błędnie klasyfikowane wehikuły}
-\hspace{1cm}Po zdefiniowaniu czym jest dron, można się zastanowić, co było pierwszym elementem spełniającym tę definicję. Autor tej pracy uważa, że kluczowym elementem umożliwiającym zakwalifikowanie obiektu jako dron jest możliwość zmiany trajektorii lotu w trakcie jego działania. W literaturze często wskazywane są dwa obiekty jako prekursory dronów, tzn. gołąb Archytasa z Tarentu i balony zawierające ładunki wybuchowe wykorzystane w konflikcie między Austrią i Wenecją w 1849 r. Pierwszy rzekomy prekursor nie umożliwia sterowania obiektem po jego wystartowaniu, więc tym samym nie jest to zgodne z przytoczonymi definicjami. Ten wynalazek można uznać za pierwszą rakiet, robota, ale nie drona. Drugi przykład, balony na gorące powietrze również nie mogą zostać uznane za bezzałogowy statek powietrzny z tego samego powody. W dodatku pomysł Austriaków zakończył się niepowodzeniem, ponieważ wiatr zwiał balony na ich własne pozycje.\cite{dron-ibuk}. 
+\subsubsection{Błędnie klasyfikowane obiekty}
+Po zdefiniowaniu czym jest dron, można się zastanowić, co było pierwszym elementem spełniającym tę definicję. Autor tej pracy uważa, że kluczowym elementem umożliwiającym zakwalifikowanie obiektu jako dron jest możliwość zmiany trajektorii lotu w trakcie jego działania. W literaturze często wskazywane są dwa obiekty jako prekursory dronów, tzn. gołąb Archytasa z Tarentu i balony zawierające ładunki wybuchowe wykorzystane w konflikcie między Austrią i Wenecją w 1849 r. Pierwszy rzekomy prekursor nie umożliwia sterowania obiektem po jego wystartowaniu, więc tym samym nie jest to zgodne z przytoczonymi definicjami. Ten wynalazek można uznać za pierwszą rakietę lub robota, ale nie drona. Drugi przykład, czyli balony na gorące powietrze, również nie mogą zostać uznane za bezzałogowy statek powietrzny z tego samego powodu. Jako ciekawostkę można dodać, że pomysł Austriaków zakończył się niepowodzeniem, ponieważ wiatr zwiał balony na ich własne pozycje.\cite{dron-ibuk}. 
 
 
 \begin{figure}[!ht]
@@ -65,10 +66,9 @@ Każdy z tych terminów kładzie nacisk na inną cechę, ale wszystkie nadal odn
   \end{figure}
 
 \subsubsection{Pierwszy pełnoprawny dron}
+Podczas I wojny światowej podjęto liczne próby skonstruowania bezpilotowych statków latających, ale żaden z nich nie został ukończony przed skończeniem wojny. Przykładowo \textit{Kettering Bug}, był w stanie dolecieć na odpowiednią odległość, ale jego sterowanie polegało na wyliczeniu przez operatora dokładną liczbę obrotów silnika. Mając to na uwadze, takiemu samolotowi bliżej do torpedy niż do drona. 
 
-\hspace{1cm}Podczas I wojny światowej podjęto liczne próby skonstruowania bezpilotowych statków latających, ale żaden z nich nie został ukończony na przed skończeniem wojny. Przykładowo wehikuł Kettering Bug, był w stanie dolecieć na odpowiednią odległość, ale jego sterowanie polegało na wyliczeniu przez operatora dokładną liczbę obrotów silnika, lecz w takim wypadku bliżej takiemu samolotowi bliżej do torpedy niż do drona. 
-
-W 1931r. Królewskie Siły Powietrzne (ang. Royal Air Force) na podstawie samolotu szkolnego \textit{De Havilland DH-60T ”Tiger Moth”} opracowły pierwszy bezpilotowy statek powietrzny \textit{DH-82B "Queen Bee"}. Samolot ten miał służyć jako ruchomy cel do ćwiczeń dla obslugi dział przeciw lotniczych, sterowany przez pilota za pomocą fal radiowych. Jego oficjalna prezentacja została jednak przerwana, ponieważ ówczesne systemy obrony powietrznej były mało skuteczne, do tego stopnia, że strzelającym skończyła się amunicja, zanim zestrzelili oni bezpilotowy samolot. Wehikuł też spełnia wszystkie wymagania określone wcześniej przez autora, więc uznaje on go za pierwszego drona.\cite{queen-bee}\cite{dron-ibuk}
+W 1931 r. Królewskie Siły Powietrzne (ang. Royal Air Force) na podstawie samolotu szkolnego \textit{De Havilland DH-60T ”Tiger Moth”} opracowywały pierwszy bezpilotowy statek powietrzny \textit{DH-82B "Queen Bee"}.  Samolot ten, sterowany przez pilota za pomocą fal radiowych, miał służyć jako ruchomy cel do ćwiczeń dla obsługi dział przeciw lotniczych. Jego oficjalna prezentacja została jednak przerwana, ponieważ ówczesne systemy obrony powietrznej były tak mało skuteczne, że strzelającym skończyła się amunicja, zanim zestrzelili oni bezpilotowy samolot. Obiekt ten też spełnia wszystkie wymagania określone wcześniej przez autora, więc uznaje on go za pierwszego drona.
 
 \begin{figure}[!ht]
   \centering
@@ -77,11 +77,10 @@ W 1931r. Królewskie Siły Powietrzne (ang. Royal Air Force) na podstawie samolo
   \source{\myurl{https://www.iwm.org.uk/collections/item/object/205195356}}
   \end{figure}
 
-Równolegle w tym samym okresie, a konkretnie w 1935 roku powstał identyczny samolot dla amerykańskich odbiorców: \textit{Radioplane OQ-2}, który był już pierwotnie stworzony jako bezzałogowiec, a nie przez modyfikacje tak jak dron brytyjski.
+Równolegle w tym samym okresie, a konkretnie w 1935 r. powstał identyczny samolot dla amerykańskich odbiorców, \textit{Radioplane OQ-2}. Powstał on jako pierwotnie jako bezzałogowiec, a nie przez modyfikacje tak jak dron brytyjski, więc jego budowa bardziej odstawała od klasycznych samolotów.\cite{queen-bee}\cite{dron-ibuk}
 
 \subsubsection{Pierwsze drony rozpoznawcze}
-\hspace{1cm}W okresie po II wojnie światowej USA kontynuowało prace nad dronami, za pomocą firmy \textit{Ryan Aeronautical Company} i ich serii dronów produkowanych od 1951r. \textit{Firebee}, czego efektem był m.in. \textit{Ryan Model 147 Lightning Bug} opracowany w 1962r. Ten dron rozpoznawczy napędzany był za pomocą silnika rakietowego. Nie posiadał on sprzętu do lądowania i startowania z ziemi, tak więc jego lądowanie odbywała się za pomocą spadochronu, w który był wyposażony i przechwyceniu w locie przez helikopter. Start odbywał się z pokładu samolotu. Tak samo, jak pociski rakietowe, dron ten był umieszczany pod skrzydłem, z którego odbywał start w powietrzu.\cite{dron-ibuk}\cite{firebee-wiki}
-
+W bezpośrednim okresie po II wojnie światowej USA kontynuowało prace nad dronami, poprzez firmę \textit{Ryan Aeronautical Company} i ich serii dronów \textit{Firebee}, produkowanych od 1951 r. Efektem tej serii był m.in. opracowany w 1962 r. \textit{Ryan Model 147 Lightning Bug}. Był to dron rozpoznawczy, napędzany był za pomocą silnika rakietowego. Nie posiadał on wyposażenie do lądowania i startowania z ziemi, tak więc odbywała się to za pomocą spadochronu, w który był wyposażony, i jego przechwyceniu w locie przez helikopter. Sam start odbywał się z pokładu samolotu. Tak samo, jak pociski rakietowe, dron ten był umieszczany pod skrzydłem samolotu.
 
 \begin{figure}[!ht]
   \centering
@@ -91,8 +90,7 @@ Równolegle w tym samym okresie, a konkretnie w 1935 roku powstał identyczny sa
   \end{figure}
 
 \subsubsection{Ikona wśród BSP}
-
-\hspace{1cm}Zdecydowanie do najpopularniejszego BSP na świecie należy zaliczyć \textit{MQ-1 Predator}. Przez amerykańskiego producenta \textit{General Atomics} jest on klasyfikowany jako zdalnie sterowany statek powietrzny. Pierwsze jego wersje nie posiadały na swoim pokładzie żadnych pocisków, ponieważ amerykanie nie byli pewni czy jest to zgodne z obowiązującym układem dotyczącym całkowitej likwidacji pocisków rakietowych średniego zasięgu (ang. \textit{Intemediate-range Nuclear Forces (INF) Traty}). Po wydarzeniach z 11 września 2001 r. została podjęta decyzja o uzbrojeniu Predatorów w pociski i skierowania ich do akcji. Umożliwiło to prowadzenie operacji militarnych bez ponoszenia strat w żołnierzach. Drony te był wykorzystywane w trakcie konfliktów w Afganistanie, Iraku czy Pakistanie. USA na przestrzeni lat 2009-2021 stało się światowym liderem w używaniu dronów bojowych. \cite{dron-ibuk}\cite{predator-wiki} 
+Zdecydowanie do najpopularniejszego BSP na świecie należy zaliczyć, produkowanego przez amerykańskiego producenta, \textit{General Atomics} \textit{MQ-1 Predator}. Pierwsze jego wersje nie posiadały na swoim pokładzie żadnych pocisków, ponieważ rząd USA nie byli pewni czy jest to zgodne z obowiązującym układem dotyczącym całkowitej likwidacji pocisków rakietowych średniego zasięgu (ang. \textit{Intemediate-range Nuclear Forces (INF) Traty}). Jednak wydarzenia z 11 września 2001 r. były impulsem do podjęcia decyzja o uzbrojeniu Predatorów w pociski rakietowe i skierowania ich do akcji. Umożliwiło to prowadzenie operacji militarnych bez ponoszenia strat w żołnierzach. Drony te były wykorzystywane w trakcie konfliktów w Afganistanie, Iraku czy Pakistanie. Na przestrzeni lat 2009-2021 Zjednoczona Ameryka stała się światowym liderem w używaniu dronów bojowych.\cite{dron-ibuk}\cite{predator-wiki} 
 
 
 \begin{figure}[!ht]
@@ -103,14 +101,14 @@ Równolegle w tym samym okresie, a konkretnie w 1935 roku powstał identyczny sa
   \end{figure}
 
 \subsubsection{Drony cywilne}
-\hspace{1cm}Trudno zaprzeczyć stwierdzeniu, że wojna przyczynia się do szybszego rozwoju, bo to właśnie rozwiązania opracowane dla armii przenoszone są często do życia codziennego. Było tak z herbatą ekspresową, jest tak i teraz z bezzałogowymi statkami powietrznym. Tylko ich rola jest inna, za ich pomocą nie prowadzi się działań wojennych, a nagrywa sceny do filmów czy prowadzi transmisje skoków narciarskich z ciekawszej perspektywy. Drony wyposażone w odpowiednie czujniki powietrza służą też do inspekcji przez zarządy miast, czy obywatele nie spalają w swoich piecach śmieci. Obecny rok można wskazywać jako okres największego zainteresowania tą technologią na rynku cywilnym. Początek tego okresu można próbować określać na 2013 r., czyli datę premiery pierwszej wersji bezzałogowego statku powietrznego \textit{Phantom} od obecnie najpopularniejszego producenta dronów konsumenckich \textit{DJI}.   
+Trudno zaprzeczyć stwierdzeniu, że wojna przyczynia się do szybszego rozwoju, bo to właśnie rozwiązania opracowane dla armii przenoszone są często do życia codziennego. Było tak z herbatą ekspresową, jak jest i teraz z bezzałogowymi statkami powietrznym. Zmieniła się tylko ich rola, za ich pomocą nie prowadzi się działań wojennych, a nagrywa sceny do filmów, prowadzi transmisje skoków narciarskich z ciekawszej perspektywy i ratuje ludzi zagubionych w górach. Okolice obecnego roku można wskazywać jako okres największego zainteresowania tą technologią na rynku cywilnym. Początku tego okresu można próbować określać na 2013 r., czyli datę premiery pierwszej wersji, prawdopodobnie najpopularniejszej serii dronów \textit{Phantom} od obecnie najpopularniejszego producenta dronów konsumenckich \textit{DJI}.
 
 \subsubsection{Konfilikt na Ukrainie}
-\hspace{1cm}W kontekście bezzałogowych statków powietrznych nie można pominąć aktualnego konfliktu zbrojnego na Ukrainie. Należy go rozpatrywać w dwóch aspektach: przewagi, która armia ukraińska uzyskuje dzięki tureckim dronom \textit{Bayraktar TB2} i wykorzystaniu dronów konsumenckich od ludności cywilnej do przeprowadzenia rozpoznania powietrznego.
+W kontekście bezzałogowych statków powietrznych nie można pominąć aktualnego konfliktu zbrojnego na Ukrainie. Należy go rozpatrywać w dwóch aspektach: przewagi, która armia ukraińska uzyskuje dzięki tureckim dronom \textit{Bayraktar TB2} i wykorzystaniu dronów konsumenckich od ludności cywilnej do przeprowadzenia rozpoznania powietrznego.
 
-Rząd ukraiński zwrócił się z prośbą do swoich obywateli o przekazanie swoich dronów na potrzeby armii. Są one wykorzystywane do bezpiecznego prowadzenie rozpoznania przez wojska ukraińskie. Dostarczają one obraz na żywo, wraz ze swoimi współrzędnymi geograficznymi, pozwala to budować przewagę informacyjną na polu bitwy, a ten konflikt szczególnie uświadomił, jak ważna jest informacja dzisiaj informacja na polu bitwy.\cite{fotografia-drony-ukraina}
+Rząd ukraiński zwrócił się z prośbą do swoich obywateli o przekazanie swoich dronów na potrzeby armii. Są one wykorzystywane do bezpiecznego prowadzenie rozpoznania przez wojska ukraińskie. Dostarczają one obraz na żywo, wraz ze swoimi współrzędnymi geograficznymi. Pozwala to budować przewagę informacyjną na polu bitwy, a ten konflikt szczególnie uświadomił, jak ważna jest dzisiaj informacja na polu bitwy.\cite{fotografia-drony-ukraina}
 
-Czytając artykuły poświęcone dronom Bayraktar w kontekście konfliktu, można odnieść wrażenie, jakby było to jedyny element budujący ich siłę. Autor nie może się z tym zgodzić, ale nie da się zaprzeczyć, że ich rola jest znacząca. Głównym celem tej maszyny jest prowadzenie rozpoznania, ale mogą być one doposażone w cztery pociski kierowane o zasięgu 8 km. Sam dron jest jedną z tańszych opcji na ryku, bo jego cena wacha się między 2-6 mln dolarów, a drony z najwyższej półki sięgają 100 mln dolarów. Dron o rozpiętości skrzydeł rzędu 12 metrów i 6,5 metra długości może szybować przez 27 godzin lub przelecieć 150 km. Wzbija się na pułap 8200 m i rozwija prędkość do 220 km/h za sprawą silnika \textit{Rotax 912 iS} o mocy 100 koni mechanicznych. \cite{bayraktar-chip}\cite{bayraktar-pap}
+Czytając artykuły poświęcone dronom \textit{Bayraktar TB2} w kontekście konfliktu, można odnieść wrażenie, jakby było to jedyny element budujący ich siłę. Autor nie może się z tym zgodzić, ale nie da się zaprzeczyć, że ich rola jest znacząca. Szczególnie po obejrzeniu licznych nagrań dostępnych w internecie z działań tych samolotów na wojnie. Głównym celem tej maszyny jest jednak prowadzenie rozpoznania, ale mogą być one doposażone w cztery pociski kierowane o zasięgu 8 km. Sam dron jest jedną z tańszych opcji na ryku, bo jego cena wacha się między 2-6 mln dolarów, a drony z najwyższej półki sięgają 100 mln dolarów. Rozpiętość skrzydeł tego drona to 12 metrów, a długość to 6,5 metra, co przekłada się na możliwość szybowania przez 27 godzin lub przelecenia 150 km. W dodatku wzbija się na pułap 8200 m i rozwija prędkość do 220 km/h, a wszytko to za sprawą silnika \textit{Rotax 912 iS} o mocy 100 koni mechanicznych.\cite{bayraktar-chip}\cite{bayraktar-pap}
 
 \begin{figure}[!ht]
   \centering
@@ -159,27 +157,112 @@ Została ona założona w 1984 r. przez Özdemir Bayraktar i pierwotnie dostarcz
 Korporacja ta jest właścicielem \textit{General Atomics Aeronautical Systems}, która produkuje systemy radiowe i bezzałogowe statki powietrzne, w tym rewolucyjnego kiedyś drona wojskowego \textit{Predator}. Seria tych dronów jest nadal rozwijana, a poszczególne konstrukcje są do siebie bardzo zbliżone.\cite{gd-about}\cite{wiki-gaas}
 
 \subsection{Zastosowania BSP}
-\hspace{1cm}Bezpilotowe statki latające znalazły szereg zastosowań, pierwotnie były wykorzystywane głównie w obszarze militarnym, dopiero później dostrzegł w nich potencjał obszar cywilny.
+\hspace{1cm}Bezpilotowe statki latające znalazły szereg zastosowań, pierwotnie były wykorzystywane głównie w obszarze militarnym, dopiero później dostrzeżono w nich potencjał również w środowisku cywilnym. Ponieważ kontekst militarny został już dość szczegółowo przedstawiony, w poniższym tekście bardziej przyjrzano się cywilnym zastosowaniom. 
 
 \subsubsection{Militarne zastosowania BSP}
 \hspace{1cm}Bezałogowe statki powietrzne w kontekście militarnym można dokonać podziąłu na następujące kategorie: 
 \begin{itemize}
-  \item \textbf{operacyjno-rozpoznawcze}: BSP umożliwiające, rozpoznawanie oraz śledzenie obiektu/celu, a także monitorowanie i kontrole obszaru zainteresowania, np. granic lub strefy przybrzeżnej. Przykładem takieg dronu jest Lockheed Martin RQ-170 Sentinel;
-  \item \textbf{bojowe}: BSP przenoszącce i używające środki bojowe/ środki rażenia np. Bayraktar TB2;
-  \item \textbf{amunicja krążąca}: BSP umożliwijące wykrywanie, rozpoznanie oraz atak na wyznaczony cel poprzez autodestrukcje np. WB Electronics Warmate;
-  \item \textbf{wsparcia}: BSP umożliwiające ewakuacje lub dostawe amunicji, wyposażenia, środków medycznych i żywności do wysuniętych stanowisk wojsk własnych. np. Kaman KARGO UAV  \cite{konkurs-mon}
+  \item \textbf{operacyjno-rozpoznawcze}: BSP umożliwiające, rozpoznawanie oraz śledzenie obiektu/celu, a także monitorowanie i kontrole obszaru zainteresowania, np. granic lub strefy przybrzeżnej. Przykładem takieg dronu jest \textit{Lockheed Martin RQ-170 Sentinel};
+  \item \textbf{bojowe}: BSP przenoszącce i używające środki bojowe/ środki rażenia np. \textit{Bayraktar TB2};
+  \item \textbf{amunicja krążąca}: BSP umożliwijące wykrywanie, rozpoznanie oraz atak na wyznaczony cel poprzez autodestrukcje np. \textit{WB Electronics Warmate};
+  \item \textbf{wsparcia}: BSP umożliwiające ewakuacje lub dostawe amunicji, wyposażenia, środków medycznych i żywności do wysuniętych stanowisk wojsk własnych. np. \textit{Kaman KARGO UAV} \cite{konkurs-mon}
 \end{itemize}
 
-\subsubsection{Rolnictwo}
-\subsubsection{Transport towarów i osób}
-\subsubsection{Kinematografia i transmisje sportowe}
-\subsubsection{Ratownictwo}
+\subsubsection{Cywilne zastosowania BSP}
+\hspace{1cm}Wymienienie wszystkich cywilnych rozwiązańjest trudne, ponieważ rynek ten znajduje co chiwle kolejne zastosowania dronów. Ponieżej przedstawiono tylko pare najciekwszych rozwiązań.
 
-\hspace{1cm} http://han.wat.edu.pl/han/ibuk/https/libra.ibuk.pl/reader/drony-wprowadzenie-technologie-zastosowania-sarah-e-kreps-203891
+\myparagraph{Transport medyczny}
 
-\hspace{1cm}text
+\hspace{1cm}W czerwcu 2022 r. Polska Agencja Żeglugi Powietrznej wydała zgode na wykonowyanie regularnych długodystansowych BSP. Realizować będzie je firma transportowa na rzecz systemu opieki zdrowotnej. Połączenie obejmuje trase między WArszawa a Pułtuskiem i między Warszawą a Sochaczewem. Przewidywana częstotliwość lotów to 6-7 w tą i z powrotem w ciągu dnia. Obie te trasy mają długośc 60km i odbywają sie na wysokości 100m. Samolot posiada systemy wizyjne, które będą korygwały lot w przypadku wystąpienia przeszkód na jego trasie przelotu.\cite{pansa-lot-medyczny}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=10cm]{./Obrazy/Farada_G1.jpg}
+  \caption{Samoot Farada G1 za pomocą którego będzie obywał sie transport medyczny w okolicach Warszawy}
+  \source{\myurl{https://www.pansa.pl/wp-content/uploads/2022/02/IMG-20220213-WA0001-1024x577.jpg}}
+  \end{figure}
+
+\myparagraph{Ratownictwo}
+
+\hspace{1cm}Drony powietrzne pomagają również w ratowniu ludzkiego życia, szczególnie w górach. W styczniu 2022 r. ze względu na trudne warunki atmosferyczne nie ratownicy TOPR nie mogli udzielić pomcy dwóm turystą którzy nie byli w stanie zejść z góry. Za pomocą drona dostarczono im koce i ogrzewacze co pozwoliło im przetrwać noc, a kolejnego dnia gdy pogoda sie poprawiła ratownicy dotarli do poszkodawancych i ich sprowadzili w bezpieczny sposob. \cite{topr-dron}
+
+Nie tylko w Polsce można znaleźć przykłady użycia drona do ratowania życia, a również w Ameryce, a konkretnie w Północnej Kaliforni. Właśnie tam, w lesie, zgubił sie młody myśliwy. Służby za pomocą drona zlokalizowali jego lokalizacje a następnie wysłali tam ludzi, który z pomocą drona wyprowadzili zagubionego.\cite{bbc-drone-rescue} 
+
+
+Są cztery powody dla którego BSP dobrze odnajdują sie w ratownictwie:
+\begin{itemize}
+  \item \textbf{Czas reakcji} - Drony są opcją bardzo szybkiego reagowania, czas potrzebny na przygotowania do startu jest minimalny;
+  \item \textbf{Szybkie przeszukiwania} - Drony mogą przeszukac trudny teren w dużo szybszym czasie nie pieszo człowiek;
+  \item \textbf{Komunikacja} - Za pomocą głosnika i mikrofonu statki powietrzne mogą koumunikować sie z poszkodowanymi;
+  \item \textbf{Lokalizacja} - Wiekszość współczesnych dronów jest w stanie przekazywać na żywo do operatora swoją aktualną lokalzacje, co w przypadku ratowania i poszukiwania osób może znacznie minimalizować czas poszukiwania i ewakuacji. \cite{snowbrains-drone}
+\end{itemize}
+
+\myparagraph{Kinematografia i produkcja filmowa}
+
+Drony zrewoucjonizowały Kinematografia i produkcje firmowa dostarczając nowe, często nawet tańsze narzędzia. Obecnie aby nagrać ujęcia z lotu ptaka nia ma potrzeby wynajmowania helikoptera czy dźwigu. Nagrania za pomocą BSP są często nawet lepsze od tych z helikopter ponieważ lot jest dużo bardziej stabilny, a kamera jest często wyposażona w 3-osiową stabilizacje. 
+
+Jednym z pierwszych filmów które przywoływane są jako przykład dobrego wykorzystania dronów jest \textit{Skyfall} z 2012 r., a konkretnie scena pościgu motorem przez Jamsa Bonda złoczyńców po dachach w Istambule. BSP dały kinematografii wyjątkową przewagę nad tradycyjnymi metodami filmowania. Mają większy zasięg niż żuraw i są też bardziej zwinne niż heliktopter. Reżyserzy dzięki tmeu moga wykinwyać bardzije ryzykowne, prawdziwie akrobatyczne ujęcia, które gdyby nie drony musiały by być tworzone na komputerze. Bezpiltowe statki powietrzne są w dodatku tańsze w zakupie i utrzymaniu niż np. helikotpery. \cite{washingtonpost-drone-movie}
+
+
+Przykładem gdzie wcześniej nie było możliwe nagrywanie ujęc filmowych są erupcje wulkanów, ponieważ takie loty wiązały sie z dużym niebezpieczeństwem. Ponieważ dorny są dużo tańsze i nie posiadają na swoim pokładzie załogi, operatorzy mogą pokusić sie o takie ryzyko. Nagranie takie wykonał znnay youtuber Joey Helms, który postanowił uwiecznić z bliska rzeke lawy wyrzucaną przez wulkan Fagradalsfjall na Islandii. W trakcie nagrywania erupcja lewy w pewnym momencie sięgneła jego statku. Youtuber bezpowrotnie stracił swój statek, ale ujęcie która zostało zachowane jest bardzo emocjonujące, więc prawdpodobnie było to wart swojej ceny.\cite{dron-lawa-pogoda}
+
+
+\myparagraph{Transport towarów}
+
+W 2013 r. Jeff Bezos ogłosił konepcje, która miała zrewocjunolizować trasnport towarów. Autnomiczne drony powietrzne miały dostarczać paczki Amazonu w 30 minut na podwórko odbiorcy. Mogły one zaoferować konsumentom dostawę żywności, leków czy innych lżejszych przedmiotów, bez spalania paliw kopalnianych i czekania. Niestety jednemu z najbogatszych ludzi na świecie nie udało sie tego osiągnąć, podcza gdy firma \textit{Zipline} miała dostarczać leki w Rwandzie, a projekt Google \textit{Wing} burito głodnym studentom. Na świecie istnieje duża presje na wprowadzenie takiego rozwiązanie, m.in. koszty transportu towaru miedzy centrum dystrybucji a klientem to 40\% całkowitego kosztu, a klienci oczkują szybkiej, tanij i ekologicznej dostawy.   
+
+W 2021 r. Amazon zwolnił większość procwników odpowiedzialnych za rozwój wspominanego projektu, uzasadnił to błedem w zarządzaniu i panującym chaosem. W tym samym roku DHL również ogłosił zakończenie swojego identycznego proejkty. Było to 8 lat po tym gdy ich dron wzbił sie pierwszy raz w powitrze.
+
+Jest pare czynników które mogły wpłynąć na wstrzymanie masowych dostaw towarów np. ograniczenie stref lotów BSP. Osoby zarządzające państwami i miastami na bierząco wprowadzaja prawo które ma zapewnić bezpieczeństwo, dlatego powstały strefy wyłączone dla dronów. Są to najcześciej okolice lotnisk i jednostek wojskowych. Takie strefy mocno ograniczają dostawy towarów dronami. \cite{drone-transport}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=16cm]{./Obrazy/no2.png}
+  \caption{\textit{No drone zone} okolicach Warszawy}
+  \source{\myurl{https://www.dji.com/pl/flysafe/geo-map}}
+  \end{figure}
+
+
+Taki transport jest jednak nadal możliwy, ale nie na masową skale. W Sosnowcu od 2021 r. realizowany jest porjekt w którym drony będą świadczyły usługi transportu, w tym pilnych przesyłek medycznych. Odbiór i nadawanie będzie odbywało sie w stacjach dokującyh, które będą autmotycznie łądowały i zdejmowały ładunek z drona. Można w przyszłości spodziewać sie więcej podobnych rozwiązań.\cite{sosnowiec-drone}
+
+
 \subsection{Dostosowywanie drona do wymagań użytkownika}
-\hspace{1cm}text
+\hspace{1cm}Na rynku znajduje się bardzo dużo dostępnych kompontentów z których można budować własne drony powiterze, przedwszystkim kontrolery lotu, np. \textit{pixhawk}, na którym można zainstalować otwarte oprogramowanie \textit{ArduPilot}. Zdejmuje to z konstruktora koniecznośc impelemntacji własnej logiki zachowania silników w trakcie lotu. Przykładowy zestaw elementów potrzenych do zbudowania własnego drona to:
+\begin{itemize}
+  \setlength\itemsep{1mm} %TODO
+  \item rama,
+  \item silnik,
+  \item elektorniczny kontroler prędkości,
+  \item śmigła,
+  \item załącza,
+  \item rozdzielnia zasilająca,
+  \item baterie,
+  \item monitoring baterii,
+  \item mata montażowa,
+  \item kontroler,
+  \item odbironik RC,
+  \item kamera,
+  \item pendrive.\cite{how-to-build-drone}
+\end{itemize}
+
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=12cm]{./Obrazy/pixhawk.png}
+  \caption{Kontroler Pixhawk}
+  \source{\myurl{https://ardupilot.org/plane/_images/Pixhawk_with_legend.jpg}}
+  \end{figure}
+
+
+Budowa własnego drona jest jak najbardziej możliwa, bez wymagania specjalistycznej wiedzy, ale nadal to potrzeba na to dużo zasobów, przedewszystkim czasu, daltego warto przyjrzeć się rozwiązanią dostarczanym przez producentów dronów.   
+
+Bezzałogowe statki powietrzne znalazły szereg zastosowań, ale warto przyjeżeć sie czy i jak bardzo można dostosować dostarczane od najwiekszych producentów BSP. Firma DJI udostępnia do swoich produktów SDK, czyli biblioteke za pomocą której można dostosować logike działania naszego drona. Dodatkowo producent dla wybranych statków przygotował szereg rozszerzeń które pomogą dostosować działanie do naszych wymagań. Przykładowo dla \textit{Mavic 2 Enterprise Advaced} dostępne są:
+\begin{itemize}
+  \item \textbf{głośnik} - który umożliwia komunikacje z drona, np. w czasie sytuacji alarmowych do ludności znajdującej sie na ziemi
+  \item \textbf{dodatkowe oświetlenie} - w przypadku wystąpinie niekorzystanych warunków atmosferycznych lub lotów w nocy
+  \item \textbf{moduł RTK} - który umożliwia osiągnięcie dokładności lokalizacji na poziomie jednego centrymetra
+\end{itemize} 
+Dodatkowo dla innych modeli dostępne są wyspecjalizowane kamery np. do skanu obiektów w 3D czy podglądu w podczerwieni
 
 \newpage 
 \section{Przegląd i prezentacja technologii mobilnych z uwzględnieniem aspektów tworzenia aplikacji i komunikacji M2M}
@@ -354,7 +437,6 @@ transmisji można było wybrać tylko przed startem bezzałogowego statku powiet
   \source{\myurl{https://store.dji.com}}
   \end{figure}
   
-
 
 \hspace{1cm}Wersja 2.0 wprowadziła dalsze ulepszenia, m.in. kontorlowanie dronów na jeszcze większe dystanse i z jeszcze mniejszymi opóźnieniami, a także kompatybilność wsteczną po aktualizacji oprogramowania.
 
@@ -674,6 +756,47 @@ Things (NB-IoT) for Delay-tolerant Services, IEEE, 2019}
 \bibTitle{General Dynamics: Our history},
 \myurl{https://www.gd.com/about-gd/our-history} [dostęp: 26-04-2022];
 
+\bibitem{pansa-lot-medyczny}
+\bibTitle{PANSA: Ruszają regularne loty transportowe BSP},
+\myurl{https://www.pansa.pl/ruszaja-regularne-loty-transportowe-bsp/} [dostęp: 28-04-2022];
+
+\bibitem{topr-dron}
+\bibTitle{Akcja TOPR dron dostarczył koce i ogrzewacze},
+\myurl{http://www.swiatdronow.pl/akcja-topr-dron-dostarczyl-koce-i-ogrzewacze/} [dostęp: 28-04-2022];
+
+\bibitem{snowbrains-drone}
+\bibTitle{Drones to the Rescue? How Drones are Changing the Landscape of High Mountain Rescue Efforts},
+\myurl{https://snowbrains.com/drones-to-the-rescue-how-drones-are-changing-the-landscape-of-high-mountain-rescue-efforts/} [dostęp: 29-04-2022];
+
+\bibitem{bbc-drone-rescue}
+\bibTitle{Drones guide rescuers to hunter lost in North Carolina woods, officials say},
+\myurl{https://www.newsobserver.com/news/state/north-carolina/article260714992.html/} [dostęp: 29-04-2022]; 
+
+\bibitem{dron-lawa-pogoda}
+\bibTitle{Wleciał dronem do wnętrza wulkanu na Islandii. Ostatnie sekundy nagrania jeżą włosy na głowie [WIDEO]},
+\myurl{https://www.twojapogoda.pl/wiadomosc/2021-06-02/wlecial-dronem-do-wnetrza-wulkanu-na-islandii-ostatnie-sekundy-nagrania-jeza-wlosy-na-glowie-wideo/} [dostęp: 29-04-2022]; 
+
+\bibitem{washingtonpost-drone-movie}
+\bibTitle{It’s a bird! It’s a plane! It’s a drone that makes movies!},
+\myurl{https://www.washingtonpost.com/news/the-switch/wp/2013/08/15/its-a-bird-its-a-plane-its-a-drone-that-makes-movies/} [dostęp: 29-04-2022]; 
+
+\bibitem{how-to-build-drone}
+\bibTitle{How to Build a Drone: Construct Your Drone from Scratch},
+\myurl{https://www.mydronelab.com/blog/how-to-build-a-drone.html} [dostęp: 29-04-2022]; 
+
+\bibitem{drone-transport}
+\bibTitle{Drone Delivery Was Supposed to be the Future. What Went Wrong?},
+\myurl{https://www.youtube.com/watch?v=J-M98KLgaUU} [dostęp: 29-04-2022]; 
+
+
+
+\bibitem{sosnowiec-drone}
+\bibTitle{Drony przetransportują sprzęt medyczny nad Sosnowcem. Przed nami spotkanie z mieszkańcami},
+\myurl{https://sosnowiec.naszemiasto.pl/drony-przetransportuja-sprzet-medyczny-nad-sosnowcem-przed/ar/c1-8493233} [dostęp: 29-04-2022]; 
+
+
+
+ 
 
 \end{thebibliography}
 
