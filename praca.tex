@@ -68,14 +68,14 @@ Po zdefiniowaniu czym jest dron, można się zastanowić, co było pierwszym ele
 \subsubsection{Pierwszy pełnoprawny dron}
 Podczas I wojny światowej podjęto liczne próby skonstruowania bezpilotowych statków latających, ale żaden z nich nie został ukończony przed skończeniem wojny. Przykładowo \textit{Kettering Bug}, był w stanie dolecieć na odpowiednią odległość, ale jego sterowanie polegało na wyliczeniu przez operatora dokładną liczbę obrotów silnika. Mając to na uwadze, takiemu samolotowi bliżej do torpedy niż do drona. 
 
-W 1931 r. Królewskie Siły Powietrzne (ang. Royal Air Force) na podstawie samolotu szkolnego \textit{De Havilland DH-60T ”Tiger Moth”} opracowywały pierwszy bezpilotowy statek powietrzny \textit{DH-82B "Queen Bee"}.  Samolot ten, sterowany przez pilota za pomocą fal radiowych, miał służyć jako ruchomy cel do ćwiczeń dla obsługi dział przeciw lotniczych. Jego oficjalna prezentacja została jednak przerwana, ponieważ ówczesne systemy obrony powietrznej były tak mało skuteczne, że strzelającym skończyła się amunicja, zanim zestrzelili oni bezpilotowy samolot. Obiekt ten też spełnia wszystkie wymagania określone wcześniej przez autora, więc uznaje on go za pierwszego drona.
-
-\begin{figure}[!ht]
+\begin{figure}[ht!]
   \centering
   \includegraphics[width=10cm]{./Obrazy/queen-bee.jpg}
   \caption{\textit{De Havilland Queen Bee} i premier Wielkiej Brytanii Winston Churchill}
   \source{\myurl{https://www.iwm.org.uk/collections/item/object/205195356}}
   \end{figure}
+
+W 1931 r. Królewskie Siły Powietrzne (ang. Royal Air Force) na podstawie samolotu szkolnego \textit{De Havilland DH-60T ”Tiger Moth”} opracowywały pierwszy bezpilotowy statek powietrzny \textit{DH-82B "Queen Bee"}.  Samolot ten, sterowany przez pilota za pomocą fal radiowych, miał służyć jako ruchomy cel do ćwiczeń dla obsługi dział przeciw lotniczych. Jego oficjalna prezentacja została jednak przerwana, ponieważ ówczesne systemy obrony powietrznej były tak mało skuteczne, że strzelającym skończyła się amunicja, zanim zestrzelili oni bezpilotowy samolot. Obiekt ten też spełnia wszystkie wymagania określone wcześniej przez autora, więc uznaje on go za pierwszego drona.
 
 Równolegle w tym samym okresie, a konkretnie w 1935 r. powstał identyczny samolot dla amerykańskich odbiorców, \textit{Radioplane OQ-2}. Powstał on jako pierwotnie jako bezzałogowiec, a nie przez modyfikacje tak jak dron brytyjski, więc jego budowa bardziej odstawała od klasycznych samolotów.\cite{queen-bee}\cite{dron-ibuk}
 
@@ -210,7 +210,7 @@ Jest parę czynników, które mogły wpłynąć na wstrzymanie masowych dostaw t
 Mimo wszystko taki transport jest jednak nadal możliwy, ale nie na masową skalę. W Sosnowcu od 2021 r. realizowany jest projekt, w którym drony będą świadczyły usługi transportu m.in. pilnych przesyłek medycznych. Odbiór i nadawanie będzie odbywało się w stacjach dokujących, które będą automatycznie ładowały i zdejmowały ładunek z drona. Wykorzystanie takich punktów umożliwia ustawienie stałej trasy lotów, co zdejmuje duża część odpowiedzialności z uczestników projektu, dlatego też w przyszłości można spodziewać się większej ilości tego typu rozwiązań.\cite{sosnowiec-drone}
 
 
-\subsection{Dostosowywanie drona do wymagań użytkownika}
+\subsection{Dostosowywanie BSP do wymagań użytkownika}
 Na rynku znajduje się duża ilość dostępnych komponentów, z których można łatwo zbudować własne bezzałogowe statki powietrzne. Najwięcej odpowiedzialności z konstruktora zdejmują gotowe kontrolery lotu, np. \textit{pixhawk}, na którym można zainstalować otwarte oprogramowanie \textit{ArduPilot}. Pozwala to zachować duża ilość zasobów, bo cała logika lotu jest praktycznie \textit{out-of-the-box} Przykładowy zestaw elementów potrzebnych do zbudowania własnego drona to::
 \begin{itemize}
   \setlength\itemsep{1mm} %TODO
@@ -246,19 +246,19 @@ Dodatkowo dla innych modeli dostępne są wyspecjalizowane kamery np. do skanu o
 
 \newpage 
 \section{Przegląd i prezentacja technologii mobilnych z uwzględnieniem aspektów tworzenia aplikacji i komunikacji M2M}
-W tym rozdziale przedstawiono technologie komunikacji bezprzewodowej wykorzystywane w komunikacji M2M, ze szczególnym uwzględnieniem komunikacji pomiędzy bezzałogowym statkiem powietrznym, a kontrolerem. Analizę wykorzystywanych rodzajów komunikacji dokonano na podstawie oferty najpopularniejszego producenta dronów konsumenckich DJI.
+W tym zdefiniowano cel i wymagania stawiane technologią M2M. Następnie przedstaw przedstawiono przykładowe technologie ze szczególnym uwzględnieniem komunikacji pomiędzy bezzałogowym statkiem powietrznym a kontrolerem. Rozdział zakończono analizą interfejsu API umożliwiającego kontrolowanie drona.
 
 \subsection{Komunikacja M2M}
-Komunikacja M2M (machine-to-machine) służy do definiowania technologi, która umożliwia wymianę informacje pomiędzy urządzeniami w sieci bez jakikolwiek ingerencji ludzi. Obiekty pracujące w tej sieci charakteryzują się mniejszą lub większą autonomia. Uzyskiwana jest ona za pomocą sztucznej inteligenci i modeli uczenia maszynowego. Ta komunikacja jest podstawą istnienia IoT.\cite{m2m-web}
+Komunikacja M2M (machine-to-machine) to kategoria technologii, która umożliwia wymianę informacje pomiędzy urządzeniami w sieci bez jakikolwiek ingerencji ludzi. Obiekty pracujące w tej sieci charakteryzują się mniejszą lub większą autonomią. Wspierana jest ona często szeroko pojętą sztuczną inteligencją, ze szczególnym uwzględnieniem technik uczenia maszynowego. Ta komunikacja jest podstawą istnienia IoT.\cite{m2m-web}
 
 \subsubsection{Cel}
-Głównym celem M2M jest przenoszenia danych z sensorów do sieci, ale w porównaniu do innych technologi, które umożliwiają monitorowanie zasobów, korzysta ona często z dostępnych publicznie interfejsów np. sieci GSM. Takie rozwiązanie przyczynia się do redukcji kosztów utrzymania całego systemu. Jest on zbudowany z następujących elementów:
+Głównym celem M2M jest autonomiczna komunikacji pomiędzy maszynami, a jej obecnie najczęstszym zastosowaniem jest przenoszenie danych z sensorów do sieci. Obecnie operatorzy coraz częściej rozbudowują swoją infrastrukturę o węzły zgodnie z tą kategorią technologii. Dzięki temu koszty utrzymania całego systemu są znacznie zredukowane. Składają się na niego następujące elementy:
 \begin{itemize}
-  \item łącze do przesyłu danych, np. WiFi, GSM, RFID
+  \item łącze do przesyłu danych, np. WiFi, GSM
   \item sensory, np. czujnik temperatury, kamera
-  \item oprogramowanie, które umożliwia podejmowanie zautomatyzowanych decyzji
+  \item oprogramowanie, które automatyzuje procesy komunikacyjne, np. przeszukiwanie ścieżki routingu
 \end{itemize}
-Celem telemetrii jest automatyczny pomiar wybranej wielkości. Wartość pomiaru jest przesyłana do miejsca, zwykle odległego, w którym jest dalej przetwarzana. Na początku do tego celu były wykorzystywane linie telefoniczne, a następnie radiowe. Rozwój technologii, a w tym łączności bezprzewodowej sprawił, że poszerzyła się rola wykorzystywania telemetrii w nauce, inżynierii i produkcji. Dzisiaj jest ona używana także w życiu codziennym, w jednostkach grzewczych, miernikach elektrycznych i wszelkich urządzeń podłączonych do internetu. Jej rozwój jest ściśle powiązany z komunikacją M2M.\cite{m2m-web}
+Celem telemetrii jest automatyczny pomiar wielkości fizycznej przez odpowiednie sensory. Wartość pomiaru jest przesyłana do miejsca, zwykle odległego, w którym jest dalej przetwarzana. Na początku do tego celu były wykorzystywane linie telefoniczne, a następnie radiowe. Rozwój technologii, a w tym łączności bezprzewodowej sprawił, że poszerzyła się rola wykorzystywania telemetrii w nauce, inżynierii i produkcji. Dzisiaj jest ona używana także w życiu codziennym, w jednostkach grzewczych, miernikach elektrycznych i wszelkich urządzeń podłączonych do internetu. Jej rozwój jest ściśle powiązany z komunikacją M2M.\cite{m2m-web}
 
 \subsubsection{Wymagania}
 Według Europejskiego Instytutu Norm Telekomunikacyjnych (ETSI) komunikacja M2M musi spełniać następujące wymagania:
@@ -307,7 +307,7 @@ odległościach. Na krótkie dystanse lepiej pasują do tego takie protokoły ja
   \item długodystansowość;
   \item dwukierunkowość;
   \item wysoką pojemność węzłów w sieci;
-  \item długość życia na baterii; TODO
+  \item długość życia na baterii;
   \item odporność interfejsów;
   \item bezpieczeństwo i efektywność sieci. \cite{LoRa-article}
 \end{itemize}
@@ -376,15 +376,20 @@ W swojej ofercie DJI ma również dostępnego drona \textit{DJI Mini SE}, który
 WiFi jest także bardzo podatne na wszelkie zakłócenia, wynikające z ukształtowania terenu czy zaszumienia sieci pochodzącego z istniejących sieci domowych. Wyprodukowanie drona w tej technolgi jest najtańszą dostępną opcją, która umożliwia transmisje obrazu, jednak należy pamiętać, aby nie stawiać jej przy tym za dużych wymagań. Stanowi ono dobry punkt startowy w komunikacji bezprzewodowej bezzałogowych statków powietrznych.
 
 \subsubsection{Lightbridge} TODO
-Lightbridge to technologia od DJI, która doczekała się jej dwóch wydań. Pierwszych wzmianek o niej można doszukiwać się w 2014 roku. \cite{lightbridge-dji}, a drugiego wydania już w 2015 roku\cite{lightbridge2-dji}. Obecnie nie jest już rozwijana, a producent skupił się na rozwoju jego drugiej technologi: OcuSync.
 
-Technologie prezentowane przez DJI mają parę cech zbliżające je do WiFi, przede wszystkim transmisja ta odbywa, gdyż odbywa się ona na tej samej częstotliwości: 2,4GHz. Była ona kierowana głównie do dronów z wyższego pułapu cenowego, dlatego że jej produkcja była bardzo kosztowna, a koszt wynikał z tego, że producent opracował to rozwiązanie na swoim autorskim układzie scalonym i oprogramowaniu. Wskutek czego pozwoliło to osiągnąć duże lepsze wyniki niż transmisja po WiFi. Zasięg lotu według producenta to odległość do 5km.
+Lightbridge to technologia od DJI, która doczekała się jej dwóch wydań. Pierwszych wzmianek o niej można doszukiwać się w 2014 r., a drugiego wydania już w 2015 roku. Jest ona zbliżona do technologii WiFi, przede wszystkim transmisja ta odbywa się na tej samej częstotliwości 2,4GHz.
+
+
+Była ona kierowana głównie do dronów z wyższego pułapu cenowego, dlatego że jej produkcja była bardzo kosztowna, a koszt wynikał z tego, że producent opracował to rozwiązanie na swoim autorskim układzie scalonym i oprogramowaniu. Umożliwiło to osiągnąć duże lepsze wyniki niż transmisja po WiFi. Zasięg lotu według producenta to odległość do 5 km.
+
+
+Obecnie Lightbridge nie jest już rozwijany, a producent skupił się na jego następniku, technologi OcuSync. \cite{lightbridge-dji}\cite{lightbridge2-dji}
 
 \subsubsection{OcuSync} 
-OcuSync został po raz pierwszy zademonstrowany przez producenta wraz z wydaniem drona \emph{Mavic Mini Pro}. Pierwsze wydanie tej technologi pozwalało na transmisje do 7km na częstotliwości 2,4GHz. Obraz mógł być przesyłany w rozdzielczości 720p i 1080p. Jakość fullHD była dostępna tylko na krótszych odległościach, gdy dystans się zwiększał, a dostępna prędkość transmisji spadała, dron przechodził automatycznie na transmisje w 720p. Opóźnienie było rzędu 160-170ms. A największą cechą wyróżniającą tę technologię była możliwość podłączenia jednocześnie dwóch kontrolerów i do 4 urządzeń odbiorczych.
+OcuSync został po raz pierwszy zademonstrowany przez producenta wraz z wydaniem drona \emph{Mavic Mini Pro}. Pierwsze wydanie tej technologi pozwalało na transmisje do 7 km na częstotliwości 2,4 GHz. Obraz mógł być przesyłany w rozdzielczości 720p i 1080p. Jakość fullHD była dostępna tylko na krótszych odległościach. Na większych dystansach gdy dostępna prędkość transmisji spadała, dron przechodził automatycznie na transmisje w 720 p. Opóźnienie było rzędu 160-170ms. A największą cechą wyróżniającą tę technologię była możliwość podłączenia jednocześnie dwóch kontrolerów i do 4 urządzeń odbiorczych.
 
-Kolejnym krokiem było wydane kolejnej wersji oznaczonej jako OcuSync 1.5, w której dodano transmisję również na częstotliwości 5Ghz. Zmniejszono także opóźnienia w transmisji. Dodatkowo technologia umożliwiał automatyczną zmianę kanałów komunikacyjnych w trakcie lotu na te najmniej obciążone. W pierwszej wersji kanał 
-transmisji można było wybrać tylko przed startem bezzałogowego statku powietrznego.
+Kolejnym krokiem było wydane wersji oznaczonej jako OcuSync 1.5, w której dodano transmisję również na częstotliwości 5 Ghz. Zmniejszono także opóźnienia w transmisji. Dodatkowo technologia umożliwiał automatyczną zmianę kanałów komunikacyjnych w trakcie lotu na te najmniej obciążone. W pierwszej wersji kanał
+transmisji można było wybrać tylko przed startem bezzałogowego statku powietrznego.\cite{ocusync-yt}
 
 
 \begin{figure}[!ht]
@@ -402,9 +407,9 @@ transmisji można było wybrać tylko przed startem bezzałogowego statku powiet
   \source{\myurl{https://store.dji.com}}
   \end{figure}
 
-Wraz z wydaniem nowej wersji zaprezentowano gogle DJI przeznaczone do transmisji obrazu w trybie FPV (ang. first person view, widok pierwszo-osobowy) i również OcuSync Aircraft System, czyli zintegrowanego systemu umożliwiającego sterowanie i transmisji obrazu z wykorzystaniem tej technologi w dronach i pojazdach DIY.
+Wraz z wydaniem nowej wersji zaprezentowano \textit{gogle DJI} przeznaczone do transmisji obrazu w trybie FPV (ang. first person view, widok pierwszo-osobowy) i również \textit{OcuSync Aircraft System}, czyli zintegrowanego systemu umożliwiającego sterowanie i transmisji obrazu z wykorzystaniem tej technologi w dronach i pojazdach DIY.
 
-Producent w trakcie swojej historii doprowadził do pewnych nieścisłości, mimo że dron \emph{Phantom 4 pro v 2.0} korzystał teoretycznie z najnowszej wersji OcuSync, ale nie posiadał on możliwości zmiany kanałów transmisji w trakcie lotu, opóźnienie zależało też od tego, czy korzystano z kontrolera dołączonego do zestawu, czy jego droższej, lepiej wyposażonej wersji: \emph{DJI RC Plus}.
+Producent w trakcie swojej historii doprowadził do pewnych nieścisłości. Pomimo że dron \textit{Phantom 4 pro v 2.0} korzystał teoretycznie z najnowszej wersji OcuSync, nie posiadał on możliwości zmiany kanałów transmisji w trakcie lotu, a opóźnienie zależało też od tego, czy korzystano z kontrolera dołączonego do zestawu, czy jego droższej, lepiej wyposażonej wersji: \textit{DJI RC Plus}.
   
 
 \begin{figure}[!ht]
@@ -428,7 +433,7 @@ Wersja 2.0 wprowadziła dalsze ulepszenia, m.in. kontorlowanie dronów na jeszcz
 \newpage
 \subsubsection{FHSS i  OFDM}
 
-Zarówno Lightbridge, jak i OcuSync używają szyfrowanej modulacji OFDM (ang. Orthogonal Frequency-Division Multiplexing, zwielokrotnianie z ortogonalnym podziałem częstotliwości)) dla transmisji obrazu i z formy FHSS (ang. Frequency-Hopping Spread Spectrum) dla transmisji sygnałów sterowania. Kanał dla transmisji obrazu nie zmienia się w trakcie całego lotu, pod warunkiem, że nie następują zakłócenia, albo użytkownik nie ustawi ręcznie innej częstotliwości. Z kolei metoda FHSS "skacze" po częstotliwościach w całym dostępnym widmie, w tym nawet w pasmie przenzaczonym do transmij obrazu.\cite{FHSS-wiki} \cite{OFDM-wiki}
+Zarówno Lightbridge, jak i OcuSync używają szyfrowanej modulacji OFDM (ang. Orthogonal Frequency-Division Multiplexing, zwielokrotnianie z ortogonalnym podziałem częstotliwości)) dla transmisji obrazu i z formy FHSS (ang. Frequency-Hopping Spread Spectrum) dla transmisji sygnałów sterowania. Kanał dla transmisji obrazu nie zmienia się w trakcie całego lotu, pod warunkiem, że nie następują zakłócenia, albo użytkownik nie ustawi ręcznie innej częstotliwości. Z kolei metoda FHSS "skacze" po częstotliwościach w całym dostępnym widmie, w tym nawet w pasmie przeznaczonym do transmisji obrazu.\cite{FHSS-wiki} \cite{OFDM-wiki}
 
 \begin{figure}[!htbp]
 \centering
@@ -449,30 +454,30 @@ Zarówno Lightbridge, jak i OcuSync używają szyfrowanej modulacji OFDM (ang. O
 \centering
 \includegraphics[width=14cm]{./Obrazy/ocusync_vs_lightbridge.png}
 \caption{Porównanie widma OcuSync i Lightbridge}
-\source{\myurl{https://www.youtube.com/watch?v=gfqcSv9sR0A}}
+\source{\myurl{https://www.youtube.com/watch?v=gfqcSv9sR0A}}v
 \end{figure}
 
 \newpage
 
 \subsubsection{Przewaga OcuSync nad Lightbridge}
-OcuSync stało się główną technologią rozwijaną przez DJI, ponieważ wykorzystuje ono istniejące układy scalone przeznaczone do komunikacji WiFi. Producent wytwarza na nie swoje własne oprogramowanie, które możne następnie aktualizować. Lightbridge był ich własnym układem scalonym, którego oprogramowania nie można było aktualizować, w dodatku komunikacji opierała się wyłącznie na paśmie 2,4GHz. Nowe procesory w układach WiFi dzięki coraz większej częstotliwości pracy zapewniły osiąganie tych samych efektów co Lightbridge, bez dodatkowego kosztu wynikającego z produkcji własnego układu scalonego. 
+OcuSync stało się główną technologią rozwijaną przez DJI. Producent wykorzystuje układy scalone przeznaczone do komunikacji WiFi. Wytwarza na nie swoje oprogramowania, która można bez problemu aktualizować. Lightbridge nie miał takiej możliwości, a w dodatku komunikacji opierała się wyłącznie na paśmie 2,4GHz. Nowe procesory w układach WiFi dzięki coraz większej częstotliwości pracy zapewniły osiąganie tych samych efektów, co DJI uzyskiwał za pomocą autorskich układów scalonych, bez dodatkowego kosztu wynikającego z produkcji.
 
-\subsection{Sterowanie dronami za pomocą API dostarczaonego od producenta}
-Przeszukując internet w poszukiwaniu bezzałogowych statków powietrznych umożliwiających ich sterowanie za pomocą API od producenta można napotkać głównie rozwiązania od DJI. Wszystkie pozostałe rozwiązania nie działają na gotowych dronach, a na oprogramowaniu przeznaczonym do wgrania na wybranych jednostkach do sterowania  modelami RC. 
+\subsection{Kontrolowanie BSP za pomocą API dostarczaonego od producenta}
+Przeszukując internet w poszukiwaniu bezzałogowych statków powietrznych umożliwiających ich sterowanie za pomocą API od producenta, można napotkać głównie rozwiązania od DJI. Wszystkie pozostałe rozwiązania nie działają na gotowych dronach, a na oprogramowaniu przeznaczonym do wgrania na wybranych jednostkach do sterowania modelami RC.
 
-Najpopularniszym tego rozwiązaniem jest ArduPilot, czyli pakiet oprogramowania nawigacyjnego działającego w pojezdie wraz z oprogramowaniem sterującym stacją naziemną. 
+Najpopularniejszym tego rozwiązaniem jest ArduPilot, czyli pakiet oprogramowania nawigacyjnego działającego w pojeździe wraz z oprogramowaniem sterującym stacją naziemną.
 
 \subsubsection{DJI SDK}
 DJI dostarcza do swoich produktów następujące interfejsy API:
 \begin{itemize}
   \item \textbf{App Dev.} - interfejsy API przeznaczone do sterowania dronem z poziomu stacji bazowej, kontroler stanowi interfejs pośredniczący między aplikacją wykorzystującą SDK a dronem powietrznym:\begin{enumerate}
     \item \textbf{Mobile SDK} - SDK przeznaczona na platformę iOS i Android. Aplikacja na smartfon za pomocą kabla USB podłączonego do kontrolera statku powietrznego realizuje zaprogramowaną logikę działania.
-    \item \textbf{UX SDK} - Mobile SDK rozszerzony o elementy interfejsu użytkownika, co przyspiesza znacznie proces tworzenia oprogramowania.
+    \item \textbf{UX SDK} - to Mobile SDK rozszerzony o elementy interfejsu użytkownika, co przyspiesza znacznie proces tworzenia oprogramowania.
     \item \textbf{Windows SDK} - SDK umożliwiające wydawanie aplikacji na systemach operacyjnych Windows. 
   \end{enumerate}
-  \item \textbf{Payload Dev.} - interfejsy API przeznaczone do nadawania logiki działania drona na poziomie samego drona, dzięki temu po utracie zasięgu może ona dalej funkcjonować zgodnie z zaprogramowaną logiką. Opcja dostępna dla najdroższych wersji dronów DJI, które można dostosowywać do swoich wymagań za pomocą odpowiednich rozszerzeń, np. kamery termowizyjnej\begin{enumerate}
+  \item \textbf{Payload Dev.} - interfejsy API przeznaczone do nadawania logiki działania drona na poziomie samego drona, dzięki temu po utracie zasięgu może ona dalej funkcjonować. Opcja dostępna dla najdroższych wersji dronów DJI, które można dostosowywać do swoich wymagań za pomocą odpowiednich rozszerzeń, np. kamery termowizyjnej\begin{enumerate}
     \item \textbf{Payload SDK} - zestaw narzędzi programistycznych umożliwiających tworzenie oprogramowania do rozszerzeń, które mogą być montowane na dronach DJI. 
-    \item \textbf{Onboard SDK} - otwarto źródłowa umożliwiająca komunikacje bezpośrednia z wybranymi dronami i kontrolerami za pomocą interfejsu szeregowego.  
+    \item \textbf{Onboard SDK} - otwarto-źródłowe API umożliwiające bezpośrednią komunikację z wybranymi dronami i kontrolerami za pomocą interfejsu szeregowego.
   \end{enumerate}
 \end{itemize}
 
