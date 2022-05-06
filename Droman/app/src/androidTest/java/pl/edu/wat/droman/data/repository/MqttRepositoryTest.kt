@@ -10,7 +10,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import pl.edu.wat.droman.data.datasource.MqttDto
 import pl.edu.wat.droman.data.model.MqttCredentials
-import java.lang.RuntimeException
 import java.util.*
 
 /**
@@ -31,26 +30,56 @@ class MqttRepositoryTest {
 
     @Test
     fun publishExampleData() = runBlocking {
-//        Thread.sleep(3000);
+        //given
         val mqttRepository = MqttRepository(
             context = appContext,
-            mqttCredentials = MqttCredentials("tcp://192.168.1.101","andorid-test","mark","zaq1@WSX")
+            mqttCredentials = MqttCredentials("tcp://192.168.1.101","android-test","mark","zaq1@WSX")
         );
         val message = "message:"+UUID.randomUUID()
+
+        //then
         val res = mqttRepository.publish(MqttDto("/test",message))
+
+        //except
         assertTrue(res.isSuccess)
-        assertEquals(res.getOrThrow().message.toString(),message)
+        assertEquals(message,res.getOrThrow().message.toString())
     }
 
     @Test
     fun publishWithFailureExampleData() = runBlocking {
-//        Thread.sleep(3000);
+        //given
         val mqttRepository = MqttRepository(
             context = appContext,
-            mqttCredentials = MqttCredentials("tcp://192.168.1.13","andorid-test","mark","zaq1@WSX")
+            mqttCredentials = MqttCredentials("tcp://192.168.1.13","android-test","mark","zaq1@WSX")
         );
         val message = "message:"+UUID.randomUUID()
+
+        //then
         val res = mqttRepository.publish(MqttDto("/test",message))
+
+        //except
         assertTrue(res.isFailure)
+    }
+
+    @Test
+    fun publishAndSubscribe() = runBlocking {
+        //given
+        val mqttRepository = MqttRepository(
+            context = appContext,
+            mqttCredentials = MqttCredentials("tcp://192.168.1.101","android-test","mark","zaq1@WSX")
+        );
+        val message = "message:"+UUID.randomUUID()
+
+        //then
+        val subscribeRe = mqttRepository.subscribe("/test")
+        Thread.sleep(2000)
+        val publishRes = mqttRepository.publish(MqttDto("/test",message))
+        Thread.sleep(2000)
+        val receivedMsg = mqttRepository.getData("/test")
+
+        //except
+        assertTrue(subscribeRe.isSuccess)
+        assertTrue(publishRes.isSuccess)
+        assertEquals(message, receivedMsg.value?.toString())
     }
 }

@@ -2,8 +2,9 @@ package pl.edu.wat.droman.data.datasource
 
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
@@ -17,34 +18,19 @@ class MqttClient(
 
     private val waitForResponseTimeout = 10000L
 
-    private val defaultCbClient = object : MqttCallback {
-        override fun messageArrived(topic: String?, message: MqttMessage?) {
-            Log.d(this.javaClass.name, "Receive message: ${message.toString()} from topic: $topic")
-        }
-
-        override fun connectionLost(cause: Throwable?) {
-            Log.d(this.javaClass.name, "Connection lost ${cause.toString()}")
-        }
-
-        override fun deliveryComplete(token: IMqttDeliveryToken?) {
-            Log.d(this.javaClass.name, "Delivery completed")
-        }
-    }
-
-
     suspend fun connect(
         username: String,
         password: String,
+        cbClient: MqttCallback,
         lastWill: MqttDto? = null,
-        keepAliveInterval: Int = 120,
-        cbClient: MqttCallback? = defaultCbClient
-    ) : Result<IMqttToken> = withContext(Dispatchers.IO) {
-        cbClient?.let { it -> mqttClient.setCallback(it) }
+        keepAliveInterval: Int = 120
+    ): Result<IMqttToken> = withContext(Dispatchers.IO) {
 
         val options = MqttConnectOptions()
         options.userName = username
         options.password = password.toCharArray()
         options.keepAliveInterval = keepAliveInterval
+        mqttClient.setCallback(cbClient)
 
         lastWill?.let { it ->
             options.setWill(
@@ -79,47 +65,52 @@ class MqttClient(
     }
 
     suspend fun publish(
-        data: MqttDto,
+        topic: String,
+        payload: ByteArray,
+        qos: Int,
+        retained: Boolean,
     ): Result<IMqttDeliveryToken> = withContext(Dispatchers.IO) {
         try {
             val message = MqttMessage()
-            message.payload = data.msg.toByteArray()
-            message.qos = data.qos
-            message.isRetained = data.retained
-            val token = mqttClient.publish(data.topic, message)
+            message.payload = payload
+            message.qos = qos
+            message.isRetained = retained
+            val token = mqttClient.publish(topic, message)
             token.waitForCompletion(waitForResponseTimeout)
             return@withContext Result.success(token)
-        }
-        catch (e: MqttException) {
+        } catch (e: MqttException) {
             e.printStackTrace()
             return@withContext Result.failure(e)
         }
     }
 
 
-//    fun subscribe(
-//        topic: String,
-//        qos: Int = 1,
-//        cbSubscribe: IMqttActionListener = MqttResultActionListener()
-//    ) {
-//        try {
-//            mqttClient.subscribe(topic, qos, null, cbSubscribe)
-//        } catch (e: MqttException) {
-//            e.printStackTrace()
-//        }
-//    }
-//
-//    fun unsubscribe(
-//        topic: String,
-//        cbUnsubscribe: IMqttActionListener = MqttResultActionListener()
-//    ) {
-//        try {
-//            mqttClient.unsubscribe(topic, null, cbUnsubscribe)
-//        } catch (e: MqttException) {
-//            e.printStackTrace()
-//        }
-//    }
+    suspend fun subscribe(
+        topic: String,
+        qos: Int = 1
+    ): Result<IMqttToken> = withContext(Dispatchers.IO) {
+        try {
+            val token = mqttClient.subscribe(topic, qos)
+            token.waitForCompletion(waitForResponseTimeout)
+            return@withContext Result.success(token)
+        } catch (e: MqttException) {
+            e.printStackTrace()
+            return@withContext Result.failure(e)
+        }
+    }
 
 
+    suspend fun unsubscribe(
+        topic: String
+    ): Result<IMqttToken> = withContext(Dispatchers.IO) {
+        try {
+            val token = mqttClient.unsubscribe(topic)
+            token.waitForCompletion(waitForResponseTimeout)
+            return@withContext Result.success(token)
+        } catch (e: MqttException) {
+            e.printStackTrace()
+            return@withContext Result.failure(e)
+        }
+    }
 
 }
