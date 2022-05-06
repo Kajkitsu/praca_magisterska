@@ -1,7 +1,9 @@
 package pl.edu.wat.droman.data.repository
 
+import android.content.Context
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -19,29 +21,36 @@ import java.util.*
 @RunWith(AndroidJUnit4::class)
 class MqttRepositoryTest {
 
-    private lateinit var mqttRepository: MqttRepository
+    private lateinit var appContext: Context
 
     @Before
-    fun createLogHistory() {
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        mqttRepository = MqttRepository(
+    fun init() {
+        appContext = InstrumentationRegistry.getInstrumentation().targetContext
+
+    }
+
+    @Test
+    fun publishExampleData() = runBlocking {
+//        Thread.sleep(3000);
+        val mqttRepository = MqttRepository(
             context = appContext,
             mqttCredentials = MqttCredentials("tcp://192.168.1.101","andorid-test","mark","zaq1@WSX")
         );
-        Thread.sleep(3000);
+        val message = "message:"+UUID.randomUUID()
+        val res = mqttRepository.publish(MqttDto("/test",message))
+        assertTrue(res.isSuccess)
+        assertEquals(res.getOrThrow().message.toString(),message)
     }
 
     @Test
-    fun connect() {
-
-        assertTrue(mqttRepository.isConnected())
-    }
-
-
-    @Test
-    fun publishExampleData() {
+    fun publishWithFailureExampleData() = runBlocking {
 //        Thread.sleep(3000);
-        mqttRepository.publish(MqttDto("/test","message:"+UUID.randomUUID()))
-        assertTrue(true)
+        val mqttRepository = MqttRepository(
+            context = appContext,
+            mqttCredentials = MqttCredentials("tcp://192.168.1.13","andorid-test","mark","zaq1@WSX")
+        );
+        val message = "message:"+UUID.randomUUID()
+        val res = mqttRepository.publish(MqttDto("/test",message))
+        assertTrue(res.isFailure)
     }
 }

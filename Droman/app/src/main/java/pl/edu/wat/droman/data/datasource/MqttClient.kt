@@ -2,6 +2,9 @@ package pl.edu.wat.droman.data.datasource
 
 import android.content.Context
 import android.util.Log
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
 
@@ -11,15 +14,9 @@ class MqttClient(
     clientID: String = ""
 ) {
     private var mqttClient = MqttAndroidClient(context, serverURI, clientID)
-    private val defaultCbConnect = object : IMqttActionListener {
-        override fun onSuccess(asyncActionToken: IMqttToken?) {
-            Log.d(this.javaClass.name, "(Default) Connection success")
-        }
 
-        override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
-            Log.d(this.javaClass.name, "Connection failure: ${exception.toString()}")
-        }
-    }
+    private val waitForResponseTimeout = 10000L
+
     private val defaultCbClient = object : MqttCallback {
         override fun messageArrived(topic: String?, message: MqttMessage?) {
             Log.d(this.javaClass.name, "Receive message: ${message.toString()} from topic: $topic")
@@ -33,52 +30,15 @@ class MqttClient(
             Log.d(this.javaClass.name, "Delivery completed")
         }
     }
-    private val defaultCbSubscribe = object : IMqttActionListener {
-        override fun onSuccess(asyncActionToken: IMqttToken?) {
-            Log.d(this.javaClass.name, "Subscribed to topic")
-        }
 
-        override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
-            Log.d(this.javaClass.name, "Failed to subscribe topic")
-        }
-    }
-    private val defaultCbUnsubscribe = object : IMqttActionListener {
-        override fun onSuccess(asyncActionToken: IMqttToken?) {
-            Log.d(this.javaClass.name, "Unsubscribed to topic")
-        }
 
-        override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
-            Log.d(this.javaClass.name, "Failed to unsubscribe topic")
-        }
-    }
-    private val defaultCbPublish = object : IMqttActionListener {
-        override fun onSuccess(asyncActionToken: IMqttToken?) {
-            Log.d(this.javaClass.name, "Message published to topic")
-        }
-
-        override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
-            Log.d(this.javaClass.name, "Failed to publish message to topic")
-        }
-    }
-    private val defaultCbDisconnect = object : IMqttActionListener {
-        override fun onSuccess(asyncActionToken: IMqttToken?) {
-            Log.d(this.javaClass.name, "Disconnected")
-        }
-
-        override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
-            Log.d(this.javaClass.name, "Failed to disconnect")
-        }
-    }
-
-    fun connect(
+    suspend fun connect(
         username: String,
         password: String,
-        lastWill: MqttDto?,
+        lastWill: MqttDto? = null,
         keepAliveInterval: Int = 120,
-        cbConnect: IMqttActionListener? = defaultCbConnect,
         cbClient: MqttCallback? = defaultCbClient
-    ) {
-
+    ) : Result<IMqttToken> = withContext(Dispatchers.IO) {
         cbClient?.let { it -> mqttClient.setCallback(it) }
 
         val options = MqttConnectOptions()
@@ -94,10 +54,23 @@ class MqttClient(
         }
 
         try {
-            cbConnect?.let { it -> mqttClient.connect(options, null, it) }
-                ?: run { mqttClient.connect(options, null, defaultCbConnect) }
+            val token = mqttClient.connect(options)
+            token.waitForCompletion(waitForResponseTimeout)
+            return@withContext Result.success(token)
         } catch (e: MqttException) {
             e.printStackTrace()
+            return@withContext Result.failure(e)
+        }
+    }
+
+    suspend fun disconnect(): Result<IMqttToken> = withContext(Dispatchers.IO) {
+        try {
+            val token = mqttClient.disconnect()
+            token.waitForCompletion(waitForResponseTimeout)
+            return@withContext Result.success(token)
+        } catch (e: MqttException) {
+            e.printStackTrace()
+            return@withContext Result.failure(e)
         }
     }
 
@@ -105,49 +78,48 @@ class MqttClient(
         return mqttClient.isConnected
     }
 
-    fun subscribe(
-        topic: String,
-        qos: Int = 1,
-        cbSubscribe: IMqttActionListener = defaultCbSubscribe
-    ) {
-        try {
-            mqttClient.subscribe(topic, qos, null, cbSubscribe)
-        } catch (e: MqttException) {
-            e.printStackTrace()
-        }
-    }
-
-    fun unsubscribe(
-        topic: String,
-        cbUnsubscribe: IMqttActionListener = defaultCbUnsubscribe
-    ) {
-        try {
-            mqttClient.unsubscribe(topic, null, cbUnsubscribe)
-        } catch (e: MqttException) {
-            e.printStackTrace()
-        }
-    }
-
-    fun publish(
+    suspend fun publish(
         data: MqttDto,
-        cbPublish: IMqttActionListener = defaultCbPublish
-    ) {
+    ): Result<IMqttDeliveryToken> = withContext(Dispatchers.IO) {
         try {
             val message = MqttMessage()
             message.payload = data.msg.toByteArray()
             message.qos = data.qos
             message.isRetained = data.retained
-            mqttClient.publish(data.topic, message, null, cbPublish)
-        } catch (e: MqttException) {
+            val token = mqttClient.publish(data.topic, message)
+            token.waitForCompletion(waitForResponseTimeout)
+            return@withContext Result.success(token)
+        }
+        catch (e: MqttException) {
             e.printStackTrace()
+            return@withContext Result.failure(e)
         }
     }
 
-    fun disconnect(cbDisconnect: IMqttActionListener = defaultCbDisconnect) {
-        try {
-            mqttClient.disconnect(null, cbDisconnect)
-        } catch (e: MqttException) {
-            e.printStackTrace()
-        }
-    }
+
+//    fun subscribe(
+//        topic: String,
+//        qos: Int = 1,
+//        cbSubscribe: IMqttActionListener = MqttResultActionListener()
+//    ) {
+//        try {
+//            mqttClient.subscribe(topic, qos, null, cbSubscribe)
+//        } catch (e: MqttException) {
+//            e.printStackTrace()
+//        }
+//    }
+//
+//    fun unsubscribe(
+//        topic: String,
+//        cbUnsubscribe: IMqttActionListener = MqttResultActionListener()
+//    ) {
+//        try {
+//            mqttClient.unsubscribe(topic, null, cbUnsubscribe)
+//        } catch (e: MqttException) {
+//            e.printStackTrace()
+//        }
+//    }
+
+
+
 }
