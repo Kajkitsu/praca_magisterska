@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    android:orientation="vertical"
+    tools:context=".ui.mqtttest.MqttTestActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_margin="5dp"
+            android:textSize="18sp"
+            android:id="@+id/textViewCurrentTopicDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CurrentTopic: " />
+
+        <TextView
+            android:layout_margin="5dp"
+            android:textSize="18sp"
+            android:id="@+id/textViewCurrentTopicValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="empty" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_margin="5dp"
+            android:textSize="18sp"
+            android:id="@+id/textViewLastDataDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LastData: " />
+
+        <TextView
+            android:layout_margin="5dp"
+            android:textSize="18sp"
+            android:id="@+id/textViewLastDataValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="empty" />
+    </LinearLayout>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:layout_margin="5dp"
+        android:id="@+id/switchSubscribe"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:textSize="18sp"
+        android:text="Subscribe" />
+
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textSize="18sp"
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New topic:"
+            android:layout_margin="5dp"
+            />
+
+        <EditText
+            android:id="@+id/editTextTopic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="/test"
+            android:layout_margin="5dp"
+            android:inputType="textPersonName" />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_margin="5dp"
+        android:id="@+id/buttonConfirmTOpic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirm" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+
+            android:layout_margin="5dp"
+            android:textSize="18sp"
+            android:id="@+id/textViewPublishMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Publish: " />
+
+        <EditText
+            android:layout_margin="5dp"
+            android:id="@+id/editTextPublish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Test Message" />
+
+    </LinearLayout>
+
+
+    <Button
+
+        android:layout_margin="5dp"
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Publish" />
+
+</LinearLayout>
