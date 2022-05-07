@@ -74,18 +74,11 @@ class MqttRepositoryTest {
             context = appContext,
             mqttCredentials = MqttCredentials(uri,clientID,user,password)
         );
-        val message = "message:"+UUID.randomUUID()
 
         //then
         val subscribeRe = mqttRepository.subscribe("/test")
-        Thread.sleep(2000)
-        val publishRes = mqttRepository.publish(MqttDto("/test",message))
-        Thread.sleep(2000)
-        val receivedMsg = mqttRepository.getData("/test")
 
         //except
         assertTrue(subscribeRe.isSuccess)
-        assertTrue(publishRes.isSuccess)
-        assertEquals(message, receivedMsg.value?.toString())
     }
 }

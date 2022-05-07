@@ -5,8 +5,8 @@ data class MqttDto(
     val msg: ByteArray,
     val qos: Int = 1,
     val retained: Boolean = false,
-    ) {
-    constructor(topic: String, msg: String) : this(topic,msg.toByteArray())
+) {
+    constructor(topic: String, msg: String) : this(topic, msg.toByteArray())
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

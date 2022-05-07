@@ -1,13 +1,12 @@
 package pl.edu.wat.droman.ui.login
 
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import android.util.Patterns
-import pl.edu.wat.droman.data.repository.LoginRepository
-import pl.edu.wat.droman.data.Result
-
 import pl.edu.wat.droman.R
+import pl.edu.wat.droman.data.Result
+import pl.edu.wat.droman.data.repository.LoginRepository
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 

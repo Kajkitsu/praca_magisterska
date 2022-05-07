@@ -2,7 +2,6 @@ package pl.edu.wat.droman.data.repository
 
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken
 import org.eclipse.paho.client.mqttv3.IMqttToken
 import org.eclipse.paho.client.mqttv3.MqttCallback
@@ -16,39 +15,23 @@ class MqttRepository(
     private val mqttCredentials: MqttCredentials,
     private val lastWill: MqttDto? = null,
     private val keepAliveInterval: Int = 120,
+    private val messageArrivedFun: (topic: String, message: MqttMessage) -> Unit = { topic, message ->
+        Log.d("MqttRepository", "Receive message: $message from topic: $topic")
+    },
+    private val connectionLostFun: (throwable: Throwable) -> Unit = { cause ->
+        Log.d("MqttRepository", "Connection lost $cause")
+    },
+    private val deliveryCompleteFun: (token: IMqttDeliveryToken) -> Unit = {
+        Log.d("MqttRepository", "Delivery completed")
+    }
 ) {
     private val mqttClient: MqttClient =
         MqttClient(context, mqttCredentials.serverURI, mqttCredentials.clientID)
 
-    private val messagesArrived: HashMap<String, MutableLiveData<MqttMessage>> = HashMap()
-
-    private val defaultCbClient = object : MqttCallback {
-        override fun messageArrived(topic: String?, message: MqttMessage?) {
-            Log.d(this.javaClass.name, "Receive message: ${message.toString()} from topic: $topic")
-            if (topic != null && message != null) {
-                getData(topic)
-                    .postValue(message)
-            }
-        }
-
-        override fun connectionLost(cause: Throwable?) {
-            Log.d(this.javaClass.name, "Connection lost ${cause.toString()}")
-        }
-
-        override fun deliveryComplete(token: IMqttDeliveryToken?) {
-            Log.d(this.javaClass.name, "Delivery completed")
-        }
-    }
-
-    fun getData(topic: String): MutableLiveData<MqttMessage> {
-        return messagesArrived
-            .getOrPut(topic) { MutableLiveData() }
-    }
-
 
     suspend fun publish(mqttDto: MqttDto): Result<IMqttDeliveryToken> {
         if (!mqttClient.isConnected()) {
-            val result = connect();
+            val result = connect()
             if (result.isFailure) {
                 return Result.failure(result.exceptionOrNull()!!)
             }
@@ -63,7 +46,7 @@ class MqttRepository(
 
     suspend fun subscribe(topic: String, qos: Int = 1): Result<IMqttToken> {
         if (!mqttClient.isConnected()) {
-            val result = connect();
+            val result = connect()
             if (result.isFailure) {
                 return Result.failure(result.exceptionOrNull()!!)
             }
@@ -73,7 +56,7 @@ class MqttRepository(
 
     suspend fun unsubscribe(topic: String): Result<IMqttToken> {
         if (!mqttClient.isConnected()) {
-            val result = connect();
+            val result = connect()
             if (result.isFailure) {
                 return Result.failure(result.exceptionOrNull()!!)
             }
@@ -87,8 +70,25 @@ class MqttRepository(
             password = mqttCredentials.password,
             lastWill = lastWill,
             keepAliveInterval = keepAliveInterval,
-            cbClient = defaultCbClient
-        )
+            cbClient = object : MqttCallback {
+                override fun messageArrived(topic: String?, message: MqttMessage?) {
+                    if (topic != null && message != null) {
+                        messageArrivedFun(topic, message)
+                    }
+                }
+
+                override fun connectionLost(cause: Throwable?) {
+                    if (cause != null) {
+                        connectionLostFun(cause)
+                    }
+                }
+
+                override fun deliveryComplete(token: IMqttDeliveryToken?) {
+                    if (token != null) {
+                        deliveryCompleteFun(token)
+                    }
+                }
+            })
     }
 
 }
