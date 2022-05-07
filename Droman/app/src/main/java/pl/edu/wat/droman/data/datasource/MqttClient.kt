@@ -12,11 +12,11 @@ import org.eclipse.paho.client.mqttv3.*
 class MqttClient(
     context: Context?,
     serverURI: String,
-    clientID: String = ""
+    clientID: String = "",
+    private val waitForResponseTimeout: Long = 10000L
 ) {
-    private var mqttClient = MqttAndroidClient(context, serverURI, clientID)
 
-    private val waitForResponseTimeout = 10000L
+    private var mqttClient = MqttAndroidClient(context, serverURI, clientID)
 
     suspend fun connect(
         username: String,
@@ -35,7 +35,7 @@ class MqttClient(
         lastWill?.let { it ->
             options.setWill(
                 it.topic,
-                it.msg.toByteArray(), it.qos, it.retained
+                it.msg, it.qos, it.retained
             )
         }
 

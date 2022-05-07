@@ -55,7 +55,7 @@ class MqttRepository(
         }
         return mqttClient.publish(
             mqttDto.topic,
-            mqttDto.msg.toByteArray(),
+            mqttDto.msg,
             mqttDto.qos,
             mqttDto.retained
         )

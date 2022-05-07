@@ -8,6 +8,7 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import pl.edu.wat.droman.TestProperties
 import pl.edu.wat.droman.data.datasource.MqttDto
 import pl.edu.wat.droman.data.model.MqttCredentials
 import java.util.*
@@ -21,6 +22,11 @@ import java.util.*
 class MqttRepositoryTest {
 
     private lateinit var appContext: Context
+    private val properties = TestProperties()
+    private val password = properties.get("mosquitto.password")
+    private val user = properties.get("mosquitto.user")
+    private val uri = "tcp://"+properties.get("mosquitto.ip")
+    private val clientID = "android-test"
 
     @Before
     fun init() {
@@ -33,7 +39,7 @@ class MqttRepositoryTest {
         //given
         val mqttRepository = MqttRepository(
             context = appContext,
-            mqttCredentials = MqttCredentials("tcp://192.168.1.101","android-test","mark","zaq1@WSX")
+            mqttCredentials = MqttCredentials(uri,clientID,user,password)
         );
         val message = "message:"+UUID.randomUUID()
 
@@ -50,7 +56,7 @@ class MqttRepositoryTest {
         //given
         val mqttRepository = MqttRepository(
             context = appContext,
-            mqttCredentials = MqttCredentials("tcp://192.168.1.13","android-test","mark","zaq1@WSX")
+            mqttCredentials = MqttCredentials("tcp://192.168.1.13",clientID,user,password)
         );
         val message = "message:"+UUID.randomUUID()
 
@@ -66,7 +72,7 @@ class MqttRepositoryTest {
         //given
         val mqttRepository = MqttRepository(
             context = appContext,
-            mqttCredentials = MqttCredentials("tcp://192.168.1.101","android-test","mark","zaq1@WSX")
+            mqttCredentials = MqttCredentials(uri,clientID,user,password)
         );
         val message = "message:"+UUID.randomUUID()
 

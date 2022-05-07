@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId "pl.edu.wat.droman"
         minSdk 28
-        targetSdk 32
+        targetSdk 30
         versionCode 1
         versionName "1.0"
 
