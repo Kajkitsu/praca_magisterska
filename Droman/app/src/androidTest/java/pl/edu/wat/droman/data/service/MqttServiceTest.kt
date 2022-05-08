@@ -1,19 +1,17 @@
 package pl.edu.wat.droman.data.service
 
 import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Bundle
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import junit.framework.TestCase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import pl.edu.wat.droman.TestProperties
-import pl.edu.wat.droman.data.datasource.MqttDto
 import pl.edu.wat.droman.data.model.MqttCredentials
-import pl.edu.wat.droman.data.repository.MqttRepository
 import java.util.*
 
 @RunWith(AndroidJUnit4::class)
@@ -21,16 +19,24 @@ class MqttServiceTest {
 
     private lateinit var appContext: Context
     private lateinit var mqttService: MqttService
-    private val properties = TestProperties()
-    private val password = properties.get("mosquitto.password")
-    private val user = properties.get("mosquitto.user")
-    private val uri = "tcp://"+properties.get("mosquitto.ip")
+    private lateinit var password: String
+    private lateinit var user: String
+    private lateinit var uri: String
     private val clientID = "android-test"
 
     @Before
     fun init() {
         appContext = InstrumentationRegistry.getInstrumentation().targetContext
         mqttService = MqttService(appContext, MqttCredentials(uri,clientID,user,password))
+
+        val metadata: Bundle = appContext.packageManager.getApplicationInfo(
+            appContext.packageName,
+            PackageManager.GET_META_DATA
+        ).metaData
+
+        password = metadata.getString("mosquitto.password")!!
+        user = metadata.getString("mosquitto.user")!!
+        uri = "tcp://" + metadata.getString("mosquitto.ip")
     }
 
     @Test
