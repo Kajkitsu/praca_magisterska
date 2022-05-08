@@ -4,9 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken
 import org.eclipse.paho.client.mqttv3.IMqttToken
 import org.eclipse.paho.client.mqttv3.MqttMessage
@@ -28,7 +26,7 @@ class MqttService(
 
         Log.d(this.javaClass.name, "Trying to subscribe last topic")
         subscribedTopics.stream()
-            .forEach { runBlocking { launch(Dispatchers.IO) { mqttRepository.subscribe(it) } } }
+            .forEach { GlobalScope.launch(Dispatchers.IO) { mqttRepository.subscribe(it) } }
     }
     private val deliveryCompleteFun: (token: IMqttDeliveryToken) -> Unit = {
         Log.d(this.javaClass.name, "Delivery completed")
@@ -89,6 +87,10 @@ class MqttService(
                 Log.w(this.javaClass.name,"getData without subscribing topic $value")
             }
             return mqttService.getLiveData(value)
+        }
+
+        fun getValue(): String {
+            return value;
         }
     }
 

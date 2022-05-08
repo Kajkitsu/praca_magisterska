@@ -12,6 +12,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import pl.edu.wat.droman.data.model.MqttCredentials
+import pl.edu.wat.droman.getOrAwaitValue
 import java.util.*
 
 @RunWith(AndroidJUnit4::class)
@@ -27,7 +28,6 @@ class MqttServiceTest {
     @Before
     fun init() {
         appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        mqttService = MqttService(appContext, MqttCredentials(uri,clientID,user,password))
 
         val metadata: Bundle = appContext.packageManager.getApplicationInfo(
             appContext.packageName,
@@ -37,6 +37,7 @@ class MqttServiceTest {
         password = metadata.getString("mosquitto.password")!!
         user = metadata.getString("mosquitto.user")!!
         uri = "tcp://" + metadata.getString("mosquitto.ip")
+        mqttService = MqttService(appContext, MqttCredentials(uri,clientID,user,password))
     }
 
     @Test
@@ -98,13 +99,11 @@ class MqttServiceTest {
         //then
         val topic = mqttService.getTopic(topicVal)
         topic.subscribe()
-        delay(3000)
         topic.publish(message)
-        delay(3000)
-        val res = topic.getData()
+        val res = topic.getData().getOrAwaitValue(time = 5)
 
         //except
-        Assert.assertEquals(message,res.value.toString())
+        Assert.assertEquals(message,res.toString())
     }
 
 
