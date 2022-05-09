@@ -1,4 +1,4 @@
-package pl.edu.wat.droman.ui;
+package pl.edu.wat.droman.ui.flightcontrol;
 
 import android.app.Activity;
 import android.content.Context;
@@ -69,10 +69,18 @@ public class FlightControlActivity extends Activity {
     private int deviceWidth;
     private int deviceHeight;
 
+    private String username;
+    private String password;
+    private String ipAddress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_default_widgets);
+
+        username = savedInstanceState.getString("username");
+        password = savedInstanceState.getString("password");
+        ipAddress = savedInstanceState.getString("ipAddress");
 
         height = DensityUtil.dip2px(this, 100);
         width = DensityUtil.dip2px(this, 150);

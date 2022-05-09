@@ -1,4 +1,4 @@
-package pl.edu.wat.droman.ui;
+package pl.edu.wat.droman.ui.djiconnectioncontrol;
 
 import android.app.Activity;
 import android.content.Intent;

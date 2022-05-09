@@ -1,4 +1,4 @@
-package pl.edu.wat.droman.ui;
+package pl.edu.wat.droman.ui.flightcontrol;
 
 import android.content.Context;
 

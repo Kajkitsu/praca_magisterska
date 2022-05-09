@@ -11,6 +11,9 @@ import org.eclipse.paho.client.mqttv3.MqttMessage
 import pl.edu.wat.droman.data.datasource.MqttDto
 import pl.edu.wat.droman.data.model.MqttCredentials
 import pl.edu.wat.droman.data.repository.MqttRepository
+import java.util.*
+import kotlin.collections.HashMap
+import kotlin.collections.HashSet
 
 class MqttService(
     context: Context,
@@ -124,5 +127,14 @@ class MqttService(
 
     fun getTopic(value: String): Topic {
         return Topic(value = value, this)
+    }
+
+    suspend fun destroy(){
+        mqttRepository.destroy()
+    }
+
+    suspend fun validate(): Boolean {
+        return mqttRepository.publish(MqttDto("/validate","validate"+ UUID.randomUUID()))
+            .isSuccess
     }
 }

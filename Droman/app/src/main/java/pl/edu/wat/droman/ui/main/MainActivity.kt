@@ -1,208 +1,185 @@
-package pl.edu.wat.droman.ui;
+package pl.edu.wat.droman.ui.main
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import com.dji.frame.util.V_JsonUtil
+import dji.log.GlobalConfig
+import dji.sdk.sdkmanager.DJISDKManager
+import kotlinx.coroutines.launch
+import pl.edu.wat.droman.R
+import pl.edu.wat.droman.databinding.ActivityMainBinding
+import pl.edu.wat.droman.ui.LogType
+import pl.edu.wat.droman.ui.afterTextChanged
+import pl.edu.wat.droman.ui.flightcontrol.FlightControlActivity
+import pl.edu.wat.droman.ui.toastAndLog
 
-import com.dji.frame.util.V_JsonUtil;
+/** Main activity that displays three choices to user  */
+class MainActivity : AppCompatActivity() {
+    companion object {
+        private const val TAG = "MainActivity"
+        var isStarted = false
+            private set
+        private val REQUIRED_PERMISSION_LIST = arrayOf(
+            Manifest.permission.VIBRATE,  // Gimbal rotation
+            Manifest.permission.INTERNET,  // API requests
+            Manifest.permission.ACCESS_WIFI_STATE,  // WIFI connected products
+            Manifest.permission.ACCESS_COARSE_LOCATION,  // Maps
+            Manifest.permission.ACCESS_NETWORK_STATE,  // WIFI connected products
+            Manifest.permission.ACCESS_FINE_LOCATION,  // Maps
+            Manifest.permission.CHANGE_WIFI_STATE,  // Changing between WIFI and USB connection
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,  // Log files
+            Manifest.permission.BLUETOOTH,  // Bluetooth connected products
+            Manifest.permission.BLUETOOTH_ADMIN,  // Bluetooth connected products
+            Manifest.permission.READ_EXTERNAL_STORAGE,  // Log files
+            Manifest.permission.RECORD_AUDIO // Speaker accessory
+        )
+        private const val REQUEST_PERMISSION_CODE = 12345
+    }
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
+    private lateinit var registrationCallback: RegistrationCallback;
+    private lateinit var binding: ActivityMainBinding
+    private val missingPermission: MutableList<String> = ArrayList()
 
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import dji.common.error.DJIError;
-import dji.common.error.DJISDKError;
-import dji.log.GlobalConfig;
-import dji.sdk.base.BaseComponent;
-import dji.sdk.base.BaseProduct;
-import dji.sdk.sdkmanager.DJISDKInitEvent;
-import dji.sdk.sdkmanager.DJISDKManager;
-import pl.edu.wat.droman.R;
+    private lateinit var mainViewModel: MainViewModel
 
-/** Main activity that displays three choices to user */
-public class MainActivity extends Activity implements View.OnClickListener {
-    private static final String TAG = "MainActivity";
-    private static final String LAST_USED_BRIDGE_IP = "bridgeip";
-    private AtomicBoolean isRegistrationInProgress = new AtomicBoolean(false);
-    private static boolean isAppStarted = false;
-    private DJISDKManager.SDKManagerCallback registrationCallback = new DJISDKManager.SDKManagerCallback() {
+    @SuppressLint("SetTextI18n")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-        @Override
-        public void onRegister(DJIError error) {
-            isRegistrationInProgress.set(false);
-            if (error == DJISDKError.REGISTRATION_SUCCESS) {
-                DJISDKManager.getInstance().startConnectionToProduct();
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-                Toast.makeText(getApplicationContext(), "SDK registration succeeded!", Toast.LENGTH_LONG).show();
-            } else {
+        isStarted = true
+        mainViewModel = ViewModelProvider(
+            this,
+            MainViewModelFactory()
+        )[MainViewModel::class.java]
 
-                Toast.makeText(getApplicationContext(),
-                               "SDK registration failed, check network and retry!" + error.getDescription(),
-                               Toast.LENGTH_LONG).show();
+        binding.btStartFlightMode
+            .setOnClickListener {
+                if(mainViewModel.connectState.value == true){
+                    val nextActivity = Intent(this, FlightControlActivity::class.java)
+                    nextActivity.putExtra("username",binding.edMqttUsername.text.toString())
+                    nextActivity.putExtra("password",binding.edMqttPassword.text.toString())
+                    nextActivity.putExtra("ipAddress",binding.edMqttAddress.text.toString())
+                    startActivity(nextActivity)
+                }
             }
-        }
-        @Override
-        public void onProductDisconnect() {
-            Toast.makeText(getApplicationContext(),
-                           "product disconnect!",
-                           Toast.LENGTH_LONG).show();
-        }
-        @Override
-        public void onProductConnect(BaseProduct product) {
-            Toast.makeText(getApplicationContext(),
-                           "product connect!",
-                           Toast.LENGTH_LONG).show();
-        }
 
-        @Override
-        public void onProductChanged(BaseProduct product) {
+        binding.btCheckConnection
+            .setOnClickListener {
+                binding.btCheckConnection.isEnabled = false
+                binding.progressBar.visibility = View.VISIBLE
+                mainViewModel.validateConnection(
+                    binding.edMqttUsername.text.toString(),
+                    binding.edMqttPassword.text.toString(),
+                    binding.edMqttAddress.text.toString(),
+                    applicationContext
+                )
+            }
 
+
+        binding.edMqttUsername.afterTextChanged {
+            mainViewModel.invalidate()
         }
-
-        @Override
-        public void onComponentChange(BaseProduct.ComponentKey key,
-                                      BaseComponent oldComponent,
-                                      BaseComponent newComponent) {
-            Toast.makeText(getApplicationContext(),
-                           key.toString() + " changed",
-                           Toast.LENGTH_LONG).show();
-
+        binding.edMqttPassword.afterTextChanged {
+            mainViewModel.invalidate()
+        }
+        binding.edMqttAddress.afterTextChanged {
+            mainViewModel.invalidate()
         }
 
-        @Override
-        public void onInitProcess(DJISDKInitEvent event, int totalProcess) {
-            Toast.makeText(getApplicationContext(),
-                    "onInitProcess," + event + "totalProcess," + totalProcess,
-                    Toast.LENGTH_LONG).show();
-        }
+        binding.version.text = getVersionText()
 
-        @Override
-        public void onDatabaseDownloadProgress(long current, long total) {
-            Toast.makeText(getApplicationContext(),
-                    "onDatabaseDownloadProgress" + (int) (100 * current / total),
-                    Toast.LENGTH_LONG).show();
-        }
-    };
+        mainViewModel.connectState.observe(this@MainActivity, Observer {
+            binding.btStartFlightMode.isEnabled = it
+            binding.btCheckConnection.isEnabled = true
+            binding.progressBar.visibility = View.INVISIBLE
+        })
 
-    public static boolean isStarted() {
-        return isAppStarted;
-    }
-    private static final String[] REQUIRED_PERMISSION_LIST = new String[] {
-        Manifest.permission.VIBRATE, // Gimbal rotation
-        Manifest.permission.INTERNET, // API requests
-        Manifest.permission.ACCESS_WIFI_STATE, // WIFI connected products
-        Manifest.permission.ACCESS_COARSE_LOCATION, // Maps
-        Manifest.permission.ACCESS_NETWORK_STATE, // WIFI connected products
-        Manifest.permission.ACCESS_FINE_LOCATION, // Maps
-        Manifest.permission.CHANGE_WIFI_STATE, // Changing between WIFI and USB connection
-        Manifest.permission.WRITE_EXTERNAL_STORAGE, // Log files
-        Manifest.permission.BLUETOOTH, // Bluetooth connected products
-        Manifest.permission.BLUETOOTH_ADMIN, // Bluetooth connected products
-        Manifest.permission.READ_EXTERNAL_STORAGE, // Log files
-        Manifest.permission.RECORD_AUDIO // Speaker accessory
-    };
-    private static final int REQUEST_PERMISSION_CODE = 12345;
-    private List<String> missingPermission = new ArrayList<>();
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        isAppStarted = true;
-        findViewById(R.id.complete_ui_widgets).setOnClickListener(this);
-        findViewById(R.id.bt_customized_ui_widgets).setOnClickListener(this);
-        TextView versionText = (TextView) findViewById(R.id.version);
-        versionText.setText("Debug:" + GlobalConfig.DEBUG + ", " + getResources().getString(R.string.sdk_version, DJISDKManager.getInstance().getSDKVersion()));
-        checkAndRequestPermissions();
+        registrationCallback = RegistrationCallback(applicationContext)
+        checkAndRequestPermissions()
     }
 
-    @Override
-    protected void onDestroy() {
-        DJISDKManager.getInstance().destroy();
-        isAppStarted = false;
-        super.onDestroy();
+
+    override fun onDestroy() {
+        DJISDKManager.getInstance().destroy()
+        isStarted = false
+        super.onDestroy()
     }
 
     /**
      * Checks if there is any missing permissions, and
      * requests runtime permission if needed.
      */
-    private void checkAndRequestPermissions() {
+    private fun checkAndRequestPermissions() {
         // Check for permissions
-        for (String eachPermission : REQUIRED_PERMISSION_LIST) {
-            if (ContextCompat.checkSelfPermission(this, eachPermission) != PackageManager.PERMISSION_GRANTED) {
-                missingPermission.add(eachPermission);
+        for (eachPermission in REQUIRED_PERMISSION_LIST) {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    eachPermission
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                missingPermission.add(eachPermission)
             }
         }
         // Request for missing permissions
         if (missingPermission.isEmpty()) {
-            startSDKRegistration();
+            registrationCallback.startSDKRegistration(this)
         } else {
-            ActivityCompat.requestPermissions(this,
-                                              missingPermission.toArray(new String[missingPermission.size()]),
-                                              REQUEST_PERMISSION_CODE);
+            ActivityCompat.requestPermissions(
+                this,
+                missingPermission.toTypedArray(),
+                REQUEST_PERMISSION_CODE
+            )
         }
     }
 
     /**
      * Result of runtime permission request
      */
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         // Check for granted permission and remove from missing list
         if (requestCode == REQUEST_PERMISSION_CODE) {
-            for (int i = grantResults.length - 1; i >= 0; i--) {
+            for (i in grantResults.indices.reversed()) {
                 if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                    missingPermission.remove(permissions[i]);
+                    missingPermission.remove(permissions[i])
                 }
             }
         }
         // If there is enough permission, we will start the registration
         if (missingPermission.isEmpty()) {
-            startSDKRegistration();
+            registrationCallback.startSDKRegistration(this)
         } else {
-            Toast.makeText(getApplicationContext(), "Missing permissions! Will not register SDK to connect to aircraft." + V_JsonUtil.toJson(missingPermission), Toast.LENGTH_LONG).show();
+            toastAndLog(
+                TAG,
+                applicationContext,
+                "Missing permissions! Will not register SDK to connect to aircraft." + V_JsonUtil.toJson(
+                    missingPermission
+                ),
+                LogType.ERROR
+            )
+
         }
     }
 
-    private void startSDKRegistration() {
-        if (isRegistrationInProgress.compareAndSet(false, true)) {
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    DJISDKManager.getInstance().registerApp(MainActivity.this, registrationCallback);
-                }
-            });
-        }
-    }
-
-    @Override
-    public void onClick(View view) {
-        Class nextActivityClass;
-
-        int id = view.getId();
-        if (id == R.id.complete_ui_widgets) {
-            nextActivityClass = FlightControlActivity.class;
-        } else if (id == R.id.bt_customized_ui_widgets) {
-            throw new RuntimeException("not implemented yet");
-//            nextActivityClass = CustomizedWidgetsActivity.class;
-        } else {
-            return;
-        }
-        Intent intent = new Intent(this, nextActivityClass);
-        startActivity(intent);
-    }
-
+    private fun getVersionText() = "Debug:" + GlobalConfig.DEBUG + ", " + resources.getString(
+        R.string.sdk_version,
+        DJISDKManager.getInstance().sdkVersion
+    )
 }

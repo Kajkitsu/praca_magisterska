@@ -6,6 +6,8 @@ import android.content.IntentFilter;
 
 import com.secneo.sdk.Helper;
 
+import pl.edu.wat.droman.ui.djiconnectioncontrol.DJIConnectionControlActivity;
+
 public class Application extends android.app.Application {
 
     @Override

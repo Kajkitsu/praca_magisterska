@@ -91,4 +91,8 @@ class MqttRepository(
             })
     }
 
+    suspend fun destroy() {
+        mqttClient.disconnect()
+    }
+
 }

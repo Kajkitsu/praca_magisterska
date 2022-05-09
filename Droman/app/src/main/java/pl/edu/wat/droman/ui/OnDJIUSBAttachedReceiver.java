@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import dji.sdk.sdkmanager.DJISDKManager;
+import pl.edu.wat.droman.ui.main.MainActivity;
 
 /**
  * This receiver will detect the USB attached event.
@@ -15,7 +16,7 @@ import dji.sdk.sdkmanager.DJISDKManager;
 public class OnDJIUSBAttachedReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (!MainActivity.isStarted()) {
+        if (!MainActivity.Companion.isStarted()) {
             Intent startIntent = context.getPackageManager()
                     .getLaunchIntentForPackage(context.getPackageName());
             startIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT

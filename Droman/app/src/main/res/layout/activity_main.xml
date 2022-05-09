@@ -1,50 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:paddingEnd="60dp"
-    android:paddingStart="60dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.main.MainActivity">
 
-    <TableRow
-        android:paddingTop="40dp"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"/>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="68dp"
+        android:layout_height="68dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/complete_ui_widgets"
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:layout_margin="10dp"
-        android:padding="14dp"
-        android:textColor="@color/background_blue"
-        android:text="Complete Demo of Default UI Widgets"/>
-    <Button
-        android:id="@+id/bt_customized_ui_widgets"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:layout_margin="10dp"
-        android:padding="14dp"
-        android:textColor="@color/background_blue"
-        android:text="Demo on Customized UI Widgets"/>
+        android:layout_height="match_parent"
+        android:paddingStart="60dp"
+        android:paddingEnd="60dp">
 
-    <TableRow
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"/>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingTop="1dp" />
 
-    <TextView
-        android:id="@+id/version"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:layout_margin="10dp"
-        android:textColor="@color/white"
-        android:gravity="center"
-        tools:text="Version"/>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="40dp">
 
-</TableLayout>
+            <EditText
+                android:id="@+id/ed_mqtt_address"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:ems="10"
+                android:hint="Mqtt URI"
+                android:inputType="textUri" />
+
+            <EditText
+                android:id="@+id/ed_mqtt_username"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:ems="10"
+                android:hint="Mqtt username"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/ed_mqtt_password"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:ems="10"
+                android:hint="Mqtt password"
+                android:inputType="textPassword" />
+        </TableRow>
+
+
+        <Button
+            android:id="@+id/bt_check_connection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="14dp"
+            android:text="Check connection"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/bt_start_flight_mode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:enabled="false"
+            android:padding="14dp"
+            android:text="Start"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:textSize="14sp"
+            tools:text="Version" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingTop="1dp" />
+
+    </TableLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

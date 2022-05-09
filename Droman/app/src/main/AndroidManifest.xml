@@ -68,7 +68,7 @@
             android:value="${GOOGLE_MAPS_API_KEY}"/>
 
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:screenOrientation="sensorLandscape"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme">
@@ -78,7 +78,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.DJIConnectionControlActivity"
+            android:name=".ui.djiconnectioncontrol.DJIConnectionControlActivity"
             android:theme="@android:style/Theme.Translucent">
             <intent-filter>
                 <action android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED" />
@@ -89,7 +89,7 @@
                 android:resource="@xml/accessory_filter" />
         </activity>
         <activity
-            android:name=".ui.FlightControlActivity"
+            android:name=".ui.flightcontrol.FlightControlActivity"
             android:label="Default Widgets"
             android:launchMode = "singleTop"
             android:screenOrientation="sensorLandscape"
