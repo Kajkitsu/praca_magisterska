@@ -1,4 +1,4 @@
-package com.dji.ux.sample;
+package pl.edu.wat.droman.ui;
 
 import android.Manifest;
 import android.app.Activity;
@@ -26,6 +26,7 @@ import dji.sdk.base.BaseComponent;
 import dji.sdk.base.BaseProduct;
 import dji.sdk.sdkmanager.DJISDKInitEvent;
 import dji.sdk.sdkmanager.DJISDKManager;
+import pl.edu.wat.droman.R;
 
 /** Main activity that displays three choices to user */
 public class MainActivity extends Activity implements View.OnClickListener {

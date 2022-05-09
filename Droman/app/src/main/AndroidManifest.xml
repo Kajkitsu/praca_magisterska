@@ -23,6 +23,8 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -35,16 +37,18 @@
 
 
     <application
+        android:name=".ui.Application"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:screenOrientation="landscape"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Droman">
+        tools:replace="android:label, android:theme"
+        android:theme="@style/AppTheme"
+        android:extractNativeLibs="true"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
         <uses-library android:name="com.android.future.usb.accessory" />
-
 
         <meta-data
             android:name="mosquitto.password"
@@ -59,17 +63,37 @@
         <meta-data
             android:name="com.dji.sdk.API_KEY"
             android:value="${DJI_API_KEY}" />
-        <!--        <activity-->
-        <!--            android:name="dji.sdk.sdkmanager.DJIAoaControllerActivity"-->
-        <!--            android:theme="@android:style/Theme.Translucent">-->
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED" />-->
-        <!--            </intent-filter>-->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${GOOGLE_MAPS_API_KEY}"/>
 
-        <!--            <meta-data-->
-        <!--                android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED"-->
-        <!--                android:resource="@xml/accessory_filter" />-->
-        <!--        </activity>-->
+        <activity
+            android:name=".ui.MainActivity"
+            android:screenOrientation="sensorLandscape"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.DJIConnectionControlActivity"
+            android:theme="@android:style/Theme.Translucent">
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED"
+                android:resource="@xml/accessory_filter" />
+        </activity>
+        <activity
+            android:name=".ui.FlightControlActivity"
+            android:label="Default Widgets"
+            android:launchMode = "singleTop"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
         <activity
             android:name=".ui.mqtttest.MqttTestActivity"
             android:exported="false" />
@@ -86,7 +110,7 @@
 
         <service
             android:name="dji.sdk.sdkmanager.DJIGlobalService"
-            tools:ignore="Instantiatable"></service>
+            tools:ignore="Instantiatable" />
         <service android:name="org.eclipse.paho.android.service.MqttService" />
     </application>
 
