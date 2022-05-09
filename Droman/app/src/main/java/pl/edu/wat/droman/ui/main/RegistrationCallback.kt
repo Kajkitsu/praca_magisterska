@@ -57,9 +57,9 @@ class RegistrationCallback(private val applicationContext: Context) : DJISDKMana
 
     override fun onProductChanged(product: BaseProduct) {}
     override fun onComponentChange(
-        key: BaseProduct.ComponentKey,
-        oldComponent: BaseComponent,
-        newComponent: BaseComponent
+        key: BaseProduct.ComponentKey?,
+        oldComponent: BaseComponent?,
+        newComponent: BaseComponent?
     ) {
         toastAndLog(TAG, applicationContext, "$key changed")
     }

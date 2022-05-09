@@ -2,6 +2,8 @@ package pl.edu.wat.droman.ui.main
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -33,15 +35,9 @@ class MainViewModel : ViewModel()  {
             if(mqttService != null){
                 val res = mqttService!!.validate()
                 _connect.postValue(res )
-                if(res == true){
-                    toastAndLog(TAG,context,"Correct connection")
-                }
-                else{
-                    toastAndLog(TAG,context,"Failed connecting")
-                }
             }
             else{
-                toastAndLog(TAG,context,"Error mqttService not set",LogType.ERROR)
+                Log.e(TAG,"Error mqttService not set")
                 _connect.postValue(false)
             }
         }

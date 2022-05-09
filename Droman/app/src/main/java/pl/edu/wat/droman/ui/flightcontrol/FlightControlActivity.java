@@ -2,6 +2,7 @@ package pl.edu.wat.droman.ui.flightcontrol;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
@@ -78,9 +79,10 @@ public class FlightControlActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_default_widgets);
 
-        username = savedInstanceState.getString("username");
-        password = savedInstanceState.getString("password");
-        ipAddress = savedInstanceState.getString("ipAddress");
+        Intent intent = getIntent();
+        username = intent.getStringExtra("username");
+        password = intent.getStringExtra("password");
+        ipAddress = intent.getStringExtra("ipAddress");
 
         height = DensityUtil.dip2px(this, 100);
         width = DensityUtil.dip2px(this, 150);

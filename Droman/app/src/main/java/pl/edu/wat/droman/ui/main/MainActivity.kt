@@ -105,6 +105,12 @@ class MainActivity : AppCompatActivity() {
             binding.btStartFlightMode.isEnabled = it
             binding.btCheckConnection.isEnabled = true
             binding.progressBar.visibility = View.INVISIBLE
+            if(it){
+                toastAndLog(MainViewModel.TAG,applicationContext,"Correct connection")
+            }
+            else{
+                toastAndLog(MainViewModel.TAG,applicationContext,"Failed connecting")
+            }
         })
 
         registrationCallback = RegistrationCallback(applicationContext)

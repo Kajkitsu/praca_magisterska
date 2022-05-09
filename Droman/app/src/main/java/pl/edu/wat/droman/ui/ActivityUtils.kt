@@ -6,6 +6,8 @@ import android.text.TextWatcher
 import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
+import java.lang.Exception
+import java.lang.NullPointerException
 
 /**
  * Extension function to simplify setting an afterTextChanged action to EditText components.
@@ -26,12 +28,16 @@ enum class LogType{
     WARN, ERROR, DEBUG
 }
 
-fun toastAndLog(tag:String, applicationContext: Context, text:String, type: LogType = LogType.DEBUG, length: Int = Toast.LENGTH_LONG) {
-    Toast.makeText(
-        applicationContext,
-        text,
-        length
-    ).show()
+fun toastAndLog(tag:String, applicationContext: Context?, text:String, type: LogType = LogType.DEBUG, length: Int = Toast.LENGTH_LONG) {
+    try {
+        Toast.makeText(
+            applicationContext,
+            text,
+            length
+        ).show()
+    } catch (ex:Exception){
+        Log.e(tag,ex.toString())
+    }
     when (type) {
         LogType.ERROR -> {
             Log.e(tag,text)
