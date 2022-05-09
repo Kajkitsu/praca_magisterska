@@ -104,12 +104,14 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.connectState.observe(this@MainActivity, Observer {
             binding.btStartFlightMode.isEnabled = it
             binding.btCheckConnection.isEnabled = true
-            binding.progressBar.visibility = View.INVISIBLE
-            if(it){
-                toastAndLog(MainViewModel.TAG,applicationContext,"Correct connection")
-            }
-            else{
-                toastAndLog(MainViewModel.TAG,applicationContext,"Failed connecting")
+            if(binding.progressBar.visibility == View.VISIBLE){
+                binding.progressBar.visibility = View.INVISIBLE
+                if(it){
+                    toastAndLog(MainViewModel.TAG,applicationContext,"Correct connection")
+                }
+                else{
+                    toastAndLog(MainViewModel.TAG,applicationContext,"Failed connecting")
+                }
             }
         })
 

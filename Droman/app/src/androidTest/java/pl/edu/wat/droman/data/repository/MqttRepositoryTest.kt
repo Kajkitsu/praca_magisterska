@@ -11,6 +11,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import pl.edu.wat.droman.data.ETopic
 import pl.edu.wat.droman.data.datasource.MqttDto
 import pl.edu.wat.droman.data.model.MqttCredentials
 import java.util.*
@@ -53,7 +54,7 @@ class MqttRepositoryTest {
         val message = "message:" + UUID.randomUUID()
 
         //then
-        val res = mqttRepository.publish(MqttDto("/test", message))
+        val res = mqttRepository.publish(MqttDto(ETopic.TEST, message))
 
         //except
         assertTrue(res.isSuccess)
@@ -70,7 +71,7 @@ class MqttRepositoryTest {
         val message = "message:" + UUID.randomUUID()
 
         //then
-        val res = mqttRepository.publish(MqttDto("/test", message))
+        val res = mqttRepository.publish(MqttDto(ETopic.TEST, message))
 
         //except
         assertTrue(res.isFailure)

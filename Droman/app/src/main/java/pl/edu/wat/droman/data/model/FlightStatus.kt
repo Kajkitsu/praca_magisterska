@@ -1,12 +1,12 @@
 package pl.edu.wat.droman.data.model
 
-import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dji.common.flightcontroller.FlightControllerState
 
 data class FlightStatus(
     val isFlying: Boolean,
-    val longitude: Double,
-    val latitude: Double,
+    val longitude: Float,
+    val latitude: Float,
     val altitude: Float,
     val velocityX: Float,
     val velocityY: Float,
@@ -26,8 +26,8 @@ data class FlightStatus(
         fun gen(flightState: FlightControllerState): FlightStatus {
             return FlightStatus(
             isFlying = flightState.isFlying,
-            longitude = flightState.aircraftLocation.longitude,
-            latitude = flightState.aircraftLocation.latitude,
+            longitude = flightState.aircraftLocation.longitude.toFloat(),
+            latitude = flightState.aircraftLocation.latitude.toFloat(),
             altitude = flightState.aircraftLocation.altitude,
             velocityX = flightState.velocityX,
             velocityY = flightState.velocityY,
@@ -48,7 +48,7 @@ data class FlightStatus(
     }
 
     fun toJson():String {
-        return Gson().toJson(this)
+        return GsonBuilder().serializeSpecialFloatingPointValues().create().toJson(this)
     }
 
 }

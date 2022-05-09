@@ -32,7 +32,7 @@ class MqttClient(
         lastWill?.let { it ->
             options.setWill(
                 it.topic,
-                it.msg, it.qos, it.retained
+                it.payload, it.qos, it.retained
             )
         }
 

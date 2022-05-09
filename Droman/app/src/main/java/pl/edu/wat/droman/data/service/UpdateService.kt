@@ -10,7 +10,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import pl.edu.wat.droman.data.model.FlightStatus
 
-@DelicateCoroutinesApi
 class UpdateService(
     private val statusTopic: MqttService.Topic,
     private val videoTopic: MqttService.Topic,
@@ -20,39 +19,37 @@ class UpdateService(
 //        flightController.setStateCallback(getStatusCallback()) //TODO("are you sure")
     }
 
-    fun getCameraCallback() = Camera.VideoDataCallback { bytes, i ->
-        GlobalScope.launch(Dispatchers.IO) {
-            val result = videoTopic.publish(bytes)
-            if (result.isFailure) {
-                Log.e(
-                    this.javaClass.name,
-                    "Failure saving ${videoTopic.getValue()} with data. Failure ${result.exceptionOrNull()}"
-                )
-            } else {
-                Log.d(
-                    this.javaClass.name,
-                    "Success saving ${videoTopic.getValue()} with data size:${bytes.size}"
-                )
-            }
-        }
-    }
-
-    fun getStatusCallback() = FlightControllerState.Callback {
-        GlobalScope.launch(Dispatchers.IO) {
-            val result = statusTopic.publish(
-                FlightStatus.gen(it).toJson()
+//    fun getCameraCallback() = Camera.VideoDataCallback { bytes, i ->
+//        GlobalScope.launch(Dispatchers.IO) {
+//            val result = videoTopic.publish(bytes)
+//            if (result.isFailure) {
+//                Log.e(
+//                    this.javaClass.name,
+//                    "Failure saving ${videoTopic.getValue()} with data. Failure ${result.exceptionOrNull()}"
+//                )
+//            } else {
+//                Log.d(
+//                    this.javaClass.name,
+//                    "Success saving ${videoTopic.getValue()} with data size:${bytes.size}"
+//                )
+//            }
+//        }
+//    }
+//
+    suspend fun saveCallback(state: FlightControllerState){
+        val result = statusTopic.publish(
+            FlightStatus.gen(state).toJson()
+        )
+        if (result.isFailure) {
+            Log.e(
+                this.javaClass.name,
+                "Failure saving ${statusTopic.getValue()} with data. Failure ${result.exceptionOrNull()}"
             )
-            if (result.isFailure) {
-                Log.e(
-                    this.javaClass.name,
-                    "Failure saving ${statusTopic.getValue()} with data. Failure ${result.exceptionOrNull()}"
-                )
-            } else {
-                Log.d(
-                    this.javaClass.name,
-                    "Success saving ${statusTopic.getValue()} with data:$it"
-                )
-            }
+        } else {
+            Log.d(
+                this.javaClass.name,
+                "Success saving ${statusTopic.getValue()} with data:$state"
+            )
         }
     }
 }

@@ -24,9 +24,10 @@ class RegistrationCallback(private val applicationContext: Context) : DJISDKMana
 
     fun startSDKRegistration(mainActivity: MainActivity) {
         if (isRegistrationInProgress.compareAndSet(false, true)) {
-            val registrationCallback = this
-            GlobalScope.launch(Dispatchers.IO) {
-                DJISDKManager.getInstance().registerApp(mainActivity, registrationCallback)
+            this.let { registrationCallback ->
+                GlobalScope.launch(Dispatchers.IO) {
+                    DJISDKManager.getInstance().registerApp(mainActivity, registrationCallback)
+                }
             }
         }
 

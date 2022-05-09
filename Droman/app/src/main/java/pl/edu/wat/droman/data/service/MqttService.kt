@@ -4,21 +4,23 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken
 import org.eclipse.paho.client.mqttv3.IMqttToken
 import org.eclipse.paho.client.mqttv3.MqttMessage
+import pl.edu.wat.droman.data.ETopic
 import pl.edu.wat.droman.data.datasource.MqttDto
 import pl.edu.wat.droman.data.model.MqttCredentials
 import pl.edu.wat.droman.data.repository.MqttRepository
 import java.util.*
-import kotlin.collections.HashMap
-import kotlin.collections.HashSet
 
 class MqttService(
     context: Context,
     mqttCredentials: MqttCredentials,
     lastWill: MqttDto? = null,
+    birth: MqttDto? = null,
     keepAliveInterval: Int = 120,
 ) {
 
@@ -58,6 +60,14 @@ class MqttService(
         deliveryCompleteFun
     )
 
+    init {
+        this.let { service ->
+            GlobalScope.launch(Dispatchers.IO) {
+                birth?.let { service.publish(it) }
+            }
+        }
+    }
+
 
     private fun getTopicLastData(topic: String): MutableLiveData<MqttMessage> {
         return messagesArrived
@@ -66,11 +76,11 @@ class MqttService(
 
     class Topic(private val value: String, private val mqttService: MqttService) {
         suspend fun publish(payload: ByteArray): Result<IMqttDeliveryToken> {
-            return mqttService.publish(MqttDto(value,payload))
+            return mqttService.publish(MqttDto(value, payload))
         }
 
         suspend fun publish(payload: String): Result<IMqttDeliveryToken> {
-            return mqttService.publish(MqttDto(value,payload))
+            return mqttService.publish(MqttDto(value, payload))
         }
 
         fun isSubscribed(): Boolean {
@@ -86,8 +96,8 @@ class MqttService(
         }
 
         fun getData(): LiveData<MqttMessage> {
-            if(!isSubscribed()){
-                Log.w(this.javaClass.name,"getData without subscribing topic $value")
+            if (!isSubscribed()) {
+                Log.w(this.javaClass.name, "getData without subscribing topic $value")
             }
             return mqttService.getLiveData(value)
         }
@@ -129,12 +139,12 @@ class MqttService(
         return Topic(value = value, this)
     }
 
-    suspend fun destroy(){
+    suspend fun destroy() {
         mqttRepository.destroy()
     }
 
     suspend fun validate(): Boolean {
-        return mqttRepository.publish(MqttDto("/validate","validate"+ UUID.randomUUID()))
+        return mqttRepository.publish(MqttDto(ETopic.VALIDATE, "validate" + UUID.randomUUID()))
             .isSuccess
     }
 }
