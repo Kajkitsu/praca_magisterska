@@ -1,5 +1,6 @@
 package pl.edu.wat.droman.data.model
 
+import com.google.gson.Gson
 import dji.common.flightcontroller.FlightControllerState
 
 data class FlightStatus(
@@ -22,8 +23,8 @@ data class FlightStatus(
     val isLowerThanSeriousBatteryWarningThreshold: Boolean) {
 
     companion object {
-        fun gen(flightState: FlightControllerState) {
-            FlightStatus(
+        fun gen(flightState: FlightControllerState): FlightStatus {
+            return FlightStatus(
             isFlying = flightState.isFlying,
             longitude = flightState.aircraftLocation.longitude,
             latitude = flightState.aircraftLocation.latitude,
@@ -44,6 +45,10 @@ data class FlightStatus(
             )
 
         }
+    }
+
+    fun toJson():String {
+        return Gson().toJson(this)
     }
 
 }

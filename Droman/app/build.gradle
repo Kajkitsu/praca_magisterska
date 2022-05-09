@@ -51,7 +51,19 @@ android {
         doNotStrip "*/*/libDJIFlySafeCore.so"
         doNotStrip "*/*/libdjifs_jni.so"
         doNotStrip "*/*/libsfjni.so"
+        doNotStrip "*/*/libDJICommonJNI.so"
+        doNotStrip "*/*/libDJICSDKCommon.so"
+        doNotStrip "*/*/libDJIUpgradeCore.so"
+        doNotStrip "*/*/libDJIUpgradeJNI.so"
+        doNotStrip "*/*/libDJIWaypointV2Core.so"
+        doNotStrip "*/*/libAMapSDK_MAP_v6_9_2.so"
+        doNotStrip "*/*/libDJIMOP.so"
+        doNotStrip "*/*/libDJISDKLOGJNI.so"
         exclude 'META-INF/rxjava.properties'
+        exclude 'assets/location_map_gps_locked.png'
+        exclude 'assets/location_map_gps_3d.png'
+        exclude 'okhttp3/internal/publicsuffix/publicsuffixes.gz'
+        exclude 'dji/thirdparty/okhttp3/internal/publicsuffix/publicsuffixes.gz'
     }
 }
 
@@ -72,6 +84,8 @@ dependencies {
     implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
     implementation 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
     implementation 'com.dji:dji-sdk:4.16.1'
-    compileOnly 'com.dji:dji-sdk-provided:4.16.1'
-    androidTestImplementation 'com.dji:dji-sdk-provided:4.16.1'
+    implementation 'com.dji:dji-sdk-provided:4.16.1'
+    androidTestImplementation 'androidx.arch.core:core-testing:2.1.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
+
 }

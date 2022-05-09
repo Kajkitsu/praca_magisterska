@@ -3,12 +3,13 @@ package pl.edu.wat.droman.data.service
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import pl.edu.wat.droman.data.model.MqttCredentials
@@ -17,13 +18,14 @@ import java.util.*
 
 @RunWith(AndroidJUnit4::class)
 class MqttServiceTest {
-
     private lateinit var appContext: Context
     private lateinit var mqttService: MqttService
     private lateinit var password: String
     private lateinit var user: String
     private lateinit var uri: String
     private val clientID = "android-test"
+    @get:Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Before
     fun init() {
@@ -37,14 +39,14 @@ class MqttServiceTest {
         password = metadata.getString("mosquitto.password")!!
         user = metadata.getString("mosquitto.user")!!
         uri = "tcp://" + metadata.getString("mosquitto.ip")
-        mqttService = MqttService(appContext, MqttCredentials(uri,clientID,user,password))
+        mqttService = MqttService(appContext, MqttCredentials(uri, clientID, user, password))
     }
 
     @Test
     fun publish() = runBlocking {
         //given
 
-        val message = "message:"+ UUID.randomUUID()
+        val message = "message:" + UUID.randomUUID()
         val topicVal = "/test"
 
         //then
@@ -59,7 +61,7 @@ class MqttServiceTest {
     fun subscribe() = runBlocking {
         //given
 
-        val message = "message:"+ UUID.randomUUID()
+        val message = "message:" + UUID.randomUUID()
         val topicVal = "/test"
 
         //then
@@ -73,9 +75,9 @@ class MqttServiceTest {
 
     @Test
     fun unsubscribe() = runBlocking {
-    //given
+        //given
 
-        val message = "message:"+ UUID.randomUUID()
+        val message = "message:" + UUID.randomUUID()
         val topicVal = "/test"
 
         //then
@@ -90,20 +92,21 @@ class MqttServiceTest {
 
 
     @Test
-    fun getData() = runBlocking {
+    fun getData() {
         //given
 
-        val message = "message:"+ UUID.randomUUID()
+        val message = "message:" + UUID.randomUUID()
         val topicVal = "/test"
 
         //then
         val topic = mqttService.getTopic(topicVal)
-        topic.subscribe()
-        topic.publish(message)
-        val res = topic.getData().getOrAwaitValue(time = 5)
+        runBlocking {
+            topic.subscribe()
+            topic.publish(message)
+        }
 
         //except
-        Assert.assertEquals(message,res.toString())
+        Assert.assertEquals(message, topic.getData().getOrAwaitValue(time = 5).toString())
     }
 
 
