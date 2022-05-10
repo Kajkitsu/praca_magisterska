@@ -1,10 +1,12 @@
 package pl.edu.wat.droman.data.service
 
+import android.graphics.Bitmap
 import android.util.Log
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import dji.common.flightcontroller.FlightControllerState
 import pl.edu.wat.droman.data.model.FlightStatus
+import java.io.ByteArrayOutputStream
+import java.nio.ByteBuffer
+
 
 class UpdateService(
     private val statusTopic: MqttService.Topic,
@@ -48,4 +50,31 @@ class UpdateService(
             )
         }
     }
+
+    suspend fun saveBitmap(bitmap: Bitmap) {
+        val result = videoTopic.publish(
+            bitmap.convertToByteArray()
+        )
+        if (result.isFailure) {
+            Log.e(
+                this.javaClass.name,
+                "Failure saving ${statusTopic.getValue()} with data. Failure ${result.exceptionOrNull()}"
+            )
+        } else {
+            Log.d(
+                this.javaClass.name,
+                "Success saving ${statusTopic.getValue()} with bitmap data"
+            )
+        }
+    }
+}
+
+/**
+ * Convert bitmap to byte array using ByteBuffer.
+ */
+fun Bitmap.convertToByteArray(): ByteArray {
+
+    val stream = ByteArrayOutputStream()
+    this.compress(Bitmap.CompressFormat.PNG, 100, stream)
+    return stream.toByteArray()
 }

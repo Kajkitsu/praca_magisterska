@@ -1,28 +1,29 @@
 package pl.edu.wat.droman.data.model
 
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dji.common.flightcontroller.FlightControllerState
 
 data class FlightStatus(
     val activeBrakeEngaged: Boolean,
     val aircraftHeadDirection: Long,
-    val aircraftLocationAltitude: Double,
-    val aircraftLocationLatitude: Double,
-    val aircraftLocationLongitude: Double,
-    val attitudePitch: Double,
-    val attitudeRoll: Double,
-    val attitudeYaw: Double,
+    val aircraftLocationAltitude: Double?,
+    val aircraftLocationLatitude: Double?,
+    val aircraftLocationLongitude: Double?,
+    val attitudePitch: Double?,
+    val attitudeRoll: Double?,
+    val attitudeYaw: Double?,
     val batteryThresholdBehavior: String,
     val doesUltrasonicHaveError: Boolean,
     val flightCount: Long,
     val flightLogIndex: Long,
     val flightMode: String,
-    val flightModeString: String,
+    val flightModeString: String?,
     val flightTimeInSeconds: Long,
     val flightWindWarning: String,
     val goHomeAssessmentBatteryPercentageNeededToGoHome: Long,
     val goHomeAssessmentBatteryPercentageNeededToLandFromCurrentHeight: Long,
-    val goHomeAssessmentMaxRadiusAircraftCanFlyAndGoHome: Double,
+    val goHomeAssessmentMaxRadiusAircraftCanFlyAndGoHome: Double?,
     val goHomeAssessmentRemainingFlightTime: Long,
     val goHomeAssessmentSmartRTHCountdown: Long,
     val goHomeAssessmentSmartRTHState: String,
@@ -33,8 +34,8 @@ data class FlightStatus(
     val gpsSignalLevel: String,
     val hasReachedMaxFlightHeight: Boolean,
     val hasReachedMaxFlightRadius: Boolean,
-    val homeLocationLatitude: Double,
-    val homeLocationLongitude: Double,
+    val homeLocationLatitude: Double?,
+    val homeLocationLongitude: Double?,
     val isFailsafeEnabled: Boolean,
     val isFlying: Boolean,
     val isGoingHome: Boolean,
@@ -49,11 +50,11 @@ data class FlightStatus(
     val motorsOn: Boolean,
     val orientationMode: String,
     val satelliteCount: Long,
-    val takeoffLocationAltitude: Double,
-    val ultrasonicHeightInMeters: Double,
-    val velocityX: Double,
-    val velocityY: Double,
-    val velocityZ: Double
+    val takeoffLocationAltitude: Double?,
+    val ultrasonicHeightInMeters: Double?,
+    val velocityX: Double?,
+    val velocityY: Double?,
+    val velocityZ: Double?
 ) {
 
     companion object {
@@ -61,12 +62,12 @@ data class FlightStatus(
             return FlightStatus(
                 activeBrakeEngaged = flightState.isActiveBrakeEngaged,
                 aircraftHeadDirection = flightState.aircraftHeadDirection.toLong(),
-                aircraftLocationAltitude = flightState.aircraftLocation.altitude.toDouble(),
-                aircraftLocationLatitude = flightState.aircraftLocation.latitude,
-                aircraftLocationLongitude = flightState.aircraftLocation.longitude,
-                attitudePitch = flightState.attitude.pitch,
-                attitudeRoll = flightState.attitude.roll,
-                attitudeYaw = flightState.attitude.yaw,
+                aircraftLocationAltitude = flightState.aircraftLocation.altitude.toDoubleOrNull(),
+                aircraftLocationLatitude = flightState.aircraftLocation.latitude.toPrimitiveDouble(),
+                aircraftLocationLongitude = flightState.aircraftLocation.longitude.toPrimitiveDouble(),
+                attitudePitch = flightState.attitude.pitch.toPrimitiveDouble(),
+                attitudeRoll = flightState.attitude.roll.toPrimitiveDouble(),
+                attitudeYaw = flightState.attitude.yaw.toPrimitiveDouble(),
                 batteryThresholdBehavior = flightState.batteryThresholdBehavior.name,
                 doesUltrasonicHaveError = flightState.doesUltrasonicHaveError(),
                 flightCount = flightState.flightCount.toLong(),
@@ -77,7 +78,7 @@ data class FlightStatus(
                 flightWindWarning = flightState.flightWindWarning.name,
                 goHomeAssessmentBatteryPercentageNeededToGoHome = flightState.goHomeAssessment.batteryPercentageNeededToGoHome.toLong(),
                 goHomeAssessmentBatteryPercentageNeededToLandFromCurrentHeight = flightState.goHomeAssessment.batteryPercentageNeededToLandFromCurrentHeight.toLong(),
-                goHomeAssessmentMaxRadiusAircraftCanFlyAndGoHome = flightState.goHomeAssessment.maxRadiusAircraftCanFlyAndGoHome.toDouble(),
+                goHomeAssessmentMaxRadiusAircraftCanFlyAndGoHome = flightState.goHomeAssessment.maxRadiusAircraftCanFlyAndGoHome.toDoubleOrNull(),
                 goHomeAssessmentRemainingFlightTime = flightState.goHomeAssessment.remainingFlightTime.toLong(),
                 goHomeAssessmentSmartRTHCountdown = flightState.goHomeAssessment.smartRTHCountdown.toLong(),
                 goHomeAssessmentSmartRTHState = flightState.goHomeAssessment.smartRTHState.name,
@@ -88,8 +89,8 @@ data class FlightStatus(
                 gpsSignalLevel = flightState.gpsSignalLevel.name,
                 hasReachedMaxFlightHeight = flightState.hasReachedMaxFlightHeight(),
                 hasReachedMaxFlightRadius = flightState.hasReachedMaxFlightRadius(),
-                homeLocationLatitude = flightState.homeLocation.latitude,
-                homeLocationLongitude = flightState.homeLocation.longitude,
+                homeLocationLatitude = flightState.homeLocation.latitude.toPrimitiveDouble(),
+                homeLocationLongitude = flightState.homeLocation.longitude.toPrimitiveDouble(),
                 isFailsafeEnabled = flightState.isFailsafeEnabled,
                 isFlying = flightState.isFlying,
                 isGoingHome = flightState.isGoingHome,
@@ -104,18 +105,30 @@ data class FlightStatus(
                 motorsOn = flightState.areMotorsOn(),
                 orientationMode = flightState.orientationMode.name,
                 satelliteCount = flightState.satelliteCount.toLong(),
-                takeoffLocationAltitude = flightState.takeoffLocationAltitude.toDouble(),
-                ultrasonicHeightInMeters = flightState.ultrasonicHeightInMeters.toDouble(),
-                velocityX = flightState.velocityX.toDouble(),
-                velocityY = flightState.velocityY.toDouble(),
-                velocityZ = flightState.velocityZ.toDouble(),
+                takeoffLocationAltitude = flightState.takeoffLocationAltitude.toDoubleOrNull(),
+                ultrasonicHeightInMeters = flightState.ultrasonicHeightInMeters.toDoubleOrNull(),
+                velocityX = flightState.velocityX.toDoubleOrNull(),
+                velocityY = flightState.velocityY.toDoubleOrNull(),
+                velocityZ = flightState.velocityZ.toDoubleOrNull(),
             )
 
         }
     }
 
     fun toJson(): String {
-        return GsonBuilder().serializeSpecialFloatingPointValues().create().toJson(this)
+        return Gson().toJson(this)
     }
+
+}
+
+private fun Double.toPrimitiveDouble(): Double? {
+    if (this.isNaN()) {
+        return null
+    }
+    return this
+}
+
+private fun Float.toDoubleOrNull(): Double? {
+    return this.toDouble().toPrimitiveDouble();
 
 }
