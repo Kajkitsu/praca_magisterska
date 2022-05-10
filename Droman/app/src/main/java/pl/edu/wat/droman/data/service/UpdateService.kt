@@ -1,13 +1,9 @@
 package pl.edu.wat.droman.data.service
 
 import android.util.Log
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dji.common.flightcontroller.FlightControllerState
-import dji.sdk.camera.Camera
-import dji.sdk.flightcontroller.FlightController
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import pl.edu.wat.droman.data.model.FlightStatus
 
 class UpdateService(
@@ -19,7 +15,7 @@ class UpdateService(
 //        flightController.setStateCallback(getStatusCallback()) //TODO("are you sure")
     }
 
-//    fun getCameraCallback() = Camera.VideoDataCallback { bytes, i ->
+    //    fun getCameraCallback() = Camera.VideoDataCallback { bytes, i ->
 //        GlobalScope.launch(Dispatchers.IO) {
 //            val result = videoTopic.publish(bytes)
 //            if (result.isFailure) {
@@ -36,7 +32,7 @@ class UpdateService(
 //        }
 //    }
 //
-    suspend fun saveCallback(state: FlightControllerState){
+    suspend fun saveCallback(state: FlightControllerState) {
         val result = statusTopic.publish(
             FlightStatus.gen(state).toJson()
         )

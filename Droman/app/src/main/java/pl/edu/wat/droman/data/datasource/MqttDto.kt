@@ -10,7 +10,7 @@ data class MqttDto(
 ) {
     constructor(topic: ETopic, msg: String) : this(topic.name, msg.toByteArray())
     constructor(topic: ETopic, payload: ByteArray) : this(topic.name, payload)
-    constructor(topic: String, msg: String) : this(topic,msg.toByteArray())
+    constructor(topic: String, msg: String) : this(topic, msg.toByteArray())
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

@@ -3,7 +3,6 @@ package pl.edu.wat.droman.ui.main
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,12 +12,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import pl.edu.wat.droman.data.model.MqttCredentials
 import pl.edu.wat.droman.data.service.MqttService
-import pl.edu.wat.droman.ui.LogType
-import pl.edu.wat.droman.ui.toastAndLog
 import java.util.*
 
 @SuppressLint("StaticFieldLeak")
-class MainViewModel : ViewModel()  {
+class MainViewModel : ViewModel() {
     companion object {
         val TAG = "MainViewModel"
     }
@@ -28,16 +25,21 @@ class MainViewModel : ViewModel()  {
     val connectState: LiveData<Boolean> = _connect
 
 
-    fun validateConnection(username:String, password:String, uri:String, context: Context){
+    fun validateConnection(username: String, password: String, uri: String, context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
-            mqttService = MqttService(context, MqttCredentials("tcp://$uri",
-                DJISDKManager.getInstance()?.product?.model?.displayName+":"+ UUID.randomUUID(),username,password))
-            if(mqttService != null){
+            mqttService = MqttService(
+                context, MqttCredentials(
+                    "tcp://$uri",
+                    DJISDKManager.getInstance()?.product?.model?.displayName + ":" + UUID.randomUUID(),
+                    username,
+                    password
+                )
+            )
+            if (mqttService != null) {
                 val res = mqttService!!.validate()
-                _connect.postValue(res )
-            }
-            else{
-                Log.e(TAG,"Error mqttService not set")
+                _connect.postValue(res)
+            } else {
+                Log.e(TAG, "Error mqttService not set")
                 _connect.postValue(false)
             }
         }

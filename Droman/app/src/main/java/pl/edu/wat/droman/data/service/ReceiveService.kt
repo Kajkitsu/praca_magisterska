@@ -25,10 +25,9 @@ class ReceiveService(
 }
 
 private fun LiveData<MqttMessage>.mapToMission(): Mission? {
-    if(this.value != null) {
+    if (this.value != null) {
         return Mission.from(this.value.toString())
-    }
-    else {
+    } else {
         return null
     }
 }

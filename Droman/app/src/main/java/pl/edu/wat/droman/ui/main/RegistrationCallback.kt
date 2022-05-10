@@ -14,7 +14,8 @@ import pl.edu.wat.droman.ui.LogType
 import pl.edu.wat.droman.ui.toastAndLog
 import java.util.concurrent.atomic.AtomicBoolean
 
-class RegistrationCallback(private val applicationContext: Context) : DJISDKManager.SDKManagerCallback {
+class RegistrationCallback(private val applicationContext: Context) :
+    DJISDKManager.SDKManagerCallback {
 
     companion object {
         const val TAG = "RegistrationCallback"

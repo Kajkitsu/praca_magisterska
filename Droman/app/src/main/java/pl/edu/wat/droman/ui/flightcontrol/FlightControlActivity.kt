@@ -1,8 +1,7 @@
 package pl.edu.wat.droman.ui.flightcontrol
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.Point
 import android.os.Bundle
 import android.view.View
@@ -10,25 +9,22 @@ import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.Transformation
 import android.widget.RelativeLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.dji.mapkit.core.maps.DJIMap
 import dji.keysdk.CameraKey
 import dji.keysdk.KeyManager
-import dji.sdk.sdkmanager.DJISDKManager
 import dji.ux.utils.DJIProductUtil
 import dji.ux.widget.FPVWidget
 import pl.edu.wat.droman.R
-import pl.edu.wat.droman.data.ETopic
-import pl.edu.wat.droman.data.datasource.MqttDto
-import pl.edu.wat.droman.data.model.MqttCredentials
-import pl.edu.wat.droman.data.service.MqttService
-import pl.edu.wat.droman.data.service.UpdateService
 import pl.edu.wat.droman.databinding.ActivityFlightControlBinding
+
 
 /**
  * Activity that shows all the UI elements together
  */
 @Suppress("DEPRECATION")
-class FlightControlActivity : Activity() {
+class FlightControlActivity : AppCompatActivity() {
     private var isMapMini = true
 
     private var height = 0
@@ -37,7 +33,6 @@ class FlightControlActivity : Activity() {
     private var deviceWidth = 0
     private var deviceHeight = 0
 
-    private lateinit var parentView: View
 
     private lateinit var username: String
     private lateinit var password: String
@@ -52,12 +47,12 @@ class FlightControlActivity : Activity() {
         binding = ActivityFlightControlBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_flight_control)
 
-        val intent = intent
-        username = intent.getStringExtra("username")!!
-        password = intent.getStringExtra("password")!!
-        ipAddress = intent.getStringExtra("ipAddress")!!
+        initCredentialsValue()
+        flightControlViewModel = ViewModelProvider(
+            this,
+            FlightControlViewModelFactory(username, password, ipAddress, applicationContext)
+        )[FlightControlViewModel::class.java]
 
-        flightControlViewModel = createViewModel(username, password, ipAddress, applicationContext)
 
         height = DensityUtil.dip2px(this, 100f)
         width = DensityUtil.dip2px(this, 150f)
@@ -84,29 +79,16 @@ class FlightControlActivity : Activity() {
         updateSecondaryVideoVisibility()
     }
 
-    private fun createViewModel(
-        username: String,
-        password: String,
-        ipAddress: String,
-        context: Context
-    ): FlightControlViewModel {
-        val djisdkManager = DJISDKManager.getInstance()
-        val clientId = djisdkManager?.product?.model?.displayName.let { it ?: "" }
+    private fun initCredentialsValue() {
+        val metadata: Bundle = applicationContext.packageManager.getApplicationInfo(
+            applicationContext.packageName,
+            PackageManager.GET_META_DATA
+        ).metaData
 
-        val mqttService = MqttService(
-            context = context,
-            mqttCredentials = MqttCredentials("tcp://$ipAddress", clientId, username, password),
-            lastWill = MqttDto(ETopic.LAST_WILL, clientId),
-            birth = MqttDto(ETopic.BIRTH, clientId)
-        )
-        return FlightControlViewModel(
-            updateService = UpdateService(
-                mqttService.getTopic(ETopic.STATE.path + "/" + clientId),
-                mqttService.getTopic(ETopic.PICTURE.path + "/" + clientId)
-            ),
-            djisdkManager = djisdkManager
-        )
-
+        val intent = intent
+        username = intent.getStringExtra("username") ?: metadata.getString("mosquitto.user")!!
+        password = intent.getStringExtra("password") ?: metadata.getString("mosquitto.password")!!
+        ipAddress = intent.getStringExtra("ipAddress") ?: metadata.getString("mosquitto.ip")!!
     }
 
 

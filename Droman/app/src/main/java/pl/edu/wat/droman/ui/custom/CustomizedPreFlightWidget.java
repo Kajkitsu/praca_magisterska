@@ -11,10 +11,10 @@ import android.util.AttributeSet;
  */
 public class CustomizedPreFlightWidget extends dji.ux.widget.PreFlightStatusWidget {
 
+    private static final int STROKE_WIDTH = 5;
     //region Properties
     private Paint borderPaint;
     private Paint indicatorPaint;
-    private static final int STROKE_WIDTH = 5;
     private int width;
     private int height;
     //endregion
@@ -34,7 +34,10 @@ public class CustomizedPreFlightWidget extends dji.ux.widget.PreFlightStatusWidg
     //endregion
 
     //region Override methods
-    /** Inflate custom layout for this widget */
+
+    /**
+     * Inflate custom layout for this widget
+     */
     @Override
     public void initView(Context context, AttributeSet attrs, int defStyleAttr) {
         borderPaint = new Paint();
@@ -64,7 +67,9 @@ public class CustomizedPreFlightWidget extends dji.ux.widget.PreFlightStatusWidg
         canvas.drawCircle(width, height, width - STROKE_WIDTH, borderPaint);
     }
 
-    /** Called when connection status changes */
+    /**
+     * Called when connection status changes
+     */
     @Override
     public void onStatusChange(String status, StatusType type, boolean blink) {
         if (type != StatusType.OFFLINE) {

@@ -11,11 +11,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import com.dji.frame.util.V_JsonUtil
 import dji.log.GlobalConfig
 import dji.sdk.sdkmanager.DJISDKManager
-import kotlinx.coroutines.launch
 import pl.edu.wat.droman.R
 import pl.edu.wat.droman.databinding.ActivityMainBinding
 import pl.edu.wat.droman.ui.LogType
@@ -67,11 +65,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.btStartFlightMode
             .setOnClickListener {
-                if(mainViewModel.connectState.value == true){
+                if (mainViewModel.connectState.value == true) {
                     val nextActivity = Intent(this, FlightControlActivity::class.java)
-                    nextActivity.putExtra("username",binding.edMqttUsername.text.toString())
-                    nextActivity.putExtra("password",binding.edMqttPassword.text.toString())
-                    nextActivity.putExtra("ipAddress",binding.edMqttAddress.text.toString())
+                    nextActivity.putExtra("username", binding.edMqttUsername.text.toString())
+                    nextActivity.putExtra("password", binding.edMqttPassword.text.toString())
+                    nextActivity.putExtra("ipAddress", binding.edMqttAddress.text.toString())
                     startActivity(nextActivity)
                 }
             }
@@ -104,13 +102,12 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.connectState.observe(this@MainActivity, Observer {
             binding.btStartFlightMode.isEnabled = it
             binding.btCheckConnection.isEnabled = true
-            if(binding.progressBar.visibility == View.VISIBLE){
+            if (binding.progressBar.visibility == View.VISIBLE) {
                 binding.progressBar.visibility = View.INVISIBLE
-                if(it){
-                    toastAndLog(MainViewModel.TAG,applicationContext,"Correct connection")
-                }
-                else{
-                    toastAndLog(MainViewModel.TAG,applicationContext,"Failed connecting")
+                if (it) {
+                    toastAndLog(MainViewModel.TAG, applicationContext, "Correct connection")
+                } else {
+                    toastAndLog(MainViewModel.TAG, applicationContext, "Failed connecting")
                 }
             }
         })

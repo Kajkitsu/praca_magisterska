@@ -23,7 +23,7 @@ public class DJIConnectionControlActivity extends Activity {
         if (usbIntent != null) {
             String action = usbIntent.getAction();
             if (UsbManager.ACTION_USB_ACCESSORY_ATTACHED.equals(action)) {
-                Intent attachedIntent=new Intent();
+                Intent attachedIntent = new Intent();
                 attachedIntent.setAction(ACCESSORY_ATTACHED);
                 sendBroadcast(attachedIntent);
             }

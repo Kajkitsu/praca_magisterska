@@ -9,9 +9,9 @@ class Mission {
     }
 
     companion object {
-         fun from(value:String): Mission {
-             return Gson().fromJson(value,Mission::class.java)
-         }
-     }
+        fun from(value: String): Mission {
+            return Gson().fromJson(value, Mission::class.java)
+        }
+    }
 
 }

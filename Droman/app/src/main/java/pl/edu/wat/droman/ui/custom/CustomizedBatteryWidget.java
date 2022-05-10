@@ -6,19 +6,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import pl.edu.wat.droman.R;
+
 import dji.common.battery.ConnectionState;
+import pl.edu.wat.droman.R;
 
 /**
  * Override default battery widget with custom UI resources and logic
  */
 public class CustomizedBatteryWidget extends dji.ux.widget.BatteryWidget {
 
+    private static final String TAG = CustomizedBatteryWidget.class.getSimpleName();
     private TextView batteryValue;
     private ImageView batteryIcon;
     private int batteryIconRes;
     private int batteryIconErrorRes;
-    private static final String TAG = CustomizedBatteryWidget.class.getSimpleName();
 
     public CustomizedBatteryWidget(Context context) {
         this(context, null, 0);
@@ -32,7 +33,9 @@ public class CustomizedBatteryWidget extends dji.ux.widget.BatteryWidget {
         super(context, attrs, defStyle);
     }
 
-    /** Inflate custom layout for this widget */
+    /**
+     * Inflate custom layout for this widget
+     */
     @Override
     public void initView(Context context, AttributeSet attrs, int defStyle) {
         final LayoutInflater inflater = LayoutInflater.from(context);
@@ -43,7 +46,9 @@ public class CustomizedBatteryWidget extends dji.ux.widget.BatteryWidget {
         batteryIcon.setImageResource(R.mipmap.battery_error);
     }
 
-    /** Called when battery percentage changes */
+    /**
+     * Called when battery percentage changes
+     */
     @Override
     public void onBatteryPercentageChange(int percentage) {
         batteryValue.setText(percentage + "%");
@@ -75,7 +80,9 @@ public class CustomizedBatteryWidget extends dji.ux.widget.BatteryWidget {
         updateBatteryIcon();
     }
 
-    /** Called when battery state changes from error to normal or vice versa */
+    /**
+     * Called when battery state changes from error to normal or vice versa
+     */
     @Override
     public void onBatteryConnectionStateChange(ConnectionState status) {
         if (status != ConnectionState.NORMAL) {
