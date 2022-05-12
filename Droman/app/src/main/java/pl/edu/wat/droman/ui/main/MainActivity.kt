@@ -16,6 +16,7 @@ import dji.log.GlobalConfig
 import dji.sdk.sdkmanager.DJISDKManager
 import pl.edu.wat.droman.R
 import pl.edu.wat.droman.databinding.ActivityMainBinding
+import pl.edu.wat.droman.ui.DjiApplication
 import pl.edu.wat.droman.ui.LogType
 import pl.edu.wat.droman.ui.afterTextChanged
 import pl.edu.wat.droman.ui.flightcontrol.FlightControlActivity
@@ -57,6 +58,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        DjiApplication.eventBus.register(this);
+
         isStarted = true
         mainViewModel = ViewModelProvider(
             this,
@@ -65,6 +68,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.btStartFlightMode
             .setOnClickListener {
+                binding.progressBar.visibility = View.VISIBLE
                 if (mainViewModel.connectState.value == true) {
                     val nextActivity = Intent(this, FlightControlActivity::class.java)
                     nextActivity.putExtra("username", binding.edMqttUsername.text.toString())
@@ -99,27 +103,49 @@ class MainActivity : AppCompatActivity() {
 
         binding.version.text = getVersionText()
 
-        mainViewModel.connectState.observe(this@MainActivity, Observer {
-            binding.btStartFlightMode.isEnabled = it
+        mainViewModel.connectState.observe(this@MainActivity) {
+            binding.btStartFlightMode.isEnabled = it && registrationCallback.isConnected()
             binding.btCheckConnection.isEnabled = true
             if (binding.progressBar.visibility == View.VISIBLE) {
                 binding.progressBar.visibility = View.INVISIBLE
-                if (it) {
+                if (it && registrationCallback.isConnected()) {
                     toastAndLog(MainViewModel.TAG, applicationContext, "Correct connection")
                 } else {
-                    toastAndLog(MainViewModel.TAG, applicationContext, "Failed connecting")
+                    if(registrationCallback.isConnected()) {
+                        toastAndLog(MainViewModel.TAG, applicationContext, "Failed connecting MQTT")
+                    }
+                    else {
+                        toastAndLog(MainViewModel.TAG, applicationContext, "Failed connecting to device")
+                    }
                 }
             }
-        })
+        }
+
+//        if(GlobalConfig.DEBUG){
+            initCredentialsValue()
+//        }
 
         registrationCallback = RegistrationCallback(applicationContext)
         checkAndRequestPermissions()
     }
 
 
+    private fun initCredentialsValue() {
+        val metadata: Bundle = applicationContext.packageManager.getApplicationInfo(
+            applicationContext.packageName,
+            PackageManager.GET_META_DATA
+        ).metaData
+        binding.edMqttUsername.text.append(metadata.getString("mosquitto.user"))
+        binding.edMqttPassword.text.append(metadata.getString("mosquitto.password"))
+        binding.edMqttAddress.text.append(metadata.getString("mosquitto.ip"))
+    }
+
+
+
     override fun onDestroy() {
         DJISDKManager.getInstance().destroy()
         isStarted = false
+        DjiApplication.eventBus.unregister(this);
         super.onDestroy()
     }
 

@@ -1,7 +1,12 @@
 package pl.edu.wat.droman
 
+import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import dji.common.error.DJIError
+import dji.common.util.CommonCallbacks
+import pl.edu.wat.droman.ui.flightcontrol.FlightControlViewModelFactory
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
@@ -35,4 +40,23 @@ fun <T> LiveData<T>.getOrAwaitValue(
     @Suppress("UNCHECKED_CAST")
     return data as T
 }
+
+fun <T> getCallback(
+    tag: String,
+    success: (T) -> Unit = {Log.d(tag, it.toString())},
+    failure: (DJIError) -> Unit = { Log.e(tag, it.toString())},
+): CommonCallbacks.CompletionCallbackWith<T> =
+    object : CommonCallbacks.CompletionCallbackWith<T> {
+        override fun onSuccess(p0: T?) {
+            if (p0 != null) {
+                success.invoke(p0)
+            }
+        }
+
+        override fun onFailure(p0: DJIError?) {
+            if (p0 != null) {
+                failure.invoke(p0)
+            }
+        }
+    }
 

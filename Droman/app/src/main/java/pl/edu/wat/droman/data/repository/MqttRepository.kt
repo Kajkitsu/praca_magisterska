@@ -6,6 +6,7 @@ import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken
 import org.eclipse.paho.client.mqttv3.IMqttToken
 import org.eclipse.paho.client.mqttv3.MqttCallback
 import org.eclipse.paho.client.mqttv3.MqttMessage
+import pl.edu.wat.droman.GlobalConfig
 import pl.edu.wat.droman.data.datasource.MqttClient
 import pl.edu.wat.droman.data.datasource.MqttDto
 import pl.edu.wat.droman.data.model.MqttCredentials
@@ -14,7 +15,7 @@ class MqttRepository(
     context: Context,
     private val mqttCredentials: MqttCredentials,
     private val lastWill: MqttDto? = null,
-    private val keepAliveInterval: Int = 120,
+    private val keepAliveInterval: Int = GlobalConfig.keepAliveInterval,
     private val messageArrivedFun: (topic: String, message: MqttMessage) -> Unit = { topic, message ->
         Log.d("MqttRepository", "Receive message: $message from topic: $topic")
     },

@@ -18,6 +18,7 @@ import dji.ux.utils.DJIProductUtil
 import dji.ux.widget.FPVWidget
 import pl.edu.wat.droman.R
 import pl.edu.wat.droman.databinding.ActivityFlightControlBinding
+import pl.edu.wat.droman.ui.DjiApplication
 
 
 /**
@@ -46,12 +47,16 @@ class FlightControlActivity : AppCompatActivity() {
 
         binding = ActivityFlightControlBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_flight_control)
+        DjiApplication.eventBus.register(this);
 
         initCredentialsValue()
-        flightControlViewModel = ViewModelProvider(
-            this,
-            FlightControlViewModelFactory(username, password, ipAddress, applicationContext)
-        )[FlightControlViewModel::class.java]
+        DjiApplication.aircraftInstance?.let {
+            flightControlViewModel = ViewModelProvider(
+                this,
+                FlightControlViewModelFactory(username, password, ipAddress, applicationContext, DjiApplication.clientId)
+            )[FlightControlViewModel::class.java]
+        }
+
 
 
         height = DensityUtil.dip2px(this, 100f)
@@ -224,6 +229,7 @@ class FlightControlActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        DjiApplication.eventBus.unregister(this);
         binding.mapWidget.onDestroy()
         super.onDestroy()
     }

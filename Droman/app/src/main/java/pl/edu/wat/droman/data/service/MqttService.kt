@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken
 import org.eclipse.paho.client.mqttv3.IMqttToken
 import org.eclipse.paho.client.mqttv3.MqttMessage
+import pl.edu.wat.droman.GlobalConfig
 import pl.edu.wat.droman.data.ETopic
 import pl.edu.wat.droman.data.datasource.MqttDto
 import pl.edu.wat.droman.data.model.MqttCredentials
@@ -21,7 +22,7 @@ class MqttService(
     mqttCredentials: MqttCredentials,
     lastWill: MqttDto? = null,
     birth: MqttDto? = null,
-    keepAliveInterval: Int = 120,
+    keepAliveInterval: Int = GlobalConfig.keepAliveInterval,
 ) {
 
     private val subscribedTopics: MutableSet<String> = HashSet()

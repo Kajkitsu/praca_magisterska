@@ -15,6 +15,7 @@ import dji.sdk.sdkmanager.DJISDKManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import pl.edu.wat.droman.GlobalConfig
 import pl.edu.wat.droman.data.service.UpdateService
 
 
@@ -24,6 +25,7 @@ class FlightControlViewModel(
 
     private var aircraft: Aircraft?
     private val djiManager: DJISDKManager = DJISDKManager.getInstance()
+    private var lastStateUpdate = 0;
 
 
     companion object {
@@ -37,7 +39,11 @@ class FlightControlViewModel(
             it.flightController
                 ?.setStateCallback { state ->
                     viewModelScope.launch(Dispatchers.IO) {
-                        updateService.saveCallback(state)
+                        if(lastStateUpdate == 0){
+                            updateService.saveCallback(state)
+                        }
+                        lastStateUpdate ++
+                        lastStateUpdate %= GlobalConfig.stateRateLimit;
                     }
                 }
             it.camera.setShootPhotoMode(SettingsDefinitions.ShootPhotoMode.INTERVAL) {

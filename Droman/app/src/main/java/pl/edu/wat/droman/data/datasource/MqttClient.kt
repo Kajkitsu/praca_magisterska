@@ -5,12 +5,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
+import pl.edu.wat.droman.GlobalConfig
 
 class MqttClient(
     context: Context?,
     serverURI: String,
     clientID: String = "",
-    private val waitForResponseTimeout: Long = 10000L
+    private val waitForResponseTimeout: Long = GlobalConfig.waitForResponseTimeout
 ) {
 
     private var mqttClient = MqttAndroidClient(context, serverURI, clientID)
@@ -20,7 +21,7 @@ class MqttClient(
         password: String,
         cbClient: MqttCallback,
         lastWill: MqttDto? = null,
-        keepAliveInterval: Int = 120
+        keepAliveInterval: Int = GlobalConfig.keepAliveInterval
     ): Result<IMqttToken> = withContext(Dispatchers.IO) {
 
         val options = MqttConnectOptions()

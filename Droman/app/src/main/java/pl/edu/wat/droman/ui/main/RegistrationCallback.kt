@@ -1,6 +1,8 @@
 package pl.edu.wat.droman.ui.main
 
 import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import dji.common.error.DJIError
 import dji.common.error.DJISDKError
 import dji.sdk.base.BaseComponent
@@ -22,6 +24,7 @@ class RegistrationCallback(private val applicationContext: Context) :
     }
 
     private val isRegistrationInProgress = AtomicBoolean(false)
+    private val deviceConnected = AtomicBoolean(false)
 
     fun startSDKRegistration(mainActivity: MainActivity) {
         if (isRegistrationInProgress.compareAndSet(false, true)) {
@@ -50,11 +53,17 @@ class RegistrationCallback(private val applicationContext: Context) :
     }
 
     override fun onProductDisconnect() {
+        deviceConnected.set(false)
         toastAndLog(TAG, applicationContext, "product disconnect!", LogType.WARN)
     }
 
     override fun onProductConnect(product: BaseProduct) {
+        deviceConnected.set(true)
         toastAndLog(TAG, applicationContext, "product connect!")
+    }
+
+    fun isConnected(): Boolean {
+        return deviceConnected.get()
     }
 
     override fun onProductChanged(product: BaseProduct) {}
@@ -67,19 +76,19 @@ class RegistrationCallback(private val applicationContext: Context) :
     }
 
     override fun onInitProcess(event: DJISDKInitEvent, totalProcess: Int) {
-        toastAndLog(
-            TAG,
-            applicationContext,
-            "onInitProcess," + event + "totalProcess," + totalProcess
-        )
+//        toastAndLog(
+//            TAG,
+//            applicationContext,
+//            "onInitProcess," + event + "totalProcess," + totalProcess
+//        )
     }
 
     override fun onDatabaseDownloadProgress(current: Long, total: Long) {
-        toastAndLog(
-            TAG,
-            applicationContext,
-            "onDatabaseDownloadProgress" + (100 * current / total).toInt()
-        )
+//        toastAndLog(
+//            TAG,
+//            applicationContext,
+//            "onDatabaseDownloadProgress" + (100 * current / total).toInt()
+//        )
     }
 
 

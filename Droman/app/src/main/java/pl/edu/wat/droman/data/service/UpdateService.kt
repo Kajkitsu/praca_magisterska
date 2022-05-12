@@ -35,8 +35,9 @@ class UpdateService(
 //    }
 //
     suspend fun saveCallback(state: FlightControllerState) {
+        val data = FlightStatus.gen(state).toJson()
         val result = statusTopic.publish(
-            FlightStatus.gen(state).toJson()
+            data
         )
         if (result.isFailure) {
             Log.e(
@@ -46,7 +47,7 @@ class UpdateService(
         } else {
             Log.d(
                 this.javaClass.name,
-                "Success saving ${statusTopic.getValue()} with data:$state"
+                "Success saving ${statusTopic.getValue()} with data:${data}"
             )
         }
     }
