@@ -67,6 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:padding="14dp"
+            android:enabled="false"
             android:text="Check connection"
             android:textSize="14sp" />
 

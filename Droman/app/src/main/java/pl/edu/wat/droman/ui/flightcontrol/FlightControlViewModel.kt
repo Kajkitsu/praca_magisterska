@@ -1,31 +1,32 @@
 package pl.edu.wat.droman.ui.flightcontrol
 
 import android.graphics.Bitmap
-import android.util.Log
+import android.os.Environment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dji.common.camera.SettingsDefinitions
-import dji.common.error.DJIError
 import dji.sdk.base.BaseProduct
 import dji.sdk.camera.Camera
-import dji.sdk.media.DownloadListener
 import dji.sdk.media.MediaFile
 import dji.sdk.products.Aircraft
 import dji.sdk.sdkmanager.DJISDKManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import pl.edu.wat.droman.CallbackToastHandler
 import pl.edu.wat.droman.GlobalConfig
 import pl.edu.wat.droman.data.service.UpdateService
+import pl.edu.wat.droman.ui.DjiApplication
+import java.io.File
 
 
 class FlightControlViewModel(
     private var updateService: UpdateService,
 ) : ViewModel() {
 
-    private var aircraft: Aircraft?
     private val djiManager: DJISDKManager = DJISDKManager.getInstance()
-    private var lastStateUpdate = 0;
+    private var lastStateUpdate = 0
+    private var mediaManager = DjiApplication.aircraftInstance?.camera?.mediaManager
 
 
     companion object {
@@ -33,26 +34,23 @@ class FlightControlViewModel(
     }
 
     init {
-        aircraft = getAircraft()
-
-        aircraft?.let { it ->
-            it.flightController
+        getAircraft()?.let { aircraft ->
+            aircraft.flightController
                 ?.setStateCallback { state ->
                     viewModelScope.launch(Dispatchers.IO) {
-                        if(lastStateUpdate == 0){
+                        if (lastStateUpdate == 0) {
                             updateService.saveCallback(state)
                         }
-                        lastStateUpdate ++
-                        lastStateUpdate %= GlobalConfig.stateRateLimit;
+                        lastStateUpdate++
+                        lastStateUpdate %= GlobalConfig.stateRateLimit
                     }
                 }
-            it.camera.setShootPhotoMode(SettingsDefinitions.ShootPhotoMode.INTERVAL) {
-                it?.let { error -> Log.e(TAG, error.toString()) }
+            aircraft.camera.setMode(
+                SettingsDefinitions.CameraMode.SHOOT_PHOTO,
+                CallbackToastHandler()
+            )
 
-            }
-            it.camera.setMode(SettingsDefinitions.CameraMode.SHOOT_PHOTO) {
-                it?.let { error -> Log.e(TAG, error.toString()) }
-            }
+
 //            it.camera.setPhotoTimeIntervalSettings(
 //                SettingsDefinitions.PhotoTimeIntervalSettings(
 //                    Int.MAX_VALUE,
@@ -66,30 +64,37 @@ class FlightControlViewModel(
 //            }
 
 
-            it.camera.setMediaFileCallback {
+            aircraft.camera.setMediaFileCallback {
                 // it.getFullview() TODO
                 viewModelScope.launch(Dispatchers.IO) {
-                    it.getSusPreview()?.let { bitmap -> updateService.savePicture(bitmap) }
+                    updateService.savePicture(it.getSusPreview())
                 }
-                viewModelScope.launch(Dispatchers.IO) {
-//                    it.getFullview(it.camera)?.let { byte -> updateService.savePicture(byte) }
-                }
+//                viewModelScope.launch(Dispatchers.IO) { unsupported in Dji Mini 2 firmware limitations
+//                    it.getFullview(camera = aircraft.camera)
+//                        ?.let { byte -> updateService.savePicture(byte) }
+//                }
             }
         }
     }
 
 
-    private suspend fun MediaFile.getSusPreview(): Bitmap? {
+    private suspend fun MediaFile.getSusPreview(): Bitmap {
         if (this.preview != null) {
             return this.preview
         }
-        this.fetchPreview {
-            it?.let { er -> Log.e(TAG, er.toString()) }
-        }
-        while (this.preview == null) {
+        var inc = 0
+        while (this.preview == null && inc < 10000) {
             delay(100)
+            inc++
         }
-        return this.preview
+        return this.preview!!
+    }
+
+    private suspend fun MediaFile.getFullview(camera: Camera): Bitmap? {
+        val destDir = File(Environment.getExternalStorageDirectory().path + "/Dji_Sdk_Test/")
+        val downloadHandler = DownloadHandler<String>(camera)
+        this.fetchFileData(destDir, this.fileName, DownloadHandler<String>(camera))
+        return downloadHandler.getBitmap()
     }
 
 //    private suspend fun MediaFile.getSusFullImageBytaArray(): ByteArray {
@@ -108,6 +113,15 @@ class FlightControlViewModel(
 //            }
 //        }
 
+    fun destroy() {
+        getAircraft()?.let { aircraft ->
+            aircraft.flightController
+                ?.setStateCallback(null)
+            aircraft.camera
+                ?.setMediaFileCallback(null)
+        }
+    }
+
 
     fun getAircraft(): Aircraft? {
         val product: BaseProduct? = djiManager.product
@@ -119,3 +133,4 @@ class FlightControlViewModel(
     }
 
 }
+

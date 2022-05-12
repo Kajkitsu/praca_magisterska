@@ -104,7 +104,7 @@ class MqttService(
         }
 
         fun getValue(): String {
-            return value;
+            return value
         }
     }
 

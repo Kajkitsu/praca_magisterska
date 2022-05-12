@@ -9,7 +9,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.dji.frame.util.V_JsonUtil
 import dji.log.GlobalConfig
@@ -45,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         private const val REQUEST_PERMISSION_CODE = 12345
     }
 
-    private lateinit var registrationCallback: RegistrationCallback;
+    private lateinit var registrationCallback: RegistrationCallback
     private lateinit var binding: ActivityMainBinding
     private val missingPermission: MutableList<String> = ArrayList()
 
@@ -58,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        DjiApplication.eventBus.register(this);
+        DjiApplication.eventBus.register(this)
 
         isStarted = true
         mainViewModel = ViewModelProvider(
@@ -111,21 +110,26 @@ class MainActivity : AppCompatActivity() {
                 if (it && registrationCallback.isConnected()) {
                     toastAndLog(MainViewModel.TAG, applicationContext, "Correct connection")
                 } else {
-                    if(registrationCallback.isConnected()) {
+                    if (registrationCallback.isConnected()) {
                         toastAndLog(MainViewModel.TAG, applicationContext, "Failed connecting MQTT")
-                    }
-                    else {
-                        toastAndLog(MainViewModel.TAG, applicationContext, "Failed connecting to device")
+                    } else {
+                        toastAndLog(
+                            MainViewModel.TAG,
+                            applicationContext,
+                            "Failed connecting to device"
+                        )
                     }
                 }
             }
         }
 
 //        if(GlobalConfig.DEBUG){
-            initCredentialsValue()
+        initCredentialsValue()
 //        }
 
-        registrationCallback = RegistrationCallback(applicationContext)
+        registrationCallback = RegistrationCallback(
+            applicationContext,
+            registrationSuccess = { binding.btCheckConnection.isEnabled = true })
         checkAndRequestPermissions()
     }
 
@@ -141,11 +145,10 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     override fun onDestroy() {
         DJISDKManager.getInstance().destroy()
         isStarted = false
-        DjiApplication.eventBus.unregister(this);
+        DjiApplication.eventBus.unregister(this)
         super.onDestroy()
     }
 

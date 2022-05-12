@@ -5,7 +5,6 @@ import android.util.Log
 import dji.common.flightcontroller.FlightControllerState
 import pl.edu.wat.droman.data.model.FlightStatus
 import java.io.ByteArrayOutputStream
-import java.nio.ByteBuffer
 
 
 class UpdateService(
@@ -53,7 +52,7 @@ class UpdateService(
     }
 
     suspend fun savePicture(bitmap: Bitmap) {
-        return savePicture( bitmap.convertToByteArray())
+        return savePicture(bitmap.convertToByteArray())
     }
 
     suspend fun savePicture(byteArray: ByteArray) {
@@ -72,14 +71,10 @@ class UpdateService(
             )
         }
     }
-}
 
-/**
- * Convert bitmap to byte array using ByteBuffer.
- */
-fun Bitmap.convertToByteArray(): ByteArray {
-
-    val stream = ByteArrayOutputStream()
-    this.compress(Bitmap.CompressFormat.PNG, 100, stream)
-    return stream.toByteArray()
+    fun Bitmap.convertToByteArray(): ByteArray {
+        val stream = ByteArrayOutputStream()
+        this.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        return stream.toByteArray()
+    }
 }

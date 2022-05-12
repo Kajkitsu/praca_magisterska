@@ -1,22 +1,13 @@
 package pl.edu.wat.droman.ui.flightcontrol
 
 import android.content.Context
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import dji.common.error.DJIError
-import dji.common.util.CommonCallbacks
-import dji.sdk.base.BaseProduct
-import dji.sdk.products.Aircraft
-import dji.sdk.sdkmanager.DJISDKManager
 import pl.edu.wat.droman.data.ETopic
 import pl.edu.wat.droman.data.datasource.MqttDto
 import pl.edu.wat.droman.data.model.MqttCredentials
 import pl.edu.wat.droman.data.service.MqttService
 import pl.edu.wat.droman.data.service.UpdateService
-import pl.edu.wat.droman.getCallback
-import pl.edu.wat.droman.getOrAwaitValue
 
 class FlightControlViewModelFactory(
     private val username: String,
@@ -49,7 +40,6 @@ class FlightControlViewModelFactory(
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
-
 
 
 }

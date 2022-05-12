@@ -2,11 +2,11 @@ package pl.edu.wat.droman
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import dji.common.error.DJIError
 import dji.common.util.CommonCallbacks
-import pl.edu.wat.droman.ui.flightcontrol.FlightControlViewModelFactory
+import dji.common.util.CommonCallbacks.CompletionCallback
+import pl.edu.wat.droman.ui.ToastUtils.setResultToToast
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
@@ -16,7 +16,7 @@ fun <T> LiveData<T>.getOrAwaitValue(
     time: Long = 2,
     timeUnit: TimeUnit = TimeUnit.SECONDS,
     afterObserve: () -> Unit = {},
-    failure: () -> T = {throw TimeoutException("LiveData value was never set.")},
+    failure: () -> T = { throw TimeoutException("LiveData value was never set.") },
 ): T {
     var data: T? = null
     val latch = CountDownLatch(1)
@@ -41,22 +41,34 @@ fun <T> LiveData<T>.getOrAwaitValue(
     return data as T
 }
 
-fun <T> getCallback(
-    tag: String,
-    success: (T) -> Unit = {Log.d(tag, it.toString())},
-    failure: (DJIError) -> Unit = { Log.e(tag, it.toString())},
-): CommonCallbacks.CompletionCallbackWith<T> =
-    object : CommonCallbacks.CompletionCallbackWith<T> {
-        override fun onSuccess(p0: T?) {
-            if (p0 != null) {
-                success.invoke(p0)
-            }
-        }
 
-        override fun onFailure(p0: DJIError?) {
-            if (p0 != null) {
-                failure.invoke(p0)
-            }
+class CompletionCallbackWithToastHandler<T>(
+    tag: String,
+    private val success: (T) -> Unit = { Log.d(tag, it.toString()) },
+    private val failure: (DJIError) -> Unit = { Log.e(tag, it.toString()) },
+) : CommonCallbacks.CompletionCallbackWith<T> {
+    override fun onSuccess(p0: T?) {
+        if (p0 != null) {
+            success.invoke(p0)
         }
     }
 
+    override fun onFailure(p0: DJIError?) {
+        if (p0 != null) {
+            failure.invoke(p0)
+        }
+    }
+}
+
+class CallbackToastHandler(
+    private val success: () -> Unit = { setResultToToast("Success") },
+    private val failure: (DJIError) -> Unit = { setResultToToast(it.toString()) },
+) : CompletionCallback<DJIError?> {
+    override fun onResult(djiError: DJIError?) {
+        if (djiError != null) {
+            failure.invoke(djiError)
+        } else {
+            success.invoke()
+        }
+    }
+}

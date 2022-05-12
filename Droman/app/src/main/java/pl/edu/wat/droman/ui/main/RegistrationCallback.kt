@@ -1,8 +1,6 @@
 package pl.edu.wat.droman.ui.main
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import dji.common.error.DJIError
 import dji.common.error.DJISDKError
 import dji.sdk.base.BaseComponent
@@ -16,7 +14,10 @@ import pl.edu.wat.droman.ui.LogType
 import pl.edu.wat.droman.ui.toastAndLog
 import java.util.concurrent.atomic.AtomicBoolean
 
-class RegistrationCallback(private val applicationContext: Context) :
+class RegistrationCallback(
+    private val applicationContext: Context,
+    private val registrationSuccess: () -> Unit
+) :
     DJISDKManager.SDKManagerCallback {
 
     companion object {
@@ -41,6 +42,7 @@ class RegistrationCallback(private val applicationContext: Context) :
         isRegistrationInProgress.set(false)
         if (error === DJISDKError.REGISTRATION_SUCCESS) {
             DJISDKManager.getInstance().startConnectionToProduct()
+            registrationSuccess.invoke()
             toastAndLog(TAG, applicationContext, "SDK registration succeeded!")
         } else {
             toastAndLog(

@@ -22,14 +22,15 @@ class ReceiveService(
             .mapToMission()
     }
 
-}
-
-private fun LiveData<MqttMessage>.mapToMission(): Mission? {
-    if (this.value != null) {
-        return Mission.from(this.value.toString())
-    } else {
-        return null
+    private fun LiveData<MqttMessage>.mapToMission(): Mission? {
+        if (this.value != null) {
+            return Mission.from(this.value.toString())
+        } else {
+            return null
+        }
     }
+
+
 }
 
 

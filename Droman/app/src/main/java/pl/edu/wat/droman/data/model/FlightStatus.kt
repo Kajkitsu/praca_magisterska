@@ -1,7 +1,6 @@
 package pl.edu.wat.droman.data.model
 
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import dji.common.flightcontroller.FlightControllerState
 
 data class FlightStatus(
@@ -129,6 +128,6 @@ private fun Double.toPrimitiveDouble(): Double? {
 }
 
 private fun Float.toDoubleOrNull(): Double? {
-    return this.toDouble().toPrimitiveDouble();
+    return this.toDouble().toPrimitiveDouble()
 
 }

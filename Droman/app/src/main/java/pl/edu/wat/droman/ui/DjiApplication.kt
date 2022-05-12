@@ -3,22 +3,17 @@ package pl.edu.wat.droman.ui
 import android.app.Application
 import android.content.BroadcastReceiver
 import android.content.Context
-import pl.edu.wat.droman.ui.OnDJIUSBAttachedReceiver
 import android.content.IntentFilter
-import androidx.lifecycle.MutableLiveData
-import pl.edu.wat.droman.ui.djiconnectioncontrol.DJIConnectionControlActivity
 import androidx.multidex.MultiDex
 import com.secneo.sdk.Helper
-import pl.edu.wat.droman.ui.DjiApplication
-import dji.sdk.base.BaseProduct
-import dji.sdk.sdkmanager.BluetoothProductConnector
 import com.squareup.otto.Bus
 import com.squareup.otto.ThreadEnforcer
-import kotlin.jvm.Synchronized
-import dji.sdk.sdkmanager.DJISDKManager
+import dji.sdk.base.BaseProduct
 import dji.sdk.products.Aircraft
-import pl.edu.wat.droman.getCallback
-import pl.edu.wat.droman.getOrAwaitValue
+import dji.sdk.sdkmanager.BluetoothProductConnector
+import dji.sdk.sdkmanager.DJISDKManager
+import pl.edu.wat.droman.CompletionCallbackWithToastHandler
+import pl.edu.wat.droman.ui.djiconnectioncontrol.DJIConnectionControlActivity
 import pl.edu.wat.droman.ui.flightcontrol.FlightControlViewModelFactory
 
 class DjiApplication : Application() {
@@ -58,10 +53,14 @@ class DjiApplication : Application() {
 
         @get:Synchronized
         val clientId: String by lazy {
-            var serialNumber:String? = null
+            var serialNumber: String? = null
             aircraftInstance
                 ?.flightController
-                ?.getSerialNumber(getCallback(tag = FlightControlViewModelFactory.TAG, success = {serialNumber = it}))
+                ?.getSerialNumber(
+                    CompletionCallbackWithToastHandler(
+                        tag = FlightControlViewModelFactory.TAG,
+                        success = { serialNumber = it })
+                )
             while (serialNumber == null) {
                 Thread.sleep(10)
             }

@@ -8,7 +8,6 @@ import android.widget.TextView
 import android.widget.Toast
 
 
-
 /**
  * Created by DJI on 2/28/17.
  */

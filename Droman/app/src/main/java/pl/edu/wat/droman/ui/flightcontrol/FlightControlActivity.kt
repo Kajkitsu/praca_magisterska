@@ -47,13 +47,19 @@ class FlightControlActivity : AppCompatActivity() {
 
         binding = ActivityFlightControlBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_flight_control)
-        DjiApplication.eventBus.register(this);
+        DjiApplication.eventBus.register(this)
 
         initCredentialsValue()
         DjiApplication.aircraftInstance?.let {
             flightControlViewModel = ViewModelProvider(
                 this,
-                FlightControlViewModelFactory(username, password, ipAddress, applicationContext, DjiApplication.clientId)
+                FlightControlViewModelFactory(
+                    username,
+                    password,
+                    ipAddress,
+                    applicationContext,
+                    DjiApplication.clientId
+                )
             )[FlightControlViewModel::class.java]
         }
 
@@ -229,7 +235,7 @@ class FlightControlActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        DjiApplication.eventBus.unregister(this);
+        DjiApplication.eventBus.unregister(this)
         binding.mapWidget.onDestroy()
         super.onDestroy()
     }
