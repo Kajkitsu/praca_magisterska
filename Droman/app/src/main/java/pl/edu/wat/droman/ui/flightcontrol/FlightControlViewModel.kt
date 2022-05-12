@@ -1,14 +1,13 @@
 package pl.edu.wat.droman.ui.flightcontrol
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dji.common.camera.SettingsDefinitions
 import dji.common.error.DJIError
 import dji.sdk.base.BaseProduct
+import dji.sdk.camera.Camera
 import dji.sdk.media.DownloadListener
 import dji.sdk.media.MediaFile
 import dji.sdk.products.Aircraft
@@ -17,8 +16,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import pl.edu.wat.droman.data.service.UpdateService
-import pl.edu.wat.droman.getOrAwaitValue
-import java.io.File
 
 
 class FlightControlViewModel(
@@ -66,7 +63,10 @@ class FlightControlViewModel(
             it.camera.setMediaFileCallback {
                 // it.getFullview() TODO
                 viewModelScope.launch(Dispatchers.IO) {
-                    it.getSusPreview()?.let { bitmap -> updateService.saveBitmap(bitmap) }
+                    it.getSusPreview()?.let { bitmap -> updateService.savePicture(bitmap) }
+                }
+                viewModelScope.launch(Dispatchers.IO) {
+//                    it.getFullview(it.camera)?.let { byte -> updateService.savePicture(byte) }
                 }
             }
         }
@@ -112,39 +112,4 @@ class FlightControlViewModel(
 //        throw RuntimeException("djiManager.product == null")
     }
 
-}
-
-
-
-
-private fun MediaFile.getFullview(): Bitmap? {
-    val file = File("/tmpfile")
-    val liveData = MutableLiveData<File>()
-    this.fetchFileData(file, "daat", object : DownloadListener<String> {
-        override fun onStart() {
-            TODO("Not yet implemented")
-        }
-
-        override fun onRateUpdate(p0: Long, p1: Long, p2: Long) {
-            TODO("Not yet implemented")
-        }
-
-        override fun onRealtimeDataUpdate(p0: ByteArray?, p1: Long, p2: Boolean) {
-            TODO("Not yet implemented")
-        }
-
-        override fun onProgress(p0: Long, p1: Long) {
-            TODO("Not yet implemented")
-        }
-
-        override fun onSuccess(p0: String?) {
-            liveData.postValue(file)
-        }
-
-        override fun onFailure(p0: DJIError?) {
-            p0?.let { error -> Log.e(FlightControlViewModel.TAG, error.toString()) }
-        }
-    })
-    val filePath: String = liveData.getOrAwaitValue(time = 20)!!.path
-    return BitmapFactory.decodeFile(filePath)
 }

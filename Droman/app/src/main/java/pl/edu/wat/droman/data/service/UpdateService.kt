@@ -51,9 +51,13 @@ class UpdateService(
         }
     }
 
-    suspend fun saveBitmap(bitmap: Bitmap) {
+    suspend fun savePicture(bitmap: Bitmap) {
+        return savePicture( bitmap.convertToByteArray())
+    }
+
+    suspend fun savePicture(byteArray: ByteArray) {
         val result = videoTopic.publish(
-            bitmap.convertToByteArray()
+            byteArray
         )
         if (result.isFailure) {
             Log.e(
