@@ -22,7 +22,7 @@ class MqttService(
     mqttCredentials: MqttCredentials,
     lastWill: MqttDto? = null,
     birth: MqttDto? = null,
-    keepAliveInterval: Int = GlobalConfig.keepAliveInterval,
+    keepAliveInterval: Int = GlobalConfig.KEEP_ALIVE_INTERVAL,
 ) {
 
     private val subscribedTopics: MutableSet<String> = HashSet()
@@ -41,7 +41,7 @@ class MqttService(
         { topic, message ->
             if (subscribedTopics.contains(topic)) {
                 Log.d(this.javaClass.name, "Receive message: $message from topic: $topic")
-                getTopicLastData(topic).postValue(message)
+                getTopicData(topic).postValue(message)
 
             } else {
                 Log.e(
@@ -70,7 +70,7 @@ class MqttService(
     }
 
 
-    private fun getTopicLastData(topic: String): MutableLiveData<MqttMessage> {
+    private fun getTopicData(topic: String): MutableLiveData<MqttMessage> {
         return messagesArrived
             .getOrPut(topic) { MutableLiveData() }
     }
@@ -100,7 +100,7 @@ class MqttService(
             if (!isSubscribed()) {
                 Log.w(this.javaClass.name, "getData without subscribing topic $value")
             }
-            return mqttService.getLiveData(value)
+            return mqttService.getTopicData(value)
         }
 
         fun getValue(): String {
@@ -108,9 +108,7 @@ class MqttService(
         }
     }
 
-    private fun getLiveData(value: String): LiveData<MqttMessage> {
-        return getTopicLastData(value)
-    }
+
 
     private suspend fun unsubscribe(value: String): Result<IMqttToken> {
         val res = mqttRepository.unsubscribe(value)

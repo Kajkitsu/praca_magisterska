@@ -96,6 +96,7 @@ class MqttServiceTest {
         //given
 
         val message = "message:" + UUID.randomUUID()
+        val message2 = "message:" + UUID.randomUUID()
         val topicVal = "/test"
 
         //then
@@ -106,6 +107,10 @@ class MqttServiceTest {
         }
 
         //except
+        Assert.assertEquals(message, topic.getData().getOrAwaitValue(time = 5).toString())
+        runBlocking {
+            topic.publish(message)
+        }
         Assert.assertEquals(message, topic.getData().getOrAwaitValue(time = 5).toString())
     }
 

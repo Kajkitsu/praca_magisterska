@@ -1,12 +1,13 @@
 package pl.edu.wat.droman
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import dji.common.error.DJIError
 import dji.common.util.CommonCallbacks
 import dji.common.util.CommonCallbacks.CompletionCallback
-import pl.edu.wat.droman.ui.ToastUtils.setResultToToast
+import pl.edu.wat.droman.ui.FeedbackUtils
+import pl.edu.wat.droman.ui.FeedbackUtils.setResult
+import pl.edu.wat.droman.ui.LogLevel
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
@@ -42,10 +43,22 @@ fun <T> LiveData<T>.getOrAwaitValue(
 }
 
 
-class CompletionCallbackWithToastHandler<T>(
+class CompletionCallbackWithHandler<T>(
     tag: String,
-    private val success: (T) -> Unit = { Log.d(tag, it.toString()) },
-    private val failure: (DJIError) -> Unit = { Log.e(tag, it.toString()) },
+    private val success: (T) -> Unit = {
+        setResult(
+            string = it.toString(),
+            tag = tag,
+            level = LogLevel.INFO
+        )
+    },
+    private val failure: (DJIError) -> Unit = {
+        setResult(
+            tag = tag,
+            level = LogLevel.ERROR,
+            string = it.toString()
+        )
+    },
 ) : CommonCallbacks.CompletionCallbackWith<T> {
     override fun onSuccess(p0: T?) {
         if (p0 != null) {
@@ -60,11 +73,24 @@ class CompletionCallbackWithToastHandler<T>(
     }
 }
 
-class CallbackToastHandler(
-    private val success: () -> Unit = { setResultToToast("Success") },
-    private val failure: (DJIError) -> Unit = { setResultToToast(it.toString()) },
-) : CompletionCallback<DJIError?> {
-    override fun onResult(djiError: DJIError?) {
+class CompletionCallbackHandler<T:DJIError>(
+    tag: String,
+    private val success: () -> Unit = {
+        setResult(
+            "Success",
+            LogLevel.INFO,
+            tag
+        )
+    },
+    private val failure: (DJIError) -> Unit = {
+        setResult(
+            it.toString(),
+            LogLevel.ERROR,
+            tag
+        )
+    },
+) : CompletionCallback<T> {
+    override fun onResult(djiError: T?) {
         if (djiError != null) {
             failure.invoke(djiError)
         } else {

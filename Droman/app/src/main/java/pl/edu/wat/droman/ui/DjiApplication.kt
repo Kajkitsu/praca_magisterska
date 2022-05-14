@@ -12,7 +12,7 @@ import dji.sdk.base.BaseProduct
 import dji.sdk.products.Aircraft
 import dji.sdk.sdkmanager.BluetoothProductConnector
 import dji.sdk.sdkmanager.DJISDKManager
-import pl.edu.wat.droman.CompletionCallbackWithToastHandler
+import pl.edu.wat.droman.CompletionCallbackWithHandler
 import pl.edu.wat.droman.ui.djiconnectioncontrol.DJIConnectionControlActivity
 import pl.edu.wat.droman.ui.flightcontrol.FlightControlViewModelFactory
 
@@ -57,7 +57,7 @@ class DjiApplication : Application() {
             aircraftInstance
                 ?.flightController
                 ?.getSerialNumber(
-                    CompletionCallbackWithToastHandler(
+                    CompletionCallbackWithHandler(
                         tag = FlightControlViewModelFactory.TAG,
                         success = { serialNumber = it })
                 )

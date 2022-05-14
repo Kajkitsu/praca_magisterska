@@ -1,6 +1,7 @@
 package pl.edu.wat.droman.data.datasource
 
 import android.content.Context
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.eclipse.paho.android.service.MqttAndroidClient
@@ -11,7 +12,7 @@ class MqttClient(
     context: Context?,
     serverURI: String,
     clientID: String = "",
-    private val waitForResponseTimeout: Long = GlobalConfig.waitForResponseTimeout
+    private val waitForResponseTimeout: Long = GlobalConfig.WAIT_FOR_RESPONSE_TIMEOUT
 ) {
 
     private var mqttClient = MqttAndroidClient(context, serverURI, clientID)
@@ -21,7 +22,7 @@ class MqttClient(
         password: String,
         cbClient: MqttCallback,
         lastWill: MqttDto? = null,
-        keepAliveInterval: Int = GlobalConfig.keepAliveInterval
+        keepAliveInterval: Int = GlobalConfig.KEEP_ALIVE_INTERVAL
     ): Result<IMqttToken> = withContext(Dispatchers.IO) {
 
         val options = MqttConnectOptions()
@@ -42,7 +43,6 @@ class MqttClient(
             token.waitForCompletion(waitForResponseTimeout)
             return@withContext Result.success(token)
         } catch (e: MqttException) {
-            e.printStackTrace()
             return@withContext Result.failure(e)
         }
     }
@@ -53,7 +53,6 @@ class MqttClient(
             token.waitForCompletion(waitForResponseTimeout)
             return@withContext Result.success(token)
         } catch (e: MqttException) {
-            e.printStackTrace()
             return@withContext Result.failure(e)
         }
     }
@@ -77,7 +76,6 @@ class MqttClient(
             token.waitForCompletion(waitForResponseTimeout)
             return@withContext Result.success(token)
         } catch (e: MqttException) {
-            e.printStackTrace()
             return@withContext Result.failure(e)
         }
     }
@@ -92,7 +90,6 @@ class MqttClient(
             token.waitForCompletion(waitForResponseTimeout)
             return@withContext Result.success(token)
         } catch (e: MqttException) {
-            e.printStackTrace()
             return@withContext Result.failure(e)
         }
     }
@@ -106,7 +103,6 @@ class MqttClient(
             token.waitForCompletion(waitForResponseTimeout)
             return@withContext Result.success(token)
         } catch (e: MqttException) {
-            e.printStackTrace()
             return@withContext Result.failure(e)
         }
     }

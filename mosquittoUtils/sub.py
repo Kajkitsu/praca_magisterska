@@ -1,6 +1,6 @@
 import paho.mqtt.client as mqtt
-MQTT_SERVER = "192.168.1.102"
-MQTT_PATH = "/droman/picture/#"
+MQTT_SERVER = "10.8.47.193"
+MQTT_PATH = "droman/picture/#"
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):

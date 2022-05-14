@@ -15,7 +15,7 @@ class MqttRepository(
     context: Context,
     private val mqttCredentials: MqttCredentials,
     private val lastWill: MqttDto? = null,
-    private val keepAliveInterval: Int = GlobalConfig.keepAliveInterval,
+    private val keepAliveInterval: Int = GlobalConfig.KEEP_ALIVE_INTERVAL,
     private val messageArrivedFun: (topic: String, message: MqttMessage) -> Unit = { topic, message ->
         Log.d("MqttRepository", "Receive message: $message from topic: $topic")
     },

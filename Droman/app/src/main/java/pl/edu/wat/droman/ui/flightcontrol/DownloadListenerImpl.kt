@@ -6,12 +6,13 @@ import dji.common.error.DJIError
 import dji.sdk.camera.Camera
 import dji.sdk.media.DownloadListener
 import kotlinx.coroutines.delay
-import pl.edu.wat.droman.CallbackToastHandler
-import pl.edu.wat.droman.CompletionCallbackWithToastHandler
-import pl.edu.wat.droman.ui.ToastUtils
+import pl.edu.wat.droman.CompletionCallbackHandler
+import pl.edu.wat.droman.CompletionCallbackWithHandler
+import pl.edu.wat.droman.ui.FeedbackUtils
+import pl.edu.wat.droman.ui.LogLevel
 
 
-class DownloadHandler<B>(private val camera: Camera) : DownloadListener<B> {
+class DownloadListenerImpl<B>(private val camera: Camera) : DownloadListener<B> {
     companion object {
         val TAG = "DownloadHandler"
     }
@@ -23,11 +24,14 @@ class DownloadHandler<B>(private val camera: Camera) : DownloadListener<B> {
 
     override fun onStart() {
         camera.getMode(
-            CompletionCallbackWithToastHandler<SettingsDefinitions.CameraMode>(
+            CompletionCallbackWithHandler<SettingsDefinitions.CameraMode>(
                 success = { prevMode = it }, tag = TAG
             )
         )
-        camera.setMode(SettingsDefinitions.CameraMode.MEDIA_DOWNLOAD, CallbackToastHandler())
+        camera.setMode(
+            SettingsDefinitions.CameraMode.MEDIA_DOWNLOAD,
+            CompletionCallbackHandler<DJIError>(TAG)
+        )
     }
 
     override fun onRateUpdate(total: Long, current: Long, arg2: Long) {}
@@ -36,21 +40,27 @@ class DownloadHandler<B>(private val camera: Camera) : DownloadListener<B> {
     override fun onSuccess(obj: B) {
         if (obj is Bitmap) {
             bitmap = obj
-            ToastUtils.setResultToToast("Success! The bitmap's byte count is: " + bitmap!!.byteCount)
+            FeedbackUtils.setResult(
+                "Success! The bitmap's byte count is: " + bitmap!!.byteCount,
+                LogLevel.ERROR
+            )
         } else if (obj is String) {
             path = obj
-            ToastUtils.setResultToToast("The file has been stored, its path is $obj")
+            FeedbackUtils.setResult(
+                "The file has been stored, its path is $obj",
+                LogLevel.ERROR
+            )
         }
         camera.setMode(
             prevMode ?: SettingsDefinitions.CameraMode.SHOOT_PHOTO,
-            CallbackToastHandler()
+            CompletionCallbackHandler<DJIError>(TAG)
         )
     }
 
     override fun onFailure(djiError: DJIError?) {
         camera.setMode(
             prevMode ?: SettingsDefinitions.CameraMode.SHOOT_PHOTO,
-            CallbackToastHandler()
+            CompletionCallbackHandler<DJIError>(TAG)
         )
     }
 

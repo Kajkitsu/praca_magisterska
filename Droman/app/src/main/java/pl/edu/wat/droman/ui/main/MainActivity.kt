@@ -9,6 +9,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.dji.frame.util.V_JsonUtil
 import dji.log.GlobalConfig
@@ -16,10 +17,10 @@ import dji.sdk.sdkmanager.DJISDKManager
 import pl.edu.wat.droman.R
 import pl.edu.wat.droman.databinding.ActivityMainBinding
 import pl.edu.wat.droman.ui.DjiApplication
-import pl.edu.wat.droman.ui.LogType
+import pl.edu.wat.droman.ui.FeedbackUtils
+import pl.edu.wat.droman.ui.LogLevel
 import pl.edu.wat.droman.ui.afterTextChanged
 import pl.edu.wat.droman.ui.flightcontrol.FlightControlActivity
-import pl.edu.wat.droman.ui.toastAndLog
 
 /** Main activity that displays three choices to user  */
 class MainActivity : AppCompatActivity() {
@@ -49,6 +50,9 @@ class MainActivity : AppCompatActivity() {
     private val missingPermission: MutableList<String> = ArrayList()
 
     private lateinit var mainViewModel: MainViewModel
+    private val isConnected = MutableLiveData(false)
+
+    private var nextActivity: Intent? = null
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,11 +73,12 @@ class MainActivity : AppCompatActivity() {
             .setOnClickListener {
                 binding.progressBar.visibility = View.VISIBLE
                 if (mainViewModel.connectState.value == true) {
-                    val nextActivity = Intent(this, FlightControlActivity::class.java)
-                    nextActivity.putExtra("username", binding.edMqttUsername.text.toString())
-                    nextActivity.putExtra("password", binding.edMqttPassword.text.toString())
-                    nextActivity.putExtra("ipAddress", binding.edMqttAddress.text.toString())
+                    nextActivity = Intent(this, FlightControlActivity::class.java)
+                    nextActivity!!.putExtra("username", binding.edMqttUsername.text.toString())
+                    nextActivity!!.putExtra("password", binding.edMqttPassword.text.toString())
+                    nextActivity!!.putExtra("ipAddress", binding.edMqttAddress.text.toString())
                     startActivity(nextActivity)
+                    binding.progressBar.visibility = View.INVISIBLE
                 }
             }
 
@@ -100,23 +105,33 @@ class MainActivity : AppCompatActivity() {
             mainViewModel.invalidate()
         }
 
+
         binding.version.text = getVersionText()
 
+        isConnected.observe(this@MainActivity) {
+            binding.btCheckConnection.isEnabled = it
+        }
+
         mainViewModel.connectState.observe(this@MainActivity) {
-            binding.btStartFlightMode.isEnabled = it && registrationCallback.isConnected()
-            binding.btCheckConnection.isEnabled = true
+            binding.btStartFlightMode.isEnabled = it
+            binding.btCheckConnection.isEnabled = isConnected.value!!
             if (binding.progressBar.visibility == View.VISIBLE) {
                 binding.progressBar.visibility = View.INVISIBLE
-                if (it && registrationCallback.isConnected()) {
-                    toastAndLog(MainViewModel.TAG, applicationContext, "Correct connection")
+                if (it && isConnected.value!!) {
+                    FeedbackUtils.setResult(
+                        tag = MainViewModel.TAG,
+                        string = "Correct connection"
+                    )
                 } else {
-                    if (registrationCallback.isConnected()) {
-                        toastAndLog(MainViewModel.TAG, applicationContext, "Failed connecting MQTT")
+                    if (isConnected.value!!) {
+                        FeedbackUtils.setResult(
+                            "Failed connecting MQTT",
+                            tag = MainViewModel.TAG
+                        )
                     } else {
-                        toastAndLog(
-                            MainViewModel.TAG,
-                            applicationContext,
-                            "Failed connecting to device"
+                        FeedbackUtils.setResult(
+                            "Failed connecting to device",
+                            tag = MainViewModel.TAG
                         )
                     }
                 }
@@ -128,8 +143,28 @@ class MainActivity : AppCompatActivity() {
 //        }
 
         registrationCallback = RegistrationCallback(
-            applicationContext,
-            registrationSuccess = { binding.btCheckConnection.isEnabled = true })
+            registrationSuccess = {
+                FeedbackUtils.setResult(
+                    tag = RegistrationCallback.TAG,
+                    string = "SDK registration succeeded!"
+                )
+            },
+            deviceConnected = {
+                FeedbackUtils.setResult(
+                    tag = RegistrationCallback.TAG,
+                    string = "product connect!"
+                )
+                isConnected.postValue(true)
+            },
+            deviceDisconnected = {
+                FeedbackUtils.setResult(
+                    tag = RegistrationCallback.TAG,
+                    string = "product disconnect!",
+                    level = LogLevel.WARN
+                )
+                isConnected.postValue(false)
+            })
+
         checkAndRequestPermissions()
     }
 
@@ -200,16 +235,19 @@ class MainActivity : AppCompatActivity() {
         if (missingPermission.isEmpty()) {
             registrationCallback.startSDKRegistration(this)
         } else {
-            toastAndLog(
-                TAG,
-                applicationContext,
-                "Missing permissions! Will not register SDK to connect to aircraft." + V_JsonUtil.toJson(
-                    missingPermission
-                ),
-                LogType.ERROR
+            FeedbackUtils.setResult(
+                tag = TAG,
+                string = getUserPermissionNotGranted(),
+                level = LogLevel.ERROR
             )
 
         }
+    }
+
+    private fun getUserPermissionNotGranted(): String? {
+        return "Missing permissions! Will not register SDK to connect to aircraft. ${
+            V_JsonUtil.toJson(missingPermission)
+        }"
     }
 
     private fun getVersionText() = "Debug:" + GlobalConfig.DEBUG + ", " + resources.getString(

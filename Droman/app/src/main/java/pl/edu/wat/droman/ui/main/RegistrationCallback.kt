@@ -1,6 +1,5 @@
 package pl.edu.wat.droman.ui.main
 
-import android.content.Context
 import dji.common.error.DJIError
 import dji.common.error.DJISDKError
 import dji.sdk.base.BaseComponent
@@ -10,13 +9,14 @@ import dji.sdk.sdkmanager.DJISDKManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import pl.edu.wat.droman.ui.LogType
-import pl.edu.wat.droman.ui.toastAndLog
+import pl.edu.wat.droman.ui.FeedbackUtils
+import pl.edu.wat.droman.ui.LogLevel
 import java.util.concurrent.atomic.AtomicBoolean
 
 class RegistrationCallback(
-    private val applicationContext: Context,
-    private val registrationSuccess: () -> Unit
+    private val registrationSuccess: () -> Unit,
+    private val deviceConnected: () -> Unit,
+    private val deviceDisconnected: () -> Unit,
 ) :
     DJISDKManager.SDKManagerCallback {
 
@@ -25,7 +25,6 @@ class RegistrationCallback(
     }
 
     private val isRegistrationInProgress = AtomicBoolean(false)
-    private val deviceConnected = AtomicBoolean(false)
 
     fun startSDKRegistration(mainActivity: MainActivity) {
         if (isRegistrationInProgress.compareAndSet(false, true)) {
@@ -43,29 +42,22 @@ class RegistrationCallback(
         if (error === DJISDKError.REGISTRATION_SUCCESS) {
             DJISDKManager.getInstance().startConnectionToProduct()
             registrationSuccess.invoke()
-            toastAndLog(TAG, applicationContext, "SDK registration succeeded!")
         } else {
-            toastAndLog(
-                TAG,
-                applicationContext,
-                "SDK registration failed, check network and retry!" + error.description,
-                LogType.ERROR
+            FeedbackUtils.setResult(
+                tag =
+                TAG, string =
+                "SDK registration failed, check network and retry!" + error.description, level =
+                LogLevel.ERROR
             )
         }
     }
 
     override fun onProductDisconnect() {
-        deviceConnected.set(false)
-        toastAndLog(TAG, applicationContext, "product disconnect!", LogType.WARN)
+        deviceDisconnected.invoke()
     }
 
     override fun onProductConnect(product: BaseProduct) {
-        deviceConnected.set(true)
-        toastAndLog(TAG, applicationContext, "product connect!")
-    }
-
-    fun isConnected(): Boolean {
-        return deviceConnected.get()
+        deviceConnected.invoke()
     }
 
     override fun onProductChanged(product: BaseProduct) {}
@@ -74,20 +66,20 @@ class RegistrationCallback(
         oldComponent: BaseComponent?,
         newComponent: BaseComponent?
     ) {
-        toastAndLog(TAG, applicationContext, "$key changed")
+        FeedbackUtils.setResult(tag = TAG, string = "$key changed")
     }
 
     override fun onInitProcess(event: DJISDKInitEvent, totalProcess: Int) {
-//        toastAndLog(
-//            TAG,
+//        FeedbackUtils.setResultToToastAndLog(tag =
+//, string =
 //            applicationContext,
 //            "onInitProcess," + event + "totalProcess," + totalProcess
 //        )
     }
 
     override fun onDatabaseDownloadProgress(current: Long, total: Long) {
-//        toastAndLog(
-//            TAG,
+//        FeedbackUtils.setResultToToastAndLog(tag =
+//, string =
 //            applicationContext,
 //            "onDatabaseDownloadProgress" + (100 * current / total).toInt()
 //        )

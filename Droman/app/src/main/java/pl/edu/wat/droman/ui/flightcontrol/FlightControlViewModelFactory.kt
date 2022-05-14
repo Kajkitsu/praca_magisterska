@@ -7,6 +7,7 @@ import pl.edu.wat.droman.data.ETopic
 import pl.edu.wat.droman.data.datasource.MqttDto
 import pl.edu.wat.droman.data.model.MqttCredentials
 import pl.edu.wat.droman.data.service.MqttService
+import pl.edu.wat.droman.data.service.ReceiveService
 import pl.edu.wat.droman.data.service.UpdateService
 
 class FlightControlViewModelFactory(
@@ -23,7 +24,6 @@ class FlightControlViewModelFactory(
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-
         if (modelClass.isAssignableFrom(FlightControlViewModel::class.java)) {
             val mqttService = MqttService(
                 context = context,
@@ -35,6 +35,9 @@ class FlightControlViewModelFactory(
                 updateService = UpdateService(
                     mqttService.getTopic(ETopic.STATE.path + "/" + clientId),
                     mqttService.getTopic(ETopic.PICTURE.path + "/" + clientId)
+                ),
+                receiveService = ReceiveService(
+                    mqttService.getTopic(ETopic.COMMAND.path + "/" + clientId)
                 )
             ) as T
         }

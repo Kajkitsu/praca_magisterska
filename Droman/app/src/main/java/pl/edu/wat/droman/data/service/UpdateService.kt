@@ -2,7 +2,8 @@ package pl.edu.wat.droman.data.service
 
 import android.graphics.Bitmap
 import android.util.Log
-import dji.common.flightcontroller.FlightControllerState
+import kotlinx.coroutines.delay
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken
 import pl.edu.wat.droman.data.model.FlightStatus
 import java.io.ByteArrayOutputStream
 
@@ -12,31 +13,9 @@ class UpdateService(
     private val videoTopic: MqttService.Topic,
 ) {
 
-    init {
-//        flightController.setStateCallback(getStatusCallback()) //TODO("are you sure")
-    }
-
-    //    fun getCameraCallback() = Camera.VideoDataCallback { bytes, i ->
-//        GlobalScope.launch(Dispatchers.IO) {
-//            val result = videoTopic.publish(bytes)
-//            if (result.isFailure) {
-//                Log.e(
-//                    this.javaClass.name,
-//                    "Failure saving ${videoTopic.getValue()} with data. Failure ${result.exceptionOrNull()}"
-//                )
-//            } else {
-//                Log.d(
-//                    this.javaClass.name,
-//                    "Success saving ${videoTopic.getValue()} with data size:${bytes.size}"
-//                )
-//            }
-//        }
-//    }
-//
-    suspend fun saveCallback(state: FlightControllerState) {
-        val data = FlightStatus.gen(state).toJson()
+    suspend fun saveCallback(data: FlightStatus): Result<IMqttDeliveryToken> {
         val result = statusTopic.publish(
-            data
+            data.toJson()
         )
         if (result.isFailure) {
             Log.e(
@@ -46,9 +25,10 @@ class UpdateService(
         } else {
             Log.d(
                 this.javaClass.name,
-                "Success saving ${statusTopic.getValue()} with data:${data}"
+                "Success saving ${statusTopic.getValue()} with data:${data.toJson()}"
             )
         }
+        return result
     }
 
     suspend fun savePicture(bitmap: Bitmap) {

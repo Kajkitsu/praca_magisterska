@@ -9,8 +9,11 @@ import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.Transformation
 import android.widget.RelativeLayout
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.dji.mapkit.core.maps.DJIMap
 import dji.keysdk.CameraKey
 import dji.keysdk.KeyManager
@@ -19,6 +22,7 @@ import dji.ux.widget.FPVWidget
 import pl.edu.wat.droman.R
 import pl.edu.wat.droman.databinding.ActivityFlightControlBinding
 import pl.edu.wat.droman.ui.DjiApplication
+import pl.edu.wat.droman.ui.FeedbackUtils
 
 
 /**
@@ -41,7 +45,7 @@ class FlightControlActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFlightControlBinding
     private lateinit var flightControlViewModel: FlightControlViewModel
 
-    @SuppressLint("ResourceType")
+    @SuppressLint("ResourceType", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -74,6 +78,10 @@ class FlightControlActivity : AppCompatActivity() {
         display.getRealSize(outPoint)
         deviceHeight = outPoint.y
         deviceWidth = outPoint.x
+        val logTextView = findViewById<TextView>(R.id.log_text_view)
+        FeedbackUtils.logLiveData.observe(this) {
+            logTextView.append("\n" + it)
+        }
 
         binding.mapWidget.initGoogleMap { map: DJIMap ->
             map.setOnMapClickListener { onViewClick(binding.mapWidget) }
@@ -237,6 +245,7 @@ class FlightControlActivity : AppCompatActivity() {
     override fun onDestroy() {
         DjiApplication.eventBus.unregister(this)
         binding.mapWidget.onDestroy()
+        flightControlViewModel.destroy()
         super.onDestroy()
     }
 
