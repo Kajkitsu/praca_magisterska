@@ -5,7 +5,6 @@ import dji.common.mission.waypoint.WaypointMissionState
 import pl.edu.wat.droman.ui.FeedbackUtils
 import pl.edu.wat.droman.ui.LogLevel
 import pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers
-import pl.edu.wat.droman.ui.flightcontrol.handler.CommandHandler
 import pl.edu.wat.droman.ui.flightcontrol.handler.waypoint.WaypointMissionFactory
 import java.util.*
 
@@ -32,24 +31,31 @@ class LoadWaypointCommand(jsonObject: JsonObject) : Command(type) {
         const val type = "load_waypoint_mission"
     }
 
-    override fun exec(commandHandler: AircraftControllers) {
-        if (commandHandler.waypointMissionOperator.currentState == WaypointMissionState.READY_TO_UPLOAD
-            || commandHandler.waypointMissionOperator.currentState == WaypointMissionState.READY_TO_EXECUTE
+    override fun exec(aircraftControllers: AircraftControllers) {
+        if (aircraftControllers.waypointMissionOperator.currentState == WaypointMissionState.READY_TO_UPLOAD
+            || aircraftControllers.waypointMissionOperator.currentState == WaypointMissionState.READY_TO_EXECUTE
         ) {
             waypointMissionFactory.createWaypointMission(this)?.let {
-                val error = commandHandler.waypointMissionOperator.loadMission(it)
+                val error = aircraftControllers.waypointMissionOperator.loadMission(it)
                 if (error != null) {
                     FeedbackUtils.setResult(
                         error.toString(),
                         level = LogLevel.ERROR,
-                        tag = CommandHandler.TAG
+                        tag = TAG
                     )
                 } else {
-                    FeedbackUtils.setResult("Success loading mission", level = LogLevel.DEBUG)
+                    FeedbackUtils.setResult(
+                        "Success loading mission",
+                        level = LogLevel.DEBUG,
+                        tag = TAG
+                    )
                 }
             }
         } else {
-            FeedbackUtils.setResult("The mission can be loaded only when the operator state is READY_TO_UPLOAD or READY_TO_EXECUTE")
+            FeedbackUtils.setResult(
+                "The mission can be loaded only when the operator state is READY_TO_UPLOAD or READY_TO_EXECUTE",
+                tag = TAG
+            )
         }
     }
 }

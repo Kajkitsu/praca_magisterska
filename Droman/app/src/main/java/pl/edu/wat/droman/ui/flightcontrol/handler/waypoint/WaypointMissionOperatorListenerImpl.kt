@@ -9,15 +9,19 @@ import dji.sdk.mission.waypoint.WaypointMissionOperatorListener
 import pl.edu.wat.droman.ui.FeedbackUtils
 
 class WaypointMissionOperatorListenerImpl : WaypointMissionOperatorListener {
+    companion object {
+        const val TAG = "WaypointMissionOperatorListenerImpl"
+    }
+
     override fun onDownloadUpdate(waypointMissionDownloadEvent: WaypointMissionDownloadEvent) {}
     override fun onUploadUpdate(waypointMissionUploadEvent: WaypointMissionUploadEvent) {
         if (waypointMissionUploadEvent.error != null) {
-            FeedbackUtils.setResult(waypointMissionUploadEvent.error!!.description)
+            FeedbackUtils.setResult(waypointMissionUploadEvent.error!!.description, TAG)
         } else {
             if (waypointMissionUploadEvent.previousState == WaypointMissionState.UPLOADING
                 && waypointMissionUploadEvent.currentState == WaypointMissionState.READY_TO_EXECUTE
             ) {
-                FeedbackUtils.setResult("Mission is uploaded successfully")
+                FeedbackUtils.setResult("Mission is uploaded successfully", TAG)
             }
         }
     }

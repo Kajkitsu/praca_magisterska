@@ -7,9 +7,9 @@ import dji.sdk.camera.Camera
 import dji.sdk.media.DownloadListener
 import kotlinx.coroutines.delay
 import pl.edu.wat.droman.callback.CompletionCallbackImpl
+import pl.edu.wat.droman.callback.CompletionCallbackWithImpl
 import pl.edu.wat.droman.ui.FeedbackUtils
 import pl.edu.wat.droman.ui.LogLevel
-import pl.edu.wat.droman.callback.CompletionCallbackWithImpl
 
 
 class DownloadListenerImpl<B>(private val camera: Camera) : DownloadListener<B> {
@@ -30,7 +30,9 @@ class DownloadListenerImpl<B>(private val camera: Camera) : DownloadListener<B> 
         )
         camera.setMode(
             SettingsDefinitions.CameraMode.MEDIA_DOWNLOAD,
-            CompletionCallbackImpl<DJIError>(TAG)
+            CompletionCallbackImpl<DJIError>(
+                TAG,
+                { FeedbackUtils.setResult("Success setting camera to media download", TAG) })
         )
     }
 
@@ -42,25 +44,29 @@ class DownloadListenerImpl<B>(private val camera: Camera) : DownloadListener<B> 
             bitmap = obj
             FeedbackUtils.setResult(
                 "Success! The bitmap's byte count is: " + bitmap!!.byteCount,
+                TAG,
                 LogLevel.ERROR
             )
         } else if (obj is String) {
             path = obj
             FeedbackUtils.setResult(
                 "The file has been stored, its path is $obj",
+                TAG,
                 LogLevel.ERROR
             )
         }
         camera.setMode(
             prevMode ?: SettingsDefinitions.CameraMode.SHOOT_PHOTO,
-            CompletionCallbackImpl<DJIError>(TAG)
+            CompletionCallbackImpl<DJIError>(TAG,
+                { FeedbackUtils.setResult("Success setting camera to shoot photo", TAG) })
         )
     }
 
     override fun onFailure(djiError: DJIError?) {
         camera.setMode(
             prevMode ?: SettingsDefinitions.CameraMode.SHOOT_PHOTO,
-            CompletionCallbackImpl<DJIError>(TAG)
+            CompletionCallbackImpl<DJIError>(TAG,
+                { FeedbackUtils.setResult("Success setting camera to shoot photo", TAG) })
         )
     }
 

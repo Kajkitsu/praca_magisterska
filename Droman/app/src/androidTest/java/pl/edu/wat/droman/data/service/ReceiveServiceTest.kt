@@ -43,7 +43,7 @@ class ReceiveServiceTest {
         user = metadata.getString("mosquitto.user")!!
         uri = "tcp://" + metadata.getString("mosquitto.ip")
         val mqttService = MqttService(appContext, MqttCredentials(uri, clientID, user, password))
-        commandTopic = mqttService.getTopic(ETopic.COMMAND.path+"/"+clientID)
+        commandTopic = mqttService.getTopic(ETopic.COMMAND.forClient(clientID))
         receiveService = ReceiveService(commandTopic)
     }
 

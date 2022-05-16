@@ -2,9 +2,6 @@ package pl.edu.wat.droman.ui.flightcontrol
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dji.sdk.base.BaseProduct
-import dji.sdk.products.Aircraft
-import dji.sdk.sdkmanager.DJISDKManager
 import pl.edu.wat.droman.data.service.ReceiveService
 import pl.edu.wat.droman.data.service.UpdateService
 import pl.edu.wat.droman.ui.DjiApplication
@@ -32,7 +29,7 @@ class FlightControlViewModel(
 
     init {
         DjiApplication.aircraftInstance?.let { aircraft ->
-            FeedbackUtils.setResult("Aircraft found", level = LogLevel.DEBUG)
+            FeedbackUtils.setResult("Aircraft found", level = LogLevel.DEBUG, tag = TAG)
             statusHandler = StatusHandler(aircraft.flightController, viewModelScope, updateService)
             cameraHandler = CameraHandler(aircraft.camera, viewModelScope, updateService)
             commandHandler = CommandHandler(
@@ -42,7 +39,7 @@ class FlightControlViewModel(
                 receiveService
             )
         } ?: run {
-            FeedbackUtils.setResult("Aircraft not found", level = LogLevel.WARN)
+            FeedbackUtils.setResult("Aircraft not found", level = LogLevel.WARN, tag = TAG)
         }
     }
 

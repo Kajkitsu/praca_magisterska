@@ -2,7 +2,6 @@ package pl.edu.wat.droman.data.service
 
 import android.graphics.Bitmap
 import android.util.Log
-import kotlinx.coroutines.delay
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken
 import pl.edu.wat.droman.data.model.FlightStatus
 import java.io.ByteArrayOutputStream

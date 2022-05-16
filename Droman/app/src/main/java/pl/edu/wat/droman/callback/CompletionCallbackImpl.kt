@@ -8,18 +8,12 @@ import pl.edu.wat.droman.ui.LogLevel
 
 class CompletionCallbackImpl<T : DJIError>(
     tag: String,
-    private val success: () -> Unit = {
-        FeedbackUtils.setResult(
-            "Success",
-            LogLevel.INFO,
-            tag
-        )
-    },
+    private val success: () -> Unit,
     private val failure: (DJIError) -> Unit = {
         FeedbackUtils.setResult(
-            it.toString(),
-            LogLevel.ERROR,
-            tag
+            "${it.description} ${it.errorCode}",
+            tag,
+            LogLevel.ERROR
         )
     },
 ) : CommonCallbacks.CompletionCallback<T> {

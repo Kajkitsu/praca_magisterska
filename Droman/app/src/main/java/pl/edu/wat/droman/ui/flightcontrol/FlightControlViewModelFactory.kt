@@ -9,7 +9,6 @@ import pl.edu.wat.droman.data.model.MqttCredentials
 import pl.edu.wat.droman.data.service.MqttService
 import pl.edu.wat.droman.data.service.ReceiveService
 import pl.edu.wat.droman.data.service.UpdateService
-import pl.edu.wat.droman.ui.FeedbackUtils
 
 class FlightControlViewModelFactory(
     private val username: String,
@@ -34,11 +33,11 @@ class FlightControlViewModelFactory(
             )
             return FlightControlViewModel(
                 updateService = UpdateService(
-                    mqttService.getTopic(ETopic.STATE.path + "/" + clientId),
-                    mqttService.getTopic(ETopic.PICTURE.path + "/" + clientId)
+                    mqttService.getTopic(ETopic.STATE.forClient(clientId)),
+                    mqttService.getTopic(ETopic.PICTURE.forClient(clientId))
                 ),
                 receiveService = ReceiveService(
-                    mqttService.getTopic(ETopic.COMMAND.path + "/" + clientId)
+                    mqttService.getTopic(ETopic.COMMAND.forClient(clientId))
                 )
             ) as T
         }

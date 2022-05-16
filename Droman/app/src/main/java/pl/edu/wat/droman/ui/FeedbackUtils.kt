@@ -8,9 +8,6 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 
 
-/**
- * Created by DJI on 2/28/17.
- */
 object FeedbackUtils {
     private const val MESSAGE_UPDATE = 1
     private const val MESSAGE_TOAST = 2
@@ -18,7 +15,6 @@ object FeedbackUtils {
 
     private val mUIHandler: Handler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
-            //Get the message string
             when (msg.what) {
                 MESSAGE_UPDATE -> showMessage(msg.obj as String)
                 MESSAGE_TOAST -> showToast(msg.obj as String)
@@ -37,8 +33,8 @@ object FeedbackUtils {
 
     fun setResult(
         string: String?,
-        level: LogLevel = LogLevel.INFO,
-        tag: String? = this.javaClass.canonicalName
+        tag: String?,
+        level: LogLevel = LogLevel.INFO
     ) {
         string?.let {
             when (level) {
@@ -59,12 +55,12 @@ object FeedbackUtils {
         if (level.level >= 2) {
             val msg = Message()
             msg.what = MESSAGE_TOAST
-            msg.obj = string
+            msg.obj = "$tag: $string"
             mUIHandler.sendMessage(msg)
         }
         val msg = Message()
         msg.what = MESSAGE_UPDATE
-        msg.obj = string
+        msg.obj = "$tag: $string"
         mUIHandler.sendMessage(msg)
     }
 }

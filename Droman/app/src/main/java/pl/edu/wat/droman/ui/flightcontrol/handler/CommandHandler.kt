@@ -33,7 +33,7 @@ class CommandHandler(
         statsHandler,
         flightController,
         waypointMissionOperator
-    );
+    )
 
     private val commandLiveData: LiveData<Command> = receiveService.getCommand()
     private val commandObserver = Observer<Command> {
@@ -41,7 +41,11 @@ class CommandHandler(
     }
     private val statusObserver = Observer<FlightStatus> {
         if (it.isLandingConfirmationNeeded) {
-            flightController.confirmLanding(CompletionCallbackImpl<DJIError>(TAG))
+            flightController.confirmLanding(
+                CompletionCallbackImpl<DJIError>(
+                    TAG,
+                    success = { FeedbackUtils.setResult("Landing confirmed", TAG) })
+            )
         }
     }
     private val waypointMissionOperatorListener = WaypointMissionOperatorListenerImpl()
@@ -55,7 +59,9 @@ class CommandHandler(
             flightController.simulator
                 .start(
                     InitializationData.createInstance(LocationCoordinate2D(22.0, 113.0), 10, 10),
-                    CompletionCallbackImpl<DJIError>(tag = TAG)
+                    CompletionCallbackImpl<DJIError>(
+                        tag = TAG,
+                        success = { FeedbackUtils.setResult("Simulation started", TAG) })
                 )
         }
 
@@ -100,7 +106,11 @@ class CommandHandler(
         waypointMissionOperator.removeListener(waypointMissionOperatorListener)
         statsHandler.status.removeObserver(statusObserver)
         if (GlobalConfig.SIMULATOR_MODE) {
-            flightController.simulator.stop(CompletionCallbackImpl<DJIError>(tag = TAG))
+            flightController.simulator.stop(
+                CompletionCallbackImpl<DJIError>(
+                    tag = TAG,
+                    success = { FeedbackUtils.setResult("Simulation stopped", TAG) })
+            )
         }
 
 

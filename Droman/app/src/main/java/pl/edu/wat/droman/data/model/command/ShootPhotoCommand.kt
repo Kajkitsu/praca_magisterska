@@ -7,8 +7,8 @@ class ShootPhotoCommand : Command(type) {
         const val type = "shoot_photo"
     }
 
-    override fun exec(commandHandler: AircraftControllers) {
-        commandHandler.cameraHandler.shootPhoto()
+    override fun exec(aircraftControllers: AircraftControllers) {
+        aircraftControllers.cameraHandler.shootPhoto()
     }
 
 }

@@ -10,8 +10,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import pl.edu.wat.droman.callback.CompletionCallbackImpl
 import pl.edu.wat.droman.GlobalConfig
+import pl.edu.wat.droman.callback.CompletionCallbackImpl
 import pl.edu.wat.droman.data.service.UpdateService
 import pl.edu.wat.droman.ui.FeedbackUtils
 import pl.edu.wat.droman.ui.LogLevel
@@ -54,7 +54,10 @@ class CameraHandler(
     }
 
     fun shootPhoto() {
-        camera.startShootPhoto(CompletionCallbackImpl<DJIError>(TAG))
+        camera.startShootPhoto(
+            CompletionCallbackImpl<DJIError>(TAG,
+                { FeedbackUtils.setResult("Success shoot photo", TAG) })
+        )
     }
 
     private fun initCheckingIfSupportMediaDownloadMode() {
@@ -63,6 +66,7 @@ class CameraHandler(
                 success = {
                     FeedbackUtils.setResult(
                         "Media download mode supported",
+                        TAG,
                         LogLevel.DEBUG
                     )
                     supportDownloadMediaMode = true
@@ -71,6 +75,7 @@ class CameraHandler(
                 failure = {
                     FeedbackUtils.setResult(
                         "Media download mode unsupported",
+                        TAG,
                         LogLevel.ERROR
                     )
                     setBackToShootPhotoMode()
@@ -88,7 +93,7 @@ class CameraHandler(
             CompletionCallbackImpl<DJIError>(TAG, success = {
                 FeedbackUtils.setResult(
                     "Set back to shoot photo mode",
-                    LogLevel.DEBUG
+                    TAG, LogLevel.DEBUG
                 )
             })
         )
@@ -98,7 +103,10 @@ class CameraHandler(
         if (this.preview != null) {
             return this.preview
         }
-        this.fetchPreview(CompletionCallbackImpl<DJIError>(TAG))
+        this.fetchPreview(
+            CompletionCallbackImpl<DJIError>(TAG,
+                { FeedbackUtils.setResult("Success fetching photo preview", TAG) })
+        )
         var inc = 0
         while (this.preview == null && inc < 200) {
             delay(100)

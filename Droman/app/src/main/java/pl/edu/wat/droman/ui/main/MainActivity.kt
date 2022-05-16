@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity() {
             mainViewModel.fetchClientId()
         }
 
-        mainViewModel.clientId.observe(this@MainActivity){
+        mainViewModel.clientId.observe(this@MainActivity) {
             binding.clientId.text = "Client id: ${it ?: "not set"}"
         }
 
@@ -144,7 +144,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        if(GlobalConfig.DEVELOPER_MODE){
+        if (GlobalConfig.DEVELOPER_MODE) {
             initCredentialsValue()
         }
 
@@ -256,8 +256,9 @@ class MainActivity : AppCompatActivity() {
         }"
     }
 
-    private fun getVersionText() = "Developer mode:" + GlobalConfig.DEVELOPER_MODE + ", Simulator mode:" + GlobalConfig.SIMULATOR_MODE + ", " + resources.getString(
-        R.string.sdk_version,
-        DJISDKManager.getInstance().sdkVersion
-    )
+    private fun getVersionText() =
+        "Developer mode:" + GlobalConfig.DEVELOPER_MODE + ", Simulator mode:" + GlobalConfig.SIMULATOR_MODE + ", " + resources.getString(
+            R.string.sdk_version,
+            DJISDKManager.getInstance().sdkVersion
+        )
 }

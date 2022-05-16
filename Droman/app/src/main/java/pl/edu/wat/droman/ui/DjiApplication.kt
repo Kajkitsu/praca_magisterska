@@ -51,7 +51,7 @@ class DjiApplication : Application() {
                 return product
             }
 
-        suspend fun getClientId():String? = runBlocking{
+        suspend fun getClientId(): String? = runBlocking {
             var inc = 0
             var serialNumber: String? = null
             aircraftInstance
@@ -59,10 +59,11 @@ class DjiApplication : Application() {
                 ?.getSerialNumber(
                     CompletionCallbackWithImpl(
                         tag = FlightControlViewModelFactory.TAG,
-                        success = { serialNumber = it }))
+                        success = { serialNumber = it })
+                )
             while (serialNumber == null && inc < 100) {
                 delay(100)
-                inc ++
+                inc++
             }
             return@runBlocking serialNumber
         }

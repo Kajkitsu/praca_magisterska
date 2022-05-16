@@ -70,19 +70,9 @@ class RegistrationCallback(
     }
 
     override fun onInitProcess(event: DJISDKInitEvent, totalProcess: Int) {
-//        FeedbackUtils.setResultToToastAndLog(tag =
-//, string =
-//            applicationContext,
-//            "onInitProcess," + event + "totalProcess," + totalProcess
-//        )
     }
 
     override fun onDatabaseDownloadProgress(current: Long, total: Long) {
-//        FeedbackUtils.setResultToToastAndLog(tag =
-//, string =
-//            applicationContext,
-//            "onDatabaseDownloadProgress" + (100 * current / total).toInt()
-//        )
     }
 
 

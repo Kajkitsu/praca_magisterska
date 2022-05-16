@@ -1,7 +1,6 @@
 package pl.edu.wat.droman.ui.flightcontrol
 
 import android.annotation.SuppressLint
-import android.content.pm.PackageManager
 import android.graphics.Point
 import android.os.Bundle
 import android.view.View
@@ -9,7 +8,6 @@ import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.Transformation
 import android.widget.RelativeLayout
-import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -99,11 +97,6 @@ class FlightControlActivity : AppCompatActivity() {
     }
 
     private fun initCredentialsValue() {
-        val metadata: Bundle = applicationContext.packageManager.getApplicationInfo(
-            applicationContext.packageName,
-            PackageManager.GET_META_DATA
-        ).metaData
-
         val intent = intent
         username = intent.getStringExtra("username")!!
         password = intent.getStringExtra("password")!!

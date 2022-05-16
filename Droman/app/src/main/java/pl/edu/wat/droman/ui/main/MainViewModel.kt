@@ -26,9 +26,9 @@ class MainViewModel : ViewModel() {
     val connectState: LiveData<Boolean> = _connect
 
     private var _clientId = MutableLiveData<String>()
-    var clientId:LiveData<String> = _clientId
+    var clientId: LiveData<String> = _clientId
 
-    fun fetchClientId(){
+    fun fetchClientId() {
         viewModelScope.launch(Dispatchers.IO) {
             _clientId.postValue(DjiApplication.getClientId())
         }

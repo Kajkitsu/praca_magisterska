@@ -11,7 +11,7 @@ class UnrecognizedCommand(private val string: String) : Command(type) {
         const val type = "unrecognized_command"
     }
 
-    override fun exec(commandHandler: AircraftControllers) {
+    override fun exec(aircraftControllers: AircraftControllers) {
         FeedbackUtils.setResult(
             "Executing unrecognized command: \"$string\"",
             level = LogLevel.WARN,

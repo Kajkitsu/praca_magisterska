@@ -6,35 +6,34 @@ import pl.edu.wat.droman.callback.CompletionCallbackImpl
 import pl.edu.wat.droman.ui.FeedbackUtils
 import pl.edu.wat.droman.ui.LogLevel
 import pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers
-import pl.edu.wat.droman.ui.flightcontrol.handler.CommandHandler
 
 class UploadWaypointCommand : Command(type) {
     companion object {
         const val type = "upload_waypoint_mission"
     }
 
-    override fun exec(commandHandler: AircraftControllers) {
-        if (WaypointMissionState.READY_TO_RETRY_UPLOAD == commandHandler.waypointMissionOperator.currentState || WaypointMissionState.READY_TO_UPLOAD == commandHandler.waypointMissionOperator.currentState) {
-            commandHandler.waypointMissionOperator.uploadMission(
+    override fun exec(aircraftControllers: AircraftControllers) {
+        if (WaypointMissionState.READY_TO_RETRY_UPLOAD == aircraftControllers.waypointMissionOperator.currentState || WaypointMissionState.READY_TO_UPLOAD == aircraftControllers.waypointMissionOperator.currentState) {
+            aircraftControllers.waypointMissionOperator.uploadMission(
                 CompletionCallbackImpl<DJIError>(
-                    tag = CommandHandler.TAG,
+                    tag = TAG,
                     success = {
                         FeedbackUtils.setResult(
                             "Mission uploaded",
-                            tag = CommandHandler.TAG
+                            tag = TAG
                         )
                     },
                     failure = {
                         FeedbackUtils.setResult(
                             "Mission upload failed $it",
-                            tag = CommandHandler.TAG,
+                            tag = TAG,
                             level = LogLevel.ERROR
                         )
                     },
                 )
             )
         } else {
-            FeedbackUtils.setResult("Wait for mission to be loaded")
+            FeedbackUtils.setResult("Wait for mission to be loaded", TAG)
         }
     }
 

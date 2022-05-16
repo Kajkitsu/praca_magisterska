@@ -10,8 +10,6 @@ import kotlinx.coroutines.launch
 import pl.edu.wat.droman.GlobalConfig
 import pl.edu.wat.droman.data.model.FlightStatus
 import pl.edu.wat.droman.data.service.UpdateService
-import pl.edu.wat.droman.ui.FeedbackUtils
-import pl.edu.wat.droman.ui.LogLevel
 
 class StatusHandler(
     private val flightController: FlightController,

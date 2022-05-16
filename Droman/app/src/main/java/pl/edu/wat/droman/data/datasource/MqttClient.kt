@@ -1,7 +1,6 @@
 package pl.edu.wat.droman.data.datasource
 
 import android.content.Context
-import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.eclipse.paho.android.service.MqttAndroidClient
