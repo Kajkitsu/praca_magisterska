@@ -1,11 +1,12 @@
 package pl.edu.wat.droman.data.model.command
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Test
 
-class CommandFactoryTest{
+class CommandFactoryTest {
     @Test
-    fun testMappingToUploadMission(){
+    fun testMappingToUploadMission() {
         //given
         val commandFactory = CommandFactory()
         val missionValue = "{\n" +

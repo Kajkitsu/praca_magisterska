@@ -8,6 +8,4 @@ class AircraftControllers(
     val statsHandler: StatusHandler,
     val flightController: FlightController,
     val waypointMissionOperator: WaypointMissionOperator
-) {
-
-}
+)

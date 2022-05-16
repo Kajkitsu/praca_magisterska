@@ -24,6 +24,7 @@ class MqttServiceTest {
     private lateinit var user: String
     private lateinit var uri: String
     private val clientID = "android-test"
+
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 

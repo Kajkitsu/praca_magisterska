@@ -6,12 +6,12 @@
         android:id="@+id/textview_battery_value"
         android:layout_width="40dp"
         android:layout_height="22dp"
-        android:text="0%"
+        android:layout_gravity="left"
         android:gravity="right"
+        android:text="0%"
         android:textAlignment="gravity"
         android:textColor="@color/light_gray"
-        android:textSize="14dp"
-        android:layout_gravity="left"/>
+        android:textSize="14dp" />
 
     <ImageView
         android:id="@+id/imageview_battery_icon"

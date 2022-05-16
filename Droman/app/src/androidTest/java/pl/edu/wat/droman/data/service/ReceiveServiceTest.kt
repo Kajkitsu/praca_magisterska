@@ -8,7 +8,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -27,6 +27,7 @@ class ReceiveServiceTest {
     private lateinit var user: String
     private lateinit var uri: String
     private val clientID = "android-test"
+
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
@@ -50,7 +51,7 @@ class ReceiveServiceTest {
     @Test
     fun getMission() = runBlocking {
         //given
-        val message = "{\"type\":\""+ ShootPhotoCommand.type+"\"}"
+        val message = "{\"type\":\"" + ShootPhotoCommand.type + "\"}"
         //then
 
         val res = receiveService.getCommand()
@@ -58,7 +59,7 @@ class ReceiveServiceTest {
         commandTopic.publish(message)
 
         //except
-        assertEquals(ShootPhotoCommand.type,res.getOrAwaitValue(time = 500).type)
+        assertEquals(ShootPhotoCommand.type, res.getOrAwaitValue(time = 500).type)
     }
 
 
