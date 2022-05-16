@@ -82,8 +82,6 @@ class FlightControlActivity : AppCompatActivity() {
         FeedbackUtils.logLiveData.observe(this) {
             logTextView.append("\n" + it)
         }
-        val scrollView = findViewById<ScrollView>(R.id.scroll_view)
-        scrollView.post { scrollView.fullScroll(View.FOCUS_DOWN) }
 
         binding.mapWidget.initGoogleMap { map: DJIMap ->
             map.setOnMapClickListener { onViewClick(binding.mapWidget) }
