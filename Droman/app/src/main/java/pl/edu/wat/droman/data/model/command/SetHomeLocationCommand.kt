@@ -3,7 +3,7 @@ package pl.edu.wat.droman.data.model.command
 import com.google.gson.JsonObject
 import dji.common.error.DJIError
 import dji.common.model.LocationCoordinate2D
-import pl.edu.wat.droman.ui.callback.CompletionCallbackImpl
+import pl.edu.wat.droman.callback.CompletionCallbackImpl
 import pl.edu.wat.droman.ui.FeedbackUtils
 import pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers
 import pl.edu.wat.droman.ui.flightcontrol.handler.CommandHandler

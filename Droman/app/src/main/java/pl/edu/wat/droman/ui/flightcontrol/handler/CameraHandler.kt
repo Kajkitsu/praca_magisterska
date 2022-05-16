@@ -10,7 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import pl.edu.wat.droman.ui.callback.CompletionCallbackImpl
+import pl.edu.wat.droman.callback.CompletionCallbackImpl
 import pl.edu.wat.droman.GlobalConfig
 import pl.edu.wat.droman.data.service.UpdateService
 import pl.edu.wat.droman.ui.FeedbackUtils

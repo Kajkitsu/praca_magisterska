@@ -1,7 +1,7 @@
 package pl.edu.wat.droman.data.model.command
 
 import dji.common.error.DJIError
-import pl.edu.wat.droman.ui.callback.CompletionCallbackImpl
+import pl.edu.wat.droman.callback.CompletionCallbackImpl
 import pl.edu.wat.droman.ui.FeedbackUtils
 import pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers
 import pl.edu.wat.droman.ui.flightcontrol.handler.CommandHandler

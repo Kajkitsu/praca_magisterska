@@ -1,4 +1,4 @@
-package pl.edu.wat.droman.ui.callback
+package pl.edu.wat.droman.callback
 
 import dji.common.error.DJIError
 import dji.common.util.CommonCallbacks

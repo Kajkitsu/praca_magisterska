@@ -6,10 +6,10 @@ import dji.common.error.DJIError
 import dji.sdk.camera.Camera
 import dji.sdk.media.DownloadListener
 import kotlinx.coroutines.delay
-import pl.edu.wat.droman.ui.callback.CompletionCallbackImpl
+import pl.edu.wat.droman.callback.CompletionCallbackImpl
 import pl.edu.wat.droman.ui.FeedbackUtils
 import pl.edu.wat.droman.ui.LogLevel
-import pl.edu.wat.droman.ui.callback.CompletionCallbackWithImpl
+import pl.edu.wat.droman.callback.CompletionCallbackWithImpl
 
 
 class DownloadListenerImpl<B>(private val camera: Camera) : DownloadListener<B> {

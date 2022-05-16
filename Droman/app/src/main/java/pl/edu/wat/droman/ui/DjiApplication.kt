@@ -15,7 +15,7 @@ import dji.sdk.sdkmanager.DJISDKManager
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
-import pl.edu.wat.droman.ui.callback.CompletionCallbackWithImpl
+import pl.edu.wat.droman.callback.CompletionCallbackWithImpl
 import pl.edu.wat.droman.ui.djiconnectioncontrol.DJIConnectionControlActivity
 import pl.edu.wat.droman.ui.flightcontrol.FlightControlViewModelFactory
 

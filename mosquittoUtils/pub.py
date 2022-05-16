@@ -7,7 +7,9 @@ import json
 MQTT_SERVER = "172.16.4.73"
 MQTT_PATH = "droman/command/"
 CLIENT_ID = "5FSCJB7001165D"
-
+START_POINT_X = 20
+START_POINT_Y = 113
+ONE_METER_OFFSET = 0.00000899322
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -49,24 +51,24 @@ if __name__ == '__main__':
         mission_command = {
             "type": "load_waypoint_mission",
             "finished_action": "NO_ACTION",
-            "auto_flight_speed": 0.01,
+            "auto_flight_speed": 1.0,
             "max_flight_speed": 5.0,
             "heading_mode": "AUTO",
             "waypoints": [
                 {
-                    "attitude": 1.0,
-                    "longitude": 1.0,
-                    "latitude": 1.0
+                    "attitude": 10.0,
+                    "longitude": START_POINT_X+ONE_METER_OFFSET*1,
+                    "latitude": START_POINT_Y+ONE_METER_OFFSET*1
                 },
                 {
-                    "attitude": 1.1,
-                    "longitude": 1.1,
-                    "latitude": 1.1
+                    "attitude": 10.1,
+                    "longitude": START_POINT_X+ONE_METER_OFFSET*1,
+                    "latitude": START_POINT_Y-ONE_METER_OFFSET*2
                 },
                 {
-                    "attitude": 1.2,
-                    "longitude": 1.2,
-                    "latitude": 1.2
+                    "attitude": 10.2,
+                    "longitude": START_POINT_X+ONE_METER_OFFSET*2,
+                    "latitude": START_POINT_Y+ONE_METER_OFFSET*1
                 }
             ]
         }

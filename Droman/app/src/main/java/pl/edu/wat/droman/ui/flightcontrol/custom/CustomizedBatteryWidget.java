@@ -1,4 +1,4 @@
-package pl.edu.wat.droman.ui.custom;
+package pl.edu.wat.droman.ui.flightcontrol.custom;
 
 import android.content.Context;
 import android.util.AttributeSet;

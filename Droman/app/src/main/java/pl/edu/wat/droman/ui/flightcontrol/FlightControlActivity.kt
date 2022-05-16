@@ -9,11 +9,10 @@ import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.Transformation
 import android.widget.RelativeLayout
+import android.widget.ScrollView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import com.dji.mapkit.core.maps.DJIMap
 import dji.keysdk.CameraKey
 import dji.keysdk.KeyManager
@@ -79,6 +78,12 @@ class FlightControlActivity : AppCompatActivity() {
         display.getRealSize(outPoint)
         deviceHeight = outPoint.y
         deviceWidth = outPoint.x
+        val logTextView = findViewById<TextView>(R.id.log_text_view)
+        FeedbackUtils.logLiveData.observe(this) {
+            logTextView.append("\n" + it)
+        }
+        val scrollView = findViewById<ScrollView>(R.id.scroll_view)
+        scrollView.post { scrollView.fullScroll(View.FOCUS_DOWN) }
 
         binding.mapWidget.initGoogleMap { map: DJIMap ->
             map.setOnMapClickListener { onViewClick(binding.mapWidget) }
