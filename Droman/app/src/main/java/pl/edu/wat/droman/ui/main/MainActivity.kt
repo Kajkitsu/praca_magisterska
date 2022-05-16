@@ -12,14 +12,14 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.dji.frame.util.V_JsonUtil
-import dji.log.GlobalConfig
 import dji.sdk.sdkmanager.DJISDKManager
+import pl.edu.wat.droman.GlobalConfig
 import pl.edu.wat.droman.R
+import pl.edu.wat.droman.afterTextChanged
 import pl.edu.wat.droman.databinding.ActivityMainBinding
 import pl.edu.wat.droman.ui.DjiApplication
 import pl.edu.wat.droman.ui.FeedbackUtils
 import pl.edu.wat.droman.ui.LogLevel
-import pl.edu.wat.droman.ui.afterTextChanged
 import pl.edu.wat.droman.ui.flightcontrol.FlightControlActivity
 
 /** Main activity that displays three choices to user  */
@@ -138,9 +138,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-//        if(GlobalConfig.DEBUG){
-        initCredentialsValue()
-//        }
+        if (GlobalConfig.DEVELOPER_MODE) {
+            initCredentialsValue()
+        }
 
         registrationCallback = RegistrationCallback(
             registrationSuccess = {
@@ -250,8 +250,9 @@ class MainActivity : AppCompatActivity() {
         }"
     }
 
-    private fun getVersionText() = "Debug:" + GlobalConfig.DEBUG + ", " + resources.getString(
-        R.string.sdk_version,
-        DJISDKManager.getInstance().sdkVersion
-    )
+    private fun getVersionText() =
+        "Developer mode:" + GlobalConfig.DEVELOPER_MODE + ", Simulator mode:" + GlobalConfig.SIMULATOR_MODE + ", " + resources.getString(
+            R.string.sdk_version,
+            DJISDKManager.getInstance().sdkVersion
+        )
 }

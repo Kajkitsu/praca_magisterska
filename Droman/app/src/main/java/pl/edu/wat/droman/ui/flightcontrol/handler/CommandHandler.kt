@@ -18,11 +18,13 @@ class CommandHandler(
     }
 
     private val aircraftControllers = AircraftControllers(
-        cameraHandler,statsHandler,flightController,
+        cameraHandler,
+        statsHandler,
+        flightController,
         MissionControl.getInstance().waypointMissionOperator
     );
 
-    private val commandLiveData: LiveData<Command> = receiveService.command
+    private val commandLiveData: LiveData<Command> = receiveService.getCommand()
     private val observer = Observer<Command> {
         it.exec(aircraftControllers)
     }

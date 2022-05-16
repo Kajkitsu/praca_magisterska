@@ -53,7 +53,7 @@ class ReceiveServiceTest {
         val message = "{\"type\":\""+ ShootPhotoCommand.type+"\"}"
         //then
 
-        val res = receiveService.command
+        val res = receiveService.getCommand()
         delay(3000)
         commandTopic.publish(message)
 

@@ -10,7 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import pl.edu.wat.droman.CompletionCallbackHandler
+import pl.edu.wat.droman.ui.callback.CompletionCallbackImpl
 import pl.edu.wat.droman.GlobalConfig
 import pl.edu.wat.droman.data.service.UpdateService
 import pl.edu.wat.droman.ui.FeedbackUtils
@@ -53,12 +53,12 @@ class CameraHandler(
     }
 
     fun shootPhoto() {
-        camera.startShootPhoto(CompletionCallbackHandler<DJIError>(TAG))
+        camera.startShootPhoto(CompletionCallbackImpl<DJIError>(TAG))
     }
 
     private fun initCheckingIfSupportMediaDownloadMode() {
         camera.setMode(
-            SettingsDefinitions.CameraMode.MEDIA_DOWNLOAD, CompletionCallbackHandler<DJIError>(
+            SettingsDefinitions.CameraMode.MEDIA_DOWNLOAD, CompletionCallbackImpl<DJIError>(
                 success = {
                     FeedbackUtils.setResult(
                         "Media download mode supported",
@@ -84,7 +84,7 @@ class CameraHandler(
     private fun setBackToShootPhotoMode() {
         camera.setMode(
             SettingsDefinitions.CameraMode.SHOOT_PHOTO,
-            CompletionCallbackHandler<DJIError>(TAG, success = {
+            CompletionCallbackImpl<DJIError>(TAG, success = {
                 FeedbackUtils.setResult(
                     "Set back to shoot photo mode",
                     LogLevel.DEBUG
@@ -97,7 +97,7 @@ class CameraHandler(
         if (this.preview != null) {
             return this.preview
         }
-        this.fetchPreview(CompletionCallbackHandler<DJIError>(TAG))
+        this.fetchPreview(CompletionCallbackImpl<DJIError>(TAG))
         var inc = 0
         while (this.preview == null && inc < 100) {
             delay(100)

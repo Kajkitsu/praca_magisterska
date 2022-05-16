@@ -55,7 +55,6 @@ class FlightControlViewModel(
         commandHandler?.destroy()
         cameraHandler?.destroy()
         statusHandler?.destroy()
-        receiveService.destroy()
     }
 
 

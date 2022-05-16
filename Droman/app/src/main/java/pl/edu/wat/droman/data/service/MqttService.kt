@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken
 import org.eclipse.paho.client.mqttv3.IMqttToken
@@ -15,6 +14,7 @@ import pl.edu.wat.droman.data.ETopic
 import pl.edu.wat.droman.data.datasource.MqttDto
 import pl.edu.wat.droman.data.model.MqttCredentials
 import pl.edu.wat.droman.data.repository.MqttRepository
+import pl.edu.wat.droman.ui.DjiApplication
 import java.util.*
 
 class MqttService(
@@ -32,7 +32,7 @@ class MqttService(
 
         Log.d(this.javaClass.name, "Trying to subscribe last topic")
         subscribedTopics.stream()
-            .forEach { GlobalScope.launch(Dispatchers.IO) { mqttRepository.subscribe(it) } }
+            .forEach { DjiApplication.mainScope.launch(Dispatchers.IO) { mqttRepository.subscribe(it) } }
     }
     private val deliveryCompleteFun: (token: IMqttDeliveryToken) -> Unit = {
         Log.d(this.javaClass.name, "Delivery completed")
@@ -63,7 +63,7 @@ class MqttService(
 
     init {
         this.let { service ->
-            GlobalScope.launch(Dispatchers.IO) {
+            DjiApplication.mainScope.launch(Dispatchers.IO) {
                 birth?.let { service.publish(it) }
             }
         }
@@ -107,7 +107,6 @@ class MqttService(
             return value
         }
     }
-
 
 
     private suspend fun unsubscribe(value: String): Result<IMqttToken> {

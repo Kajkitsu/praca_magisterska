@@ -12,7 +12,8 @@ import dji.sdk.base.BaseProduct
 import dji.sdk.products.Aircraft
 import dji.sdk.sdkmanager.BluetoothProductConnector
 import dji.sdk.sdkmanager.DJISDKManager
-import pl.edu.wat.droman.CompletionCallbackWithHandler
+import kotlinx.coroutines.MainScope
+import pl.edu.wat.droman.ui.callback.CompletionCallbackWithImpl
 import pl.edu.wat.droman.ui.djiconnectioncontrol.DJIConnectionControlActivity
 import pl.edu.wat.droman.ui.flightcontrol.FlightControlViewModelFactory
 
@@ -33,17 +34,14 @@ class DjiApplication : Application() {
     }
 
     companion object {
+        val mainScope = MainScope()
         private var product: BaseProduct? = null
         private var bluetoothConnector: BluetoothProductConnector? = null
         val eventBus = Bus(ThreadEnforcer.ANY)
         var instance: DjiApplication? = null
             private set
 
-        /**
-         * Gets instance of the specific product connected after the
-         * API KEY is successfully validated. Please make sure the
-         * API_KEY has been added in the Manifest
-         */
+
         @get:Synchronized
         private val productInstance: BaseProduct?
             get() {
@@ -57,7 +55,7 @@ class DjiApplication : Application() {
             aircraftInstance
                 ?.flightController
                 ?.getSerialNumber(
-                    CompletionCallbackWithHandler(
+                    CompletionCallbackWithImpl(
                         tag = FlightControlViewModelFactory.TAG,
                         success = { serialNumber = it })
                 )

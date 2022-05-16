@@ -1,4 +1,4 @@
-package pl.edu.wat.droman.data.model.mission
+package pl.edu.wat.droman.data.model.command
 
 import org.junit.Assert.*
 import org.junit.Test
@@ -37,6 +37,6 @@ class CommandFactoryTest{
 
         //expect
         assertNotNull(command)
-        assertEquals(LoadWaypointCommand.type, command!!.type)
+        assertEquals(LoadWaypointCommand.type, command.type)
     }
 }

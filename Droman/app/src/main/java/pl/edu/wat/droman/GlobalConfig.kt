@@ -7,4 +7,6 @@ object GlobalConfig {
     const val STATE_RATE_LIMIT = 100
     const val MAX_HEIGHT = 500
     const val MAX_RADIUS = 500
+    const val DEVELOPER_MODE = true
+    const val SIMULATOR_MODE = false
 }

@@ -1,13 +1,10 @@
 package pl.edu.wat.droman
 
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.EditText
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import dji.common.error.DJIError
-import dji.common.util.CommonCallbacks
-import dji.common.util.CommonCallbacks.CompletionCallback
-import pl.edu.wat.droman.ui.FeedbackUtils
-import pl.edu.wat.droman.ui.FeedbackUtils.setResult
-import pl.edu.wat.droman.ui.LogLevel
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
@@ -42,59 +39,26 @@ fun <T> LiveData<T>.getOrAwaitValue(
     return data as T
 }
 
-
-class CompletionCallbackWithHandler<T>(
-    tag: String,
-    private val success: (T) -> Unit = {
-        setResult(
-            string = it.toString(),
-            tag = tag,
-            level = LogLevel.INFO
-        )
-    },
-    private val failure: (DJIError) -> Unit = {
-        setResult(
-            tag = tag,
-            level = LogLevel.ERROR,
-            string = it.toString()
-        )
-    },
-) : CommonCallbacks.CompletionCallbackWith<T> {
-    override fun onSuccess(p0: T?) {
-        if (p0 != null) {
-            success.invoke(p0)
+fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
+    this.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(editable: Editable?) {
+            afterTextChanged.invoke(editable.toString())
         }
-    }
 
-    override fun onFailure(p0: DJIError?) {
-        if (p0 != null) {
-            failure.invoke(p0)
-        }
-    }
+        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+    })
 }
 
-class CompletionCallbackHandler<T:DJIError>(
-    tag: String,
-    private val success: () -> Unit = {
-        setResult(
-            "Success",
-            LogLevel.INFO,
-            tag
-        )
-    },
-    private val failure: (DJIError) -> Unit = {
-        setResult(
-            it.toString(),
-            LogLevel.ERROR,
-            tag
-        )
-    },
-) : CompletionCallback<T> {
-    override fun onResult(djiError: T?) {
-        if (djiError != null) {
-            failure.invoke(djiError)
-        } else {
-            success.invoke()
-        }
+fun Double.toPrimitiveDouble(): Double? {
+    if (this.isNaN()) {
+        return null
     }
+    return this
+}
+
+fun Float.toDoubleOrNull(): Double? {
+    return this.toDouble().toPrimitiveDouble()
+
 }

@@ -2,7 +2,7 @@ package pl.edu.wat.droman.data.model.command
 
 import dji.common.error.DJIError
 import dji.common.mission.waypoint.WaypointMissionState
-import pl.edu.wat.droman.CompletionCallbackHandler
+import pl.edu.wat.droman.ui.callback.CompletionCallbackImpl
 import pl.edu.wat.droman.ui.FeedbackUtils
 import pl.edu.wat.droman.ui.LogLevel
 import pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers
@@ -16,7 +16,7 @@ class PauseWaypointCommand : Command(type) {
     override fun exec(commandHandler: AircraftControllers) {
         if (commandHandler.waypointMissionOperator.currentState == WaypointMissionState.EXECUTING) {
             commandHandler.waypointMissionOperator.pauseMission(
-                CompletionCallbackHandler<DJIError>(
+                CompletionCallbackImpl<DJIError>(
                     tag = CommandHandler.TAG
                 )
             )

@@ -2,6 +2,8 @@ package pl.edu.wat.droman.data.model
 
 import com.google.gson.Gson
 import dji.common.flightcontroller.FlightControllerState
+import pl.edu.wat.droman.toDoubleOrNull
+import pl.edu.wat.droman.toPrimitiveDouble
 
 data class FlightStatus(
     val activeBrakeEngaged: Boolean,
@@ -120,14 +122,3 @@ data class FlightStatus(
 
 }
 
-private fun Double.toPrimitiveDouble(): Double? {
-    if (this.isNaN()) {
-        return null
-    }
-    return this
-}
-
-private fun Float.toDoubleOrNull(): Double? {
-    return this.toDouble().toPrimitiveDouble()
-
-}

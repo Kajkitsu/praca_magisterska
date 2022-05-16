@@ -7,8 +7,8 @@ import dji.sdk.base.BaseProduct
 import dji.sdk.sdkmanager.DJISDKInitEvent
 import dji.sdk.sdkmanager.DJISDKManager
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import pl.edu.wat.droman.ui.DjiApplication
 import pl.edu.wat.droman.ui.FeedbackUtils
 import pl.edu.wat.droman.ui.LogLevel
 import java.util.concurrent.atomic.AtomicBoolean
@@ -29,7 +29,7 @@ class RegistrationCallback(
     fun startSDKRegistration(mainActivity: MainActivity) {
         if (isRegistrationInProgress.compareAndSet(false, true)) {
             this.let { registrationCallback ->
-                GlobalScope.launch(Dispatchers.IO) {
+                DjiApplication.mainScope.launch(Dispatchers.IO) {
                     DJISDKManager.getInstance().registerApp(mainActivity, registrationCallback)
                 }
             }

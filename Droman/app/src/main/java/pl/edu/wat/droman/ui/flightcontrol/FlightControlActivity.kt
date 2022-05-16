@@ -78,10 +78,6 @@ class FlightControlActivity : AppCompatActivity() {
         display.getRealSize(outPoint)
         deviceHeight = outPoint.y
         deviceWidth = outPoint.x
-        val logTextView = findViewById<TextView>(R.id.log_text_view)
-        FeedbackUtils.logLiveData.observe(this) {
-            logTextView.append("\n" + it)
-        }
 
         binding.mapWidget.initGoogleMap { map: DJIMap ->
             map.setOnMapClickListener { onViewClick(binding.mapWidget) }

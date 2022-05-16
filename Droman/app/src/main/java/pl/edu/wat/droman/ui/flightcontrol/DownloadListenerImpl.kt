@@ -6,10 +6,10 @@ import dji.common.error.DJIError
 import dji.sdk.camera.Camera
 import dji.sdk.media.DownloadListener
 import kotlinx.coroutines.delay
-import pl.edu.wat.droman.CompletionCallbackHandler
-import pl.edu.wat.droman.CompletionCallbackWithHandler
+import pl.edu.wat.droman.ui.callback.CompletionCallbackImpl
 import pl.edu.wat.droman.ui.FeedbackUtils
 import pl.edu.wat.droman.ui.LogLevel
+import pl.edu.wat.droman.ui.callback.CompletionCallbackWithImpl
 
 
 class DownloadListenerImpl<B>(private val camera: Camera) : DownloadListener<B> {
@@ -24,13 +24,13 @@ class DownloadListenerImpl<B>(private val camera: Camera) : DownloadListener<B> 
 
     override fun onStart() {
         camera.getMode(
-            CompletionCallbackWithHandler<SettingsDefinitions.CameraMode>(
+            CompletionCallbackWithImpl<SettingsDefinitions.CameraMode>(
                 success = { prevMode = it }, tag = TAG
             )
         )
         camera.setMode(
             SettingsDefinitions.CameraMode.MEDIA_DOWNLOAD,
-            CompletionCallbackHandler<DJIError>(TAG)
+            CompletionCallbackImpl<DJIError>(TAG)
         )
     }
 
@@ -53,14 +53,14 @@ class DownloadListenerImpl<B>(private val camera: Camera) : DownloadListener<B> 
         }
         camera.setMode(
             prevMode ?: SettingsDefinitions.CameraMode.SHOOT_PHOTO,
-            CompletionCallbackHandler<DJIError>(TAG)
+            CompletionCallbackImpl<DJIError>(TAG)
         )
     }
 
     override fun onFailure(djiError: DJIError?) {
         camera.setMode(
             prevMode ?: SettingsDefinitions.CameraMode.SHOOT_PHOTO,
-            CompletionCallbackHandler<DJIError>(TAG)
+            CompletionCallbackImpl<DJIError>(TAG)
         )
     }
 
