@@ -12,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import pl.edu.wat.droman.data.model.MqttCredentials
 import pl.edu.wat.droman.data.service.MqttService
+import pl.edu.wat.droman.ui.DjiApplication
 import java.util.*
 
 @SuppressLint("StaticFieldLeak")
@@ -24,6 +25,14 @@ class MainViewModel : ViewModel() {
     private val _connect = MutableLiveData<Boolean>()
     val connectState: LiveData<Boolean> = _connect
 
+    private var _clientId = MutableLiveData<String>()
+    var clientId:LiveData<String> = _clientId
+
+    fun fetchClientId(){
+        viewModelScope.launch(Dispatchers.IO) {
+            _clientId.postValue(DjiApplication.getClientId())
+        }
+    }
 
     fun validateConnection(username: String, password: String, uri: String, context: Context) {
         viewModelScope.launch(Dispatchers.IO) {

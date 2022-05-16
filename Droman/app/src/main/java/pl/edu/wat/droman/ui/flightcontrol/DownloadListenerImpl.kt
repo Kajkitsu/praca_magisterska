@@ -69,7 +69,7 @@ class DownloadListenerImpl<B>(private val camera: Camera) : DownloadListener<B> 
     @Synchronized
     suspend fun getBitmap(): Bitmap? { //Method not tested, due to Dji Mini 2 firmware limitations
         var inc = 0
-        while (this.bitmap == null && this.path == null && inc < 100) {
+        while (this.bitmap == null && this.path == null && inc < 200) {
             delay(100)
             inc++
         }

@@ -30,10 +30,18 @@
             android:layout_weight="1"
             android:paddingTop="1dp" />
 
+        <TextView
+            android:id="@+id/client_id"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:textSize="20sp"
+            tools:text="Client id: not set " />
+
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="40dp">
+            android:paddingTop="10dp">
 
             <EditText
                 android:id="@+id/ed_mqtt_address"

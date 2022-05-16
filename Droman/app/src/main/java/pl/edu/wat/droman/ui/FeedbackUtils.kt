@@ -62,12 +62,10 @@ object FeedbackUtils {
             msg.obj = string
             mUIHandler.sendMessage(msg)
         }
-        if (level.level >= 0) {
-            val msg = Message()
-            msg.what = MESSAGE_UPDATE
-            msg.obj = string
-            mUIHandler.sendMessage(msg)
-        }
+        val msg = Message()
+        msg.what = MESSAGE_UPDATE
+        msg.obj = string
+        mUIHandler.sendMessage(msg)
     }
 }
 

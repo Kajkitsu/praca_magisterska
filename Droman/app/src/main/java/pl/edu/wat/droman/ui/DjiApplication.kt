@@ -13,6 +13,8 @@ import dji.sdk.products.Aircraft
 import dji.sdk.sdkmanager.BluetoothProductConnector
 import dji.sdk.sdkmanager.DJISDKManager
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import pl.edu.wat.droman.ui.callback.CompletionCallbackWithImpl
 import pl.edu.wat.droman.ui.djiconnectioncontrol.DJIConnectionControlActivity
 import pl.edu.wat.droman.ui.flightcontrol.FlightControlViewModelFactory
@@ -49,22 +51,21 @@ class DjiApplication : Application() {
                 return product
             }
 
-        @get:Synchronized
-        val clientId: String by lazy {
+        suspend fun getClientId():String? = runBlocking{
+            var inc = 0
             var serialNumber: String? = null
             aircraftInstance
                 ?.flightController
                 ?.getSerialNumber(
                     CompletionCallbackWithImpl(
                         tag = FlightControlViewModelFactory.TAG,
-                        success = { serialNumber = it })
-                )
-            while (serialNumber == null) {
-                Thread.sleep(10)
+                        success = { serialNumber = it }))
+            while (serialNumber == null && inc < 100) {
+                delay(100)
+                inc ++
             }
-            return@lazy serialNumber!!
+            return@runBlocking serialNumber
         }
-
 
         @get:Synchronized
         val bluetoothProductConnector: BluetoothProductConnector?

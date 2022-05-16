@@ -72,11 +72,12 @@ class MainActivity : AppCompatActivity() {
         binding.btStartFlightMode
             .setOnClickListener {
                 binding.progressBar.visibility = View.VISIBLE
-                if (mainViewModel.connectState.value == true) {
+                if (mainViewModel.connectState.value == true && mainViewModel.clientId.value != null) {
                     nextActivity = Intent(this, FlightControlActivity::class.java)
                     nextActivity!!.putExtra("username", binding.edMqttUsername.text.toString())
                     nextActivity!!.putExtra("password", binding.edMqttPassword.text.toString())
                     nextActivity!!.putExtra("ipAddress", binding.edMqttAddress.text.toString())
+                    nextActivity!!.putExtra("clientId", mainViewModel.clientId.value)
                     startActivity(nextActivity)
                     binding.progressBar.visibility = View.INVISIBLE
                 }
@@ -110,6 +111,11 @@ class MainActivity : AppCompatActivity() {
 
         isConnected.observe(this@MainActivity) {
             binding.btCheckConnection.isEnabled = it
+            mainViewModel.fetchClientId()
+        }
+
+        mainViewModel.clientId.observe(this@MainActivity){
+            binding.clientId.text = "Client id: ${it ?: "not set"}"
         }
 
         mainViewModel.connectState.observe(this@MainActivity) {
@@ -138,7 +144,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        if (GlobalConfig.DEVELOPER_MODE) {
+        if(GlobalConfig.DEVELOPER_MODE){
             initCredentialsValue()
         }
 
@@ -250,9 +256,8 @@ class MainActivity : AppCompatActivity() {
         }"
     }
 
-    private fun getVersionText() =
-        "Developer mode:" + GlobalConfig.DEVELOPER_MODE + ", Simulator mode:" + GlobalConfig.SIMULATOR_MODE + ", " + resources.getString(
-            R.string.sdk_version,
-            DJISDKManager.getInstance().sdkVersion
-        )
+    private fun getVersionText() = "Developer mode:" + GlobalConfig.DEVELOPER_MODE + ", Simulator mode:" + GlobalConfig.SIMULATOR_MODE + ", " + resources.getString(
+        R.string.sdk_version,
+        DJISDKManager.getInstance().sdkVersion
+    )
 }

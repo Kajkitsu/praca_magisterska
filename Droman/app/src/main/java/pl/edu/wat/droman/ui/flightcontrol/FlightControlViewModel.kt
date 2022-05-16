@@ -20,10 +20,6 @@ class FlightControlViewModel(
     private var receiveService: ReceiveService
 ) : ViewModel() {
 
-    private val djiManager: DJISDKManager = DJISDKManager.getInstance()
-    private var lastStateUpdate = 0
-    private var supportDownloadMediaMode = true
-    private var mediaManager = DjiApplication.aircraftInstance?.camera?.mediaManager
 
     private var cameraHandler: CameraHandler? = null
     private var statusHandler: StatusHandler? = null
@@ -31,11 +27,11 @@ class FlightControlViewModel(
 
 
     companion object {
-        val TAG = "FlightControlViewModel"
+        const val TAG = "FlightControlViewModel"
     }
 
     init {
-        getAircraft()?.let { aircraft ->
+        DjiApplication.aircraftInstance?.let { aircraft ->
             FeedbackUtils.setResult("Aircraft found", level = LogLevel.DEBUG)
             statusHandler = StatusHandler(aircraft.flightController, viewModelScope, updateService)
             cameraHandler = CameraHandler(aircraft.camera, viewModelScope, updateService)
@@ -50,22 +46,12 @@ class FlightControlViewModel(
         }
     }
 
-    //
     fun destroy() {
         commandHandler?.destroy()
         cameraHandler?.destroy()
         statusHandler?.destroy()
     }
 
-
-    fun getAircraft(): Aircraft? {
-        val product: BaseProduct? = djiManager.product
-        if (product is Aircraft) {
-            return product
-        }
-        return null
-//        throw RuntimeException("djiManager.product == null")
-    }
 
 }
 

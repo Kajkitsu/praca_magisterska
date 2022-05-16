@@ -31,6 +31,7 @@ class CameraHandler(
 
     init {
         initCheckingIfSupportMediaDownloadMode()
+        @Suppress("DEPRECATION")
         camera.setMediaFileCallback {
             if (supportDownloadMediaMode) {
                 viewModelScope.launch(Dispatchers.IO) {
@@ -99,7 +100,7 @@ class CameraHandler(
         }
         this.fetchPreview(CompletionCallbackImpl<DJIError>(TAG))
         var inc = 0
-        while (this.preview == null && inc < 100) {
+        while (this.preview == null && inc < 200) {
             delay(100)
             inc++
         }
@@ -115,6 +116,7 @@ class CameraHandler(
     }
 
     fun destroy() {
+        @Suppress("DEPRECATION")
         camera.setMediaFileCallback(null)
     }
 }

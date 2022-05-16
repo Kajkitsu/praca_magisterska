@@ -42,6 +42,7 @@ class FlightControlActivity : AppCompatActivity() {
     private lateinit var username: String
     private lateinit var password: String
     private lateinit var ipAddress: String
+    private lateinit var clientId: String
     private lateinit var binding: ActivityFlightControlBinding
     private lateinit var flightControlViewModel: FlightControlViewModel
 
@@ -62,7 +63,7 @@ class FlightControlActivity : AppCompatActivity() {
                     password,
                     ipAddress,
                     applicationContext,
-                    DjiApplication.clientId
+                    clientId
                 )
             )[FlightControlViewModel::class.java]
         }
@@ -101,9 +102,10 @@ class FlightControlActivity : AppCompatActivity() {
         ).metaData
 
         val intent = intent
-        username = intent.getStringExtra("username") ?: metadata.getString("mosquitto.user")!!
-        password = intent.getStringExtra("password") ?: metadata.getString("mosquitto.password")!!
-        ipAddress = intent.getStringExtra("ipAddress") ?: metadata.getString("mosquitto.ip")!!
+        username = intent.getStringExtra("username")!!
+        password = intent.getStringExtra("password")!!
+        ipAddress = intent.getStringExtra("ipAddress")!!
+        clientId = intent.getStringExtra("clientId")!!
     }
 
 
