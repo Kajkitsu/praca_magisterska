@@ -42,7 +42,6 @@ class FlightControlViewModel(
             commandHandler = CommandHandler(
                 cameraHandler!!,
                 statusHandler!!,
-                djiManager.missionControl,
                 aircraft.flightController,
                 receiveService
             )

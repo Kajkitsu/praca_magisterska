@@ -1,4 +1,4 @@
-package pl.edu.wat.droman.data.model.mission
+package pl.edu.wat.droman.data.model.command
 
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -6,72 +6,70 @@ import pl.edu.wat.droman.ui.FeedbackUtils
 import pl.edu.wat.droman.ui.LogLevel
 
 class CommandFactory {
+    companion object {
+        const val TAG = "MissionFactory"
+    }
 
     private val gson: Gson = Gson()
 
-    fun from(value: String): Command? {
-        val jsonObject = gson.fromJson(value, JsonObject::class.java)
-        val missionType = jsonObject.get("type").asString
-        var command: Command? = null
-        try {
-            command = createCommand(missionType, jsonObject)
+    fun from(value: String): Command {
+        return try {
+            val jsonObject = gson.fromJson(value, JsonObject::class.java)
+            val missionType = jsonObject.get("type").asString
+            createCommand(missionType, jsonObject)
         } catch (e: Exception) {
             FeedbackUtils.setResult(e.toString(), level = LogLevel.ERROR, tag = TAG)
+            UnrecognizedCommand(value)
         }
-        return command
     }
 
     @Throws(Throwable::class)
-    private fun createCommand(missionType: String, jsonObject: JsonObject): Command? {
+    private fun createCommand(missionType: String, jsonObject: JsonObject): Command {
         return when (missionType) {
             StartGoHomeCommand.type -> {
-                StartGoHomeCommand(jsonObject)
+                StartGoHomeCommand()
             }
             LandCommand.type -> {
-                LandCommand(jsonObject)
+                LandCommand()
             }
             ShootPhotoCommand.type -> {
-                ShootPhotoCommand(jsonObject)
+                ShootPhotoCommand()
             }
             StartMotorsCommand.type -> {
-                StartMotorsCommand(jsonObject)
+                StartMotorsCommand()
             }
             StopGoHomeCommand.type -> {
-                StopGoHomeCommand(jsonObject)
+                StopGoHomeCommand()
             }
             StopMotorsCommand.type -> {
-                StopMotorsCommand(jsonObject)
+                StopMotorsCommand()
             }
             TakeOffCommand.type -> {
-                TakeOffCommand(jsonObject)
+                TakeOffCommand()
             }
             LoadWaypointCommand.type -> {
                 LoadWaypointCommand(jsonObject)
             }
             UploadWaypointCommand.type -> {
-                UploadWaypointCommand(jsonObject)
+                UploadWaypointCommand()
             }
             SetHomeLocationCommand.type -> {
                 SetHomeLocationCommand(jsonObject)
             }
             StopWaypointCommand.type -> {
-                StopWaypointCommand(jsonObject)
+                StopWaypointCommand()
             }
             ResumeWaypointCommand.type -> {
-                ResumeWaypointCommand(jsonObject)
+                ResumeWaypointCommand()
             }
             PauseWaypointCommand.type -> {
-                PauseWaypointCommand(jsonObject)
+                PauseWaypointCommand()
             }
             else -> {
-                null
+                UnrecognizedCommand(jsonObject.toString())
             }
         }
 
-    }
-
-    companion object {
-        const val TAG = "MissionFactory"
     }
 
 }

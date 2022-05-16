@@ -1,7 +1,7 @@
 package pl.edu.wat.droman.ui.flightcontrol.handler.waypoint
 
 import dji.common.mission.waypoint.*
-import pl.edu.wat.droman.data.model.mission.LoadWaypointCommand
+import pl.edu.wat.droman.data.model.command.LoadWaypointCommand
 import pl.edu.wat.droman.ui.FeedbackUtils
 import pl.edu.wat.droman.ui.LogLevel
 
@@ -26,8 +26,8 @@ class WaypointMissionFactory {
 
         missionDto.waypoints
             .map {
-                return@map createWaypoint(it) }.
-            forEach { way ->
+                return@map createWaypoint(it)
+            }.forEach { way ->
                 mission.addWaypoint(way)
             }
         return mission.build()

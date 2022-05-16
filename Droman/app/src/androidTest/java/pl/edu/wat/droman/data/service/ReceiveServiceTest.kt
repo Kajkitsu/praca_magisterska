@@ -15,7 +15,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import pl.edu.wat.droman.data.ETopic
 import pl.edu.wat.droman.data.model.MqttCredentials
-import pl.edu.wat.droman.data.model.mission.ShootPhotoCommand
+import pl.edu.wat.droman.data.model.command.ShootPhotoCommand
 import pl.edu.wat.droman.getOrAwaitValue
 
 @RunWith(AndroidJUnit4::class)

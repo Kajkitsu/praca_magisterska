@@ -4,7 +4,7 @@ import paho.mqtt.client as mqtt
 import time
 import json
 
-MQTT_SERVER = "10.8.47.193"
+MQTT_SERVER = "172.16.4.73"
 MQTT_PATH = "droman/command/"
 CLIENT_ID = "5FSCJB7001165D"
 

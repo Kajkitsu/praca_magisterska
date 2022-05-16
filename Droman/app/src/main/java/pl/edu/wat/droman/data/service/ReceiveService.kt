@@ -7,8 +7,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.eclipse.paho.client.mqttv3.MqttMessage
-import pl.edu.wat.droman.data.model.mission.Command
-import pl.edu.wat.droman.data.model.mission.CommandFactory
+import pl.edu.wat.droman.data.model.command.Command
+import pl.edu.wat.droman.data.model.command.CommandFactory
 
 class ReceiveService(
     private val commandTopic: MqttService.Topic,
@@ -18,9 +18,9 @@ class ReceiveService(
     val command: LiveData<Command> = _command
 
     private val observer = Observer<MqttMessage> {
-            val newMission = commandFactory.from(it.toString())
-            newMission?.let { itMission -> _command.postValue(itMission) }
-        }
+        val newMission = commandFactory.from(it.toString())
+        newMission.let { itMission -> _command.postValue(itMission) }
+    }
 
     init {
         GlobalScope.launch(Dispatchers.IO) {
