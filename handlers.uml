@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>pl.edu.wat.droman.ui.flightcontrol.FlightControlViewModel</OriginalElement>
+  <nodes>
+    <node x="105.54067692307672" y="58.42640879120904">pl.edu.wat.droman.ui.flightcontrol.handler.StatusHandler</node>
+    <node x="-24.131850549450746" y="-418.0">pl.edu.wat.droman.data.service.UpdateService</node>
+    <node x="-566.0" y="-179.78679560439548">pl.edu.wat.droman.ui.flightcontrol.handler.CommandHandler</node>
+    <node x="-187.0" y="262.0">pl.edu.wat.droman.ui.flightcontrol.FlightControlViewModel</node>
+    <node x="-630.4114461538463" y="-316.45520879120886">pl.edu.wat.droman.data.model.command.Command</node>
+    <node x="-407.0" y="-418.0">pl.edu.wat.droman.data.service.ReceiveService</node>
+    <node x="-652.0" y="58.42640879120904">pl.edu.wat.droman.ui.flightcontrol.handler.CameraHandler</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="pl.edu.wat.droman.ui.flightcontrol.handler.StatusHandler" target="pl.edu.wat.droman.data.service.UpdateService" relationship="DEPENDENCY">
+      <point x="3.2307692328004123E-4" y="-33.00040879120904" />
+      <point x="430.541" y="-27.0" />
+      <point x="136.868" y="-27.0" />
+      <point x="-1.49450549258745E-4" y="33.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.ui.flightcontrol.FlightControlViewModel" target="pl.edu.wat.droman.ui.flightcontrol.handler.CommandHandler" relationship="TO_ONE">
+      <point x="-52.5" y="-33.0" />
+      <point x="297.5" y="33.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.ui.flightcontrol.FlightControlViewModel" target="pl.edu.wat.droman.ui.flightcontrol.handler.StatusHandler" relationship="CREATE">
+      <point x="9.040676923076717" y="-33.0" />
+      <point x="-317.5" y="33.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.ui.flightcontrol.FlightControlViewModel" target="pl.edu.wat.droman.data.service.ReceiveService" relationship="TO_ONE">
+      <point x="-291.0" y="0.0" />
+      <point x="-669.5" y="295.0" />
+      <point x="-669.5" y="-385.0" />
+      <point x="-131.0" y="0.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.ui.flightcontrol.FlightControlViewModel" target="pl.edu.wat.droman.ui.flightcontrol.handler.StatusHandler" relationship="TO_ONE">
+      <point x="-37.5" y="-33.0" />
+      <point x="66.5" y="18.5" />
+      <point x="90.0" y="18.5" />
+      <point x="90.0" y="91.426" />
+      <point x="-324.9996769230767" y="-4.087912090398049E-4" />
+    </edge>
+    <edge source="pl.edu.wat.droman.ui.flightcontrol.handler.CameraHandler" target="pl.edu.wat.droman.data.service.UpdateService" relationship="DEPENDENCY">
+      <point x="0.0" y="-33.00040879120904" />
+      <point x="-366.0" y="-27.0" />
+      <point x="136.868" y="-27.0" />
+      <point x="-1.49450549258745E-4" y="33.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.ui.flightcontrol.FlightControlViewModel" target="pl.edu.wat.droman.data.service.UpdateService" relationship="TO_ONE">
+      <point x="291.0" y="0.0" />
+      <point x="773.0406769230767" y="295.0" />
+      <point x="773.0406769230767" y="-385.0" />
+      <point x="161.0" y="0.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.ui.flightcontrol.handler.CommandHandler" target="pl.edu.wat.droman.ui.flightcontrol.handler.CameraHandler" relationship="DEPENDENCY">
+      <point x="-135.0" y="33.0" />
+      <point x="-15.0" y="-33.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.ui.flightcontrol.FlightControlViewModel" target="pl.edu.wat.droman.ui.flightcontrol.handler.CameraHandler" relationship="TO_ONE">
+      <point x="-191.5" y="-33.0" />
+      <point x="278.5" y="33.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.ui.flightcontrol.handler.CommandHandler" target="pl.edu.wat.droman.data.service.ReceiveService" relationship="DEPENDENCY">
+      <point x="15.0" y="-33.0" />
+      <point x="45.0" y="33.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.ui.flightcontrol.handler.CommandHandler" target="pl.edu.wat.droman.data.model.command.Command" relationship="DEPENDENCY">
+      <point x="0.0" y="-33.00020439560453" />
+      <point x="-246.0" y="-334.0" />
+      <point x="-529.411" y="-334.0" />
+      <point x="4.461538463829129E-4" y="-32.99979120879112" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.service.UpdateService" target="pl.edu.wat.droman.data.service.UpdateService" relationship="DEPENDENCY">
+      <point x="-1.49450549258745E-4" y="33.0" />
+      <point x="136.868" y="-27.0" />
+      <point x="136.868" y="-27.0" />
+      <point x="-1.49450549258745E-4" y="33.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.ui.flightcontrol.FlightControlViewModel" target="pl.edu.wat.droman.ui.flightcontrol.handler.CameraHandler" relationship="CREATE">
+      <point x="-283.5" y="-33.0" />
+      <point x="186.5" y="33.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.ui.flightcontrol.handler.CommandHandler" target="pl.edu.wat.droman.ui.flightcontrol.handler.StatusHandler" relationship="TO_ONE">
+      <point x="320.0" y="-2.043956045270079E-4" />
+      <point x="90.0" y="-146.787" />
+      <point x="90.0" y="91.426" />
+      <point x="-324.9996769230767" y="-4.087912090398049E-4" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.service.ReceiveService" target="pl.edu.wat.droman.data.model.command.Command" relationship="DEPENDENCY">
+      <point x="0.0" y="33.0" />
+      <point x="-276.0" y="-334.0" />
+      <point x="-529.411" y="-334.0" />
+      <point x="4.461538463829129E-4" y="-32.99979120879112" />
+    </edge>
+    <edge source="pl.edu.wat.droman.ui.flightcontrol.FlightControlViewModel" target="pl.edu.wat.droman.ui.flightcontrol.handler.CommandHandler" relationship="CREATE">
+      <point x="-67.5" y="-33.0" />
+      <point x="282.5" y="33.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.7878296764184402" showDependencies="true" x="292.72545054944976" y="-145.4493186813189" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

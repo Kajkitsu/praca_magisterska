@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>pl.edu.wat.droman.data.model.command</OriginalElement>
+  <nodes>
+    <node x="840.3846153846152" y="-511.070745223607">pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers</node>
+    <node x="-278.0" y="-30.0">pl.edu.wat.droman.data.model.command.SetHomeLocationCommand</node>
+    <node x="-278.0" y="297.0">pl.edu.wat.droman.data.model.command.StartWaypointCommand</node>
+    <node x="446.0" y="567.0">pl.edu.wat.droman.data.model.command.UnrecognizedCommand</node>
+    <node x="446.0" y="162.0">pl.edu.wat.droman.data.model.command.StopGoHomeCommand</node>
+    <node x="84.0" y="567.0">pl.edu.wat.droman.data.model.command.StopWaypointCommand</node>
+    <node x="-278.0" y="432.0">pl.edu.wat.droman.data.model.command.TakeOffCommand</node>
+    <node x="446.0" y="297.0">pl.edu.wat.droman.data.model.command.ResumeWaypointCommand</node>
+    <node x="932.8205128205132" y="418.8717948717949">pl.edu.wat.droman.data.model.command.LoadWaypointCommand.Waypoint</node>
+    <node x="-278.0" y="162.0">pl.edu.wat.droman.data.model.command.UploadWaypointCommand</node>
+    <node x="134.0" y="-30.0">pl.edu.wat.droman.data.model.command.StopMotorsCommand</node>
+    <node x="84.0" y="162.0">pl.edu.wat.droman.data.model.command.StartMotorsCommand</node>
+    <node x="-318.0" y="-544.1191406249998">pl.edu.wat.droman.ui.flightcontrol.handler.CommandHandler</node>
+    <node x="840.3846153846152" y="-30.0">pl.edu.wat.droman.data.model.command.LoadWaypointCommand</node>
+    <node x="84.0" y="297.0">pl.edu.wat.droman.data.model.command.LandCommand</node>
+    <node x="-318.0" y="-305.4871794871797">pl.edu.wat.droman.data.model.command.Command</node>
+    <node x="-278.0" y="567.0">pl.edu.wat.droman.data.model.command.PauseWaypointCommand</node>
+    <node x="79.0" y="726.1675213675217">pl.edu.wat.droman.data.model.command.CommandFactory</node>
+    <node x="84.0" y="432.0">pl.edu.wat.droman.data.model.command.StartGoHomeCommand</node>
+    <node x="446.0" y="432.0">pl.edu.wat.droman.data.model.command.ShootPhotoCommand</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="pl.edu.wat.droman.data.model.command.UnrecognizedCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="-47.5" />
+      <point x="617.0" y="547.0" />
+      <point x="-295.5" y="547.0" />
+      <point x="-295.5" y="412.0" />
+      <point x="-310.5" y="412.0" />
+      <point x="-310.5" y="277.0" />
+      <point x="-295.5" y="277.0" />
+      <point x="-253.5" y="76.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.ui.flightcontrol.handler.CommandHandler" target="pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers" relationship="CREATE">
+      <point x="528.7402343750001" y="15.0" />
+      <point x="-317.5" y="-19.155166234726153" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.LoadWaypointCommand" target="pl.edu.wat.droman.data.model.command.LoadWaypointCommand.Waypoint" relationship="CREATE">
+      <point x="52.435897435897914" y="174.0" />
+      <point x="15.0" y="-75.5" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.UploadWaypointCommand" relationship="CREATE">
+      <point x="-226.0" y="15.000478632478462" />
+      <point x="-350.5" y="803.1680000000001" />
+      <point x="-350.5" y="209.5" />
+      <point x="-171.0" y="0.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.UnrecognizedCommand" target="pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers" relationship="DEPENDENCY">
+      <point x="171.0" y="0.0" />
+      <point x="823.0" y="614.5" />
+      <point x="823.0" y="-421.571" />
+      <point x="-317.49961538461525" y="-2.547763930351721E-4" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.StopGoHomeCommand" target="pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers" relationship="DEPENDENCY">
+      <point x="171.0" y="0.0" />
+      <point x="823.0" y="209.5" />
+      <point x="823.0" y="-421.571" />
+      <point x="-317.49961538461525" y="-2.547763930351721E-4" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.Command" target="pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers" relationship="DEPENDENCY">
+      <point x="0.0" y="76.00017948717968" />
+      <point x="-42.0" y="-91.0" />
+      <point x="823.0" y="-91.0" />
+      <point x="823.0" y="-421.571" />
+      <point x="-317.49961538461525" y="-2.547763930351721E-4" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.ShootPhotoCommand" relationship="CREATE">
+      <point x="226.0" y="45.0" />
+      <point x="847.8846153846152" y="833.1675213675217" />
+      <point x="847.8846153846152" y="479.5" />
+      <point x="171.0" y="0.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.LandCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="47.5" />
+      <point x="255.0" y="412.0" />
+      <point x="-310.5" y="412.0" />
+      <point x="-310.5" y="277.0" />
+      <point x="-295.5" y="277.0" />
+      <point x="-253.5" y="76.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.LandCommand" target="pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers" relationship="DEPENDENCY">
+      <point x="171.0" y="0.0" />
+      <point x="439.333" y="344.5" />
+      <point x="439.333" y="97.5" />
+      <point x="442.667" y="97.5" />
+      <point x="442.667" y="-91.00000000000001" />
+      <point x="823.0" y="-91.0" />
+      <point x="823.0" y="-421.571" />
+      <point x="-317.49961538461525" y="-2.547763930351721E-4" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.TakeOffCommand" target="pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers" relationship="DEPENDENCY">
+      <point x="-171.0" y="-9.5" />
+      <point x="-330.0" y="470.0" />
+      <point x="-330.0" y="685.0" />
+      <point x="823.0" y="685.0" />
+      <point x="823.0" y="-421.571" />
+      <point x="-317.49961538461525" y="-2.547763930351721E-4" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.StopGoHomeCommand" relationship="CREATE">
+      <point x="-226.0" y="24.500478632478462" />
+      <point x="-360.0" y="812.6680000000001" />
+      <point x="-360.0" y="150.0" />
+      <point x="617.0" y="150.0" />
+      <point x="0.0" y="-47.5" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.StopMotorsCommand" relationship="CREATE">
+      <point x="226.0" y="60.0" />
+      <point x="1279.8846153846152" y="848.1675213675217" />
+      <point x="1279.8846153846152" y="-190.98717948717967" />
+      <point x="305.0" y="-190.98717948717967" />
+      <point x="0.0" y="-47.5" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.Command" relationship="DEPENDENCY">
+      <point x="-226.0" y="4.7863247834811773E-4" />
+      <point x="-446.17708333333326" y="788.168" />
+      <point x="-446.17708333333326" y="-336.0" />
+      <point x="-42.0" y="-336.0" />
+      <point x="0.0" y="-75.99982051282035" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.LoadWaypointCommand" target="pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers" relationship="DEPENDENCY">
+      <point x="-180.99961538461525" y="0.0" />
+      <point x="823.0" y="144.0" />
+      <point x="823.0" y="-421.571" />
+      <point x="-317.49961538461525" y="-2.547763930351721E-4" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.StopWaypointCommand" relationship="CREATE">
+      <point x="-50.0" y="-62.0" />
+      <point x="0.0" y="47.5" />
+    </edge>
+    <edge source="pl.edu.wat.droman.ui.flightcontrol.handler.CommandHandler" target="pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers" relationship="TO_ONE">
+      <point x="528.7402343750001" y="0.0" />
+      <point x="-317.5" y="-34.15516623472615" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.LoadWaypointCommand" target="pl.edu.wat.droman.data.model.command.LoadWaypointCommand.Waypoint" relationship="TO_MANY">
+      <point x="37.435897435897914" y="174.0" />
+      <point x="0.0" y="-75.5" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.StartWaypointCommand" target="pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers" relationship="DEPENDENCY">
+      <point x="-171.0" y="0.0" />
+      <point x="-335.5" y="344.5" />
+      <point x="-335.5" y="685.0" />
+      <point x="823.0" y="685.0" />
+      <point x="823.0" y="-421.571" />
+      <point x="-317.49961538461525" y="-2.547763930351721E-4" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.UploadWaypointCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="47.5" />
+      <point x="-107.0" y="277.0" />
+      <point x="-295.5" y="277.0" />
+      <point x="-253.5" y="76.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.ResumeWaypointCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="47.5" />
+      <point x="617.0" y="412.0" />
+      <point x="-310.5" y="412.0" />
+      <point x="-310.5" y="277.0" />
+      <point x="-295.5" y="277.0" />
+      <point x="-253.5" y="76.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.StartMotorsCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="47.5" />
+      <point x="255.0" y="277.0" />
+      <point x="-295.5" y="277.0" />
+      <point x="-253.5" y="76.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.UnrecognizedCommand" relationship="CREATE">
+      <point x="218.5" y="-62.0" />
+      <point x="-93.5" y="47.5" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.UploadWaypointCommand" target="pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers" relationship="DEPENDENCY">
+      <point x="-171.0" y="15.0" />
+      <point x="-335.5" y="224.5" />
+      <point x="-335.5" y="685.0" />
+      <point x="823.0" y="685.0" />
+      <point x="823.0" y="-421.571" />
+      <point x="-317.49961538461525" y="-2.547763930351721E-4" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.LandCommand" relationship="CREATE">
+      <point x="0.0" y="-62.0" />
+      <point x="305.0" y="716.1675213675217" />
+      <point x="436.0" y="716.1675213675217" />
+      <point x="436.0" y="344.5" />
+      <point x="171.0" y="0.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.ShootPhotoCommand" target="pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers" relationship="DEPENDENCY">
+      <point x="171.0" y="-15.0" />
+      <point x="823.0" y="464.5" />
+      <point x="823.0" y="-421.571" />
+      <point x="-317.49961538461525" y="-2.547763930351721E-4" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.TakeOffCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="-47.5" />
+      <point x="-107.0" y="412.0" />
+      <point x="-310.5" y="412.0" />
+      <point x="-310.5" y="277.0" />
+      <point x="-295.5" y="277.0" />
+      <point x="-253.5" y="76.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.LoadWaypointCommand.Waypoint" target="pl.edu.wat.droman.data.model.command.LoadWaypointCommand" relationship="INNER_CLASS">
+      <point x="-37.435897435897914" y="-75.5" />
+      <point x="0.0" y="174.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.LoadWaypointCommand" target="pl.edu.wat.droman.data.model.command.LoadWaypointCommand" relationship="DEPENDENCY">
+      <point x="0.0" y="-174.0" />
+      <point x="1021.3846153846152" y="-175.98717948717967" />
+      <point x="1264.8846153846152" y="-175.98717948717967" />
+      <point x="1264.8846153846152" y="159.0" />
+      <point x="181.0" y="15.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.StopWaypointCommand" target="pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers" relationship="DEPENDENCY">
+      <point x="-15.0" y="47.5" />
+      <point x="240.0" y="685.0" />
+      <point x="823.0" y="685.0" />
+      <point x="823.0" y="-421.571" />
+      <point x="-317.49961538461525" y="-2.547763930351721E-4" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.StartMotorsCommand" relationship="CREATE">
+      <point x="-226.0" y="54.50047863247846" />
+      <point x="-390.0" y="842.6680000000001" />
+      <point x="-390.0" y="135.0" />
+      <point x="255.0" y="135.0" />
+      <point x="0.0" y="-47.5" />
+    </edge>
+    <edge source="pl.edu.wat.droman.ui.flightcontrol.handler.CommandHandler" target="pl.edu.wat.droman.data.model.command.Command" relationship="DEPENDENCY">
+      <point x="-2.3437499999090505E-4" y="88.39291145833312" />
+      <point x="210.74" y="-336.0" />
+      <point x="-42.0" y="-336.0" />
+      <point x="0.0" y="-75.99982051282035" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.SetHomeLocationCommand" target="pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers" relationship="DEPENDENCY">
+      <point x="0.0" y="-76.0" />
+      <point x="-82.0" y="-91.0" />
+      <point x="823.0" y="-91.0" />
+      <point x="823.0" y="-421.571" />
+      <point x="-317.49961538461525" y="-2.547763930351721E-4" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.SetHomeLocationCommand" relationship="CREATE">
+      <point x="-226.0" y="39.50047863247846" />
+      <point x="-375.0" y="827.6680000000001" />
+      <point x="-375.0" y="31.0" />
+      <point x="-196.0" y="-15.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.PauseWaypointCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="-47.5" />
+      <point x="-107.0" y="547.0" />
+      <point x="-295.5" y="547.0" />
+      <point x="-295.5" y="412.0" />
+      <point x="-310.5" y="412.0" />
+      <point x="-310.5" y="277.0" />
+      <point x="-295.5" y="277.0" />
+      <point x="-253.5" y="76.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.TakeOffCommand" relationship="CREATE">
+      <point x="-226.0" y="-14.999521367521652" />
+      <point x="-310.5" y="773.168" />
+      <point x="-310.5" y="479.5" />
+      <point x="-171.0" y="0.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.StartGoHomeCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="-47.5" />
+      <point x="255.0" y="412.0" />
+      <point x="-310.5" y="412.0" />
+      <point x="-310.5" y="277.0" />
+      <point x="-295.5" y="277.0" />
+      <point x="-253.5" y="76.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.LoadWaypointCommand" relationship="CREATE">
+      <point x="226.0" y="9.5" />
+      <point x="894.5" y="797.6675213675217" />
+      <point x="-126.88461538461524" y="174.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.ShootPhotoCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="-47.5" />
+      <point x="617.0" y="412.0" />
+      <point x="-310.5" y="412.0" />
+      <point x="-310.5" y="277.0" />
+      <point x="-295.5" y="277.0" />
+      <point x="-253.5" y="76.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.ResumeWaypointCommand" target="pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers" relationship="DEPENDENCY">
+      <point x="171.0" y="-15.0" />
+      <point x="823.0" y="329.5" />
+      <point x="823.0" y="-421.571" />
+      <point x="-317.49961538461525" y="-2.547763930351721E-4" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.StopMotorsCommand" target="pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers" relationship="DEPENDENCY">
+      <point x="101.0" y="-47.5" />
+      <point x="406.0" y="-91.0" />
+      <point x="823.0" y="-91.0" />
+      <point x="823.0" y="-421.571" />
+      <point x="-317.49961538461525" y="-2.547763930351721E-4" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.StopMotorsCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
+      <point x="171.0" y="0.0" />
+      <point x="805.5" y="17.5" />
+      <point x="805.5" y="277.0" />
+      <point x="-295.5" y="277.0" />
+      <point x="-253.5" y="76.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.StartMotorsCommand" target="pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers" relationship="DEPENDENCY">
+      <point x="-15.0" y="-47.5" />
+      <point x="240.0" y="97.5" />
+      <point x="442.667" y="97.5" />
+      <point x="442.667" y="-91.00000000000001" />
+      <point x="823.0" y="-91.0" />
+      <point x="823.0" y="-421.571" />
+      <point x="-317.49961538461525" y="-2.547763930351721E-4" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.PauseWaypointCommand" target="pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers" relationship="DEPENDENCY">
+      <point x="-15.0" y="47.5" />
+      <point x="-122.0" y="685.0" />
+      <point x="823.0" y="685.0" />
+      <point x="823.0" y="-421.571" />
+      <point x="-317.49961538461525" y="-2.547763930351721E-4" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.StartGoHomeCommand" relationship="CREATE">
+      <point x="-226.0" y="0.0" />
+      <point x="69.0" y="788.1675213675217" />
+      <point x="69.0" y="479.5" />
+      <point x="-171.0" y="0.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.PauseWaypointCommand" relationship="CREATE">
+      <point x="-226.0" y="-29.999521367521652" />
+      <point x="-107.0" y="758.168" />
+      <point x="0.0" y="47.5" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.SetHomeLocationCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
+      <point x="-196.0" y="0.0" />
+      <point x="-295.5" y="46.0" />
+      <point x="-253.5" y="76.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.ResumeWaypointCommand" relationship="CREATE">
+      <point x="226.0" y="0.0" />
+      <point x="857.3846153846152" y="788.1675213675217" />
+      <point x="857.3846153846152" y="344.5" />
+      <point x="171.0" y="0.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.StartGoHomeCommand" target="pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers" relationship="DEPENDENCY">
+      <point x="171.0" y="0.0" />
+      <point x="442.667" y="479.5" />
+      <point x="442.667" y="-91.00000000000001" />
+      <point x="823.0" y="-91.0" />
+      <point x="823.0" y="-421.571" />
+      <point x="-317.49961538461525" y="-2.547763930351721E-4" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.StopGoHomeCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="47.5" />
+      <point x="617.0" y="277.0" />
+      <point x="-295.5" y="277.0" />
+      <point x="-253.5" y="76.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.StopWaypointCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="-47.5" />
+      <point x="255.0" y="547.0" />
+      <point x="-295.5" y="547.0" />
+      <point x="-295.5" y="412.0" />
+      <point x="-310.5" y="412.0" />
+      <point x="-310.5" y="277.0" />
+      <point x="-295.5" y="277.0" />
+      <point x="-253.5" y="76.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.StartWaypointCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="47.5" />
+      <point x="-107.0" y="412.0" />
+      <point x="-310.5" y="412.0" />
+      <point x="-310.5" y="277.0" />
+      <point x="-295.5" y="277.0" />
+      <point x="-253.5" y="76.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.LoadWaypointCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
+      <point x="-111.88461538461524" y="174.0" />
+      <point x="909.5" y="412.0" />
+      <point x="-310.5" y="412.0" />
+      <point x="-310.5" y="277.0" />
+      <point x="-295.5" y="277.0" />
+      <point x="-253.5" y="76.0" />
+    </edge>
+  </edges>
+  <settings layout="Compact" zoom="0.6144000000000004" showDependencies="true" x="605.2460937499993" y="-154.37500000000023" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
