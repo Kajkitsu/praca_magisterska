@@ -6,10 +6,10 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.dji.frame.util.V_JsonUtil
 import dji.sdk.sdkmanager.DJISDKManager
@@ -50,9 +50,49 @@ class MainActivity : AppCompatActivity() {
     private val missingPermission: MutableList<String> = ArrayList()
 
     private lateinit var mainViewModel: MainViewModel
-    private val isConnected = MutableLiveData(false)
 
     private var nextActivity: Intent? = null
+
+    private fun setProgressBarStat(force: Boolean = false) {
+        if (mainViewModel.isDuringConnecting.value == true || force)
+            binding.progressBar.visibility = View.VISIBLE
+    }
+
+    private fun setStartButtonState() {
+        binding.btStartFlightMode.isEnabled =
+            mainViewModel.clientId.value != null
+                    && mainViewModel.connectState.value == true
+                    && mainViewModel.isDuringConnecting.value == false
+                    && mainViewModel.isDeviceConnected.value == true
+    }
+
+    private fun setCheckButtonState() {
+        binding.btCheckConnection.isEnabled =
+            (mainViewModel.clientId.value == null || mainViewModel.connectState.value == false)
+                    && mainViewModel.isDuringConnecting.value == false
+                    && mainViewModel.isDeviceConnected.value == true
+    }
+
+    private fun updateUI() {
+        setProgressBarStat()
+        setCheckButtonState()
+        setStartButtonState()
+    }
+
+    private fun startFlightControl() {
+        if (mainViewModel.connectState.value == true && mainViewModel.clientId.value != null) {
+            nextActivity = Intent(this, FlightControlActivity::class.java)
+            nextActivity!!.putExtra("username", binding.edMqttUsername.text.toString())
+            nextActivity!!.putExtra("password", binding.edMqttPassword.text.toString())
+            nextActivity!!.putExtra("ipAddress", binding.edMqttAddress.text.toString())
+            nextActivity!!.putExtra("clientId", mainViewModel.clientId.value)
+            startActivity(nextActivity)
+            setProgressBarStat(true)
+        } else {
+            Toast.makeText(this, "Wrong state", Toast.LENGTH_LONG).show()
+        }
+    }
+
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,33 +109,16 @@ class MainActivity : AppCompatActivity() {
             MainViewModelFactory()
         )[MainViewModel::class.java]
 
+        binding.version.text = getVersionText()
+
         binding.btStartFlightMode
             .setOnClickListener {
-                binding.progressBar.visibility = View.VISIBLE
-                if (mainViewModel.connectState.value == true && mainViewModel.clientId.value != null) {
-                    nextActivity = Intent(this, FlightControlActivity::class.java)
-                    nextActivity!!.putExtra("username", binding.edMqttUsername.text.toString())
-                    nextActivity!!.putExtra("password", binding.edMqttPassword.text.toString())
-                    nextActivity!!.putExtra("ipAddress", binding.edMqttAddress.text.toString())
-                    nextActivity!!.putExtra("clientId", mainViewModel.clientId.value)
-                    startActivity(nextActivity)
-                    binding.progressBar.visibility = View.INVISIBLE
-                }
+                startFlightControl()
             }
-
         binding.btCheckConnection
             .setOnClickListener {
-                binding.btCheckConnection.isEnabled = false
-                binding.progressBar.visibility = View.VISIBLE
-                mainViewModel.validateConnection(
-                    binding.edMqttUsername.text.toString(),
-                    binding.edMqttPassword.text.toString(),
-                    binding.edMqttAddress.text.toString(),
-                    applicationContext
-                )
+                checkConnection()
             }
-
-
         binding.edMqttUsername.afterTextChanged {
             mainViewModel.invalidate()
         }
@@ -106,42 +129,14 @@ class MainActivity : AppCompatActivity() {
             mainViewModel.invalidate()
         }
 
-
-        binding.version.text = getVersionText()
-
-        isConnected.observe(this@MainActivity) {
-            binding.btCheckConnection.isEnabled = it
+        mainViewModel.isDeviceConnected.observe(this) {
             mainViewModel.fetchClientId()
+            updateUI()
         }
-
-        mainViewModel.clientId.observe(this@MainActivity) {
-            binding.clientId.text = "Client id: ${it ?: "not set"}"
-        }
-
-        mainViewModel.connectState.observe(this@MainActivity) {
-            binding.btStartFlightMode.isEnabled = it
-            binding.btCheckConnection.isEnabled = isConnected.value!!
-            if (binding.progressBar.visibility == View.VISIBLE) {
-                binding.progressBar.visibility = View.INVISIBLE
-                if (it && isConnected.value!!) {
-                    FeedbackUtils.setResult(
-                        tag = MainViewModel.TAG,
-                        string = "Correct connection"
-                    )
-                } else {
-                    if (isConnected.value!!) {
-                        FeedbackUtils.setResult(
-                            "Failed connecting MQTT",
-                            tag = MainViewModel.TAG
-                        )
-                    } else {
-                        FeedbackUtils.setResult(
-                            "Failed connecting to device",
-                            tag = MainViewModel.TAG
-                        )
-                    }
-                }
-            }
+        mainViewModel.clientId.observe(this) { updateUI() }
+        mainViewModel.connectState.observe(this) { updateUI() }
+        mainViewModel.isDuringConnecting.observe(this) {
+            updateUI()
         }
 
         if (GlobalConfig.DEVELOPER_MODE) {
@@ -160,7 +155,7 @@ class MainActivity : AppCompatActivity() {
                     tag = RegistrationCallback.TAG,
                     string = "product connect!"
                 )
-                isConnected.postValue(true)
+                mainViewModel.isDeviceConnected.postValue(true)
             },
             deviceDisconnected = {
                 FeedbackUtils.setResult(
@@ -168,10 +163,20 @@ class MainActivity : AppCompatActivity() {
                     string = "product disconnect!",
                     level = LogLevel.WARN
                 )
-                isConnected.postValue(false)
+                mainViewModel.isDeviceConnected.postValue(false)
             })
 
         checkAndRequestPermissions()
+    }
+
+    private fun checkConnection() {
+        mainViewModel.validateConnection(
+            binding.edMqttUsername.text.toString(),
+            binding.edMqttPassword.text.toString(),
+            binding.edMqttAddress.text.toString(),
+            applicationContext
+        )
+        mainViewModel.fetchClientId()
     }
 
 

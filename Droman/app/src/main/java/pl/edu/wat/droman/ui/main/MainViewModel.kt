@@ -18,11 +18,14 @@ import java.util.*
 @SuppressLint("StaticFieldLeak")
 class MainViewModel : ViewModel() {
     companion object {
-        val TAG = "MainViewModel"
+        const val TAG = "MainViewModel"
     }
 
-    var mqttService: MqttService? = null
-    private val _connect = MutableLiveData<Boolean>()
+    val isDeviceConnected = MutableLiveData(false)
+    private val _isDuringConnecting = MutableLiveData(false)
+    val isDuringConnecting: LiveData<Boolean> = _isDuringConnecting
+    private var mqttService: MqttService? = null
+    private val _connect = MutableLiveData(false)
     val connectState: LiveData<Boolean> = _connect
 
     private var _clientId = MutableLiveData<String>()

@@ -27,7 +27,12 @@ class MqttRepository(
     }
 ) {
     private val mqttClient: MqttClient =
-        MqttClient(context, mqttCredentials.serverURI, mqttCredentials.clientID)
+        MqttClient(
+            context,
+            mqttCredentials.serverURI,
+            mqttCredentials.clientID,
+            waitForResponseTimeout = GlobalConfig.WAIT_FOR_RESPONSE_TIMEOUT
+        )
 
 
     suspend fun publish(mqttDto: MqttDto): Result<IMqttDeliveryToken> {

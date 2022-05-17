@@ -5,6 +5,7 @@ enum class ETopic(private val path: String) {
     BIRTH("droman/birth"),
     STATE("droman/state"),
     COMMAND("droman/command"),
+    LOG("droman/logs"),
     PICTURE("droman/picture"),
     TEST("test"),
     VALIDATE("droman/validate");
