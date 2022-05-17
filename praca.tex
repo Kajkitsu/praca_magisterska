@@ -484,35 +484,35 @@ DJI dostarcza do swoich produktów następujące interfejsy API:
 \newpage
 \section{Projekt mobilnego systemu zarządzania i sterowania BSP}
 \subsection{Wymagania funkcjonalne}
-text
+TODO
 \subsection{Wymagania pozafunkcjonalne}
-text
+TODO
 \subsection{Stos technologiczny}
-text
+TODO
 \subsubsection{Java}
-text
+TODO
 \subsubsection{Kotlin}
-text
+TODO
 \subsubsection{DJI Mobile SDK}
-text
+TODO
 \subsubsection{Lombook}
-text
+TODO
 \subsubsection{Springboot}
-text
+TODO
 \subsubsection{Android}
-text
+TODO
 \subsection{Uzasadnienie warstwy pośredniczącej}
-text
+TODO
 \subsection{Wysokopoziomowy diagram systemu}
-text
+TODO
 \subsection{Diagram komponentów}
-text
+TODO
 \subsection{Diagram klas i sekwencji}
-text
+TODO
 \subsubsection{Gradle}
-text
+TODO
 \subsection{Wykorzystane urządzenia}
-text
+TODO
 
 \newpage
 \section{Implementacja systemu}
@@ -522,16 +522,18 @@ text
 TODO
 
 \subsection{Testy jednostkowe TODO}
-W kontekście testowania oprogramowania na platformie andorid można wyróźnić dwa rodzaje testów jednostkowych.
+
+W kontekście testowania oprogramowania na platformie Android można wyróżnić dwa
+rodzaje testów jednostkowych.
 \begin{itemize} 
-  \item \textbf{androidTest} - Testy, które są uruchamiane na rzeczywistych lub wirtualnych urządzeniach z systemem Androdi. Obejmują one m.in. test integracyjne i end-to-end, w których samo JVM nie może sprawdzić działania kodu. W ramach tego rozdzaju testów przetestowano serwisy odpowiedzialne za komunikacje za pomocą MQTT, ponieważ są to operacje asynchroniczne, a biblioteka która jest wykrozysytwana potrzbuje w konstruktorze do swojego działania kontekstu aplikacji android (klasa /textit{android.content.Context}) .
-  \item \textbf{test} - Klasyczne testy jednostkowe, które mogą być uruchamiane w ramach JVM na loklanej masyznie. W ramach tych testów przetestowano m.in. mapowanie opiektów JSON na klasy DTO przysyłancyh komend (klasa \textit{pl.edu.wat.droman.data.model.command.Command})
+  \item \textbf{androidTest} - Testy, które są uruchamiane na rzeczywistych lub wirtualnych urządzeniach z systemem Android. Obejmują one m.in. test integracyjne i end-to-end. Szczególnie takie, w których samo JVM nie może sprawdzić działania kodu. W ramach tego rodzaju testów przetestowano serwisy odpowiedzialne za komunikacje za pomocą MQTT. Konieczność ta jest spowodowana tym, że są to operacje asynchroniczne, które do swojego wykonania korzystają z narzędzi do zarządzania cyklem życia obiektów dostarczanych przez system Android, dlatego muszą być wykonane w ramach tego kontekstu.
+  \item \textbf{test} - Klasyczne testy jednostkowe, które mogą być uruchamiane na lokalnej maszynie JVM. W ramach tych testów przetestowano m.in. mapowanie obiektów JSON na klasy wykorzystywane do wykonywania poszczególnych komend (klasa \textit{pl.edu.wat.droman.data.model.command.Command}) na urządzeniu.
 \end{itemize}
 
 \subsubsection{Testowanie MqttService}
-Klasa \textit{pl.edu.wat.droman.data.service.MqttService} odpowiada za zarządzania obsługowywanymi Topic-ami MQTT. Zwraca ona dla podanej scieżki obiekt klasy \textit{pl.edu.wat.droman.data.service.MqttService.Topic} na którym można wykonywać opcje publikowania i subkrybowania wiadomości MQTT. Ponieważ zwraca ona obiekty za pomoca klasy /textit{androidx.lifecycle.LiveData} operacje te są wykonywane z kontekstem aplikacji. Dodatkowo w całym procesie wykorzysytywany jest do tego serwer MQTT, którego parametry logowania i adresu są pobierane z pliku konfiguracyjengo gradle, który jest przechowywany na loklanej maszynie, dzięki temu hasła nie są przechowywane razem z kodem na repozytorium Git.
+Klasa \textit{pl.edu.wat.droman.data.service.MqttService} zarządza Topic-ami MQTT. Dostarcza ona łatwy w obsłudze abstrakt (klasa \textit{pl.edu.wat.droman.data.service.MqttService.Topic}), a jego wygenerowanie odbywa sie na podstawie podanej ścieżki dla transmisji Mqtt. Można na nim wykonywa wykonywać opcje publikowania i subskrybowania wiadomości. Ponieważ zwraca ona obiekty za pomocą klasy \textit{androidx.lifecycle.LiveData} operacje te są wykonywane z kontekstem aplikacji. Dodatkowo w całym procesie wykorzystywany jest do tego serwer MQTT, którego parametry logowania i adresu są pobierane z pliku konfiguracyjnego gradle, który jest przechowywany na lokalnej maszynie. Takie zastosowanie pozwala na nie przechowywania kluczy wraz z repozytorium, cos jest istotne, jeżeli udostępnia się kod na zewnętrzne repozytorium lub uruchamia testy na środowiskach z różnym dostępem do serwera MQTT.
 
-\begin{lstlisting}[language=Kotlin, caption=Inicjalizowanie wartosci w klasie przed uruchominiem poszczególnych testów\label{TbECMont}]
+\begin{lstlisting}[language=Java, caption=Inicjalizowanie wartosci w klasie przed uruchominiem poszczególnych testów]
   @Before
     fun init() {
         appContext = InstrumentationRegistry.getInstrumentation().targetContext
@@ -548,8 +550,9 @@ Klasa \textit{pl.edu.wat.droman.data.service.MqttService} odpowiada za zarządza
     }
 \end{lstlisting}
 
-\begin{lstlisting}[language=Kotlin, caption=Test publikowania danych za pomocą Mqtt \label{TbECMont}]
+Przed wszystkimi testami wykonywane jest inicjowanie obiektów, które będą wykorzystywane w trakcie wszystkich testów. W tym przypadku jest to wyciągnięcie z metadanych danych logowania do serwera MQTT, a następnie utworzenie testowanego serwisu.
 
+\begin{lstlisting}[language=Java, caption=Test publikowania danych za pomocą Mqtt]
   @Test
   fun publish() = runBlocking {
       //given
@@ -564,42 +567,31 @@ Klasa \textit{pl.edu.wat.droman.data.service.MqttService} odpowiada za zarządza
       //except
       Assert.assertTrue(res.isSuccess)
   }
-
 \end{lstlisting}
 
+Jest to prosty przypadek testowy który sprawdza czy publikowanie wiadomości do serwera MQTT odbywa sie bez zwrócenia błedu. 
 
-\begin{lstlisting}[language=Kotlin, caption=Test pobierania danych za pomocą Mqtt \label{TbECMont}]
+\begin{lstlisting}[language=Java, caption=Test pobierania danych za pomocą Mqtt]
   @Test
   fun getData() {
-      //given
+    //given
+    val message = "message:" + UUID.randomUUID()
+    val topicVal = "/test"
 
-      val message = "message:" + UUID.randomUUID()
-      val message2 = "message:" + UUID.randomUUID()
-      val topicVal = "/test"
+    //then
+    val topic = mqttService.getTopic(topicVal)
+    runBlocking {
+        topic.subscribe()
+        topic.publish(message)
+    }
+    val result = topic.getData().getOrAwaitValue(time = 5).toString()
 
-      //then
-      val topic = mqttService.getTopic(topicVal)
-      runBlocking {
-          topic.subscribe()
-          topic.publish(message)
-      }
-
-      //except
-      Assert.assertEquals(message, topic.getData().getOrAwaitValue(time = 5).toString())
-      
-      //then
-      runBlocking {
-          topic.publish(message)
-      }
-      
-      //except
-      Assert.assertEquals(message, topic.getData().getOrAwaitValue(time = 5).toString())
+    //except
+    Assert.assertEquals(message, result)
   }
 \end{lstlisting}
 
-
-
-
+Drugi z prezentowanych testów sprawdza cały proces przesyłania wiadomości za pomocą MQTT, od włączenia subskrypcji wskazanego Topic-a, aż do pozyskania danych na tym Topic-u ze wskazanego serwera.
 
 \begin{figure}[!ht]
   \centering
@@ -609,9 +601,9 @@ Klasa \textit{pl.edu.wat.droman.data.service.MqttService} odpowiada za zarządza
   \end{figure}
 
 \subsubsection{Testowanie CommandFactory}
+Klasa \textit{CommandFactory} odpowiada za generowanie obiektów klas komend, na podstawie obiektu, które są w późniejszym etapie wykonywane za pomocą klasy \textit{CommandHandler}. Klasy te są generowane na podstawie obiektu String w formacie JSON.
 
-
-\begin{lstlisting}[language=Kotlin, caption=Test tworzenia komendy \textit{UploadWaypointCommand} za pomocą \textit{CommandFactory} \label{TbECMont}]
+\begin{lstlisting}[language=Java, caption=Test tworzenia komendy \textit{UploadWaypointCommand} za pomocą \textit{CommandFactory}]
   @Test
   fun testMappingToUploadMissionCommand() {
       //given
@@ -649,8 +641,30 @@ Klasa \textit{pl.edu.wat.droman.data.service.MqttService} odpowiada za zarządza
       assertEquals(UploadWaypointCommand::class.java,command.javaClass)
   }
 \end{lstlisting}
+\source{Badania własne.}
 
-\begin{lstlisting}[language=Kotlin, caption=Przykładowy test klasy MqttService \label{TbECMont}]
+Powyżej przykładowy test, w którym niestety nie można przetestować bezpośrednio wartości m.in. współrzędnych, ponieważ dostęp do nich jest chroniony. W aplikacji został wykorzystany framework Junit4, który nie umożliwia dostępu do obiektów chronionych, ale warto dodać, że inne, jak np. Spock, już takie rzeczy umożliwiają. Sam test służy do upewnienia się, że wartość tekstowa została zmapowana na poprawny obiekt.
+
+\begin{lstlisting}[language=Java, caption=Test tworzenia komendy \textit{TakeOffCommand} za pomocą \textit{CommandFactory}]
+  @Test
+  fun testMappingToTakeOffCommand() {
+      //given
+      val commandFactory = CommandFactory()
+      val missionValue = "{\"type\": \"take_off\"}"
+      //then
+      val command = commandFactory.from(missionValue)
+
+      //expect
+      assertNotNull(command)
+      assertEquals(TakeOffCommand::class.java,command.javaClass)
+      assertEquals(TakeOffCommand.type, command.type)
+  }
+\end{lstlisting}
+\source{Badania własne.}
+
+Klasa \textit{TakeOffCommand}nie posiada w sobie żadnych parametrów, które wpływają na jej wykonanie, wiec problem, o którym była mowa powyżej nie występuje.
+
+\begin{lstlisting}[language=Java, caption=Test tworzenia komendy \textit{UnrecognizedCommand} w przypadku nierozpoznania wartości za pomocą \textit{CommandFactory}]
 
   @Test
   fun testMappingToFailUploadMissionCommand() {
@@ -666,117 +680,207 @@ Klasa \textit{pl.edu.wat.droman.data.service.MqttService} odpowiada za zarządza
       assertEquals(UnrecognizedCommand.type, command.type)
   }
 \end{lstlisting}
+\source{Badania własne.}
 
-\begin{lstlisting}[language=Kotlin, caption=Przykładowy test klasy MqttService \label{TbECMont}]
+Ten test sprawdza przypadek, w którym z jakiegoś powody nie będzie można utworzyć instancji klasy \textit{Command}, wtedy zostaje zwrócona specjalna komenda \textit{UnrecognizedCommand}. Taki sposób działa jest lepszy od zwracania wartości \textit{null}, co jest uznawane za złą praktykę.
 
-  @Test
-  fun testMappingToTakeOffCommand() {
-      //given
-      val commandFactory = CommandFactory()
-      val missionValue = "{\"type\": \"take_off\"}"
-      //then
-      val command = commandFactory.from(missionValue)
+\subsection{Testy autonomiczne}
+W ramach systemy przygotowano dwa skrypty w Pythonie, który umożliwia przeprowadzanie testów automatycznych. 
 
-      //expect
-      assertNotNull(command)
-      assertEquals(TakeOffCommand::class.java,command.javaClass)
-      assertEquals(TakeOffCommand.type, command.type)
-  }
+\subsubsection{Publikowanie na topicu przeznaczonego do przesyłania komend} 
+\begin{lstlisting}[language=Python, caption=Skryt przeznaczony do publikowania na nasłuchiwanym przez urządzenie latające topicu komend.]
+  if __name__ == '__main__':
+  client = mqtt.Client()
+  client.username_pw_set(username=USERNAME, password=PASSWORD)
+  client.on_connect = on_connect
+  client.connect(MQTT_SERVER, 1883, 60)
+  allowed_args = ["test", "set_home_location", "land", "upload_waypoint_mission", "take_off", "start_motors",
+                  "stop_motors", "shoot_photo", "load_waypoint_mission", "take_off_and_land", "stop_waypoint_mission",
+                  "start_waypoint_mission", "go_home"]
+  print(allowed_args)
+  if sys.argv[1] == "test":
+      client.publish(topic=MQTT_PATH + CLIENT_ID, payload='{"type":"shoot_photo"}')
+      time.sleep(1)
+      client.publish(topic=MQTT_PATH + CLIENT_ID, payload='{"type":"start_motors"}')
+      time.sleep(3)
+      client.publish(topic=MQTT_PATH + CLIENT_ID, payload='{"type":"stop_motors"}')
+  elif sys.argv[1] == "set_home_location":
+      payload = {
+          "type": "set_home_location",
+          "longitude": 20.0,
+          "latitude": 113.0,
+      }
+      client.publish(topic=MQTT_PATH + CLIENT_ID, payload=json.dumps(payload))
+  elif sys.argv[1] == "load_waypoint_mission":
+      payload = {
+          "type": "load_waypoint_mission",
+          "finished_action": "NO_ACTION",
+          "auto_flight_speed": 1.0,
+          "max_flight_speed": 5.0,
+          "heading_mode": "AUTO",
+          "waypoints": [
+              {
+                  "attitude": 10,
+                  "longitude": START_POINT_LONGITUDE,
+                  "latitude": START_POINT_LATITUDE + ONE_METER_OFFSET * 0.5
+              },
+              {
+                  "attitude": 11,
+                  "longitude": START_POINT_LONGITUDE + ONE_METER_OFFSET * 1,
+                  "latitude": START_POINT_LATITUDE - ONE_METER_OFFSET * 1
+              },
+              {
+                  "attitude": 12,
+                  "longitude": START_POINT_LONGITUDE + ONE_METER_OFFSET * 2,
+                  "latitude": START_POINT_LATITUDE + ONE_METER_OFFSET * 1
+              }
+          ]
+      }
+      print(json.dumps(payload))
+      client.publish(topic=MQTT_PATH + CLIENT_ID, payload=json.dumps(payload))
+  elif sys.argv[1] == "take_off_and_land":
+      client.publish(topic=MQTT_PATH + CLIENT_ID, payload='{"type":"take_off"}')
+      time.sleep(3)
+      client.publish(topic=MQTT_PATH + CLIENT_ID, payload='{"type":"shoot_photo"}')
+      time.sleep(3)
+      client.publish(topic=MQTT_PATH + CLIENT_ID, payload='{"type":"land"}')
+  elif sys.argv[1] in allowed_args:
+      client.publish(topic=MQTT_PATH + CLIENT_ID, payload='{"type":"' + sys.argv[1] + '"}')
+  else:
+      print("forbidden command " + sys.argv[1])
 \end{lstlisting}
+\source{Badania własne.}
 
-
-\subsection{Scenariusz testowy autonomicznego lotu patrolowego}
-
-\newpage
-\section{TMP}
-
-\subsection{Tytuł podrozdziału}
-W procesie dyplomowania tekst pracy jest przetwarzany elektronicznie za pośrednictwem systemów USOS APD (Archiwum Prac Dyplomowych) oraz JSA (Jednolity System Antyplagiatowy). Plik pracy zapisany w formacie ,,pdf'' winien mieć nazwę nadana wg schematu: \textit{,,WAT, myślnik, numer indeksu studenta, myślnik, data wysłania w formacie dd-mm-rrrr''}, np. \textit{,,WAT-12345-01.05.2021.pdf''}. Plik umieszczany jest w systemie USOS APD poprzez indywidualne konto Dyplomanta.
-
-Do pracy można załączyć dodatkowe pliki w formacie ,,docx''/,,pdf''.`'
-W przypadku innych formatów (w tym „zip”) , należy je zapisać na płycie CD/DVD, opisanej trwale (niezmywalnym mazakiem) następująco: skrót nazwy uczelni, nazwa wydziału, kierunek studiów, specjalność, numer albumu studenta, imię i nazwisko studenta, temat pracy dyplomowej, własnoręczny podpis studenta. 
-
-\subsection{Tytuł podrozdziału}
-
-W tekście pracy kolejne wątki tematyczne należy oddzielać poprzez wcięciami akapitowe. W strukturze pracy zalecane jest:
-\begin{itemize} 
-    \item w przypadku wprowadzenia podrozdziałów wyróżnienie co najmniej dwóch na danym poziomie zagłębienia.
+Przedstawiony powyżej skrypt umożliwia w prosty sposób przesyłanie komend do urządzenia końcowego. Dodatkowo w ramach skryptu zostały udostępnione dwie sekwencje \textit{test} i \textit{test\_with\_take\_off}. Pierwsza z nich wykonuje trzy następujące po sobie komendy, które odpowiadają kolejno za:
+\begin{itemize}
+  \item uruchomienie silników;
+  \item zrobienie zdjęcia;
+  \item wyłącznie silników.
 \end{itemize}
+Druga z nich wykonuje dodatkowo wystartowanie, tj. uniesienie się na wysokość 1,4 metra i wylądowanie. Metoda \textit{test} w trakcie implementacji stanowiła szybko weryfikacje działania, nawet w zamkniętym pomieszczeniu.
 
-Praca powinna zawierać oryginalny tekst. W przypadku cytowania należy stosować przypisy dolne. W przypadku odwołania do literatury lub źródeł internetowych należy wstawiać hiperłącza do odpowiednich pozycji z bibliografii, np. [1].
+
+\subsubsection{Subskrybowanie topicu przeznaczonego do przesyłania zdjęć}
+
+\begin{lstlisting}[language=Python, caption=Skryt nasuchujący na podanym topicu MQTT i zapisujący dane z wiadomości MQTT w formacie /text{jpeg}]
+  def on_connect(_client, userdata, flags, rc):
+  print("Connected with result code " + str(rc))
+  _client.subscribe(MQTT_PATH)
+
+
+def on_message(_client, userdata, msg):
+  f = open('output.jpeg', "wb")
+  f.write(msg.payload)
+  print("Image Received")
+  f.close()
+
+
+if __name__ == '__main__':
+  client = mqtt.Client()
+  client.username_pw_set(username=USERNAME, password=PASSWORD)
+  client.on_connect = on_connect
+  client.on_message = on_message
+  client.connect(MQTT_SERVER, 1883, 60)
+  client.loop_forever()
+
+\end{lstlisting}
+\source{Badania własne.}
+
+Ten test służy do sprawdzenia, czy wysłany obraz z urządzenia DJI został przekazane w formacie, który umożliwia jego rozkodowanie. W trakcie jego działania należy wykonać komendę wcześniej opisanym skryptem, która wysyła do urządzenia żądanie zrobienie zdjęcia. Po jego wykonaniu jest ono automatycznie wysyłane na wskazany topic MQTT.
+
+\subsection{Coś o sprawdzeniu statusu statku powitrznego}
+TODO
+
+% \newpage
+% \section{TMP}
+
+% \subsection{Tytuł podrozdziału}
+% W procesie dyplomowania tekst pracy jest przetwarzany elektronicznie za pośrednictwem systemów USOS APD (Archiwum Prac Dyplomowych) oraz JSA (Jednolity System Antyplagiatowy). Plik pracy zapisany w formacie ,,pdf'' winien mieć nazwę nadana wg schematu: \textit{,,WAT, myślnik, numer indeksu studenta, myślnik, data wysłania w formacie dd-mm-rrrr''}, np. \textit{,,WAT-12345-01.05.2021.pdf''}. Plik umieszczany jest w systemie USOS APD poprzez indywidualne konto Dyplomanta.
+
+% Do pracy można załączyć dodatkowe pliki w formacie ,,docx''/,,pdf''.`'
+% W przypadku innych formatów (w tym „zip”) , należy je zapisać na płycie CD/DVD, opisanej trwale (niezmywalnym mazakiem) następująco: skrót nazwy uczelni, nazwa wydziału, kierunek studiów, specjalność, numer albumu studenta, imię i nazwisko studenta, temat pracy dyplomowej, własnoręczny podpis studenta. 
+
+% \subsection{Tytuł podrozdziału}
+
+% W tekście pracy kolejne wątki tematyczne należy oddzielać poprzez wcięciami akapitowe. W strukturze pracy zalecane jest:
+% \begin{itemize} 
+%     \item w przypadku wprowadzenia podrozdziałów wyróżnienie co najmniej dwóch na danym poziomie zagłębienia.
+% \end{itemize}
+
+% Praca powinna zawierać oryginalny tekst. W przypadku cytowania należy stosować przypisy dolne. W przypadku odwołania do literatury lub źródeł internetowych należy wstawiać hiperłącza do odpowiednich pozycji z bibliografii, np. [1].
  
-Wszystkie skróty w pracy przy pierwszym ich użyciu powinny być rozwinięte (wyjaśnione). Pojedyncze litery z końca wierszy powinny być przeniesione na początek kolejnych wierszy poprzez wprowadzenie tzw. ,,twardej spacji'' pomiędzy tą literą a kolejnym wyrazem (np. w edytorze Microsoft Word poprzez kombinację klawiszy Ctrl+Shift+Spacja).
+% Wszystkie skróty w pracy przy pierwszym ich użyciu powinny być rozwinięte (wyjaśnione). Pojedyncze litery z końca wierszy powinny być przeniesione na początek kolejnych wierszy poprzez wprowadzenie tzw. ,,twardej spacji'' pomiędzy tą literą a kolejnym wyrazem (np. w edytorze Microsoft Word poprzez kombinację klawiszy Ctrl+Shift+Spacja).
 
-Pracę mogą kończyć spisy rysunków i tabel – zalecane jest ich wprowadzenie w przypadku wystąpienia dużej liczby rysunków lub tabel w tekście pracy (powyżej 10). Praca może być uzupełniona załącznikami. W przypadku braku w pracy spisów rysunków i tabel lub załączników należy usunąć je ze struktury pracy oraz spisu treści.
+% Pracę mogą kończyć spisy rysunków i tabel – zalecane jest ich wprowadzenie w przypadku wystąpienia dużej liczby rysunków lub tabel w tekście pracy (powyżej 10). Praca może być uzupełniona załącznikami. W przypadku braku w pracy spisów rysunków i tabel lub załączników należy usunąć je ze struktury pracy oraz spisu treści.
 
-Dla tekstu, tytułów, podpisów należy stosować style Wydziału (docx) lub zdefiniowane w~tym szablonie.\\
-Układ marginesów i numerów stron przewidziany jest do wydruku dwustronnego.\\
-Wydruk pracy nie jest wymagany.
+% Dla tekstu, tytułów, podpisów należy stosować style Wydziału (docx) lub zdefiniowane w~tym szablonie.\\
+% Układ marginesów i numerów stron przewidziany jest do wydruku dwustronnego.\\
+% Wydruk pracy nie jest wymagany.
 
 
-Tabele i rysunki należy wyśrodkować. Dla podpisów stosowane są style Wydziału (docx) lub otoczenie table i tabular oraz figure (LaTeX):
-\begin{itemize}
-    \item Nazwa tabeli umieszczona ponad tabelą;
-    \item Podpis rysunku umieszczony pod rysunkiem;
-    \item Źródło rysunku lub danych w tabeli pod tabelą/rysunkiem.
-\end{itemize}
-Numeracja tabel i rysunków powinna być ciągła i automatyczna w całej pracy.
-\begin{table}[H]
-    \caption{Nazwa tabeli}
-    \label{tab1}
-    \begin{center}
-        \begin{tabular}{|c|c|c|c|}
-                \hline
-                \textbf{Lp}     & \textbf{Kolumna 1}    & \textbf{Kolumna 2}    & \textbf{Kolumna 3}    \\ \hline
-                1.              & Zawartość tabeli      & Zawartość tabeli      & Zawartość tabeli   \\ \hline
-        \end{tabular}
-    \end{center}
-    \source{Badania własne. Jeżeli dane pochodzą z literatury lub zasobów sieci Internet, należy podać ich źródło. W~innym przypadku można podać: Badania własne.}
-\end{table}
+% Tabele i rysunki należy wyśrodkować. Dla podpisów stosowane są style Wydziału (docx) lub otoczenie table i tabular oraz figure (LaTeX):
+% \begin{itemize}
+%     \item Nazwa tabeli umieszczona ponad tabelą;
+%     \item Podpis rysunku umieszczony pod rysunkiem;
+%     \item Źródło rysunku lub danych w tabeli pod tabelą/rysunkiem.
+% \end{itemize}
+% Numeracja tabel i rysunków powinna być ciągła i automatyczna w całej pracy.
+% \begin{table}[H]
+%     \caption{Nazwa tabeli}
+%     \label{tab1}
+%     \begin{center}
+%         \begin{tabular}{|c|c|c|c|}
+%                 \hline
+%                 \textbf{Lp}     & \textbf{Kolumna 1}    & \textbf{Kolumna 2}    & \textbf{Kolumna 3}    \\ \hline
+%                 1.              & Zawartość tabeli      & Zawartość tabeli      & Zawartość tabeli   \\ \hline
+%         \end{tabular}
+%     \end{center}
+%     \source{Badania własne. Jeżeli dane pochodzą z literatury lub zasobów sieci Internet, należy podać ich źródło. W~innym przypadku można podać: Badania własne.}
+% \end{table}
 
-Dla wzorów zaleca się stosować wyśrodkowanie. Numerację automatyczną ciągłą w~całej pracy należy wyrównać do prawej strony – przykład poniżej:
-\begin{equation}
-    \label{eq1}
-    \displaystyle \sum_{j=0}^{n}a_{ij} \leq 1, i = \overline{1, n}
-\end{equation}
+% Dla wzorów zaleca się stosować wyśrodkowanie. Numerację automatyczną ciągłą w~całej pracy należy wyrównać do prawej strony – przykład poniżej:
+% \begin{equation}
+%     \label{eq1}
+%     \displaystyle \sum_{j=0}^{n}a_{ij} \leq 1, i = \overline{1, n}
+% \end{equation}
 
-Kod źródłowy oraz algorytmy umieszcza się w tabelach dwukolumnowych (docx), lub otoczenia lstlisting i algorithm (LaTeX), z numeracją wierszy w pierwszej kolumnie:
-\begin{itemize}
-    \item Tekst w tabeli kodu źródłowego: czcionka Courier New 11 pkt., wyjustowany do lewej;
-    \item Nazwa kodu źródłowego umieszczona ponad kodem;
-    \item Nazwa algorytmu umieszczona ponad algorytmem;
-    \item Źródło kodu lub algorytmu poniżej.
-\end{itemize}
+% Kod źródłowy oraz algorytmy umieszcza się w tabelach dwukolumnowych (docx), lub otoczenia lstlisting i algorithm (LaTeX), z numeracją wierszy w pierwszej kolumnie:
+% \begin{itemize}
+%     \item Tekst w tabeli kodu źródłowego: czcionka Courier New 11 pkt., wyjustowany do lewej;
+%     \item Nazwa kodu źródłowego umieszczona ponad kodem;
+%     \item Nazwa algorytmu umieszczona ponad algorytmem;
+%     \item Źródło kodu lub algorytmu poniżej.
+% \end{itemize}
 
-\begin{lstlisting}[language=Verilog, caption=Nazwa kodu źródłowego \label{TbECMont}]
-    int silnia (int a)
-    {
-        return (a == 1) ? a : a * silnia(a-1);
-    }
-\end{lstlisting}
-\source{Badania własne. Jeżeli dane pochodzą z literatury lub zasobów sieci Internet, należy podać ich źródło. W~innym przypadku można podać: Badania własne.}
+% \begin{lstlisting}[language=Verilog, caption=Nazwa kodu źródłowego]
+%     int silnia (int a)
+%     {
+%         return (a == 1) ? a : a * silnia(a-1);
+%     }
+% \end{lstlisting}
+% \source{Badania własne. Jeżeli dane pochodzą z literatury lub zasobów sieci Internet, należy podać ich źródło. W~innym przypadku można podać: Badania własne.}
 
-\begin{algorithm}[H]
-    \caption{Nazwa algorytmu}
-    \label{alg_nazwa}
-    \hrule
-\begin{verbnobox}[\verbarg]
-wczytaj(n)
-inicjuj tab[1..n]
-dla i ← 1 do n powtarzaj
-    wczytaj tab[i]
-dla i ← 1 do n powtarzaj
-    dla j ← i + 1 do n powtarzaj
-        jeżeli tab[j] < tab[j - 1] to
-            pom ← tab[j]
-            tab[j] ← tab[j - 1]
-            tab[j - 1] ← pom
-dla i ← 1 do n powtarzaj
-    wypisz(tab[i])
-\end{verbnobox}
-    \hrule
-    \source{Badania własne. Jeżeli dane pochodzą z literatury lub zasobów sieci Internet, należy podać ich źródło. W~innym przypadku można podać: Badania własne.}
-\end{algorithm}
+% \begin{algorithm}[H]
+%     \caption{Nazwa algorytmu}
+%     \label{alg_nazwa}
+%     \hrule
+% \begin{verbnobox}[\verbarg]
+% wczytaj(n)
+% inicjuj tab[1..n]
+% dla i ← 1 do n powtarzaj
+%     wczytaj tab[i]
+% dla i ← 1 do n powtarzaj
+%     dla j ← i + 1 do n powtarzaj
+%         jeżeli tab[j] < tab[j - 1] to
+%             pom ← tab[j]
+%             tab[j] ← tab[j - 1]
+%             tab[j - 1] ← pom
+% dla i ← 1 do n powtarzaj
+%     wypisz(tab[i])
+% \end{verbnobox}
+%     \hrule
+%     \source{Badania własne. Jeżeli dane pochodzą z literatury lub zasobów sieci Internet, należy podać ich źródło. W~innym przypadku można podać: Badania własne.}
+% \end{algorithm}
 
 %Odniesienie do rysunku \ref{rys01.png}\\
 %
