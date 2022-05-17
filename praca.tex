@@ -516,13 +516,175 @@ text
 
 \newpage
 \section{Implementacja systemu}
-text
 
 \newpage
 \section{Testy systemu oraz prezentacja użycia na wybranym case study}
-text
-\subsection{Scenariusz testowy autonomicznego lotu pomiędzy dwoma punktami}
-text
+TODO
+
+\subsection{Testy jednostkowe TODO}
+W kontekście testowania oprogramowania na platformie andorid można wyróźnić dwa rodzaje testów jednostkowych.
+\begin{itemize} 
+  \item \textbf{androidTest} - Testy, które są uruchamiane na rzeczywistych lub wirtualnych urządzeniach z systemem Androdi. Obejmują one m.in. test integracyjne i end-to-end, w których samo JVM nie może sprawdzić działania kodu. W ramach tego rozdzaju testów przetestowano serwisy odpowiedzialne za komunikacje za pomocą MQTT, ponieważ są to operacje asynchroniczne, a biblioteka która jest wykrozysytwana potrzbuje w konstruktorze do swojego działania kontekstu aplikacji android (klasa /textit{android.content.Context}) .
+  \item \textbf{test} - Klasyczne testy jednostkowe, które mogą być uruchamiane w ramach JVM na loklanej masyznie. W ramach tych testów przetestowano m.in. mapowanie opiektów JSON na klasy DTO przysyłancyh komend (klasa \textit{pl.edu.wat.droman.data.model.command.Command})
+\end{itemize}
+
+\subsubsection{Testowanie MqttService}
+Klasa \textit{pl.edu.wat.droman.data.service.MqttService} odpowiada za zarządzania obsługowywanymi Topic-ami MQTT. Zwraca ona dla podanej scieżki obiekt klasy \textit{pl.edu.wat.droman.data.service.MqttService.Topic} na którym można wykonywać opcje publikowania i subkrybowania wiadomości MQTT. Ponieważ zwraca ona obiekty za pomoca klasy /textit{androidx.lifecycle.LiveData} operacje te są wykonywane z kontekstem aplikacji. Dodatkowo w całym procesie wykorzysytywany jest do tego serwer MQTT, którego parametry logowania i adresu są pobierane z pliku konfiguracyjengo gradle, który jest przechowywany na loklanej maszynie, dzięki temu hasła nie są przechowywane razem z kodem na repozytorium Git.
+
+\begin{lstlisting}[language=Kotlin, caption=Inicjalizowanie wartosci w klasie przed uruchominiem poszczególnych testów\label{TbECMont}]
+  @Before
+    fun init() {
+        appContext = InstrumentationRegistry.getInstrumentation().targetContext
+
+        val metadata: Bundle = appContext.packageManager.getApplicationInfo(
+            appContext.packageName,
+            PackageManager.GET_META_DATA
+        ).metaData
+
+        password = metadata.getString("mosquitto.password")!!
+        user = metadata.getString("mosquitto.user")!!
+        uri = "tcp://" + metadata.getString("mosquitto.ip")
+        mqttService = MqttService(appContext, MqttCredentials(uri, clientID, user, password))
+    }
+\end{lstlisting}
+
+\begin{lstlisting}[language=Kotlin, caption=Test publikowania danych za pomocą Mqtt \label{TbECMont}]
+
+  @Test
+  fun publish() = runBlocking {
+      //given
+
+      val message = "message:" + UUID.randomUUID()
+      val topicVal = "/test"
+
+      //then
+      val topic = mqttService.getTopic(topicVal)
+      val res = topic.publish(message)
+
+      //except
+      Assert.assertTrue(res.isSuccess)
+  }
+
+\end{lstlisting}
+
+
+\begin{lstlisting}[language=Kotlin, caption=Test pobierania danych za pomocą Mqtt \label{TbECMont}]
+  @Test
+  fun getData() {
+      //given
+
+      val message = "message:" + UUID.randomUUID()
+      val message2 = "message:" + UUID.randomUUID()
+      val topicVal = "/test"
+
+      //then
+      val topic = mqttService.getTopic(topicVal)
+      runBlocking {
+          topic.subscribe()
+          topic.publish(message)
+      }
+
+      //except
+      Assert.assertEquals(message, topic.getData().getOrAwaitValue(time = 5).toString())
+      
+      //then
+      runBlocking {
+          topic.publish(message)
+      }
+      
+      //except
+      Assert.assertEquals(message, topic.getData().getOrAwaitValue(time = 5).toString())
+  }
+\end{lstlisting}
+
+
+
+
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=12cm]{./Obrazy/MqttTestResult.png}
+  \caption{Wynik testów MqttRepository}
+  \source{Własne}
+  \end{figure}
+
+\subsubsection{Testowanie CommandFactory}
+
+
+\begin{lstlisting}[language=Kotlin, caption=Test tworzenia komendy \textit{UploadWaypointCommand} za pomocą \textit{CommandFactory} \label{TbECMont}]
+  @Test
+  fun testMappingToUploadMissionCommand() {
+      //given
+      val commandFactory = CommandFactory()
+      val missionValue = "{\n" +
+              "            \"type\": \"upload_waypoint_mission\",\n" +
+              "            \"finished_action\": \"NO_ACTION\",\n" +
+              "            \"auto_flight_speed\": 0.01,\n" +
+              "            \"max_flight_speed\": 0.5,\n" +
+              "            \"heading_mode\": \"AUTO\",\n" +
+              "            \"waypoints\": [\n" +
+              "                {\n" +
+              "                    \"attitude\": 1.0,\n" +
+              "                    \"longitude\": 1.0,\n" +
+              "                    \"latitude\": 1.0\n" +
+              "                },\n" +
+              "                {\n" +
+              "                    \"attitude\": 1.0,\n" +
+              "                    \"longitude\": 1.0,\n" +
+              "                    \"latitude\": 1.0\n" +
+              "                },\n" +
+              "                {\n" +
+              "                    \"attitude\": 1.0,\n" +
+              "                    \"longitude\": 1.0,\n" +
+              "                    \"latitude\": 1.0\n" +
+              "                }\n" +
+              "            ]\n" +
+              "        }"
+      //then
+      val command = commandFactory.from(missionValue)
+
+      //expect
+      assertNotNull(command)
+      assertEquals(UploadWaypointCommand.type, command.type)
+      assertEquals(UploadWaypointCommand::class.java,command.javaClass)
+  }
+\end{lstlisting}
+
+\begin{lstlisting}[language=Kotlin, caption=Przykładowy test klasy MqttService \label{TbECMont}]
+
+  @Test
+  fun testMappingToFailUploadMissionCommand() {
+      //given
+      val commandFactory = CommandFactory()
+      val missionValue = "{\"type\": \"dsadas\"}"
+      //then
+      val command = commandFactory.from(missionValue)
+
+      //expect
+      assertNotNull(command)
+      assertEquals(UnrecognizedCommand::class.java,command.javaClass)
+      assertEquals(UnrecognizedCommand.type, command.type)
+  }
+\end{lstlisting}
+
+\begin{lstlisting}[language=Kotlin, caption=Przykładowy test klasy MqttService \label{TbECMont}]
+
+  @Test
+  fun testMappingToTakeOffCommand() {
+      //given
+      val commandFactory = CommandFactory()
+      val missionValue = "{\"type\": \"take_off\"}"
+      //then
+      val command = commandFactory.from(missionValue)
+
+      //expect
+      assertNotNull(command)
+      assertEquals(TakeOffCommand::class.java,command.javaClass)
+      assertEquals(TakeOffCommand.type, command.type)
+  }
+\end{lstlisting}
+
+
 \subsection{Scenariusz testowy autonomicznego lotu patrolowego}
 
 \newpage
