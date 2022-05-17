@@ -52,8 +52,8 @@ class ReceiveServiceTest {
     fun getMission() = runBlocking {
         //given
         val message = "{\"type\":\"" + ShootPhotoCommand.type + "\"}"
-        //then
 
+        //then
         val res = receiveService.getCommand()
         delay(3000)
         commandTopic.publish(message)
@@ -61,6 +61,5 @@ class ReceiveServiceTest {
         //except
         assertEquals(ShootPhotoCommand.type, res.getOrAwaitValue(time = 500).type)
     }
-
 
 }

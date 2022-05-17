@@ -78,7 +78,6 @@ class MqttServiceTest {
     fun unsubscribe() = runBlocking {
         //given
 
-        val message = "message:" + UUID.randomUUID()
         val topicVal = "/test"
 
         //then
@@ -109,9 +108,13 @@ class MqttServiceTest {
 
         //except
         Assert.assertEquals(message, topic.getData().getOrAwaitValue(time = 5).toString())
+
+        //then
         runBlocking {
             topic.publish(message)
         }
+
+        //except
         Assert.assertEquals(message, topic.getData().getOrAwaitValue(time = 5).toString())
     }
 
