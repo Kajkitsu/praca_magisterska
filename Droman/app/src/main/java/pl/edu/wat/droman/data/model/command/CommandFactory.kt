@@ -2,12 +2,14 @@ package pl.edu.wat.droman.data.model.command
 
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import dji.common.error.DJIError
+import pl.edu.wat.droman.callback.CompletionCallbackImpl
 import pl.edu.wat.droman.ui.FeedbackUtils
 import pl.edu.wat.droman.ui.LogLevel
 
 class CommandFactory {
     companion object {
-        const val TAG = "MissionFactory"
+        const val TAG = "CommandFactory"
     }
 
     private val gson: Gson = Gson()
@@ -19,54 +21,77 @@ class CommandFactory {
             createCommand(missionType, jsonObject)
         } catch (e: Exception) {
             FeedbackUtils.setResult(e.toString(), level = LogLevel.ERROR, tag = TAG)
-            UnrecognizedCommand(value)
+            UnrecognizedCommand(value, getCompletionCallback(UnrecognizedCommand.type))
         }
+    }
+
+    private fun getCompletionCallback(type: String): CompletionCallbackImpl<DJIError> {
+        return CompletionCallbackImpl(
+            Command.TAG,
+            success = {
+                FeedbackUtils.setResult(
+                    "Success executing command $type",
+                    level = LogLevel.DEBUG,
+                    tag = Command.TAG
+                )
+            }
+        )
+
     }
 
     @Throws(Throwable::class)
     private fun createCommand(missionType: String, jsonObject: JsonObject): Command {
         return when (missionType) {
             StartGoHomeCommand.type -> {
-                StartGoHomeCommand()
+                StartGoHomeCommand(getCompletionCallback(StartGoHomeCommand.type))
             }
             LandCommand.type -> {
-                LandCommand()
+                LandCommand(getCompletionCallback(LandCommand.type))
             }
             ShootPhotoCommand.type -> {
-                ShootPhotoCommand()
+                ShootPhotoCommand(getCompletionCallback(ShootPhotoCommand.type))
             }
             StartMotorsCommand.type -> {
-                StartMotorsCommand()
+                StartMotorsCommand(getCompletionCallback(StartMotorsCommand.type))
             }
             StopGoHomeCommand.type -> {
-                StopGoHomeCommand()
+                StopGoHomeCommand(getCompletionCallback(StopGoHomeCommand.type))
             }
             StopMotorsCommand.type -> {
-                StopMotorsCommand()
+                StopMotorsCommand(getCompletionCallback(StopMotorsCommand.type))
             }
             TakeOffCommand.type -> {
-                TakeOffCommand()
+                TakeOffCommand(getCompletionCallback(TakeOffCommand.type))
             }
             LoadWaypointCommand.type -> {
-                LoadWaypointCommand(jsonObject)
+                LoadWaypointCommand(jsonObject, getCompletionCallback(LoadWaypointCommand.type))
             }
             UploadWaypointCommand.type -> {
-                UploadWaypointCommand()
+                UploadWaypointCommand(getCompletionCallback(UploadWaypointCommand.type))
             }
             SetHomeLocationCommand.type -> {
-                SetHomeLocationCommand(jsonObject)
+                SetHomeLocationCommand(
+                    jsonObject,
+                    getCompletionCallback(SetHomeLocationCommand.type)
+                )
+            }
+            StartWaypointCommand.type -> {
+                StartWaypointCommand(getCompletionCallback(StartWaypointCommand.type))
             }
             StopWaypointCommand.type -> {
-                StopWaypointCommand()
+                StopWaypointCommand(getCompletionCallback(StopWaypointCommand.type))
             }
             ResumeWaypointCommand.type -> {
-                ResumeWaypointCommand()
+                ResumeWaypointCommand(getCompletionCallback(ResumeWaypointCommand.type))
             }
             PauseWaypointCommand.type -> {
-                PauseWaypointCommand()
+                PauseWaypointCommand(getCompletionCallback(PauseWaypointCommand.type))
             }
             else -> {
-                UnrecognizedCommand(jsonObject.toString())
+                UnrecognizedCommand(
+                    jsonObject.toString(),
+                    getCompletionCallback(UnrecognizedCommand.type)
+                )
             }
         }
 

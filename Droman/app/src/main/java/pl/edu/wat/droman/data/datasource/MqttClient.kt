@@ -22,7 +22,7 @@ class MqttClient(
         cbClient: MqttCallback,
         lastWill: MqttDto? = null,
         keepAliveInterval: Int = GlobalConfig.KEEP_ALIVE_INTERVAL
-    ): Result<IMqttToken> = withContext(Dispatchers.IO) {
+    ): Result<String> = withContext(Dispatchers.IO) {
 
         val options = MqttConnectOptions()
         options.userName = username
@@ -40,7 +40,7 @@ class MqttClient(
         try {
             val token = mqttClient.connect(options)
             token.waitForCompletion(waitForResponseTimeout)
-            return@withContext Result.success(token)
+            return@withContext Result.success(token.toString())
         } catch (e: MqttException) {
             return@withContext Result.failure(e)
         }
@@ -65,7 +65,7 @@ class MqttClient(
         payload: ByteArray,
         qos: Int,
         retained: Boolean,
-    ): Result<IMqttDeliveryToken> = withContext(Dispatchers.IO) {
+    ): Result<String> = withContext(Dispatchers.IO) {
         try {
             val message = MqttMessage()
             message.payload = payload
@@ -73,7 +73,7 @@ class MqttClient(
             message.isRetained = retained
             val token = mqttClient.publish(topic, message)
             token.waitForCompletion(waitForResponseTimeout)
-            return@withContext Result.success(token)
+            return@withContext Result.success(token.toString())
         } catch (e: MqttException) {
             return@withContext Result.failure(e)
         }
@@ -83,11 +83,11 @@ class MqttClient(
     suspend fun subscribe(
         topic: String,
         qos: Int = 1
-    ): Result<IMqttToken> = withContext(Dispatchers.IO) {
+    ): Result<String> = withContext(Dispatchers.IO) {
         try {
             val token = mqttClient.subscribe(topic, qos)
             token.waitForCompletion(waitForResponseTimeout)
-            return@withContext Result.success(token)
+            return@withContext Result.success(token.toString())
         } catch (e: MqttException) {
             return@withContext Result.failure(e)
         }
@@ -96,11 +96,11 @@ class MqttClient(
 
     suspend fun unsubscribe(
         topic: String
-    ): Result<IMqttToken> = withContext(Dispatchers.IO) {
+    ): Result<String> = withContext(Dispatchers.IO) {
         try {
             val token = mqttClient.unsubscribe(topic)
             token.waitForCompletion(waitForResponseTimeout)
-            return@withContext Result.success(token)
+            return@withContext Result.success(token.toString())
         } catch (e: MqttException) {
             return@withContext Result.failure(e)
         }

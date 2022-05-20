@@ -29,7 +29,8 @@ class FlightControlViewModelFactory(
                 context = context,
                 mqttCredentials = MqttCredentials("tcp://$ipAddress", clientId, username, password),
                 lastWill = MqttDto(ETopic.LAST_WILL, clientId),
-                birth = MqttDto(ETopic.BIRTH, clientId)
+                birth = MqttDto(ETopic.BIRTH, clientId),
+
             )
             return FlightControlViewModel(
                 updateService = UpdateService(

@@ -1,11 +1,13 @@
 package pl.edu.wat.droman.data.model.command
 
+import dji.common.error.DJIError
 import dji.common.mission.waypoint.WaypointMissionState
+import dji.common.util.CommonCallbacks
 import pl.edu.wat.droman.ui.FeedbackUtils
 import pl.edu.wat.droman.ui.LogLevel
 import pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers
 
-class StopWaypointCommand : Command(type) {
+class StopWaypointCommand(completionCallback : CommonCallbacks.CompletionCallback<DJIError>) : Command(type, completionCallback) {
     companion object {
         const val type = "stop_waypoint_mission"
     }
@@ -15,7 +17,7 @@ class StopWaypointCommand : Command(type) {
             || aircraftControllers.waypointMissionOperator.currentState == WaypointMissionState.EXECUTION_PAUSED
         ) {
             aircraftControllers.waypointMissionOperator.stopMission(
-                getCompletionCallback()
+                completionCallback
             )
         } else {
             FeedbackUtils.setResult(

@@ -1,14 +1,16 @@
 package pl.edu.wat.droman.data.model.command
 
 import com.google.gson.JsonObject
+import dji.common.error.DJIError
 import dji.common.mission.waypoint.WaypointMissionState
+import dji.common.util.CommonCallbacks
 import pl.edu.wat.droman.ui.FeedbackUtils
 import pl.edu.wat.droman.ui.LogLevel
 import pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers
 import pl.edu.wat.droman.ui.flightcontrol.handler.waypoint.WaypointMissionFactory
 import java.util.*
 
-class LoadWaypointCommand(jsonObject: JsonObject) : Command(type) {
+class LoadWaypointCommand(jsonObject: JsonObject, completionCallback : CommonCallbacks.CompletionCallback<DJIError>) : Command(type, completionCallback) {
     val id: Int = Random().nextInt()
     val finishedAction: String = jsonObject.get("finished_action").asString
     val autoFlightSpeed: Float = jsonObject.get("auto_flight_speed").asFloat

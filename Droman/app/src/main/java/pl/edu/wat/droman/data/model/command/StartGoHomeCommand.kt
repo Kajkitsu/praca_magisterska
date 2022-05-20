@@ -1,9 +1,11 @@
 package pl.edu.wat.droman.data.model.command
 
+import dji.common.error.DJIError
+import dji.common.util.CommonCallbacks
 import pl.edu.wat.droman.ui.FeedbackUtils
 import pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers
 
-class StartGoHomeCommand : Command(type) {
+class StartGoHomeCommand(completionCallback : CommonCallbacks.CompletionCallback<DJIError>) : Command(type, completionCallback) {
     companion object {
         const val type = "go_home"
     }
@@ -12,7 +14,7 @@ class StartGoHomeCommand : Command(type) {
         val status = aircraftControllers.statsHandler.getLastStatus()
         if (status.isFlying && status.isHomeLocationSet && !status.isGoingHome) {
             aircraftControllers.flightController.startGoHome(
-                getCompletionCallback()
+                completionCallback
             )
         } else {
             FeedbackUtils.setResult("Forbidden state can't start going home", tag = TAG)

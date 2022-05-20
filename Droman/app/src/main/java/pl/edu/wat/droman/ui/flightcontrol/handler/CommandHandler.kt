@@ -25,20 +25,18 @@ class CommandHandler(
     companion object {
         const val TAG = "MissionHandler"
     }
-
     private val waypointMissionOperator = MissionControl.getInstance().waypointMissionOperator
-
+    private val waypointMissionOperatorListener = WaypointMissionOperatorListenerImpl()
+    private val commandLiveData: LiveData<Command> = receiveService.getCommand()
+    private val commandObserver = Observer<Command> {
+        it.exec(aircraftControllers)
+    }
     private val aircraftControllers = AircraftControllers(
         cameraHandler,
         statsHandler,
         flightController,
         waypointMissionOperator
     )
-
-    private val commandLiveData: LiveData<Command> = receiveService.getCommand()
-    private val commandObserver = Observer<Command> {
-        it.exec(aircraftControllers)
-    }
     private val statusObserver = Observer<FlightStatus> {
         if (it.isLandingConfirmationNeeded) {
             flightController.confirmLanding(
@@ -48,13 +46,10 @@ class CommandHandler(
             )
         }
     }
-    private val waypointMissionOperatorListener = WaypointMissionOperatorListenerImpl()
-
 
     init {
         commandLiveData.observeForever(commandObserver)
         statsHandler.status.observeForever(statusObserver)
-
         if (GlobalConfig.SIMULATOR_MODE) {
             flightController.simulator
                 .start(
@@ -64,7 +59,6 @@ class CommandHandler(
                         success = { FeedbackUtils.setResult("Simulation started", TAG) })
                 )
         }
-
         setMaxFlightHeight(flightController)
         setMaxFlightRadius(flightController)
         waypointMissionOperator.addListener(waypointMissionOperatorListener)
@@ -112,9 +106,5 @@ class CommandHandler(
                     success = { FeedbackUtils.setResult("Simulation stopped", TAG) })
             )
         }
-
-
     }
-
-
 }

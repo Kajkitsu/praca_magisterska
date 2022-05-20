@@ -107,7 +107,6 @@ class MqttServiceTest {
 
         //except
         Assert.assertEquals(message, result)
-}
-
+    }
 
 }

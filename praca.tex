@@ -489,33 +489,357 @@ TODO
 TODO
 \subsection{Stos technologiczny}
 TODO
-\subsubsection{Java}
-TODO
-\subsubsection{Kotlin}
-TODO
 \subsubsection{DJI Mobile SDK}
-TODO
-\subsubsection{Lombook}
-TODO
-\subsubsection{Springboot}
 TODO
 \subsubsection{Android}
 TODO
-\subsection{Uzasadnienie warstwy pośredniczącej}
+\subsubsection{Kotlin}
 TODO
-\subsection{Wysokopoziomowy diagram systemu}
-TODO
-\subsection{Diagram komponentów}
-TODO
-\subsection{Diagram klas i sekwencji}
+\subsubsection{Java}
 TODO
 \subsubsection{Gradle}
 TODO
-\subsection{Wykorzystane urządzenia}
+\subsubsection{MQTT}
 TODO
+\subsection{Wysokopoziomowy diagram systemu}
+TODO tutaj diagram całości jako rój
+
+\newpage
+\subsection{Diagram komponentów}
+\begin{figure}[!htp]
+  \centering
+  \includegraphics[width=14cm]{./Obrazy/Component Diagram0.png}
+  \caption{Diagram komponentów}
+  \source{Własne}
+  \end{figure}
+Komunikacja dronów w ramach systemu będzie odbywała się za pomocą serwera MQTT. Będzie on odbierał dane ze statku i nim sterował za pomocą określonych komend. W ramach urządzenia mobilnego zostaną wyróżnione trzy komponenty:
+  \begin{itemize}
+  \item \textbf{Mqtt Services} to serwisy, które będą realizowały komunikacje z brokerem MQTT. Ich projekt i implementacja dożyć będzie do tego, aby API wystawione do komponentu \textit{FlightController} wymagało jak najmniej działania.
+  \item \textbf{DJI SDK} to dwie biblioteki dostarczane od producenta: \textit{DJI SDK} i \textit{DJI UXSDK}. Pierwsza z nich udostępnia metody umożliwiające sterowanie dronem i odczytywanie jego parametrów, a druga dostarcza komponenty w Androidzie umożliwiające obsługę drona za pomocą elementów graficznych.
+  \item \textbf{FlightController} będzie korzystał z dwóch wcześniej wymienionych komponentów, w nim będzie zawarta logika działania kontrolera. Praktycznie będzie stanowił jako punkt centralny w systemie z punktu widzenia pojedynczego drona.
+  \end{itemize}
+Kontroler Ocusync, a dalej dron, będą sterowane za pomocą biblioteki dostarczonej przez producenta.
+
+
+\subsection{Diagram klas i sekwencji}
+\begin{figure}[!htp]
+  \centering
+  \includegraphics[width=17cm]{./Obrazy/commands.png}
+  \caption{Diagram klas ograniczony do dostępnych komend w ramach systemu}
+  \source{Własne}
+  \end{figure}
+
+TODO
+Przy określaniu 
+
+  W centrum powyższego diagramu można wyróżnić 15. klas z przyrostekiem \textit{Command}. Będą one realizowały wykonywanie poleceń na BSP. Dziedziczą one po klasie abstrakcyjnej \textit{Command}, która posiada abstrakcyjną metode \textit{exec}, to w jej ciele będzie odbywało się realizowanie wybranych poleceń, za pomocą obiektu   diagram przedstawia komendy dostępne w ramach systemu. Klasa \textit
+
+  W przypadku, w którym definicja komend miała by się ograniczać do definiowania w obiekcie typu enum, w \textit{CommandHandler} należało by obsłużyć każdy przypadek osobno, za pomocą struktury \textit{when}. Dodatkowo każda jej realizacja musiałaby być zdefiniowana w tej klasie, co zmniejszałoby czytelność całości. Z każdą kolejną komendą klasa ta rozrastałaby się do coraz większych rozmiarów. Takie podejście stanowiłoby naruszenie zasad SOLID \textit{Open/closed principle} i \textit{Single responsibility principle}. Zasady te zostały przedstawione przez autorytet programistów, Roberta C. Martina i są uznawane za dobre praktyki programowania obiektowego.\cite{solid}
+\newpage
+
+\begin{figure}[!htp]
+  \centering
+  \includegraphics[width=9cm]{./Obrazy/FlightStatus.png}
+  \caption{Diagram klas klasy służącej do przechowywania stanu BSP}
+  \source{Własne}
+  \end{figure}
+Diagram klas przedstawia \textit{FlightStatus}, która będzie przechowywała dane dotyczące statusu BSP w danej chwili czasu. Posiada ona tylko metodę \textit{toJson}. Zwraca ona stan obiektu w formacie JSON, które będzie przesyłany za pomocą serwisu MQTT. Klasy, które nie realizują żadnej logiki, a służą do przechowywania danych, określa się jako DTO (Data Transfer Object).
+\newpage
+
+\begin{figure}[!htp]
+  \centering
+  \includegraphics[width=16cm]{./Obrazy/services.png}
+  \caption{Diagram klas klasy ograniczony do serwisów dziłających w ramach systemu}
+  \source{Własne}
+  \end{figure}
+TODO
+\newpage
+  
+\begin{figure}[!htp]
+  \centering
+  \includegraphics[width=16cm]{./Obrazy/handlers.png}
+  \caption{Diagram klas klasy ograniczony do klas działających na DJI SDK}
+  \source{Własne}
+  \end{figure}
+TODO
+\newpage
+
+\subsection{Wykorzystane urządzenia}
+
+\begin{figure}[!htp]
+  \centering
+  \includegraphics[width=13cm]{./Obrazy/dji-mini-2.jpg}
+  \caption{DJI Mini 2}
+  \source{https://laptrinhx.com/dji-mini-2-review-same-compact-size-more-confidence-flying-3163139258/}
+  \end{figure}
+
+\begin{figure}[!htp]
+  \centering
+  \includegraphics[width=13cm]{./Obrazy/Kontroler-do-DJI-Mavic-Air-2.jpg}
+  \caption{Kontroler do DJI Mini 2}
+  \source{https://www.gohero.pl/userdata/public/gfx/6191/Kontroler-do-DJI-Mavic-Air-2.jpg}
+  \end{figure}
+
+W trakcie implementacji i testów zostaną wykorzystane następujące urządzenia:
+  \begin{itemize}
+  \item \textbf{Laptop}, który posłuży jako serwer MQTT, a także do wykonywania skryptów wysyłających do systemy określone komendy.
+  \item \textbf{Dron DJI Mini 2 wraz z kontrolerem}, czyli produkt docelowy, którego sterowaniem ma umożliwiać zaimplementowany system.
+  \item \textbf{Smartfon z systemem Android}, który będzie podłączony do kontrolera DJI. Aplikacja mobilna na tym urządzeniu będzie odbierała komendy z serwera MQTT, które będą definiowały jak sterować dronem. Ponadto będzie na bieżąco przesyłała status drona do serwera. Wszystko to będzie odbywało się na unikalnym topicu MQTT, który będzie zawierał numer seryjny urządzenia.
+  \end{itemize}
+
 
 \newpage
 \section{Implementacja systemu}
+
+\subsection{Klasa komend i jej wykonywanie}
+
+\begin{lstlisting}[language=Java, caption=Klasa: Command]
+  abstract class Command(val type: String, val completionCallback: CommonCallbacks.CompletionCallback<DJIError>) {
+    abstract fun exec(aircraftControllers: AircraftControllers)
+
+    companion object {
+        const val TAG = "Command"
+    }
+}
+\end{lstlisting}
+\source{Badania własne.}
+
+\begin{lstlisting}[language=Java, caption=Klasa: StartMotorsCommand]
+class StartMotorsCommand(completionCallback : CommonCallbacks.CompletionCallback<DJIError>) : Command(type, completionCallback) {
+  companion object {
+      const val type = "start_motors"
+  }
+
+  override fun exec(aircraftControllers: AircraftControllers) {
+      val status = aircraftControllers.statsHandler.getLastStatus()
+      if (!status.isFlying && !status.motorsOn) {
+          aircraftControllers.flightController.turnOnMotors(
+              completionCallback
+          )
+      } else {
+          FeedbackUtils.setResult("Forbidden state can't start motors", TAG)
+      }
+  }
+}
+\end{lstlisting}
+\source{Badania własne.}
+
+
+\begin{lstlisting}[language=Java, caption=Fragment kodu z CommandHandler]
+private val commandObserver = Observer<Command> {
+  it.exec(aircraftControllers)
+}
+\end{lstlisting}
+\source{Badania własne.}
+
+
+\begin{lstlisting}[language=Java, caption=Klasa: CommandFactory]
+class CommandFactory {
+  companion object {
+      const val TAG = "CommandFactory"
+  }
+
+  private val gson: Gson = Gson()
+
+  fun from(value: String): Command {
+      return try {
+          val jsonObject = gson.fromJson(value, JsonObject::class.java)
+          val missionType = jsonObject.get("type").asString
+          createCommand(missionType, jsonObject)
+      } catch (e: Exception) {
+          FeedbackUtils.setResult(e.toString(), level = LogLevel.ERROR, tag = TAG)
+          UnrecognizedCommand(value, getCompletionCallback(UnrecognizedCommand.type))
+      }
+  }
+
+  private fun getCompletionCallback(type: String): CompletionCallbackImpl<DJIError> {
+      //returns commpletion callback object
+  }
+
+  @Throws(Throwable::class)
+  private fun createCommand(missionType: String, jsonObject: JsonObject): Command {
+      return when (missionType) {
+          StartGoHomeCommand.type -> {
+              StartGoHomeCommand(getCompletionCallback(StartGoHomeCommand.type))
+          }
+          LandCommand.type -> {
+              LandCommand(getCompletionCallback(LandCommand.type))
+          }
+          ShootPhotoCommand.type -> {
+              ShootPhotoCommand(getCompletionCallback(ShootPhotoCommand.type))
+          }
+          // ...
+          //and more cases
+          // ..
+          PauseWaypointCommand.type -> {
+              PauseWaypointCommand(getCompletionCallback(PauseWaypointCommand.type))
+          }
+          else -> {
+              UnrecognizedCommand(
+                  jsonObject.toString(),
+                  getCompletionCallback(UnrecognizedCommand.type)
+              )
+          }
+      }
+  }
+
+}
+\end{lstlisting}
+\source{Badania własne.}
+
+
+W ramach systemu utworzono klasę abstrakcyjną \textit{Command}. Reprezentuje ona komendy, które mogą zostać wysłane do wykonania przez BSP. Jej abstrakcyjna metoda \textit{exec}, odpowiada za zrealizowanie tej komendy na dronie. Operacje te są wykonywane za pomocą obiektu \textit{AircraftControllers}, który jest praktycznie wraperem na obiekty z SDK DJI, za pomocą których można wykonywać operacje np. startu. \textit{StartMotorsCommand} jest przykładem jej rozszerzenia, realizuje ona całą operację włącznie silników w BSP.
+
+Odpowiedzialnością \textit{CommandFactory} jest generowanie instancji klas dziedziczących po \textit{Command}, na podstawie dostarczonego obiektu tekstowego w formacie JSON. Realizuje to metoda \textit{from}, która obsługuje przypadki, w których wartość tekstowa nie może zostać poprawnie rozpoznana, wtedy zwracany jest obiekt \textit{UnrecognizedCommand}.
+
+Takie podejście architektoniczne sprawia, że realizacja komendy w \textit{CommandHandler} ogranicza się do 3 linii kodu. Dodanie kolejnej komendy do systemu ogranicza się do zdefiniowania klasy dziedziczącej po \textit{Command} i dodanie jednego przypadku w strukturze \textit{when} w metodzie \textit{createCommand} z \textit{CommandFactory}.
+
+W przypadku, w którym definicja komend miała by się ograniczać do definiowania w obiekcie typu enum, w \textit{CommandHandler} należało by obsłużyć każdy przypadek osobno, za pomocą struktury \textit{when}. Dodatkowo każda jej realizacja musiałaby być zdefiniowana w tej klasie, co zmniejszałoby czytelność całości. Z każdą kolejną komendą klasa ta rozrastałaby się do coraz większych rozmiarów. Takie podejście stanowiłoby naruszenie zasad SOLID \textit{Open/closed principle} i \textit{Single responsibility principle}. Zasady te zostały przedstawione przez autorytet programistów, Roberta C. Martina i są uznawane za dobre praktyki programowania obiektowego.\cite{solid}
+
+\subsection{Obsługa MQTT}
+
+
+
+\begin{lstlisting}[language=Java, caption=Klasa \textit{MqttService} ]
+class MqttService(
+  context: Context,
+  mqttCredentials: MqttCredentials,
+  lastWill: MqttDto? = null,
+  birth: MqttDto? = null,
+  keepAliveInterval: Int = GlobalConfig.KEEP_ALIVE_INTERVAL,
+) {
+
+  private val subscribedTopics: MutableSet<String> = HashSet()
+  private val messagesArrived: HashMap<String, MutableLiveData<MqttMessage>> = HashMap()
+  private val connectionLostFun: (throwable: Throwable) -> Unit = { cause ->
+      Log.d(this.javaClass.name, "Connection lost $cause")
+
+      Log.d(this.javaClass.name, "Trying to subscribe last topic")
+      subscribedTopics.stream()
+          .forEach { DjiApplication.mainScope.launch(Dispatchers.IO) { mqttRepository.subscribe(it) } }
+  }
+  private val deliveryCompleteFun: (token: IMqttDeliveryToken) -> Unit = {
+      Log.d(this.javaClass.name, "Delivery completed")
+  }
+  private val messageArrivedFun: (topic: String, message: MqttMessage) -> Unit =
+      { topic, message ->
+          if (subscribedTopics.contains(topic)) {
+              Log.d(this.javaClass.name, "Receive message: $message from topic: $topic")
+              getTopicData(topic).postValue(message)
+
+          } else {
+              Log.e(
+                  this.javaClass.name,
+                  "Receive message: $message from unsubscribed topic: $topic"
+              )
+          }
+      }
+
+  private val mqttRepository = MqttRepository(
+      context,
+      mqttCredentials,
+      lastWill,
+      keepAliveInterval,
+      messageArrivedFun,
+      connectionLostFun,
+      deliveryCompleteFun
+  )
+
+  init {
+      this.let { service ->
+          DjiApplication.mainScope.launch(Dispatchers.IO) {
+              birth?.let { service.publish(it) }
+          }
+      }
+  }
+
+
+  private fun getTopicData(topic: String): MutableLiveData<MqttMessage> {
+      return messagesArrived
+          .getOrPut(topic) { MutableLiveData() }
+  }
+
+  private suspend fun unsubscribe(value: String): Result<IMqttToken> {
+      val res = mqttRepository.unsubscribe(value)
+      if (res.isSuccess) {
+          subscribedTopics.remove(value)
+      }
+      return res
+  }
+
+  private suspend fun subscribe(value: String): Result<IMqttToken> {
+      val res = mqttRepository.subscribe(value)
+      if (res.isSuccess) {
+          subscribedTopics.add(value)
+      }
+      return res
+  }
+
+  private fun getSubscribed(): Set<String> {
+      return subscribedTopics
+  }
+
+  private suspend fun publish(data: MqttDto): Result<IMqttDeliveryToken> {
+      return mqttRepository.publish(data)
+  }
+
+  fun getTopic(value: String): Topic {
+      return Topic(value = value, this)
+  }
+
+  suspend fun destroy() {
+      mqttRepository.destroy()
+  }
+
+  suspend fun validate(): Boolean {
+      return mqttRepository.publish(MqttDto(ETopic.VALIDATE, "validate" + UUID.randomUUID()))
+          .isSuccess
+  }
+  class Topic(private val value: String, private val mqttService: MqttService) {
+    //... inner class
+  }
+  
+}
+\end{lstlisting}
+\source{Badania własne.}
+
+\begin{lstlisting}[language=Java, caption=Klasa wewnętrzna \textit{Topic}]
+class Topic(private val value: String, private val mqttService: MqttService) {
+  suspend fun publish(payload: ByteArray): Result<IMqttDeliveryToken> {
+      return mqttService.publish(MqttDto(value, payload))
+  }
+
+  suspend fun publish(payload: String): Result<IMqttDeliveryToken> {
+      return mqttService.publish(MqttDto(value, payload))
+  }
+
+  fun isSubscribed(): Boolean {
+      return mqttService.getSubscribed().contains(value)
+  }
+
+  suspend fun subscribe(): Result<IMqttToken> {
+      return mqttService.subscribe(value)
+  }
+
+  suspend fun unsubscribe(): Result<IMqttToken> {
+      return mqttService.unsubscribe(value)
+  }
+
+  fun getData(): LiveData<MqttMessage> {
+      if (!isSubscribed()) {
+          Log.w(this.javaClass.name, "getData without subscribing topic $value")
+      }
+      return mqttService.getTopicData(value)
+  }
+
+  fun getValue(): String {
+      return value
+  }
+}
+
+\end{lstlisting}
+\source{Badania własne.}
+
 
 \newpage
 \section{Testy systemu oraz prezentacja użycia na wybranym case study}
@@ -549,6 +873,7 @@ Klasa \textit{pl.edu.wat.droman.data.service.MqttService} zarządza Topic-ami MQ
         mqttService = MqttService(appContext, MqttCredentials(uri, clientID, user, password))
     }
 \end{lstlisting}
+\source{Badania własne.}
 
 Przed wszystkimi testami wykonywane jest inicjowanie obiektów, które będą wykorzystywane w trakcie wszystkich testów. W tym przypadku jest to wyciągnięcie z metadanych danych logowania do serwera MQTT, a następnie utworzenie testowanego serwisu.
 
@@ -568,6 +893,7 @@ Przed wszystkimi testami wykonywane jest inicjowanie obiektów, które będą wy
       Assert.assertTrue(res.isSuccess)
   }
 \end{lstlisting}
+\source{Badania własne.}
 
 Jest to prosty przypadek testowy który sprawdza czy publikowanie wiadomości do serwera MQTT odbywa sie bez zwrócenia błedu. 
 
@@ -590,6 +916,7 @@ Jest to prosty przypadek testowy który sprawdza czy publikowanie wiadomości do
     Assert.assertEquals(message, result)
   }
 \end{lstlisting}
+\source{Badania własne.}
 
 Drugi z prezentowanych testów sprawdza cały proces przesyłania wiadomości za pomocą MQTT, od włączenia subskrypcji wskazanego Topic-a, aż do pozyskania danych na tym Topic-u ze wskazanego serwera.
 
@@ -791,109 +1118,6 @@ Ten test służy do sprawdzenia, czy wysłany obraz z urządzenia DJI został pr
 \subsection{Coś o sprawdzeniu statusu statku powitrznego}
 TODO
 
-% \newpage
-% \section{TMP}
-
-% \subsection{Tytuł podrozdziału}
-% W procesie dyplomowania tekst pracy jest przetwarzany elektronicznie za pośrednictwem systemów USOS APD (Archiwum Prac Dyplomowych) oraz JSA (Jednolity System Antyplagiatowy). Plik pracy zapisany w formacie ,,pdf'' winien mieć nazwę nadana wg schematu: \textit{,,WAT, myślnik, numer indeksu studenta, myślnik, data wysłania w formacie dd-mm-rrrr''}, np. \textit{,,WAT-12345-01.05.2021.pdf''}. Plik umieszczany jest w systemie USOS APD poprzez indywidualne konto Dyplomanta.
-
-% Do pracy można załączyć dodatkowe pliki w formacie ,,docx''/,,pdf''.`'
-% W przypadku innych formatów (w tym „zip”) , należy je zapisać na płycie CD/DVD, opisanej trwale (niezmywalnym mazakiem) następująco: skrót nazwy uczelni, nazwa wydziału, kierunek studiów, specjalność, numer albumu studenta, imię i nazwisko studenta, temat pracy dyplomowej, własnoręczny podpis studenta. 
-
-% \subsection{Tytuł podrozdziału}
-
-% W tekście pracy kolejne wątki tematyczne należy oddzielać poprzez wcięciami akapitowe. W strukturze pracy zalecane jest:
-% \begin{itemize} 
-%     \item w przypadku wprowadzenia podrozdziałów wyróżnienie co najmniej dwóch na danym poziomie zagłębienia.
-% \end{itemize}
-
-% Praca powinna zawierać oryginalny tekst. W przypadku cytowania należy stosować przypisy dolne. W przypadku odwołania do literatury lub źródeł internetowych należy wstawiać hiperłącza do odpowiednich pozycji z bibliografii, np. [1].
- 
-% Wszystkie skróty w pracy przy pierwszym ich użyciu powinny być rozwinięte (wyjaśnione). Pojedyncze litery z końca wierszy powinny być przeniesione na początek kolejnych wierszy poprzez wprowadzenie tzw. ,,twardej spacji'' pomiędzy tą literą a kolejnym wyrazem (np. w edytorze Microsoft Word poprzez kombinację klawiszy Ctrl+Shift+Spacja).
-
-% Pracę mogą kończyć spisy rysunków i tabel – zalecane jest ich wprowadzenie w przypadku wystąpienia dużej liczby rysunków lub tabel w tekście pracy (powyżej 10). Praca może być uzupełniona załącznikami. W przypadku braku w pracy spisów rysunków i tabel lub załączników należy usunąć je ze struktury pracy oraz spisu treści.
-
-% Dla tekstu, tytułów, podpisów należy stosować style Wydziału (docx) lub zdefiniowane w~tym szablonie.\\
-% Układ marginesów i numerów stron przewidziany jest do wydruku dwustronnego.\\
-% Wydruk pracy nie jest wymagany.
-
-
-% Tabele i rysunki należy wyśrodkować. Dla podpisów stosowane są style Wydziału (docx) lub otoczenie table i tabular oraz figure (LaTeX):
-% \begin{itemize}
-%     \item Nazwa tabeli umieszczona ponad tabelą;
-%     \item Podpis rysunku umieszczony pod rysunkiem;
-%     \item Źródło rysunku lub danych w tabeli pod tabelą/rysunkiem.
-% \end{itemize}
-% Numeracja tabel i rysunków powinna być ciągła i automatyczna w całej pracy.
-% \begin{table}[H]
-%     \caption{Nazwa tabeli}
-%     \label{tab1}
-%     \begin{center}
-%         \begin{tabular}{|c|c|c|c|}
-%                 \hline
-%                 \textbf{Lp}     & \textbf{Kolumna 1}    & \textbf{Kolumna 2}    & \textbf{Kolumna 3}    \\ \hline
-%                 1.              & Zawartość tabeli      & Zawartość tabeli      & Zawartość tabeli   \\ \hline
-%         \end{tabular}
-%     \end{center}
-%     \source{Badania własne. Jeżeli dane pochodzą z literatury lub zasobów sieci Internet, należy podać ich źródło. W~innym przypadku można podać: Badania własne.}
-% \end{table}
-
-% Dla wzorów zaleca się stosować wyśrodkowanie. Numerację automatyczną ciągłą w~całej pracy należy wyrównać do prawej strony – przykład poniżej:
-% \begin{equation}
-%     \label{eq1}
-%     \displaystyle \sum_{j=0}^{n}a_{ij} \leq 1, i = \overline{1, n}
-% \end{equation}
-
-% Kod źródłowy oraz algorytmy umieszcza się w tabelach dwukolumnowych (docx), lub otoczenia lstlisting i algorithm (LaTeX), z numeracją wierszy w pierwszej kolumnie:
-% \begin{itemize}
-%     \item Tekst w tabeli kodu źródłowego: czcionka Courier New 11 pkt., wyjustowany do lewej;
-%     \item Nazwa kodu źródłowego umieszczona ponad kodem;
-%     \item Nazwa algorytmu umieszczona ponad algorytmem;
-%     \item Źródło kodu lub algorytmu poniżej.
-% \end{itemize}
-
-% \begin{lstlisting}[language=Verilog, caption=Nazwa kodu źródłowego]
-%     int silnia (int a)
-%     {
-%         return (a == 1) ? a : a * silnia(a-1);
-%     }
-% \end{lstlisting}
-% \source{Badania własne. Jeżeli dane pochodzą z literatury lub zasobów sieci Internet, należy podać ich źródło. W~innym przypadku można podać: Badania własne.}
-
-% \begin{algorithm}[H]
-%     \caption{Nazwa algorytmu}
-%     \label{alg_nazwa}
-%     \hrule
-% \begin{verbnobox}[\verbarg]
-% wczytaj(n)
-% inicjuj tab[1..n]
-% dla i ← 1 do n powtarzaj
-%     wczytaj tab[i]
-% dla i ← 1 do n powtarzaj
-%     dla j ← i + 1 do n powtarzaj
-%         jeżeli tab[j] < tab[j - 1] to
-%             pom ← tab[j]
-%             tab[j] ← tab[j - 1]
-%             tab[j - 1] ← pom
-% dla i ← 1 do n powtarzaj
-%     wypisz(tab[i])
-% \end{verbnobox}
-%     \hrule
-%     \source{Badania własne. Jeżeli dane pochodzą z literatury lub zasobów sieci Internet, należy podać ich źródło. W~innym przypadku można podać: Badania własne.}
-% \end{algorithm}
-
-%Odniesienie do rysunku \ref{rys01.png}\\
-%
-%Odniesienie do tabeli \ref{tab1}\\
-%
-%Odniesienie do wzoru \ref{eq1}\\
-%
-%Odniesienie do algorytmu \ref{alg_nazwa}\\
-%
-%Odniesienie do kodu \ref{TbECMont}\\
-%
-%Odniesienie do bibliografii \cite{pos3}
-
 \clearpage \section*{Podsumowanie} \addcontentsline{toc}{section}{Podsumowanie}
 
 % Podsumowanie powinno korespondować z tematem i założonymi celami pracy. Zaleca się, aby zawierało syntetyczne podsumowanie wyników z odniesieniem do stopnia realizacji oraz wskazaniem najważniejszych osiągnięć i słabszych stron pracy. Może również obejmować omówienie podobieństw i różnic między uzyskanymi a publikowanymi wynikami innych autorów. Ponadto, winno przedstawiać dalsze interesujące kierunki rozwoju pracy.
@@ -1048,11 +1272,13 @@ Things (NB-IoT) for Delay-tolerant Services, IEEE, 2019}
 \bibTitle{Drone Delivery Was Supposed to be the Future. What Went Wrong?},
 \myurl{https://www.youtube.com/watch?v=J-M98KLgaUU} [dostęp: 29-04-2022]; 
 
-
-
 \bibitem{sosnowiec-drone}
 \bibTitle{Drony przetransportują sprzęt medyczny nad Sosnowcem. Przed nami spotkanie z mieszkańcami},
 \myurl{https://sosnowiec.naszemiasto.pl/drony-przetransportuja-sprzet-medyczny-nad-sosnowcem-przed/ar/c1-8493233} [dostęp: 29-04-2022]; 
+
+\bibitem{solid}
+\bibTitle{SOLID czyli dobre praktyki w programowaniu obiektowym},
+\myurl{https://www.samouczekprogramisty.pl/solid-czyli-dobre-praktyki-w-programowaniu-obiektowym/} [dostęp: 20-05-2022]; 
 
 
 

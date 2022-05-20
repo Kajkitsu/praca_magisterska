@@ -1,9 +1,11 @@
 package pl.edu.wat.droman.data.model.command
 
+import dji.common.error.DJIError
+import dji.common.util.CommonCallbacks
 import pl.edu.wat.droman.ui.FeedbackUtils
 import pl.edu.wat.droman.ui.flightcontrol.handler.AircraftControllers
 
-class StartMotorsCommand : Command(type) {
+class StartMotorsCommand(completionCallback : CommonCallbacks.CompletionCallback<DJIError>) : Command(type, completionCallback) {
     companion object {
         const val type = "start_motors"
     }
@@ -12,7 +14,7 @@ class StartMotorsCommand : Command(type) {
         val status = aircraftControllers.statsHandler.getLastStatus()
         if (!status.isFlying && !status.motorsOn) {
             aircraftControllers.flightController.turnOnMotors(
-                getCompletionCallback()
+                completionCallback
             )
         } else {
             FeedbackUtils.setResult("Forbidden state can't start motors", TAG)
