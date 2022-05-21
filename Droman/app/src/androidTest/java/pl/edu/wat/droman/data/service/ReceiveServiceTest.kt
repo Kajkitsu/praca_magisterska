@@ -39,7 +39,6 @@ class ReceiveServiceTest {
             appContext.packageName,
             PackageManager.GET_META_DATA
         ).metaData
-
         password = metadata.getString("mosquitto.password")!!
         user = metadata.getString("mosquitto.user")!!
         uri = "tcp://" + metadata.getString("mosquitto.ip")

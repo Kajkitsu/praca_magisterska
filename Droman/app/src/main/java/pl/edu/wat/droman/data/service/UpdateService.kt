@@ -9,7 +9,7 @@ import java.io.ByteArrayOutputStream
 
 class UpdateService(
     private val statusTopic: MqttService.Topic,
-    private val videoTopic: MqttService.Topic,
+    private val pictureTopic: MqttService.Topic,
 ) {
 
     suspend fun saveCallback(data: FlightStatus): Result<IMqttDeliveryToken> {
@@ -35,7 +35,7 @@ class UpdateService(
     }
 
     suspend fun savePicture(byteArray: ByteArray) {
-        val result = videoTopic.publish(
+        val result = pictureTopic.publish(
             byteArray
         )
         if (result.isFailure) {

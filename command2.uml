@@ -3,279 +3,251 @@
   <ID>JAVA</ID>
   <OriginalElement>pl.edu.wat.droman.data.model.command</OriginalElement>
   <nodes>
-    <node x="540.0" y="-155.24692622950818">pl.edu.wat.droman.data.model.command.StartGoHomeCommand</node>
-    <node x="1206.5" y="9.319038050338975">pl.edu.wat.droman.data.model.command.StartMotorsCommand</node>
-    <node x="540.0" y="-382.63045504994443">pl.edu.wat.droman.data.model.command.Command</node>
-    <node x="540.0" y="503.47624794071004">pl.edu.wat.droman.data.model.command.ShootPhotoCommand</node>
-    <node x="1775.0" y="503.47624794071015">pl.edu.wat.droman.data.model.command.LoadWaypointCommand</node>
-    <node x="1777.0" y="950.2996542402581">pl.edu.wat.droman.data.model.command.LoadWaypointCommand.Waypoint</node>
-    <node x="1625.0" y="338.4509666100333">pl.edu.wat.droman.data.model.command.PauseWaypointCommand</node>
-    <node x="1095.0" y="338.4509666100333">pl.edu.wat.droman.data.model.command.TakeOffCommand</node>
-    <node x="540.0" y="338.4509666100333">pl.edu.wat.droman.data.model.command.StopGoHomeCommand</node>
-    <node x="1640.0" y="173.88500233018613">pl.edu.wat.droman.data.model.command.ResumeWaypointCommand</node>
-    <node x="540.0" y="959.3098065245217">pl.edu.wat.droman.data.model.command.CommandFactory</node>
-    <node x="1130.0" y="173.88500233018613">pl.edu.wat.droman.data.model.command.LandCommand</node>
-    <node x="540.0" y="173.88500233018613">pl.edu.wat.droman.data.model.command.StopWaypointCommand</node>
-    <node x="1783.0" y="9.319038050338975">pl.edu.wat.droman.data.model.command.UploadWaypointCommand</node>
-    <node x="1420.98195618233" y="-516.0906115297153">pl.edu.wat.droman.ui.flightcontrol.handler.CommandHandler</node>
-    <node x="1095.0" y="503.47624794071015">pl.edu.wat.droman.data.model.command.SetHomeLocationCommand</node>
-    <node x="540.0" y="9.319038050338975">pl.edu.wat.droman.data.model.command.UnrecognizedCommand</node>
-    <node x="1670.0" y="-155.24692622950818">pl.edu.wat.droman.data.model.command.StartWaypointCommand</node>
-    <node x="1105.0" y="-155.24692622950818">pl.edu.wat.droman.data.model.command.StopMotorsCommand</node>
+    <node x="518.4419392882812" y="370.2555021333212">pl.edu.wat.droman.data.model.command.StopGoHomeCommand</node>
+    <node x="1101.8577916227005" y="198.74995519261063">pl.edu.wat.droman.data.model.command.StopMotorsCommand</node>
+    <node x="1626.1014599715552" y="-392.4022333325272">pl.edu.wat.droman.data.model.command.CommandFactory</node>
+    <node x="518.4419392882812" y="198.74995519261063">pl.edu.wat.droman.data.model.command.StartGoHomeCommand</node>
+    <node x="1220.8189532517617" y="884.7721429554528">pl.edu.wat.droman.data.model.command.TakeOffCommand</node>
+    <node x="518.4419392882811" y="541.7610490740318">pl.edu.wat.droman.data.model.command.ShootPhotoCommand</node>
+    <node x="1086.8577916227005" y="541.7610490740316">pl.edu.wat.droman.data.model.command.StartWaypointCommand</node>
+    <node x="518.4419392882812" y="-133.0055469407106">pl.edu.wat.droman.data.model.command.UnrecognizedCommand</node>
+    <node x="582.4419392882811" y="-382.07060939860514">pl.edu.wat.droman.data.model.command.Command</node>
+    <node x="1192.3534062638587" y="-133.0055469407106">pl.edu.wat.droman.data.model.command.LandCommand</node>
+    <node x="518.4419392882812" y="32.87220412595002">pl.edu.wat.droman.data.model.command.StopWaypointCommand</node>
+    <node x="518.4419392882813" y="713.2665960147423">pl.edu.wat.droman.data.model.command.StartMotorsCommand</node>
+    <node x="1220.8189532517617" y="1056.2776898961633">pl.edu.wat.droman.data.model.command.SetHomeLocationCommand</node>
+    <node x="717.9419392882811" y="1346.9379291380503">pl.edu.wat.droman.data.model.command.LoadWaypointCommand.Waypoint</node>
+    <node x="518.4419392882811" y="884.7721429554528">pl.edu.wat.droman.data.model.command.LoadWaypointCommand</node>
+    <node x="1086.8577916227005" y="370.2555021333212">pl.edu.wat.droman.data.model.command.PauseWaypointCommand</node>
+    <node x="518.4419392882811" y="-516.5854647887325">pl.edu.wat.droman.ui.flightcontrol.handler.CommandHandler</node>
+    <node x="1092.3534062638587" y="32.87220412595002">pl.edu.wat.droman.data.model.command.ResumeWaypointCommand</node>
+    <node x="1092.3534062638587" y="713.2665960147423">pl.edu.wat.droman.data.model.command.UploadWaypointCommand</node>
   </nodes>
   <notes />
   <edges>
     <edge source="pl.edu.wat.droman.data.model.command.UnrecognizedCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
-      <point x="311.0" y="-3.805033897208432E-5" />
-      <point x="1185.0" y="59.819" />
-      <point x="1185.0" y="-22.0" />
-      <point x="522.5" y="-22.0" />
-      <point x="522.5" y="-301.63" />
-      <point x="-256.0" y="4.550499444349043E-4" />
+      <point x="-310.9999392882812" y="-4.530592894127494E-4" />
+      <point x="496.0" y="-82.506" />
+      <point x="496.0" y="-301.0705151791531" />
+      <point x="-255.9999392882811" y="9.42194520234807E-5" />
     </edge>
     <edge source="pl.edu.wat.droman.data.model.command.LoadWaypointCommand" target="pl.edu.wat.droman.data.model.command.LoadWaypointCommand.Waypoint" relationship="CREATE">
-      <point x="-182.5" y="186.0" />
-      <point x="15.0" y="-80.49999999999989" />
+      <point x="0.0" y="185.9999999999999" />
+      <point x="0.0" y="-80.5" />
     </edge>
     <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.UploadWaypointCommand" relationship="CREATE">
-      <point x="15.0" y="80.5" />
-      <point x="886.0" y="1143.799654240258" />
-      <point x="2458.5" y="1143.799654240258" />
-      <point x="2458.5" y="59.819038050338975" />
+      <point x="24.008827033941316" y="47.52061333513012" />
+      <point x="1845.6888525508766" y="-199.92689807162537" />
+      <point x="1845.5349015499933" y="-199.92689807162537" />
+      <point x="1845.5349015499933" y="763.7665960147423" />
       <point x="281.0" y="0.0" />
     </edge>
     <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.ShootPhotoCommand" relationship="CREATE">
-      <point x="-15.0" y="-80.5" />
-      <point x="856.0" y="777.387951090484" />
-      <point x="786.0000000000001" y="777.387951090484" />
-      <point x="-14.999999999999886" y="50.5" />
+      <point x="-5.8077035790047375" y="46.9488713873003" />
+      <point x="1815.8723219379306" y="518.7555021333212" />
+      <point x="779.4419392882812" y="518.7555021333212" />
+      <point x="1.1368683772161603E-13" y="-50.5" />
     </edge>
     <edge source="pl.edu.wat.droman.data.model.command.LandCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
-      <point x="231.0" y="-2.3301861347135855E-6" />
-      <point x="1609.0" y="224.385" />
-      <point x="1609.0" y="307.0" />
-      <point x="2362.5" y="307.0" />
-      <point x="2362.5" y="-22.0" />
-      <point x="522.5" y="-22.0" />
-      <point x="522.5" y="-301.63" />
-      <point x="-256.0" y="4.550499444349043E-4" />
+      <point x="230.99959373614138" y="-4.530592894127494E-4" />
+      <point x="1411.969381107492" y="-82.506" />
+      <point x="1411.969381107492" y="0.4333285926197732" />
+      <point x="496.0" y="0.4333285926197732" />
+      <point x="496.0" y="-301.0705151791531" />
+      <point x="-255.9999392882811" y="9.42194520234807E-5" />
     </edge>
     <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.StartMotorsCommand" relationship="CREATE">
-      <point x="-331.0" y="75.0" />
-      <point x="377.5" y="1114.8098065245217" />
-      <point x="377.5" y="142.81903805033897" />
-      <point x="1472.5" y="142.81903805033897" />
+      <point x="42.1842322902271" y="40.580782580468" />
+      <point x="1863.8642578071624" y="-233.38602754820937" />
+      <point x="1863.9929511367702" y="-233.38602754820937" />
+      <point x="1863.9929511367702" y="831.7665960147423" />
+      <point x="784.4419392882813" y="831.7665960147423" />
       <point x="0.0" y="50.5" />
     </edge>
     <edge source="pl.edu.wat.droman.ui.flightcontrol.handler.CommandHandler" target="pl.edu.wat.droman.data.model.command.Command" relationship="DEPENDENCY">
-      <point x="4.381767007544113E-5" y="80.99961152971525" />
-      <point x="1740.982" y="-254.66876887961172" />
-      <point x="1740.98195618233" y="-254.66876887961172" />
-      <point x="1740.98195618233" y="-252.5" />
-      <point x="256.0" y="49.13045504994443" />
+      <point x="6.071171890198457E-5" y="50.500464788732415" />
+      <point x="6.071171890198457E-5" y="-80.99990578054803" />
     </edge>
     <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.SetHomeLocationCommand" relationship="CREATE">
-      <point x="323.4999999999999" y="-80.5" />
-      <point x="1194.5" y="807.8879510904841" />
-      <point x="1124.5" y="807.8879510904841" />
-      <point x="-295.0" y="81.0" />
+      <point x="100.0" y="47.31676854379475" />
+      <point x="1921.6800255169353" y="1137.2776898961633" />
+      <point x="324.5" y="0.0" />
     </edge>
     <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.StopGoHomeCommand" relationship="CREATE">
-      <point x="-331.0" y="60.0" />
-      <point x="392.5" y="1099.8098065245217" />
-      <point x="392.5" y="388.9509666100333" />
-      <point x="-261.0" y="0.0" />
-    </edge>
-    <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.StopMotorsCommand" relationship="CREATE">
-      <point x="30.0" y="80.5" />
-      <point x="901.0" y="1173.799654240258" />
-      <point x="2488.5" y="1173.799654240258" />
-      <point x="2488.5" y="-172.74692622950818" />
-      <point x="1366.0" y="-172.74692622950818" />
-      <point x="0.0" y="-50.5" />
-    </edge>
-    <edge source="pl.edu.wat.droman.data.model.command.PauseWaypointCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
-      <point x="-276.0" y="3.338996674528971E-5" />
-      <point x="1609.0" y="388.951" />
-      <point x="1609.0" y="307.0" />
-      <point x="2362.5" y="307.0" />
-      <point x="2362.5" y="-22.0" />
-      <point x="522.5" y="-22.0" />
-      <point x="522.5" y="-301.63" />
-      <point x="-256.0" y="4.550499444349043E-4" />
-    </edge>
-    <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.TakeOffCommand" relationship="CREATE">
-      <point x="-323.5000000000001" y="-80.5" />
-      <point x="547.4999999999999" y="471.9509666100333" />
-      <point x="1341.0" y="471.9509666100333" />
+      <point x="-23.088102912690374" y="46.03937668552737" />
+      <point x="1798.591922604245" y="488.7555021333212" />
+      <point x="779.4419392882812" y="488.7555021333212" />
       <point x="0.0" y="50.5" />
     </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.StopMotorsCommand" relationship="CREATE">
+      <point x="-54.010922772969934" y="40.922221070287094" />
+      <point x="1767.6691027439654" y="249.24995519261063" />
+      <point x="261.0" y="0.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.PauseWaypointCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
+      <point x="-275.9997916227005" y="-2.676056339510069E-4" />
+      <point x="1362.8577916227005" y="420.75523452768726" />
+      <point x="1362.8577916227005" y="335.0027286629659" />
+      <point x="496.0" y="335.0027286629659" />
+      <point x="496.0" y="-301.0705151791531" />
+      <point x="-255.9999392882811" y="9.42194520234807E-5" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.TakeOffCommand" relationship="CREATE">
+      <point x="55.88909172383592" y="45.77917753804377" />
+      <point x="1877.5691172407712" y="-225.9466993659736" />
+      <point x="1877.8391880513705" y="-225.9466993659736" />
+      <point x="1877.8391880513705" y="935.2721429554528" />
+      <point x="246.0" y="0.0" />
+    </edge>
     <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.Command" relationship="DEPENDENCY">
-      <point x="-331.0" y="15.0" />
-      <point x="347.5" y="1054.8098065245217" />
-      <point x="347.5" y="-316.63" />
-      <point x="-256.0" y="-14.999544950055565" />
+      <point x="-195.57856554538012" y="0.0" />
+      <point x="255.9999999999999" y="-44.01485539012731" />
     </edge>
     <edge source="pl.edu.wat.droman.data.model.command.StartGoHomeCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
-      <point x="0.0" y="50.499926229508176" />
-      <point x="806.0" y="-22.0" />
-      <point x="522.5" y="-22.0" />
-      <point x="522.5" y="-301.63" />
-      <point x="-256.0" y="4.550499444349043E-4" />
+      <point x="-19.745765456461072" y="50.52103095567713" />
+      <point x="764.6961738318201" y="335.0027286629659" />
+      <point x="496.0" y="335.0027286629659" />
+      <point x="496.0" y="-301.0705151791531" />
+      <point x="-255.9999392882811" y="9.42194520234807E-5" />
     </edge>
     <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.LoadWaypointCommand" relationship="CREATE">
-      <point x="0.0" y="-80.5" />
-      <point x="871.0" y="689.4762479407102" />
-      <point x="-325.5" y="0.0" />
+      <point x="111.18111081805091" y="44.83401481848455" />
+      <point x="1932.8611363349862" y="-176.53807816965787" />
+      <point x="1933.2165764811225" y="-176.53807816965787" />
+      <point x="1933.2165764811225" y="1235.7776898961633" />
+      <point x="325.4999999999999" y="165.0055469407106" />
     </edge>
     <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.StopWaypointCommand" relationship="CREATE">
-      <point x="-331.0" y="45.0" />
-      <point x="407.5" y="1084.8098065245217" />
-      <point x="407.5" y="224.38500233018613" />
-      <point x="-271.0" y="0.0" />
+      <point x="-83.11475322970364" y="44.56019987737881" />
+      <point x="1738.5652722872317" y="151.37220412595002" />
+      <point x="784.4419392882812" y="151.37220412595002" />
+      <point x="-5.0" y="50.5" />
     </edge>
     <edge source="pl.edu.wat.droman.data.model.command.ShootPhotoCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
-      <point x="-261.0" y="-2.479407099826858E-4" />
-      <point x="522.5" y="553.976" />
-      <point x="522.5" y="307.0" />
-      <point x="2362.5" y="307.0" />
-      <point x="2362.5" y="-22.0" />
-      <point x="522.5" y="-22.0" />
-      <point x="522.5" y="-301.63" />
-      <point x="-256.0" y="4.550499444349043E-4" />
+      <point x="0.03349382290946323" y="51.18207059077611" />
+      <point x="779.4754331111906" y="678.013822544387" />
+      <point x="496.0" y="678.013822544387" />
+      <point x="496.0" y="-301.0705151791531" />
+      <point x="-255.9999392882811" y="9.42194520234807E-5" />
     </edge>
     <edge source="pl.edu.wat.droman.data.model.command.LoadWaypointCommand" target="pl.edu.wat.droman.data.model.command.LoadWaypointCommand.Waypoint" relationship="TO_MANY">
-      <point x="-212.5" y="186.0" />
-      <point x="-15.0" y="-80.49999999999989" />
+      <point x="-45.39451817562508" y="184.5792923418477" />
+      <point x="798.547421112656" y="1302.9159418280622" />
+      <point x="798.7858396917576" y="1302.9159418280622" />
+      <point x="-45.15609959652352" y="-76.95748077922644" />
     </edge>
     <edge source="pl.edu.wat.droman.data.model.command.StopMotorsCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
-      <point x="0.0" y="50.499926229508176" />
-      <point x="1366.0" y="-22.0" />
-      <point x="522.5" y="-22.0" />
-      <point x="522.5" y="-301.63" />
-      <point x="-256.0" y="4.550499444349043E-4" />
+      <point x="-260.9997916227005" y="2.793350766552294E-4" />
+      <point x="1362.8577916227005" y="249.25023452768727" />
+      <point x="1362.8577916227005" y="335.0027286629659" />
+      <point x="496.0" y="335.0027286629659" />
+      <point x="496.0" y="-301.0705151791531" />
+      <point x="-255.9999392882811" y="9.42194520234807E-5" />
     </edge>
     <edge source="pl.edu.wat.droman.data.model.command.UploadWaypointCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
-      <point x="0.0" y="-50.50003805033897" />
-      <point x="2064.0" y="-22.0" />
-      <point x="522.5" y="-22.0" />
-      <point x="522.5" y="-301.63" />
-      <point x="-256.0" y="4.550499444349043E-4" />
+      <point x="6.176816537444438" y="-46.981683962625084" />
+      <point x="1379.5302228013031" y="678.013822544387" />
+      <point x="496.0" y="678.013822544387" />
+      <point x="496.0" y="-301.0705151791531" />
+      <point x="-255.9999392882811" y="9.42194520234807E-5" />
     </edge>
     <edge source="pl.edu.wat.droman.data.model.command.ResumeWaypointCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
-      <point x="-281.0" y="-2.3301861347135855E-6" />
-      <point x="1609.0" y="224.385" />
-      <point x="1609.0" y="307.0" />
-      <point x="2362.5" y="307.0" />
-      <point x="2362.5" y="-22.0" />
-      <point x="522.5" y="-22.0" />
-      <point x="522.5" y="-301.63" />
-      <point x="-256.0" y="4.550499444349043E-4" />
+      <point x="280.9995937361414" y="-8.686210638586545E-5" />
+      <point x="1412.2549837133552" y="83.37211726384363" />
+      <point x="1412.2549837133552" y="0.4333285926197732" />
+      <point x="496.0" y="0.4333285926197732" />
+      <point x="496.0" y="-301.0705151791531" />
+      <point x="-255.9999392882811" y="9.42194520234807E-5" />
     </edge>
     <edge source="pl.edu.wat.droman.data.model.command.StartMotorsCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
-      <point x="-266.0" y="-3.805033897208432E-5" />
-      <point x="1185.0" y="59.819" />
-      <point x="1185.0" y="-22.0" />
-      <point x="522.5" y="-22.0" />
-      <point x="522.5" y="-301.63" />
-      <point x="-256.0" y="4.550499444349043E-4" />
+      <point x="-5.17984938600091" y="-51.368539988683665" />
+      <point x="779.2620899022804" y="678.7042345276873" />
+      <point x="496.0" y="678.7042345276873" />
+      <point x="496.0" y="-301.0705151791531" />
+      <point x="-255.9999392882811" y="9.42194520234807E-5" />
     </edge>
     <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.UnrecognizedCommand" relationship="CREATE">
-      <point x="-331.0" y="30.0" />
-      <point x="317.5" y="1069.8098065245217" />
-      <point x="317.5" y="59.819038050338975" />
-      <point x="-311.0" y="0.0" />
+      <point x="-195.57856554538012" y="15.0" />
+      <point x="1633.973381583345" y="-330.08546478873245" />
+      <point x="1633.973381583345" y="-176.53807816965787" />
+      <point x="1111.941939288281" y="-176.53807816965787" />
+      <point x="282.4999999999998" y="-50.5" />
     </edge>
     <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.LandCommand" relationship="CREATE">
-      <point x="45.0" y="80.5" />
-      <point x="916.0" y="1130.799654240258" />
-      <point x="2443.5" y="1130.799654240258" />
-      <point x="2443.5" y="142.81903805033897" />
-      <point x="1487.5" y="142.81903805033897" />
-      <point x="126.5" y="-50.5" />
+      <point x="-174.82661925307661" y="47.31676854379475" />
+      <point x="223.5" y="-50.5" />
     </edge>
     <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.StartGoHomeCommand" relationship="CREATE">
-      <point x="-331.0" y="-15.0" />
-      <point x="332.5" y="1024.8098065245217" />
-      <point x="332.5" y="-104.74692622950818" />
-      <point x="-266.0" y="0.0" />
-    </edge>
-    <edge source="pl.edu.wat.droman.data.model.command.LoadWaypointCommand.Waypoint" target="pl.edu.wat.droman.data.model.command.LoadWaypointCommand" relationship="INNER_CLASS">
-      <point x="0.0" y="-80.49999999999989" />
-      <point x="-197.5" y="186.0" />
-    </edge>
-    <edge source="pl.edu.wat.droman.data.model.command.TakeOffCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
-      <point x="246.0" y="3.338996674528971E-5" />
-      <point x="1604.5" y="388.951" />
-      <point x="1604.5" y="307.0" />
-      <point x="2362.5" y="307.0" />
-      <point x="2362.5" y="-22.0" />
-      <point x="522.5" y="-22.0" />
-      <point x="522.5" y="-301.63" />
-      <point x="-256.0" y="4.550499444349043E-4" />
-    </edge>
-    <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.PauseWaypointCommand" relationship="CREATE">
-      <point x="-15.0" y="80.5" />
-      <point x="856.0" y="1158.799654240258" />
-      <point x="2473.5" y="1158.799654240258" />
-      <point x="2473.5" y="388.9509666100333" />
-      <point x="276.0" y="0.0" />
-    </edge>
-    <edge source="pl.edu.wat.droman.data.model.command.SetHomeLocationCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
-      <point x="185.0" y="-81.00024794071021" />
-      <point x="1604.5" y="307.0" />
-      <point x="2362.5" y="307.0" />
-      <point x="2362.5" y="-22.0" />
-      <point x="522.5" y="-22.0" />
-      <point x="522.5" y="-301.63" />
-      <point x="-256.0" y="4.550499444349043E-4" />
-    </edge>
-    <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.ResumeWaypointCommand" relationship="CREATE">
-      <point x="-331.0" y="0.0" />
-      <point x="362.5" y="1039.8098065245217" />
-      <point x="362.5" y="127.81903805033897" />
-      <point x="1921.0" y="127.81903805033897" />
+      <point x="-72.2008168084285" y="50.017168088016376" />
+      <point x="1749.4792087085068" y="187.4724812070819" />
+      <point x="784.4419392882812" y="187.4724812070819" />
       <point x="0.0" y="-50.5" />
     </edge>
-    <edge source="pl.edu.wat.droman.data.model.command.StopGoHomeCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
-      <point x="0.0" y="-50.499966610033255" />
-      <point x="801.0" y="307.0" />
-      <point x="2362.5" y="307.0" />
-      <point x="2362.5" y="-22.0" />
-      <point x="522.5" y="-22.0" />
-      <point x="522.5" y="-301.63" />
-      <point x="-256.0" y="4.550499444349043E-4" />
+    <edge source="pl.edu.wat.droman.data.model.command.LoadWaypointCommand.Waypoint" target="pl.edu.wat.droman.data.model.command.LoadWaypointCommand" relationship="INNER_CLASS">
+      <point x="50.68816920230461" y="-75.2885507255155" />
+      <point x="894.6301084905857" y="1301.8430582221051" />
+      <point x="894.1532713323826" y="1301.8430582221051" />
+      <point x="50.21133204410148" y="180.7645950762227" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.PauseWaypointCommand" relationship="CREATE">
+      <point x="-38.549512842830154" y="45.69956409013014" />
+      <point x="1783.1305126741051" y="420.7555021333212" />
+      <point x="276.0" y="0.0" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.TakeOffCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
+      <point x="205.03404674823832" y="-50.49990842776549" />
+      <point x="1671.853" y="849.5193694850975" />
+      <point x="496.0" y="849.5193694850975" />
+      <point x="496.0" y="-301.0705151791531" />
+      <point x="-255.9999392882811" y="9.42194520234807E-5" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.SetHomeLocationCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
+      <point x="185.00004674823822" y="-81.00045536847597" />
+      <point x="1730.319" y="849.5193694850975" />
+      <point x="496.0" y="849.5193694850975" />
+      <point x="496.0" y="-301.0705151791531" />
+      <point x="-255.9999392882811" y="9.42194520234807E-5" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.CommandFactory" target="pl.edu.wat.droman.data.model.command.ResumeWaypointCommand" relationship="CREATE">
+      <point x="-94.79434616377557" y="48.48845995995879" />
+      <point x="1726.8856793531597" y="-225.9466993659736" />
+      <point x="1726.9649271539574" y="-225.9466993659736" />
+      <point x="1726.9649271539574" y="98.37211726384363" />
+      <point x="281.0" y="14.999913137893614" />
     </edge>
     <edge source="pl.edu.wat.droman.data.model.command.StopWaypointCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
-      <point x="0.0" y="50.499997669813865" />
-      <point x="811.0" y="307.0" />
-      <point x="2362.5" y="307.0" />
-      <point x="2362.5" y="-22.0" />
-      <point x="522.5" y="-22.0" />
-      <point x="522.5" y="-301.63" />
-      <point x="-256.0" y="4.550499444349043E-4" />
+      <point x="-270.9999392882812" y="-8.686210638586545E-5" />
+      <point x="789.4419392882812" y="83.37211726384363" />
+      <point x="789.4419392882812" y="0.43332859261971635" />
+      <point x="496.0" y="0.43332859261971635" />
+      <point x="496.0" y="-301.0705151791531" />
+      <point x="-255.9999392882811" y="9.42194520234807E-5" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.model.command.StopGoHomeCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
+      <point x="-14.071560135186473" y="-51.22348389227892" />
+      <point x="765.3703791530947" y="335.0027286629659" />
+      <point x="496.0" y="335.0027286629659" />
+      <point x="496.0" y="-301.0705151791531" />
+      <point x="-255.9999392882811" y="9.42194520234807E-5" />
     </edge>
     <edge source="pl.edu.wat.droman.data.model.command.StartWaypointCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
-      <point x="0.0" y="50.499926229508176" />
-      <point x="1946.0" y="-22.0" />
-      <point x="522.5" y="-22.0" />
-      <point x="522.5" y="-301.63" />
-      <point x="-256.0" y="4.550499444349043E-4" />
+      <point x="-276.0" y="0.0" />
+      <point x="1373.3534062638587" y="592.2610490740316" />
+      <point x="1373.3534062638587" y="678.0138225443869" />
+      <point x="496.0" y="678.0138225443869" />
+      <point x="496.0" y="-316.0705151791531" />
+      <point x="-256.0" y="-14.999905780547977" />
     </edge>
     <edge source="pl.edu.wat.droman.data.model.command.LoadWaypointCommand" target="pl.edu.wat.droman.data.model.command.Command" relationship="GENERALIZATION">
-      <point x="94.0" y="-186.0002479407102" />
-      <point x="2194.5" y="307.0" />
-      <point x="2362.5" y="307.0" />
-      <point x="2362.5" y="-22.0" />
-      <point x="522.5" y="-22.0" />
-      <point x="522.5" y="-301.63" />
-      <point x="-256.0" y="4.550499444349043E-4" />
+      <point x="15.014701754064504" y="-184.93122047988277" />
+      <point x="858.9566410423456" y="849.5193694850975" />
+      <point x="496.0" y="849.5193694850975" />
+      <point x="496.0" y="-301.0705151791531" />
+      <point x="-255.9999392882811" y="9.42194520234807E-5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Compact" zoom="0.6659154929577465" showDependencies="true" x="1449.0763113367177" y="500.7491539763113" />
-  <SelectedNodes>
-    <node>pl.edu.wat.droman.data.model.command.StopMotorsCommand</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic Compact" zoom="0.866729064792176" showDependencies="true" x="951.3665012717529" y="-155.18400000000003" />
+  <SelectedNodes />
   <Categories>
     <Category>Constructors</Category>
     <Category>Fields</Category>
@@ -284,6 +256,6 @@
     <Category>Properties</Category>
   </Categories>
   <SCOPE>All</SCOPE>
-  <VISIBILITY>private</VISIBILITY>
+  <VISIBILITY>public</VISIBILITY>
 </Diagram>
 

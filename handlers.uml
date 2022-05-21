@@ -3,13 +3,13 @@
   <ID>JAVA</ID>
   <OriginalElement>pl.edu.wat.droman.ui.flightcontrol.FlightControlViewModel</OriginalElement>
   <nodes>
-    <node x="1425.53385127636" y="-338.4361820199779">pl.edu.wat.droman.ui.flightcontrol.handler.StatusHandler</node>
-    <node x="707.7647058823527" y="-338.4361820199779">pl.edu.wat.droman.ui.flightcontrol.handler.CommandHandler</node>
-    <node x="1098.0754716981128" y="-960.6781354051055">pl.edu.wat.droman.data.service.UpdateService</node>
-    <node x="486.56936736958914" y="-671.4833518312986">pl.edu.wat.droman.data.model.command.Command</node>
-    <node x="570.0188679245282" y="129.01109877913427">pl.edu.wat.droman.ui.flightcontrol.FlightControlViewModel</node>
-    <node x="21.368479467258567" y="-353.4361820199779">pl.edu.wat.droman.ui.flightcontrol.handler.CameraHandler</node>
     <node x="206.4905660377358" y="-991.0110987791343">pl.edu.wat.droman.data.service.ReceiveService</node>
+    <node x="1098.0754716981128" y="-960.6781354051055">pl.edu.wat.droman.data.service.UpdateService</node>
+    <node x="1425.53385127636" y="-338.4361820199779">pl.edu.wat.droman.ui.flightcontrol.handler.StatusHandler</node>
+    <node x="570.0188679245282" y="129.01109877913427">pl.edu.wat.droman.ui.flightcontrol.FlightControlViewModel</node>
+    <node x="707.7647058823527" y="-338.4361820199779">pl.edu.wat.droman.ui.flightcontrol.handler.CommandHandler</node>
+    <node x="21.368479467258567" y="-353.4361820199779">pl.edu.wat.droman.ui.flightcontrol.handler.CameraHandler</node>
+    <node x="486.56936736958914" y="-671.4833518312986">pl.edu.wat.droman.data.model.command.Command</node>
   </nodes>
   <notes />
   <edges>
@@ -73,16 +73,16 @@
       <point x="742.569" y="-814.0" />
       <point x="-3.673695891848183E-4" y="-80.99964816870136" />
     </edge>
+    <edge source="pl.edu.wat.droman.ui.flightcontrol.FlightControlViewModel" target="pl.edu.wat.droman.ui.flightcontrol.handler.CameraHandler" relationship="CREATE">
+      <point x="-283.5" y="-50.5" />
+      <point x="270.1503884572696" y="65.5" />
+    </edge>
     <edge source="pl.edu.wat.droman.ui.flightcontrol.handler.CommandHandler" target="pl.edu.wat.droman.ui.flightcontrol.handler.StatusHandler" relationship="TO_ONE">
       <point x="2.9411764739961654E-4" y="50.50018201997787" />
       <point x="1027.765" y="19.50000000000003" />
       <point x="1265.0" y="19.5" />
       <point x="1265.0" y="-214.5" />
       <point x="-324.99985127636" y="42.93618201997788" />
-    </edge>
-    <edge source="pl.edu.wat.droman.ui.flightcontrol.FlightControlViewModel" target="pl.edu.wat.droman.ui.flightcontrol.handler.CameraHandler" relationship="CREATE">
-      <point x="-283.5" y="-50.5" />
-      <point x="270.1503884572696" y="65.5" />
     </edge>
     <edge source="pl.edu.wat.droman.data.service.ReceiveService" target="pl.edu.wat.droman.data.model.command.Command" relationship="DEPENDENCY">
       <point x="4.3396226419645245E-4" y="50.500098779134305" />
@@ -95,8 +95,10 @@
       <point x="-166.7458379578245" y="50.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Compact" zoom="0.7489943684633951" showDependencies="true" x="1058.5" y="-370.4999999999998" />
-  <SelectedNodes />
+  <settings layout="Hierarchic Compact" zoom="0.7489943684633951" showDependencies="true" x="1930.1680988184748" y="-205.77980665950594" />
+  <SelectedNodes>
+    <node>pl.edu.wat.droman.ui.flightcontrol.FlightControlViewModel</node>
+  </SelectedNodes>
   <Categories>
     <Category>Constructors</Category>
     <Category>Fields</Category>

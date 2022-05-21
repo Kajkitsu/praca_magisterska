@@ -3,97 +3,78 @@
   <ID>JAVA</ID>
   <OriginalElement>pl.edu.wat.droman.data.datasource.MqttDto</OriginalElement>
   <nodes>
-    <node x="830.0" y="880.1241584158415">pl.edu.wat.droman.data.service.UpdateService</node>
-    <node x="713.21875" y="257.6241584158416">pl.edu.wat.droman.data.service.MqttService</node>
-    <node x="739.21875" y="-58.95794059405938">pl.edu.wat.droman.data.repository.MqttRepository</node>
-    <node x="912.5" y="590.9439860594059">pl.edu.wat.droman.data.service.MqttService.Topic</node>
-    <node x="528.0" y="880.1241584158415">pl.edu.wat.droman.data.service.ReceiveService</node>
-    <node x="624.21875" y="-375.54003960396034">pl.edu.wat.droman.data.datasource.MqttClient</node>
+    <node x="252.9319738368962" y="525.8250688705236">pl.edu.wat.droman.data.service.ReceiveService</node>
+    <node x="814.8529588008064" y="525.8250688705236">pl.edu.wat.droman.data.service.UpdateService</node>
+    <node x="701.4228650137741" y="271.27548209366404">pl.edu.wat.droman.data.service.MqttService.Topic</node>
+    <node x="486.0268595041323" y="12.170964187327883">pl.edu.wat.droman.data.service.MqttService</node>
+    <node x="470.00206611570275" y="-276.9335537190083">pl.edu.wat.droman.data.repository.MqttRepository</node>
+    <node x="470.00206611570275" y="-586.6718457300275">pl.edu.wat.droman.data.datasource.MqttClient</node>
   </nodes>
   <notes />
   <edges>
     <edge source="pl.edu.wat.droman.data.repository.MqttRepository" target="pl.edu.wat.droman.data.datasource.MqttClient" relationship="TO_ONE">
-      <point x="-13.0" y="-103.5" />
-      <point x="0.0" y="103.5" />
+      <point x="-54.25053275257392" y="-84.48504700501394" />
+      <point x="728.5839504000003" y="-265.9186007240222" />
+      <point x="728.5839504000003" y="-321.5792036930236" />
+      <point x="-135.91811571570247" y="102.87144724958068" />
     </edge>
     <edge source="pl.edu.wat.droman.data.service.MqttService.Topic" target="pl.edu.wat.droman.data.service.MqttService" relationship="TO_ONE">
-      <point x="15.0" y="-89.5" />
-      <point x="1203.5" y="556.916174891089" />
-      <point x="1228.4953166574246" y="556.916174891089" />
-      <point x="190.2765666574246" y="132.37756736633656" />
-    </edge>
-    <edge source="pl.edu.wat.droman.data.service.MqttService" target="pl.edu.wat.droman.data.service.MqttService" relationship="DEPENDENCY">
-      <point x="2.500000000509317E-4" y="131.49984158415845" />
-      <point x="1038.219" y="573.444" />
-      <point x="1038.219" y="573.444" />
-      <point x="2.500000000509317E-4" y="131.49984158415845" />
+      <point x="-63.62612390986317" y="-86.74222772774365" />
+      <point x="913.7967411039109" y="166.31724850055866" />
+      <point x="103.18609011821445" y="73.64628431323078" />
     </edge>
     <edge source="pl.edu.wat.droman.data.repository.MqttRepository" target="pl.edu.wat.droman.data.datasource.MqttClient" relationship="CREATE">
-      <point x="42.77268641980072" y="-103.6700739801982" />
-      <point x="1089.8315225980186" y="-59.12801457425758" />
-      <point x="1089.8315225980186" y="-113.12185726732676" />
-      <point x="51.61277259801864" y="104.7542656633662" />
+      <point x="97.5" y="-95.5" />
+      <point x="15.0" y="110.5" />
     </edge>
     <edge source="pl.edu.wat.droman.data.service.MqttService" target="pl.edu.wat.droman.data.service.MqttService.Topic" relationship="CREATE">
-      <point x="150.28125" y="131.49999999999994" />
-      <point x="0.0" y="-89.5" />
+      <point x="166.39600550964178" y="80.5" />
+      <point x="0.0" y="-95.5" />
     </edge>
     <edge source="pl.edu.wat.droman.data.service.ReceiveService" target="pl.edu.wat.droman.data.service.MqttService" relationship="DEPENDENCY">
-      <point x="131.0" y="-1.5841584149711707E-4" />
-      <point x="810.0" y="913.124" />
-      <point x="810.0" y="573.444" />
-      <point x="1038.219" y="573.444" />
-      <point x="2.500000000509317E-4" y="131.49984158415845" />
+      <point x="153.35509806730863" y="7.772243741982675E-4" />
+      <point x="591.0" y="612.4454572680821" />
+      <point x="591.0" y="253.7753829201103" />
+      <point x="590.8189307977657" y="253.7753829201103" />
+      <point x="-220.2079287063666" y="68.65178209200175" />
     </edge>
     <edge source="pl.edu.wat.droman.data.service.ReceiveService" target="pl.edu.wat.droman.data.service.MqttService.Topic" relationship="TO_ONE">
-      <point x="0.0" y="-33.0001584158415" />
-      <point x="659.0" y="826.0" />
-      <point x="1188.5" y="826.0" />
-      <point x="0.0" y="89.50001394059404" />
+      <point x="146.44625807407098" y="58.775783080272504" />
+      <point x="646.1132513966479" y="671.2204631239804" />
+      <point x="646.1132513966479" y="366.7753829201103" />
+      <point x="-275.99986501377407" y="-9.917355373545433E-5" />
     </edge>
     <edge source="pl.edu.wat.droman.data.service.MqttService.Topic" target="pl.edu.wat.droman.data.service.MqttService" relationship="INNER_CLASS">
-      <point x="-165.28099999999995" y="-89.5" />
-      <point x="-14.999749999999949" y="131.49999999999994" />
-    </edge>
-    <edge source="pl.edu.wat.droman.data.service.MqttService.Topic" target="pl.edu.wat.droman.data.service.MqttService.Topic" relationship="DEPENDENCY">
-      <point x="192.21875" y="-89.5" />
-      <point x="1380.71875" y="513.1241584158415" />
-      <point x="1509.5" y="513.1241584158415" />
-      <point x="1509.5" y="680.4439860594059" />
-      <point x="276.0" y="0.0" />
-    </edge>
-    <edge source="pl.edu.wat.droman.data.service.MqttService" target="pl.edu.wat.droman.data.repository.MqttRepository" relationship="TO_ONE">
-      <point x="13.0" y="-131.5" />
-      <point x="0.0" y="103.5" />
-    </edge>
-    <edge source="pl.edu.wat.droman.data.service.UpdateService" target="pl.edu.wat.droman.data.service.MqttService.Topic" relationship="TO_ONE">
-      <point x="0.0" y="-89.5001584158415" />
-      <point x="1161.0" y="826.0" />
-      <point x="1188.5" y="826.0" />
-      <point x="0.0" y="89.50001394059404" />
-    </edge>
-    <edge source="pl.edu.wat.droman.data.service.UpdateService" target="pl.edu.wat.droman.data.service.UpdateService" relationship="DEPENDENCY">
-      <point x="0.0" y="89.5" />
-      <point x="1161.0" y="1076.6241584158415" />
-      <point x="1524.5" y="1076.6241584158415" />
-      <point x="1524.5" y="969.6241584158415" />
-      <point x="331.0" y="0.0" />
+      <point x="69.97681050801407" y="-89.23947883835817" />
+      <point x="1047.3996755217881" y="235.07403768230617" />
+      <point x="1046.9834670033524" y="235.07403768230617" />
+      <point x="235.95660749922013" y="73.64628431323078" />
     </edge>
     <edge source="pl.edu.wat.droman.data.service.MqttService" target="pl.edu.wat.droman.data.repository.MqttRepository" relationship="CREATE">
-      <point x="57.159324360394976" y="-124.25217299009915" />
-      <point x="1096.764712300989" y="264.8719854257424" />
-      <point x="1096.764712300989" y="203.70259738613856" />
-      <point x="45.545962300989004" y="109.39889077227713" />
+      <point x="62.813863829946285" y="-80.89087533816584" />
+      <point x="873.4245148156427" y="11.780088849162041" />
+      <point x="873.4245148156427" y="-37.137078657174044" />
+      <point x="91.42244869993999" y="90.82634703297477" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.service.MqttService" target="pl.edu.wat.droman.data.repository.MqttRepository" relationship="TO_ONE">
+      <point x="-29.024793388429543" y="-80.5" />
+      <point x="0.0" y="95.5" />
     </edge>
     <edge source="pl.edu.wat.droman.data.service.UpdateService" target="pl.edu.wat.droman.data.service.MqttService" relationship="DEPENDENCY">
-      <point x="-331.0" y="-1.5841584149711707E-4" />
-      <point x="810.0" y="969.624" />
-      <point x="810.0" y="573.444" />
-      <point x="1038.219" y="573.444" />
-      <point x="2.500000000509317E-4" y="131.49984158415845" />
+      <point x="-331.000349862259" y="3.140495867910431E-4" />
+      <point x="591.0" y="621.3253829201104" />
+      <point x="591.0" y="253.7753829201103" />
+      <point x="590.4027222793299" y="253.7753829201103" />
+      <point x="-220.62413722480244" y="72.39765875792352" />
+    </edge>
+    <edge source="pl.edu.wat.droman.data.service.UpdateService" target="pl.edu.wat.droman.data.service.MqttService.Topic" relationship="TO_ONE">
+      <point x="-331.000349862259" y="-14.999685950413209" />
+      <point x="763.9848044692737" y="606.3253829201104" />
+      <point x="763.9848044692737" y="366.7753829201103" />
+      <point x="-275.99986501377407" y="-9.917355373545433E-5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic" zoom="0.5769350286616757" showDependencies="true" x="1472.675019032839" y="-26.542022970297353" />
+  <settings layout="Hierarchic" zoom="1.2301526213933858" showDependencies="true" x="681.83157094972" y="476.8407776536309" />
   <SelectedNodes />
   <Categories>
     <Category>Constructors</Category>
@@ -102,6 +83,6 @@
     <Category>Methods</Category>
   </Categories>
   <SCOPE>All</SCOPE>
-  <VISIBILITY>private</VISIBILITY>
+  <VISIBILITY>public</VISIBILITY>
 </Diagram>
 

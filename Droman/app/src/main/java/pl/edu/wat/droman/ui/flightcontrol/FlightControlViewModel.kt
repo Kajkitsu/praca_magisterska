@@ -17,11 +17,9 @@ class FlightControlViewModel(
     private var receiveService: ReceiveService
 ) : ViewModel() {
 
-
     private var cameraHandler: CameraHandler? = null
     private var statusHandler: StatusHandler? = null
     private var commandHandler: CommandHandler? = null
-
 
     companion object {
         const val TAG = "FlightControlViewModel"
@@ -48,7 +46,5 @@ class FlightControlViewModel(
         cameraHandler?.destroy()
         statusHandler?.destroy()
     }
-
-
 }
 
