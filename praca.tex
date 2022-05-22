@@ -1,8 +1,3 @@
-%Łukasz DZIEŁ
-%tel: +48 883 533 374
-%email: lukasz.dziel@wat.edu.pl
-%wersja: 20220316
-%testowano w środowisku: TeXLive2021 (instalacja pełna z iso) + TeXstudio 4.2.2
 
 \input{./defs/WAT-WCY-1.0.tex}
 \newcommand{\kierunek}{INFORMATYKA}
@@ -280,7 +275,9 @@ Poprawnym stwierdzeniem będzie, że obecnie znajdujmy się w epoce połączonyc
 \subsubsection{Ogólna klasyfikacja technolgi M2M}
 Poniżej przedstawiono ogólne porównanie technologi komunikacyjnych M2M.
 
+
 \begin{table}[!htbp]
+  \begin{center}
   \resizebox{\textwidth}{!}{%
   \begin{tabular}{|l|l|l|l|}
   \hline
@@ -292,8 +289,9 @@ Poniżej przedstawiono ogólne porównanie technologi komunikacyjnych M2M.
   \end{tabular}%
   }
   \caption{Porównanie rodzajów technologi M2M.\cite{LoRa-article}}
+  \source{Badania własne.}
+\end{center}
 \end{table}
-
 
 \subsubsection{LoRa}
 Komunikacja w aplikacjach IoT jest dzisiaj wykonywana w przeróżnych technologiach, a każda z nich ma swoje zalety, funkcje, a przez to też przeznaczenie. Żadna z tych technologi nie może pokryć całego zapotrzebowania świata IoT, ponieważ wszystkie one posiadają cechy, które czynią je odpowiednie dla postawionego konkretnego zadania.
@@ -303,7 +301,6 @@ LoRa (Long Range) to nowa technologia połączeń bezprzewodowych w świecie IoT
 WiFi to najpopularniejsza technologia komunikacji bezprzewodowej, która jest już rozwijana przez wiele lat. W kontekście IoT wykorzystywana jest przede wszystkim do komunikacji na dużych
 odległościach. Na krótkie dystanse lepiej pasują do tego takie protokoły jak Bluetooth czy ZigBee. We wszystkich z nich największą wadą jest duże zużycie energii elektrycznej. Technologia Lora zapewnia bezpieczne, mobilne dwukierunkowe połączenie o niskim koszcie elektrycznym. Wykorzystywane jest ono w IoT, szczególnie w domenie smart city, czy nawet ogólnej komunikacji M2M. LoRa zalicza się do LPWA(Low Power Wide Area), czyli rodzaju bezprzewodowej rozległej sieci telekomunikacyjnej, stworzonej w celu umożliwienia komunikacji na duże odległości przy niskiej przepływności i niskim poborze energii. \cite{LPWA-wiki} W tego typu komunikacji wyróżnia się LoRa ze względu na jej:
 \begin{itemize}
-  \setlength\itemsep{0.8mm} %TODO
   \item długodystansowość;
   \item dwukierunkowość;
   \item wysoką pojemność węzłów w sieci;
@@ -316,7 +313,6 @@ odległościach. Na krótkie dystanse lepiej pasują do tego takie protokoły ja
 \myparagraph{Cechy}
 Technologie tą wyróżniają następujące cechy:
 \begin{itemize}
-  \setlength\itemsep{1mm} %TODO
   \item Pojedyncza bramka może pokryć obszar aż $100km^2$;
   \item Oferuje ona podwójne szyfrowanie AES;
   \item Bazuje na technologi CSS (widmo rozproszone Chrip), które umożliwia śledzenie obiektów i jest odporne na zanikanie sygnałów;
@@ -332,25 +328,26 @@ Wraz z rozwojem świata IoT zyskała również technologia Narowband IoT (NB-IoT
 
 \subsubsection{NB-IoT vs Lora}
 
-\begin{table}[!htbp]
-  \resizebox{\textwidth}{!}{%
-  \begin{tabular}{|l|c|c|}
-  \hline
-  \textbf{Parametr}                                                                     & \textbf{LoRa}               & \textbf{NB-IoT}       \\ \hline
-  \textbf{Pasmo}                                                                        & 125 kHz                     & 180 kHz               \\ \hline
-  \textbf{Pokrycie}                                                                     & 165 dB                      & 164 dB                \\ \hline
-  \textbf{Żywotność baterii}                                                            & 15+ lat                     & 10+ lat               \\ \hline
-  \textbf{\begin{tabular}[c]{@{}l@{}}Maksymalne natężenie \\ elektryczne\end{tabular}}  & 32 mA                       & 120 mA                \\ \hline
-  \textbf{\begin{tabular}[c]{@{}l@{}}Spoczynkowe natężenie \\ elektryczne\end{tabular}} & 1 µA                        & 5 µA                  \\ \hline
-  \textbf{Przepustowość}                                                                & 50 Kbps                     & 60 Kbps               \\ \hline
-  \textbf{Opóźnienie}                                                                   & Zależne od klasy urządzenia & 10 s                  \\ \hline
-  \textbf{Bezpieczeństwo}                                                               & AES 128 bit                 & 3GPP (128 to 256 bit) \\ \hline
-  \textbf{Geolokalizacja}                                                               & Tak (TDOA)                  & Tak (In 3GPP Rel 14)  \\ \hline
-  \textbf{Jakość/cena}                                                                  & Wysoka                      & Średnia                \\ \hline
-  \end{tabular}%
-  }
+\begin{table}[H]
   \caption{Porównanie technologi LoRa i NB-IoT \cite{NB-IoT_vs_Lora}}
-  \end{table}
+  \begin{center}
+    \begin{tabular}{|l|c|c|}
+      \hline
+      \textbf{Parametr}                                                                     & \textbf{LoRa}               & \textbf{NB-IoT}       \\ \hline
+      \textbf{Pasmo}                                                                        & 125 kHz                     & 180 kHz               \\ \hline
+      \textbf{Pokrycie}                                                                     & 165 dB                      & 164 dB                \\ \hline
+      \textbf{Żywotność baterii}                                                            & 15+ lat                     & 10+ lat               \\ \hline
+      \textbf{\begin{tabular}[c]{@{}l@{}}Maksymalne natężenie \\ elektryczne\end{tabular}}  & 32 mA                       & 120 mA                \\ \hline
+      \textbf{\begin{tabular}[c]{@{}l@{}}Spoczynkowe natężenie \\ elektryczne\end{tabular}} & 1 µA                        & 5 µA                  \\ \hline
+      \textbf{Przepustowość}                                                                & 50 Kbps                     & 60 Kbps               \\ \hline
+      \textbf{Opóźnienie}                                                                   & Zależne od klasy urządzenia & 10 s                  \\ \hline
+      \textbf{Bezpieczeństwo}                                                               & AES 128 bit                 & 3GPP (128 to 256 bit) \\ \hline
+      \textbf{Geolokalizacja}                                                               & Tak (TDOA)                  & Tak (In 3GPP Rel 14)  \\ \hline
+      \textbf{Jakość/cena}                                                                  & Wysoka                      & Średnia                \\ \hline
+      \end{tabular}%
+  \end{center}
+  \source{Badania własne.}
+\end{table}
 
   
 Zarówno LoRa, jak i NB-IoT należą do wspomnianej wcześniej technologi LPWAN. Podstawowa różnice pomiędzy tymi dwoma technologiami można dostrzec w zużyciu baterii, prędkości transmisji i opóźnień.
@@ -375,7 +372,7 @@ W swojej ofercie DJI ma również dostępnego drona \textit{DJI Mini SE}, który
 
 WiFi jest także bardzo podatne na wszelkie zakłócenia, wynikające z ukształtowania terenu czy zaszumienia sieci pochodzącego z istniejących sieci domowych. Wyprodukowanie drona w tej technolgi jest najtańszą dostępną opcją, która umożliwia transmisje obrazu, jednak należy pamiętać, aby nie stawiać jej przy tym za dużych wymagań. Stanowi ono dobry punkt startowy w komunikacji bezprzewodowej bezzałogowych statków powietrznych.
 
-\subsubsection{Lightbridge} TODO
+\subsubsection{Lightbridge}
 
 Lightbridge to technologia od DJI, która doczekała się jej dwóch wydań. Pierwszych wzmianek o niej można doszukiwać się w 2014 r., a drugiego wydania już w 2015 roku. Jest ona zbliżona do technologii WiFi, przede wszystkim transmisja ta odbywa się na tej samej częstotliwości 2,4GHz.
 
@@ -428,7 +425,7 @@ Producent w trakcie swojej historii doprowadził do pewnych nieścisłości. Pom
   \end{figure}
   
 
-Wersja 2.0 wprowadziła dalsze ulepszenia, m.in. kontorlowanie dronów na jeszcze większe dystanse i z jeszcze mniejszymi opóźnieniami, a także kompatybilność wsteczną po aktualizacji oprogramowania.
+Wersja 2.0 wprowadziła dalsze ulepszenia, m.in. kontrolowanie dronów na jeszcze większe dystanse i z jeszcze mniejszymi opóźnieniami, a także kompatybilność wsteczną po aktualizacji oprogramowania.
 
 \newpage
 \subsubsection{FHSS i  OFDM}
@@ -486,7 +483,29 @@ DJI dostarcza do swoich produktów następujące interfejsy API:
 \subsection{Wymagania funkcjonalne}
 TODO
 \subsection{Wymagania pozafunkcjonalne}
-TODO
+
+\begin{table}[H]
+  \caption{Wymagania pozafunkcjonalne}
+  \begin{center}
+    \begin{tabular}{|l|l|}
+      \hline
+      \textbf{Lp.} & \textbf{Opis}                                                                                                                                                                \\ \hline
+      1            & \begin{tabular}[c]{@{}l@{}}Aplikacja musi po zerwaniu połączenia z brokerem MQTT automatycznie \\ ją przywrócić wraz z subskrybowanymi Topic-a.\end{tabular}                 \\ \hline
+      2            & \begin{tabular}[c]{@{}l@{}}Aplikacja powinna mieć możliwość ustawienia czas po jakim operacje \\ na protokole MQTT zostaną uznane za zakończone niepowodzeniem.\end{tabular} \\ \hline
+      3            & \begin{tabular}[c]{@{}l@{}}Aplikacja musi komunikować się na indywidualnych Topic-ach danego \\ statku powietrznego.\end{tabular}                                            \\ \hline
+      4            & \begin{tabular}[c]{@{}l@{}}Aplikacja powinna w ścieżkach określających Topic-i MQTT zawierać \\ numer seryjny urządzenia.\end{tabular}                                       \\ \hline
+      5            & \begin{tabular}[c]{@{}l@{}}Aplikacja powinna przy komunikacji z brokerem MQTT jako swój \\ identyfikator klienta używać numeru seryjnego urządzenia.\end{tabular}            \\ \hline
+      6            & Komunikacja MQTT musi być zabezpieczona loginem i hasłem.                                                                                                                    \\ \hline
+      7            & \begin{tabular}[c]{@{}l@{}}Aplikacja musi obsługiwać przypadki, gdy otrzymana komenda do \\ wykonania przez BSP nie będzie poprawna.\end{tabular}                            \\ \hline
+      8            & \begin{tabular}[c]{@{}l@{}}Aplikacja musi automatycznie potwierdzać lądowania urządzenie, jeżeli\\ jest to wymagane.\end{tabular}                                            \\ \hline
+      9            & \begin{tabular}[c]{@{}l@{}}Aplikacja powinna mieć możliwość ustawiania interwału czasowego \\ w jakim zostaną przesłane dane dotyczące statusu statku.\end{tabular}          \\ \hline
+      10           & \begin{tabular}[c]{@{}l@{}}Aplikacja powinna przesyłać obrazy w najwyższej dostępnej \\ rozdzielczości.\end{tabular}                                                         \\ \hline
+      11           & \begin{tabular}[c]{@{}l@{}}Aplikacja powinna przesyłać informacje zwrotną dotyczącą wykonania \\ komendy na dedykowany Topic.\end{tabular}                                   \\ \hline
+      \end{tabular}
+  \end{center}
+  \source{Badania własne.}
+\end{table}
+
 \subsection{Stos technologiczny}
 TODO
 \subsubsection{DJI Mobile SDK}
@@ -532,7 +551,7 @@ Na diagramie przedstawiono również dwie istotne klasy \textit{CommandFactory} 
 
 Wspomniane wcześniej drugie podejście polegałoby na przedstawieniu tych komend w postaci wartości typu wyliczeniowego (enum). Jednak należy wtedy przyjrzeć się, jak wyglądałoby dodawanie kolejnych komend do systemu. Obecnie, aby dodać nową komendę do systemu należy otworzyć nową klasę, która dziedziczy po \textit{Command}, a następnie dodanie jej przypadku do \textit{CommandFactory}. Modyfikujemy kod w ten sposób w tylko jednym miejscu. Klasa \textit{CommandHandler}, która posiada dużą odpowiedzialność, pozostanie niezmieniona. W przypadku, gdyby zastosowano podejście z typem wyliczeniowym, dodatnie kolejnej komendy do systemu, wiązałoby się z modyfikacją, oprócz wcześniej wspomnianej \textit{CommandFactory}, klasy \textit{ComamndHandler}, która wymagałaby dodania kolejnej instrukcji wyboru. Dodatkowo w klasie znajdowałoby się 15 metod, które nie są do końca związane z jej odpowiedzialnością. Nawet jeżeli wynieść takie metody do osobnej klasy np. \textit{CommandExecutor}, jej odpowiedzialność nadal byłaby bardzo duża.
 
-Roberta C. Martina, autor ksiązki \textit{Clean Code: A Handbook of Agile Software Craftsmanship. Prentice Hall.}, która często bywa określana jako "biblia programistów", przedstawił zasady dobrego programowania obiektowego, określane jako SOLID. Podejście, w którym architektura komend opierałaby się na typie wyliczeniowym, stanowiłoby naruszenie przynajmniej dwóch zasada \textit{Single responsibility principle} i \textit{Open/closed principle}. Przytoczony przykład ukazuje, że przedstawione rozwiązanie jest, jak najbardziej poprawne.\cite{solid}
+Roberta C. Martina, autor ksiązki \textit{Clean Code: A Handbook of Agile Software Craftsmanship. Prentice Hall.}, która często bywa określana jako "biblia programistów", przedstawił zasady dobrego programowania obiektowego, określane jako SOLID. Podejście, w którym architektura komend opierałaby się na typie wyliczeniowym, stanowiłoby naruszenie przynajmniej dwóch zasada \textit{Single responsibility principle} i \textit{Open/closed principle}. Przytoczony przykład ukazuje, że przedstawione rozwiązanie jest, jak najbardziej poprawne.\cite{solid}\cite{clean-code}
 
 \begin{figure}[!htbp]
   \centering
@@ -596,9 +615,6 @@ Przedstawione klasy w poniższym diagramie (Rys. 22.) stanowią \textit{FlightCo
 
 \newpage
 
-\subsection{Diagram sekwencji TODO ?}
-TODO ?
-
 \subsection{Wykorzystane urządzenia}
 \begin{figure}[!htp]
   \centering
@@ -625,10 +641,17 @@ W trakcie implementacji i testów zostaną wykorzystane następujące urządzeni
 \clearpage
 \newpage
 \section{Implementacja systemu}
+W poniższym rozdziale zaprezentowano, wyjaśniono i uzasadnionono działanie najważniejszych fragmentów kodu systemu. W ostatnim podrozdziale zaprezentowano interfejs użytkownika na urządzeniu mobilnym.
 
-\subsection{Klasa komend i jej wykonywanie}
+\subsection{Wykonywanie komend}
 
-\begin{lstlisting}[language=Java, caption=Klasa: Command]
+Poniżej zaprezentowano implementacje klas, które służą do wykonywania poleceń w systemie. textit{Command} (Kod. 1.) jest klasą, po której dziedziczą wszystkie komendy, które mogą być wykonane w systemie. Jej kluczowym elementem jest metoda \textit{exec}, która w klasach potomnych służy do zrealizowania polecenia tożsamego z jej nazwą. Jedyny argument w tej metodzie, jest typu \textit{AircraftControllers}. Jest to DTO dla wszystkich obiektów, które są wymagane do zrealizowania komendy.
+
+Jednym z przykładów jest klasa \textit{StartMotorsCommand} (Kod. 2.), która odpowiada zgodnie z jej nazwą, za wystartowanie silników. W linii nr 7 za pomocą \textit{AircraftControllers} wyciągany jest ostatni status BSP. Następnie w linii nr 6 dokonywana jest sprawdzenie, czy BSP nie lata i nie ma włączonych silników, jeżeli nie, to za pomocą klasy \textit{FlightController} z biblioteki DJI uruchamiane są silniki. W przeciwnym wypadku zwracany jest stosowny komunikat (linia nr 13).
+
+
+
+\begin{lstlisting}[language=Java, caption=Klasa \textit{Command}]
   abstract class Command(val type: String, val completionCallback: CommonCallbacks.CompletionCallback<DJIError>) {
     abstract fun exec(aircraftControllers: AircraftControllers)
 
@@ -639,7 +662,7 @@ W trakcie implementacji i testów zostaną wykorzystane następujące urządzeni
 \end{lstlisting}
 \source{Badania własne.}
 
-\begin{lstlisting}[language=Java, caption=Klasa: StartMotorsCommand]
+\begin{lstlisting}[language=Java, caption=Klasa \textit{StartMotorsCommand}]
 class StartMotorsCommand(completionCallback : CommonCallbacks.CompletionCallback<DJIError>) : Command(type, completionCallback) {
   companion object {
       const val type = "start_motors"
@@ -659,6 +682,9 @@ class StartMotorsCommand(completionCallback : CommonCallbacks.CompletionCallback
 \end{lstlisting}
 \source{Badania własne.}
 
+Samo wykonywanie metody \textit{exec} ogranicza się w klasie \textit{CommandHandler} do 3 linii kodu (Kod. 3.), jest to korzyść odniesiona dzięki dobrze dobranej architekturze. Pozostałe ciało klasy zostanie omówione na późniejszych stronach.
+
+\newpage
 
 \begin{lstlisting}[language=Java, caption=Fragment kodu z CommandHandler]
 private val commandObserver = Observer<Command> {
@@ -667,8 +693,10 @@ private val commandObserver = Observer<Command> {
 \end{lstlisting}
 \source{Badania własne.}
 
+\textit{CommandFactory} (Kod. 4.) zgodnie ze wzorcem projektowym \textit{Factory} (pl. \textit{Fabryka}), odpowiada za tworzenie kolejnych instancji klasy \textit{Command}. Metoda \textit{getCompletionCallback} dostarcza uniwersalny obiekt do obsługi poleceń wykonywanych za pomocą metod z biblioteki DJI. Najważniejsza jest jednak w niej metoda \textit{from}. Dla przedstawionej wartości tekstowej w formacie JSON zwraca ona instancje odpowiedniej klasy. W linii nr 10 za pomocą biblioteki \textit{Gson} tworzony jest obiekt \textit{JsonObject}, na podstawie zawartości zmiennej \textit{value}. Jeżeli wartość tekstowa nie jest w ogóle w formacie JSON, zostanie rzucony wyjątek, którego obsługa polega na zwróceniu instancji \textit{UnrecognizedCommand} (linia nr 15), zgonie z wcześniej przyjętą zasadą, która mówi, że zwrócenie wartości \textit{null} jest złą praktyką. Metoda \textit{createCommand} na podstawie dostarczonych argumentów zwraca odpowiednią instancję klasy \textit{Command}, to w jej ciele zostanie dokonana zmiana, jeżeli do systemu zostanie dodana kolejna komenda. Klasa ta może rzucać wyjątki (linia nr 23). Jest to spowodowane tym, że w momencie tworzenia niektórych komend, które zawierają dodatkowe parametry, jak np. współrzędne dokonywana jest walidacja ich poprawności. Jeżeli te wartości będą niepoprawne, zostanie rzucony wyjątek, ponieważ nie można dopuścić do wykonania polecenia z niepoprawnymi parametrami. Również on jest obsługiwany w liniach nr 13-16.
 
-\begin{lstlisting}[language=Java, caption=Klasa: CommandFactory]
+
+\begin{lstlisting}[language=Java, caption=Klasa \textit{CommandFactory}]
 class CommandFactory {
   companion object {
       const val TAG = "CommandFactory"
@@ -692,8 +720,8 @@ class CommandFactory {
   }
 
   @Throws(Throwable::class)
-  private fun createCommand(missionType: String, jsonObject: JsonObject): Command {
-      return when (missionType) {
+  private fun createCommand(type: String, jsonObject: JsonObject): Command {
+      return when (type) {
           StartGoHomeCommand.type -> {
               StartGoHomeCommand(getCompletionCallback(StartGoHomeCommand.type))
           }
@@ -723,15 +751,53 @@ class CommandFactory {
 \source{Badania własne.}
 
 
-W ramach systemu utworzono klasę abstrakcyjną \textit{Command}. Reprezentuje ona komendy, które mogą zostać wysłane do wykonania przez BSP. Jej abstrakcyjna metoda \textit{exec}, odpowiada za zrealizowanie tej komendy na dronie. Operacje te są wykonywane za pomocą obiektu \textit{AircraftControllers}, który jest praktycznie wraperem na obiekty z SDK DJI, za pomocą których można wykonywać operacje np. startu. \textit{StartMotorsCommand} jest przykładem jej rozszerzenia, realizuje ona całą operację włącznie silników w BSP.
-
-Odpowiedzialnością \textit{CommandFactory} jest generowanie instancji klas dziedziczących po \textit{Command}, na podstawie dostarczonego obiektu tekstowego w formacie JSON. Realizuje to metoda \textit{from}, która obsługuje przypadki, w których wartość tekstowa nie może zostać poprawnie rozpoznana, wtedy zwracany jest obiekt \textit{UnrecognizedCommand}.
-
-Takie podejście architektoniczne sprawia, że realizacja komendy w \textit{CommandHandler} ogranicza się do 3 linii kodu. Dodanie kolejnej komendy do systemu ogranicza się do zdefiniowania klasy dziedziczącej po \textit{Command} i dodanie jednego przypadku w strukturze \textit{when} w metodzie \textit{createCommand} z \textit{CommandFactory}.
-
-W przypadku, w którym definicja komend miała by się ograniczać do definiowania w obiekcie typu enum, w \textit{CommandHandler} należało by obsłużyć każdy przypadek osobno, za pomocą struktury \textit{when}. Dodatkowo każda jej realizacja musiałaby być zdefiniowana w tej klasie, co zmniejszałoby czytelność całości. Z każdą kolejną komendą klasa ta rozrastałaby się do coraz większych rozmiarów. Takie podejście stanowiłoby naruszenie zasad SOLID \textit{Open/closed principle} i \textit{Single responsibility principle}. Zasady te zostały przedstawione przez autorytet programistów, Roberta C. Martina i są uznawane za dobre praktyki programowania obiektowego.\cite{solid}
-
 \subsection{Obsługa MQTT}
+ W tej sekcji zaperzenotwano klasy związane z obsługą komunikacji za pomocą MQTT. Na poziomie najbliższym komponentowi \textit{FlightController} (Rys. 18.) ważne są wyróżnienia klasy \textit{MqttService} (Kod. 6.) i jej klasa wewnętrzna \textit{Topic} (Kod 5.). 
+ 
+ Ta wewnętrzna klasa dostarcza metody, które umożliwiają komunikacje na wybranych Topic-ach z minimalnym wysiłkiem dla programisty. Jako argmuent w swoim konstruktorze przyjmuje ścieżke Topica MQTT. Dzięki temu meotdy odpowiedzialne za publikowanie wiadmości MQTT (linie nr 2-8) ograniczone są do jednego argmuentu, ich treści. Pozostałe metody, jak np. włączenia subskrybcji(linie 14-15), sprawdzenia czy dany Topic jest subskrybowany (10-12) czy pobierania wiadmości nie potrzebują żadnych dodatkowych argumentów. Klasa te też jest bardzo krótka ponieważ wszystkie skąplikowane operacja są wykonywane przez \textit{MqttService}. 
+ 
+ W której to (Kod. 6.) należy wyróżnić dwie istotne zmienne \textit{subscribedTopics} i \textit{messagesArrived} (linie 9-10). Pierwsza znich to zbiór wartości tekstowych, konkretnie ścieżek, które są subskrybowane przez klienta Mqtt. Kolejne wartości są dodwanane do niego wraz z rozpoczęciem subskrybcji danego Topica w metodzie \textit{subscribe} (linie 48-54), a usuwane w momencie zakończenia subskrybcji metodą \textit{unsubscribe} (linie 40-41).
+
+ Przy opisywaniu zmiennej \textit{messagesArrived} należy zwrócić uwage na wyrażenie lambda \textit{messageArrivedFun}(linie 16-23), które jest wykonywane za każdym razem gdy klient MQTT otrzyma wiadomość. W jego ciele najistotniejsza jest linia nr 20, w trakcie której to za pomocą metody \textit{getTopicData} pobierany jest obiekt \textit{LiveData<MqttMessage>} dotyczący danego Topica, a następnie zappisywana jest nowa wiadmość za pomocą metody \textit{postValue}. Analzując jeszcze metode \textit{getTopicData} należy zwrócić uwagę na linie nr 37, w której to z wcześniej wspomnianej mapy \textit{messagesArrived} pobierana jest metodą \textit{getOrPut} wartość dla klucza równego ścieżce Topic-a, jeżeli w mapie nie ma wartości dla podanego klucza to do mapy dodawana jest nowa para o wartości \textit{MutableLiveData()}. W ten sposób w \textit{messagesArrived} znajdują się pary w których klucz to ścieżka danego Topic-a, który istnieje w systemie, a wartość to obiekt \textit{LiveData<MqttMessage>} z ostatnią ostatnią otrzymaną wiadmością.
+
+
+
+ \begin{lstlisting}[language=Java, caption=Klasa wewnętrzna \textit{Topic}]
+  class Topic(private val value: String, private val mqttService: MqttService) {
+    suspend fun publish(payload: ByteArray): Result<IMqttDeliveryToken> {
+        return mqttService.publish(MqttDto(value, payload))
+    }
+  
+    suspend fun publish(payload: String): Result<IMqttDeliveryToken> {
+        return mqttService.publish(MqttDto(value, payload))
+    }
+  
+    fun isSubscribed(): Boolean {
+        return mqttService.getSubscribed().contains(value)
+    }
+  
+    suspend fun subscribe(): Result<IMqttToken> {
+        return mqttService.subscribe(value)
+    }
+  
+    suspend fun unsubscribe(): Result<IMqttToken> {
+        return mqttService.unsubscribe(value)
+    }
+  
+    fun getData(): LiveData<MqttMessage> {
+        if (!isSubscribed()) {
+            Log.w(TAG, "getData without subscribing topic $value")
+        }
+        return mqttService.getTopicData(value)
+    }
+  
+    fun getValue(): String {
+        return value
+    }
+  }
+  
+  \end{lstlisting}
+  \source{Badania własne.}
 
 
 
@@ -746,39 +812,21 @@ class MqttService(
 
   private val subscribedTopics: MutableSet<String> = HashSet()
   private val messagesArrived: HashMap<String, MutableLiveData<MqttMessage>> = HashMap()
-  private val connectionLostFun: (throwable: Throwable) -> Unit = { cause ->
-      Log.d(this.javaClass.name, "Connection lost $cause")
 
-      Log.d(this.javaClass.name, "Trying to subscribe last topic")
-      subscribedTopics.stream()
-          .forEach { DjiApplication.mainScope.launch(Dispatchers.IO) { mqttRepository.subscribe(it) } }
-  }
-  private val deliveryCompleteFun: (token: IMqttDeliveryToken) -> Unit = {
-      Log.d(this.javaClass.name, "Delivery completed")
-  }
+  private val connectionLostFun: (throwable: Throwable) -> Unit = { 
+    //... reconnect and resubscribe topics}
+  private val deliveryCompleteFun: (token: IMqttDeliveryToken) -> Unit = {//... }
+
   private val messageArrivedFun: (topic: String, message: MqttMessage) -> Unit =
       { topic, message ->
           if (subscribedTopics.contains(topic)) {
-              Log.d(this.javaClass.name, "Receive message: $message from topic: $topic")
+              Log.d(TAG, "Receive message: $message from topic: $topic")
               getTopicData(topic).postValue(message)
 
-          } else {
-              Log.e(
-                  this.javaClass.name,
-                  "Receive message: $message from unsubscribed topic: $topic"
-              )
-          }
+          } else { //... some log info }
       }
 
-  private val mqttRepository = MqttRepository(
-      context,
-      mqttCredentials,
-      lastWill,
-      keepAliveInterval,
-      messageArrivedFun,
-      connectionLostFun,
-      deliveryCompleteFun
-  )
+  private val mqttRepository = MqttRepository(//... init with values above)
 
   init {
       this.let { service ->
@@ -787,7 +835,6 @@ class MqttService(
           }
       }
   }
-
 
   private fun getTopicData(topic: String): MutableLiveData<MqttMessage> {
       return messagesArrived
@@ -838,46 +885,52 @@ class MqttService(
 \end{lstlisting}
 \source{Badania własne.}
 
-\begin{lstlisting}[language=Java, caption=Klasa wewnętrzna \textit{Topic}]
-class Topic(private val value: String, private val mqttService: MqttService) {
-  suspend fun publish(payload: ByteArray): Result<IMqttDeliveryToken> {
-      return mqttService.publish(MqttDto(value, payload))
-  }
+\subsection{Kontrolowanie BSP}
 
-  suspend fun publish(payload: String): Result<IMqttDeliveryToken> {
-      return mqttService.publish(MqttDto(value, payload))
-  }
+Robert C. Martin w swojej książce \textit{Clean Code: A Handbook of Agile Software Craftsmanship. Prentice Hall.} mówi między innymi o tym że ciało klasy powinno być jak najkrótsze, nietylko pod względem liczby linijek kody, ale również odpowiedzialności \cite{clean-code}, dlatego też odpowiedzialności w ramach kontrolowania BSP podzielono na 3 klasy \textit{CameraHandler}, \textit{StatusHandler} i \textit{CommandHandler}. 
 
-  fun isSubscribed(): Boolean {
-      return mqttService.getSubscribed().contains(value)
-  }
+Cyklem ich życia zarządza \textit{FlightControlViewModel} (Kod. 7.), który jest ściśle związany z aktywnością Andorida \textit{FlightControlActivty}. W jego konstruktorze (linie 14-28) inicjowane są klasy na które została podzielona odpowiedzialność. Nie udało sie wynieść tego do \textit{FlightControlViewModelFactory} ponieważ wymadają one w swoim ciele kontekstu Adroida, który nie jest dostępny na poziomie \textit{ViewModelProvider.Factory}.
 
-  suspend fun subscribe(): Result<IMqttToken> {
-      return mqttService.subscribe(value)
-  }
+\begin{lstlisting}[language=Java, caption=Klasa \textit{FlightControlViewModel}]
+class FlightControlViewModel(
+private var updateService: UpdateService,
+private var receiveService: ReceiveService
+) : ViewModel() {
 
-  suspend fun unsubscribe(): Result<IMqttToken> {
-      return mqttService.unsubscribe(value)
-  }
+private var cameraHandler: CameraHandler? = null
+private var statusHandler: StatusHandler? = null
+private var commandHandler: CommandHandler? = null
 
-  fun getData(): LiveData<MqttMessage> {
-      if (!isSubscribed()) {
-          Log.w(this.javaClass.name, "getData without subscribing topic $value")
-      }
-      return mqttService.getTopicData(value)
-  }
-
-  fun getValue(): String {
-      return value
-  }
+companion object {
+    const val TAG = "FlightControlViewModel"
 }
 
+init {
+    DjiApplication.aircraftInstance?.let { aircraft ->
+        FeedbackUtils.setResult("Aircraft found", LogLevel.DEBUG, TAG)
+        statusHandler = StatusHandler(aircraft.flightController, viewModelScope, updateService)
+        cameraHandler = CameraHandler(aircraft.camera, viewModelScope, updateService)
+        commandHandler = CommandHandler(
+            cameraHandler!!,
+            statusHandler!!,
+            aircraft.flightController,
+            receiveService
+        )
+    } ?: run {
+        FeedbackUtils.setResult("Aircraft not found", LogLevel.WARN, TAG)
+    }
+}
+
+fun destroy() {
+    commandHandler?.destroy()
+    cameraHandler?.destroy()
+    statusHandler?.destroy()
+}
+}
 \end{lstlisting}
 \source{Badania własne.}
 
-TODO
-
-\subsection{FlightController}
+Klasa \textit{StatusHandler} odpowiada ze zapisywanie statusu BSP co pewien interwał czasowy. Obiekt \textit{flightController} 10 razy na sekunde wyołuje wyrażenie lambda z przekazane przez \textit{setStateCallback} w liniach nr 16-28. Żeby ograniczyć liczbe przesyłanych wiadmości MQTT wprowadzono mechanizm, który przy każdym wywłoaniu wyrażenia, zwiększa zmienną \textit{lastUpdateCnt} i gdy osiądnie ona wartość określoną przez \textit{GlobalConfig.STATE\_RATE\_LIMIT} wysyła, następuje jej wyzerowanie a następnie wysłanie wiadmości MQTT. \textit{setStateCallback} działa na obikcie klasy \textit{FlightControllerState} z biblioteki DJi, dlatego też dokonujemy przekształcenia na  klase z tego systemu \textit{FlightStatus}, m.in. dlatego że udostępnia ona metode do generowania statusu jako wartości tekstowej w formacie JSON. Dodatkowo w klasie przechowywany jest ostatni status BSP (linia nr 19).
 
 \begin{lstlisting}[language=Java, caption=Klasa \textit{StatusHandler}]
 class StatusHandler(
@@ -898,7 +951,6 @@ class StatusHandler(
       flightController
           .setStateCallback { state ->
               viewModelScope.launch(Dispatchers.IO) {
-                  delay(5000) //to wait until connection establish
                   lastStatus = FlightStatus.gen(state)
                   if (lastUpdateCnt == 0) {
                       updateService.saveCallback(lastStatus)
@@ -921,136 +973,90 @@ class StatusHandler(
 }
 \end{lstlisting}
 \source{Badania własne.}
+
+Klasa \textit{CameraHandler} (Kod. 9.) odpowiada za operacje związane z aparatem BSP. Udostępnia ona jedną publiczną metodę \textit{shootPhoto}, której wykonanie wywołuje zdjęcie (linie nr 36-41). W konstruktorze tak jak we wcześniej klasie na każde wygenerowanie obrazu ustawiane jest wyrażenie lambda (linie nr 15-33), które pobiera w najwyższej możliwej rozdzielczości obraz i przesyła go za pomocą \textit{UpdateService}. Ponieważ nie wszystkie drony od DJI wspierają tryb przesyłania obrazu w wysokiej jakości metoda \textit{initCheckingIfSupportMediaDownloadMode} sprawdza, czy ustawienie takiego trybu pracy kamery jest możliwe i ustawia odpowiednią wartość zmiennej \textit{supportDownloadMediaMode}. Na koniec warto zwrócić na \textit{MediaFile.getSusPreview}. Jest to rozszerzenie metody, które zwraca obraz zrobionego zdjęcia w postaci obiektu \textit{Bitmap}. Ponieważ jest to metoda asynchroniczna, nie należy przejmować się jej wstrzymywaniem (linia nr 57) w oczekiwaniu na wczytanie obrazu w postaci bitmapy.
   
-  
-  \begin{lstlisting}[language=Java, caption=Klasa \textit{Topic}]
-  class CameraHandler(
-  private val camera: Camera,
-  viewModelScope: CoroutineScope,
-  updateService: UpdateService
+\begin{lstlisting}[language=Java, caption=Klasa \textit{CameraHandler}]
+class CameraHandler(
+private val camera: Camera,
+viewModelScope: CoroutineScope,
+updateService: UpdateService
 ) {
-  companion object {
-      const val TAG = "CameraHandler"
-  }
-
-  private var supportDownloadMediaMode = false
-
-  init {
-      initCheckingIfSupportMediaDownloadMode()
-
-      camera.setMediaFileCallback {
-          if (supportDownloadMediaMode) {
-              viewModelScope.launch(Dispatchers.IO) {
-                  it.getFullView()
-                      ?.let { byte -> updateService.savePicture(byte) }
-              }
-          } else {
-              viewModelScope.launch(Dispatchers.IO) {
-                  it.getSusPreview()?.let { it1 -> updateService.savePicture(it1) }
-                      ?: run {
-                          FeedbackUtils.setResult(
-                              "Cannot get preview",
-                              level = LogLevel.ERROR,
-                              tag = TAG
-                          )
-                      }
-              }
-          }
-      }
-  }
-
-  fun shootPhoto() {
-      camera.startShootPhoto(
-          CompletionCallbackImpl<DJIError>(TAG,
-              { FeedbackUtils.setResult("Success shoot photo", TAG) })
-      )
-  }
-
-  fun initCheckingIfSupportMediaDownloadMode() { //...  }
-
-  private fun setBackToShootPhotoMode() {
-      camera.setMode(
-          SettingsDefinitions.CameraMode.SHOOT_PHOTO,
-          CompletionCallbackImpl<DJIError>(TAG, success = {
-              FeedbackUtils.setResult(
-                  "Set back to shoot photo mode",
-                  TAG, LogLevel.DEBUG
-              )
-          })
-      )
-  }
-
-  private suspend fun MediaFile.getSusPreview(): Bitmap? {
-      if (this.preview != null) {
-          return this.preview
-      }
-      this.fetchPreview(
-          CompletionCallbackImpl<DJIError>(TAG,
-              { FeedbackUtils.setResult("Success fetching photo preview", TAG) })
-      )
-      var inc = 0
-      while (this.preview == null && inc < 200) {
-          delay(100)
-          inc++
-      }
-      return this.preview
-  }
-
-  private suspend fun MediaFile.getFullView(): Bitmap? {
-      val destDir =
-          File("${Environment.getExternalStorageDirectory().path}/${GlobalConfig.FOLDER_FOR_HQ_MEDIA}/")
-      val downloadHandler = DownloadListenerImpl<String>(camera)
-      this.fetchFileData(destDir, this.fileName, DownloadListenerImpl<String>(camera))
-      return downloadHandler.getBitmap()
-  }
-
-  fun destroy() {
-      camera.setMediaFileCallback(null)
-  }
+companion object {
+    const val TAG = "CameraHandler"
 }
-  \end{lstlisting}
-  \source{Badania własne.}
-  
-  \begin{lstlisting}[language=Java, caption=Klasa \textit{FlightControlViewModel}]
-  class FlightControlViewModel(
-  private var updateService: UpdateService,
-  private var receiveService: ReceiveService
-) : ViewModel() {
 
-  private var cameraHandler: CameraHandler? = null
-  private var statusHandler: StatusHandler? = null
-  private var commandHandler: CommandHandler? = null
-  
-  companion object {
-      const val TAG = "FlightControlViewModel"
-  }
+private var supportDownloadMediaMode = false
 
-  init {
-      DjiApplication.aircraftInstance?.let { aircraft ->
-          FeedbackUtils.setResult("Aircraft found", level = LogLevel.DEBUG, tag = TAG)
-          statusHandler = StatusHandler(aircraft.flightController, viewModelScope, updateService)
-          cameraHandler = CameraHandler(aircraft.camera, viewModelScope, updateService)
-          commandHandler = CommandHandler(
-              cameraHandler!!,
-              statusHandler!!,
-              aircraft.flightController,
-              receiveService
-          )
-      } ?: run {
-          FeedbackUtils.setResult("Aircraft not found", level = LogLevel.WARN, tag = TAG)
-      }
-  }
+init {
+    initCheckingIfSupportMediaDownloadMode()
 
-  fun destroy() {
-      commandHandler?.destroy()
-      cameraHandler?.destroy()
-      statusHandler?.destroy()
-  }
+    camera.setMediaFileCallback {
+        if (supportDownloadMediaMode) {
+            viewModelScope.launch(Dispatchers.IO) {
+                it.getFullView()
+                    ?.let { byte -> updateService.savePicture(byte) }
+            }
+        } else {
+            viewModelScope.launch(Dispatchers.IO) {
+                it.getSusPreview()?.let { it1 -> updateService.savePicture(it1) }
+                    ?: run {
+                        FeedbackUtils.setResult(
+                            "Cannot get preview",
+                            level = LogLevel.ERROR,
+                            tag = TAG
+                        )
+                    }
+            }
+        }
+    }
 }
-  \end{lstlisting}
-  \source{Badania własne.}
 
-\begin{lstlisting}[language=Java, caption=Klasa \textit{Topic}]
+fun shootPhoto() {
+    camera.startShootPhoto(
+        CompletionCallbackImpl<DJIError>(TAG,
+            { FeedbackUtils.setResult("Success shoot photo", TAG) })
+    )
+}
+
+fun initCheckingIfSupportMediaDownloadMode() { //...  }
+
+private fun setBackToShootPhotoMode() { //...  }
+
+private suspend fun MediaFile.getSusPreview(): Bitmap? {
+    if (this.preview != null) {
+        return this.preview
+    }
+    this.fetchPreview(
+        CompletionCallbackImpl<DJIError>(TAG,
+            { FeedbackUtils.setResult("Success fetching photo preview", TAG) })
+    )
+    var inc = 0
+    while (this.preview == null && inc < 200) {
+        delay(100)
+        inc++
+    }
+    return this.preview
+}
+
+private suspend fun MediaFile.getFullView(): Bitmap? {
+    val destDir =
+        File("${Environment.getExternalStorageDirectory().path}/${GlobalConfig.FOLDER_FOR_HQ_MEDIA}/")
+    val downloadHandler = DownloadListenerImpl<String>(camera)
+    this.fetchFileData(destDir, this.fileName, DownloadListenerImpl<String>(camera))
+    return downloadHandler.getBitmap()
+}
+
+fun destroy() {
+    camera.setMediaFileCallback(null)
+}
+}
+\end{lstlisting}
+\source{Badania własne.}
+
+Ostatnia klasa \textit{CommandHandler} (Kod. 10.) odpowiada ze realizowanie otrzymywanych komend przez BSP. Ze względu na wyniesie logiki wykonywania poleceń do klasy \textit{Command} klasa ta mocno skróciła swoje ciało i też dzięki temu jest bardziej czytelna. \textit{commandLiveData} jest to obiekt \textit{LiveData<Command>}, który jest wynikiem subskrybowania Topic-u przeznaczonego do przesyłania poleceń i odpowiedniego prze mapowania tych danych przez \textit{ReceiveService}. Bardzo istotna w tej klasie jest zarządzenie cyklem życia obiektów typu \textit{Observer}. Cykl wykonywania wyrażeń zawartych w \textit{commandObserver} i \textit{statusObserver} rozpoczynany jest w konstruktorze tej klasy (linie nr 35-36) i zakańczany w momencie wywoływania metody \textit{destroy} (linie 49-56). Dodatkowo w tych samych miejscach (linie nr 37-40 i 53-55)włączany i wyłączany jest tryb symulacji drona na podstawie \textit{GlobalConfig.SIMULATOR\_MODE}.
+
+\begin{lstlisting}[language=Java, caption=Klasa \textit{CommandHandler}]
 class CommandHandler(
   cameraHandler: CameraHandler,
   private val statsHandler: StatusHandler,
@@ -1079,9 +1085,7 @@ class CommandHandler(
   private val statusObserver = Observer<FlightStatus> {
       if (it.isLandingConfirmationNeeded) {
           flightController.confirmLanding(
-              CompletionCallbackImpl<DJIError>(
-                  TAG,
-                  success = { FeedbackUtils.setResult("Landing confirmed", TAG) })
+              CompletionCallbackImpl<DJIError>( //... feedback flow )
           )
       }
   }
@@ -1091,17 +1095,11 @@ class CommandHandler(
       statsHandler.status.observeForever(statusObserver)
       if (GlobalConfig.SIMULATOR_MODE) {
           flightController.simulator
-              .start(
-                  InitializationData.createInstance(LocationCoordinate2D(22.0, 113.0), 10, 10),
-                  CompletionCallbackImpl<DJIError>(
-                      tag = TAG,
-                      success = { FeedbackUtils.setResult("Simulation started", TAG) })
-              )
+              .start( // ... initializationData )
       }
       setMaxFlightHeight(flightController)
       setMaxFlightRadius(flightController)
       waypointMissionOperator.addListener(waypointMissionOperatorListener)
-
   }
 
  fun setMaxFlightHeight(flightController: FlightController) { //...}
@@ -1112,22 +1110,19 @@ class CommandHandler(
       waypointMissionOperator.removeListener(waypointMissionOperatorListener)
       statsHandler.status.removeObserver(statusObserver)
       if (GlobalConfig.SIMULATOR_MODE) {
-          flightController.simulator.stop(
-              CompletionCallbackImpl<DJIError>(
-                  tag = TAG,
-                  success = { FeedbackUtils.setResult("Simulation stopped", TAG) })
-          )
+          flightController.simulator.stop( //... feedback flow )
       }
   }
 }
 \end{lstlisting}
 \source{Badania własne.}
+
+\subsection{Interfejs użytkownika}
+TODO
   
-
-
 \newpage
 \section{Testy systemu oraz prezentacja użycia na wybranym case study}
-TODO
+W poniższym rozdziale zaprezentowano, omówiono i przeprowadzono testy systemu, które świadczą o jego poprawnym działaniu.
 
 \subsection{Testy na platformie Andorid}
 
@@ -1486,7 +1481,8 @@ Wydawnictwo Naukowe PWN, Warszawa, 2019;
 
 \bibitem{arton-kelsey}
 A. Kelsey
-\bibTitle{Flying Robots 101: Everthing You Need to Know about Drones}, Popular Science, TODO TOM, TODO STRONY, 08-03-2013
+\bibTitle{Flying Robots 101: Everthing You Need to Know about Drones}, 
+\myurl{https://www.popsci.com/technology/article/2013-03/drone-any-other-name/} [dostęp: 20-04-2022];
 
 \bibitem{NB-IoT_vs_Lora}
 \bibTitle{NB-IoT vs Lora}
@@ -1631,6 +1627,15 @@ Things (NB-IoT) for Delay-tolerant Services, IEEE, 2019}
 \myurl{https://sosnowiec.naszemiasto.pl/drony-przetransportuja-sprzet-medyczny-nad-sosnowcem-przed/ar/c1-8493233} [dostęp: 29-04-2022]; 
 
 \bibitem{solid}
+\bibTitle{SOLID czyli dobre praktyki w programowaniu obiektowym},
+\myurl{https://www.samouczekprogramisty.pl/solid-czyli-dobre-praktyki-w-programowaniu-obiektowym/} [dostęp: 20-05-2022]; 
+
+\bibitem{clean-code}
+Robert C. Martin
+\bibTitle{Clean Code: A Handbook of Agile Software Craftsmanship}
+Financial Times Prentice Hall, Upper Saddle River, NJ, 2008;
+
+
 \bibTitle{SOLID czyli dobre praktyki w programowaniu obiektowym},
 \myurl{https://www.samouczekprogramisty.pl/solid-czyli-dobre-praktyki-w-programowaniu-obiektowym/} [dostęp: 20-05-2022]; 
 
