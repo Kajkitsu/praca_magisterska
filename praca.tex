@@ -499,7 +499,8 @@ TODO
       7            & \begin{tabular}[c]{@{}l@{}}Aplikacja musi obsługiwać przypadki, gdy otrzymana komenda do \\ wykonania przez BSP nie będzie poprawna.\end{tabular}                            \\ \hline
       8            & \begin{tabular}[c]{@{}l@{}}Aplikacja musi automatycznie potwierdzać lądowania urządzenie, jeżeli\\ jest to wymagane.\end{tabular}                                            \\ \hline
       9            & \begin{tabular}[c]{@{}l@{}}Aplikacja powinna mieć możliwość ustawiania interwału czasowego \\ w jakim zostaną przesłane dane dotyczące statusu statku.\end{tabular}          \\ \hline
-      10           & \begin{tabular}[c]{@{}l@{}}Aplikacja powinna przesyłać obrazy w najwyższej dostępnej \\ rozdzielczości.\end{tabular}                                                         \\ \hline
+      10           & \begin{tabular}[c]{@{}l@{}}Aplikacja powinna przesyłać obrazy w najwyższej dostępnej \\ rozdzielczości.\end{tabular}          \\ \hline
+      10           & \begin{tabular}[c]{@{}l@{}}System musi być odporny na przerwy w dostępnie do sieci.                                \end{tabular}                                                         \\ \hline
       11           & \begin{tabular}[c]{@{}l@{}}Aplikacja powinna przesyłać informacje zwrotną dotyczącą wykonania \\ komendy na dedykowany Topic.\end{tabular}                                   \\ \hline
       \end{tabular}
   \end{center}
@@ -507,19 +508,28 @@ TODO
 \end{table}
 
 \subsection{Stos technologiczny}
-TODO
-\subsubsection{DJI Mobile SDK}
-TODO
-\subsubsection{Android}
-TODO
-\subsubsection{Kotlin}
-TODO
-\subsubsection{Java}
-TODO
-\subsubsection{Gradle}
-TODO
-\subsubsection{MQTT}
-TODO
+Na wstępie warto zaznaczyć, że większość technologi w stosie technologicznym jest wyłącznie najrozsądniejszą odpowiedzią na wcześniej podjęte decyzje.
+
+Pierwszą decyzją w tym ciągu przyczynowo-skutkowym było wybranie \textit{DJI Mobile SDK}, ponieważ taki wybór pozwoli obsłużyć większość dronów dostępnych na rynku. Biblioteka ta dostarcza szereg możliwości i została ona dobrze udokumentowana. Taki wybór ogranicza nas do dwóch platform mobilnych Android i iOS. Ciężko dostrzec znaczącą przewagę technologiczną w którekolwiek z nich. Wybór jednak padł na platformę Android, ze względu na doświadczenie autora z nią i praktycznie tańsze urządzenia mobilne.
+
+Ostatnio dużą popularnością w kontekście pisania aplikacji mobilnych zyskuje \textit{Flutter}. Głównie ze względu na swoją wieloplatformowość, dzięki której nie ma potrzeby utrzymywania dwóch kodów przeznaczonych na platformy Android i iOS, a wyłącznie jednej, która działa na obu. Jednak biblioteka dostarczona od DJI jest biblioteką w języku Java, wymusza to na nas pisanie natywnej aplikacji w Androidzie. Tak więc wykorzystanie wcześniej wspomnianego narzędzia nie przyniesie dodatkowych korzyści.
+
+Natywne aplikacje w Androidzie działają na wirtualnej maszynie Javy. Takie ograniczenie pozwala na wykorzystanie również języka programowania Kotlin. Jest on wykonywany w języku Java i zapewnia pełną z nią interoperacyjność. Korzyścią odniesioną z wykorzystania tego języka jest większa kontrola nad wartościami \textit{null}, która wymusza Kotlin. Dostarcza on także szereg narzędzi skracających zapisy kodu, który realizowałby tę samą funkcjonalność w czystej Javie.
+
+Kolejny wybór, jaki należało dokonać to narzędzia do automatycznej budowy oprogramowania. W kontekście Javy wybór ogranicza się praktycznie do \textit{Maven} i \textit{Gradle}. Zarządzania zależnościami i ich obsługa jest identyczna. Wybór padł na \textit{Gradle}, głównie ze względu na osobiste doświadczenie autora i brak sympatii do formatu \textit{xml}, który w \textit{Maven} jest obecny.
+
+Ostatni etap to wybór technologi, za pomocą której będzie odbywała się komunikacja serwera z pojedynczymi BSP. Najpopularniejsze podejście polegające na stworzeniu RestAPI nie jest możliwe, ponieważ nie obsługuje ono przypadku, w którym połączenie zostanie przerwane, a w tego typu projekcie należy zakładać, że takie zakłócenia mogą występować. Tak, więc wybór padł na protokół komunikacyjny MQTT, który dostarcza narzędzia odporne na zakłócenia w połączeniu sieciowym.
+
+Podsumowując, stos technologiczny prezentuje się następująco:
+\begin{itemize}
+    \setlength\itemsep{1mm} %TODO
+  \item DJI Mobile SDK
+  \item Android
+  \item Java
+  \item Gradle
+  \item MQTT
+\end{itemize}
+
 \subsection{Wysokopoziomowy diagram systemu}
 TODO tutaj diagram całości jako rój
 
