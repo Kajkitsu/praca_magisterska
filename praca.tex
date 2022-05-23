@@ -530,8 +530,19 @@ Podsumowując, stos technologiczny prezentuje się następująco:
   \item MQTT
 \end{itemize}
 
-\subsection{Wysokopoziomowy diagram systemu}
-TODO tutaj diagram całości jako rój
+\newpage
+\subsection{Diagram architekutry wysokopoziomowej}
+
+Poniżej przedstawiono diagram architekutry wysokopoziomowej całego systemu (Rys. 18.). 
+
+
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=13cm]{./Obrazy/highlevel.png}
+  \caption{Diagram architekutry wysokopoziomowej}
+  \source{Badania własne}
+  \end{figure}
 
 \newpage
 \subsection{Diagram komponentów}
@@ -555,7 +566,7 @@ Poniżej przedstawiono diagramy klasy przedstawiające architekturę systemu.
 
 \subsubsection{Diagram klas ograniczony do dostępnych komend w ramach systemu}
 
-Przy projektowaniu abstrakcji komend, które można wydawać systemowi BSP, można wyróżnić dwa podejścia. Pierwsze z nich, które jest zaprezentowana poniżej (Rys. 19.), polega na przedstawianiu każdej z nich w postaci osobnej klasy z przyrostkiem \textit{Command}. Dziedziczą one po klasie \textit{Command}, która posiada abstrakcyjna metodę \textit{exec}. Celem tej metody jest zrealizowanie polecenia tożsamego z daną komendą, za pomocą obiektów dostarczonych przez DTO \textit{AircraftControllers}.
+Przy projektowaniu abstrakcji komend, które można wydawać systemowi BSP, można wyróżnić dwa podejścia. Pierwsze z nich, które jest zaprezentowana poniżej (Rys. 20.), polega na przedstawianiu każdej z nich w postaci osobnej klasy z przyrostkiem \textit{Command}. Dziedziczą one po klasie \textit{Command}, która posiada abstrakcyjna metodę \textit{exec}. Celem tej metody jest zrealizowanie polecenia tożsamego z daną komendą, za pomocą obiektów dostarczonych przez DTO \textit{AircraftControllers}.
 
 Na diagramie przedstawiono również dwie istotne klasy \textit{CommandFactory} i \textit{CommandHandler}. Celem pierwszej z nich jest zwrócenie odpowiedniej instancji klasy dziedziczącej po \textit{Command}, na podstawie wartości tekstowej w formacie JSON. \textit{CommandHandler} odpowiada za odbieranie tych wartości za pomocą serwisu \textit{ReceiveService}, a następnie zmapowanie jej za pomocą \textit{CommandFactory} i wywołanie metody \textit{exec} z klasy \textit{Command}.
 
@@ -574,7 +585,7 @@ Roberta C. Martina, autor ksiązki \textit{Clean Code: A Handbook of Agile Softw
 \newpage
 \subsubsection{Diagram klasy służącej do przechowywania stanu BSP}
 
-Diagram klas(Rys. 20.) przedstawia \textit{FlightStatus}, która przechowywuje dane dotyczące statusu BSP w danej chwili czasu. Posiada ona tylko metodę \textit{toJson}. Zwraca ona stan obiektu w formacie JSON, które przesyłany jest za pomocą serwisu MQTT. Klasy, które nie realizują żadnej logiki, a służą do przechowywania danych, określa się jako DTO (Data Transfer Object).
+Diagram klas(Rys. 21.) przedstawia \textit{FlightStatus}, która przechowywuje dane dotyczące statusu BSP w danej chwili czasu. Posiada ona tylko metodę \textit{toJson}. Zwraca ona stan obiektu w formacie JSON, które przesyłany jest za pomocą serwisu MQTT. Klasy, które nie realizują żadnej logiki, a służą do przechowywania danych, określa się jako DTO (Data Transfer Object).
 
 \begin{figure}[!htp]
   \centering
@@ -596,7 +607,7 @@ Diagram klas(Rys. 20.) przedstawia \textit{FlightStatus}, która przechowywuje d
   \source{Własne}
   \end{figure}
 
-  Poniższy diagram klas (Rys. 21.) reprezentuje \textit{Mqtt Services} z wcześniej przedstawionego diagramu komponentów (Rys. 18.). Z punktu widzenia \textit{FlightController} dostępne są wyłącznie metody z klasy MqttService. Najważniejsza z nich to \textit{getTopic}. Dostarcza ona abstrakt Topic-u MQTT, tj. instancje klasy \textit{Topic}. Dostarcza ona szereg metod, które umożliwiają komunikacje na wybranym Topic-u. Metoda \textit{getData} zwraca obiekt typu \textit{LiveData}, który służy w systemie android do przechowywania zmieniających się danych, za pomocą klasy \textit{Observer} dodaje się wyrażanie lambda, które zostają wywołane za każdym razem, gdy obiekt zostanie zmodyfikowany. Obiekt otrzymuje dane z brokera tylko i wyłącznie jeżeli wcześniej włączy się subskrybuje danego Topica metoda \textit{subscribe}.
+  Poniższy diagram klas (Rys. 22.) reprezentuje \textit{Mqtt Services} z wcześniej przedstawionego diagramu komponentów (Rys. 19.). Z punktu widzenia \textit{FlightController} dostępne są wyłącznie metody z klasy MqttService. Najważniejsza z nich to \textit{getTopic}. Dostarcza ona abstrakt Topic-u MQTT, tj. instancje klasy \textit{Topic}. Dostarcza ona szereg metod, które umożliwiają komunikacje na wybranym Topic-u. Metoda \textit{getData} zwraca obiekt typu \textit{LiveData}, który służy w systemie android do przechowywania zmieniających się danych, za pomocą klasy \textit{Observer} dodaje się wyrażanie lambda, które zostają wywołane za każdym razem, gdy obiekt zostanie zmodyfikowany. Obiekt otrzymuje dane z brokera tylko i wyłącznie jeżeli wcześniej włączy się subskrybuje danego Topica metoda \textit{subscribe}.
 
   W ramach systemu zostaną wykorzystane następujące Topic-ki MQTT:
   \begin{enumerate}
@@ -614,7 +625,7 @@ Diagram klas(Rys. 20.) przedstawia \textit{FlightStatus}, która przechowywuje d
 
 \subsubsection{Diagram klas ograniczony do obszaru kontroli lotu}
   
-Przedstawione klasy w poniższym diagramie (Rys. 22.) stanowią \textit{FlightController} z wcześniejszego diagramu komponentów (Rys. 18.). Wyłącznie klasy z przyrostkiem \textit{Handler} wywołują metody na udostępnionej bibliotece do obsługi drona on DJI. Podział na takie trzy klasy ma na celu zmniejszenie odpowiedzialności, zgodnie z zasadą SOLID \textit{Single responsibility principle}. \textit{FlightControlViewModel} jest ściśle powiązany z \textit{Activity} dotyczące sterowania z Andoridem. Dwa pozostałe serwisy \textit{UpdateService} i \textit{ReceiveService} służą do kolejno zapisywania i odczytywania wybranych Topic-ów.
+Przedstawione klasy w poniższym diagramie (Rys. 23.) stanowią \textit{FlightController} z wcześniejszego diagramu komponentów (Rys. 19.). Wyłącznie klasy z przyrostkiem \textit{Handler} wywołują metody na udostępnionej bibliotece do obsługi drona on DJI. Podział na takie trzy klasy ma na celu zmniejszenie odpowiedzialności, zgodnie z zasadą SOLID \textit{Single responsibility principle}. \textit{FlightControlViewModel} jest ściśle powiązany z \textit{Activity} dotyczące sterowania z Andoridem. Dwa pozostałe serwisy \textit{UpdateService} i \textit{ReceiveService} służą do kolejno zapisywania i odczytywania wybranych Topic-ów.
 
 \begin{figure}[!htp]
   \centering
@@ -762,7 +773,7 @@ class CommandFactory {
 
 
 \subsection{Obsługa MQTT}
- W tej sekcji zaperzenotwano klasy związane z obsługą komunikacji za pomocą MQTT. Na poziomie najbliższym komponentowi \textit{FlightController} (Rys. 18.) ważne są wyróżnienia klasy \textit{MqttService} (Kod. 6.) i jej klasa wewnętrzna \textit{Topic} (Kod 5.). 
+ W tej sekcji zaperzenotwano klasy związane z obsługą komunikacji za pomocą MQTT. Na poziomie najbliższym komponentowi \textit{FlightController} (Rys. 19.) ważne są wyróżnienia klasy \textit{MqttService} (Kod. 6.) i jej klasa wewnętrzna \textit{Topic} (Kod 5.). 
  
  Ta wewnętrzna klasa dostarcza metody, które umożliwiają komunikacje na wybranych Topic-ach z minimalnym wysiłkiem dla programisty. Jako argmuent w swoim konstruktorze przyjmuje ścieżke Topica MQTT. Dzięki temu meotdy odpowiedzialne za publikowanie wiadmości MQTT (linie nr 2-8) ograniczone są do jednego argmuentu, ich treści. Pozostałe metody, jak np. włączenia subskrybcji(linie 14-15), sprawdzenia czy dany Topic jest subskrybowany (10-12) czy pobierania wiadmości nie potrzebują żadnych dodatkowych argumentów. Klasa te też jest bardzo krótka ponieważ wszystkie skąplikowane operacja są wykonywane przez \textit{MqttService}. 
  
