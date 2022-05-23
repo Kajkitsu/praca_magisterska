@@ -18,6 +18,8 @@
 
 \section*{Wstęp} 
 \addcontentsline{toc}{section}{Wstęp}
+
+TODO
     
 % Zwarte wprowadzenie w temat i cele pracy z nawiązaniem do dziedziny przedmiotowej oraz rozwiązanego problemu. Uzasadnienie potrzeby i zastosowania wyników pracy. Przedstawienie układu i streszczenie zawartości rozdziałów pracy (2-3 zdania na rozdział).\\
 % Zaleca się, aby tekst wstępu nie przekraczał dwóch stron.
@@ -26,6 +28,7 @@
 % W pierwszym rozdziale przedstawiono definicje BSP. Następnie przyjrzano sie jej historii z uwzględnieniem tego kiedy obiekt może być zakwalifikowny jako BSP. Potem przedstawiono czołowych producntów tej technolgii i przykładowe zastosowania. Rozdział zakończono analizą możliwości dostoswywania statków do wymagań użytkownika.
 \clearpage
 
+\newpage
 \section{Prezentacja zagadnienia bezpilotowych statków latających oraz koncepcji ich wykorzystania}
 \subsection{Definicja BSP}
 W nomenklaturze związanej z domeną bezpilotowych statków latających można znaleźć wiele tożsamych terminów na określanie bezpilotowych statków latających, są to m.in.:
@@ -482,6 +485,14 @@ DJI dostarcza do swoich produktów następujące interfejsy API:
 \section{Projekt mobilnego systemu zarządzania i sterowania BSP}
 \subsection{Wymagania funkcjonalne}
 TODO
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=14cm]{./Obrazy/usecase.png}
+  \caption{Diagram przypadków użycia}
+  \source{Badania własne}
+  \end{figure}
+
 \subsection{Wymagania pozafunkcjonalne}
 
 \begin{table}[H]
@@ -533,13 +544,16 @@ Podsumowując, stos technologiczny prezentuje się następująco:
 \newpage
 \subsection{Diagram architekutry wysokopoziomowej}
 
-Poniżej przedstawiono diagram architekutry wysokopoziomowej całego systemu (Rys. 18.). 
+Poniżej przedstawiono diagram architektury wysokopoziomowej całego systemu (Rys. 19.). Produktem widocznym dla użytkownika końcowego będzie storna webowa umożliwiająca kontrole i zarządzanie całym rojem dronów, podgląd ich danych, a także ich przetworzonych przez algorytmy sztucznej inteligencji. Najważniejszym takim algorytmem będzie rozpoznawanie obiektów umieszczonych na obrazie odebranym z BSP. W przypadku, w którym system miałby być wykorzystany w obszarze militarnym, rozpoznawaniem byłoby nastawione na ludzi i sprzęt wojskowy, tak aby operator roju, jak najszybciej uzyskiwał istotną na polu walki informacje.
 
+Cała komunikacja odbywać się będzie za pomocą serwera MQTT, który tak jak każdy z elementów w tej architekturze w kolorze błękitnym może zostać zduplikowany. W ten sposób cała architektura jest odporna na zakłócenia komunikacyjne i uszkodzenia fizyczne sprzętu.
+
+Celem tej pracy jest skonstruowanie oprogramowania umożliwiającego kontrole BSP i przesyłanie z niego danych za pomocą serwera MQTT (obszar oznaczony na rysunku kolorem pomarańczowym).
 
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=13cm]{./Obrazy/highlevel.png}
+  \includegraphics[width=10cm]{./Obrazy/highlevel.png}
   \caption{Diagram architekutry wysokopoziomowej}
   \source{Badania własne}
   \end{figure}
@@ -566,7 +580,7 @@ Poniżej przedstawiono diagramy klasy przedstawiające architekturę systemu.
 
 \subsubsection{Diagram klas ograniczony do dostępnych komend w ramach systemu}
 
-Przy projektowaniu abstrakcji komend, które można wydawać systemowi BSP, można wyróżnić dwa podejścia. Pierwsze z nich, które jest zaprezentowana poniżej (Rys. 20.), polega na przedstawianiu każdej z nich w postaci osobnej klasy z przyrostkiem \textit{Command}. Dziedziczą one po klasie \textit{Command}, która posiada abstrakcyjna metodę \textit{exec}. Celem tej metody jest zrealizowanie polecenia tożsamego z daną komendą, za pomocą obiektów dostarczonych przez DTO \textit{AircraftControllers}.
+Przy projektowaniu abstrakcji komend, które można wydawać systemowi BSP, można wyróżnić dwa podejścia. Pierwsze z nich, które jest zaprezentowana poniżej (Rys. 21.), polega na przedstawianiu każdej z nich w postaci osobnej klasy z przyrostkiem \textit{Command}. Dziedziczą one po klasie \textit{Command}, która posiada abstrakcyjna metodę \textit{exec}. Celem tej metody jest zrealizowanie polecenia tożsamego z daną komendą, za pomocą obiektów dostarczonych przez DTO \textit{AircraftControllers}.
 
 Na diagramie przedstawiono również dwie istotne klasy \textit{CommandFactory} i \textit{CommandHandler}. Celem pierwszej z nich jest zwrócenie odpowiedniej instancji klasy dziedziczącej po \textit{Command}, na podstawie wartości tekstowej w formacie JSON. \textit{CommandHandler} odpowiada za odbieranie tych wartości za pomocą serwisu \textit{ReceiveService}, a następnie zmapowanie jej za pomocą \textit{CommandFactory} i wywołanie metody \textit{exec} z klasy \textit{Command}.
 
@@ -585,7 +599,7 @@ Roberta C. Martina, autor ksiązki \textit{Clean Code: A Handbook of Agile Softw
 \newpage
 \subsubsection{Diagram klasy służącej do przechowywania stanu BSP}
 
-Diagram klas(Rys. 21.) przedstawia \textit{FlightStatus}, która przechowywuje dane dotyczące statusu BSP w danej chwili czasu. Posiada ona tylko metodę \textit{toJson}. Zwraca ona stan obiektu w formacie JSON, które przesyłany jest za pomocą serwisu MQTT. Klasy, które nie realizują żadnej logiki, a służą do przechowywania danych, określa się jako DTO (Data Transfer Object).
+Diagram klas (Rys. 22.) przedstawia \textit{FlightStatus}, która przechowywuje dane dotyczące statusu BSP w danej chwili czasu. Posiada ona tylko metodę \textit{toJson}. Zwraca ona stan obiektu w formacie JSON, które przesyłany jest za pomocą serwisu MQTT. Klasy, które nie realizują żadnej logiki, a służą do przechowywania danych, określa się jako DTO (Data Transfer Object).
 
 \begin{figure}[!htp]
   \centering
@@ -607,7 +621,7 @@ Diagram klas(Rys. 21.) przedstawia \textit{FlightStatus}, która przechowywuje d
   \source{Własne}
   \end{figure}
 
-  Poniższy diagram klas (Rys. 22.) reprezentuje \textit{Mqtt Services} z wcześniej przedstawionego diagramu komponentów (Rys. 19.). Z punktu widzenia \textit{FlightController} dostępne są wyłącznie metody z klasy MqttService. Najważniejsza z nich to \textit{getTopic}. Dostarcza ona abstrakt Topic-u MQTT, tj. instancje klasy \textit{Topic}. Dostarcza ona szereg metod, które umożliwiają komunikacje na wybranym Topic-u. Metoda \textit{getData} zwraca obiekt typu \textit{LiveData}, który służy w systemie android do przechowywania zmieniających się danych, za pomocą klasy \textit{Observer} dodaje się wyrażanie lambda, które zostają wywołane za każdym razem, gdy obiekt zostanie zmodyfikowany. Obiekt otrzymuje dane z brokera tylko i wyłącznie jeżeli wcześniej włączy się subskrybuje danego Topica metoda \textit{subscribe}.
+  Poniższy diagram klas (Rys. 23.) reprezentuje \textit{Mqtt Services} z wcześniej przedstawionego diagramu komponentów (Rys. 20.). Z punktu widzenia \textit{FlightController} dostępne są wyłącznie metody z klasy MqttService. Najważniejsza z nich to \textit{getTopic}. Dostarcza ona abstrakt Topic-u MQTT, tj. instancje klasy \textit{Topic}. Dostarcza ona szereg metod, które umożliwiają komunikacje na wybranym Topic-u. Metoda \textit{getData} zwraca obiekt typu \textit{LiveData}, który służy w systemie android do przechowywania zmieniających się danych, za pomocą klasy \textit{Observer} dodaje się wyrażanie lambda, które zostają wywołane za każdym razem, gdy obiekt zostanie zmodyfikowany. Obiekt otrzymuje dane z brokera tylko i wyłącznie jeżeli wcześniej włączy się subskrybuje danego Topica metoda \textit{subscribe}.
 
   W ramach systemu zostaną wykorzystane następujące Topic-ki MQTT:
   \begin{enumerate}
@@ -625,7 +639,7 @@ Diagram klas(Rys. 21.) przedstawia \textit{FlightStatus}, która przechowywuje d
 
 \subsubsection{Diagram klas ograniczony do obszaru kontroli lotu}
   
-Przedstawione klasy w poniższym diagramie (Rys. 23.) stanowią \textit{FlightController} z wcześniejszego diagramu komponentów (Rys. 19.). Wyłącznie klasy z przyrostkiem \textit{Handler} wywołują metody na udostępnionej bibliotece do obsługi drona on DJI. Podział na takie trzy klasy ma na celu zmniejszenie odpowiedzialności, zgodnie z zasadą SOLID \textit{Single responsibility principle}. \textit{FlightControlViewModel} jest ściśle powiązany z \textit{Activity} dotyczące sterowania z Andoridem. Dwa pozostałe serwisy \textit{UpdateService} i \textit{ReceiveService} służą do kolejno zapisywania i odczytywania wybranych Topic-ów.
+Przedstawione klasy w poniższym diagramie (Rys. 24.) przedstawiają \textit{FlightController} z wcześniejszego diagramu komponentów (Rys. 20.). Wyłącznie klasy z przyrostkiem \textit{Handler} wywołują metody na udostępnionej bibliotece do obsługi drona on DJI. Podział na takie trzy klasy ma na celu zmniejszenie odpowiedzialności, zgodnie z zasadą SOLID \textit{Single responsibility principle}. \textit{FlightControlViewModel} jest ściśle powiązany z \textit{Activity} dotyczące sterowania z Andoridem. Dwa pozostałe serwisy \textit{UpdateService} i \textit{ReceiveService} służą do kolejno zapisywania i odczytywania wybranych Topic-ów.
 
 \begin{figure}[!htp]
   \centering
@@ -773,7 +787,7 @@ class CommandFactory {
 
 
 \subsection{Obsługa MQTT}
- W tej sekcji zaperzenotwano klasy związane z obsługą komunikacji za pomocą MQTT. Na poziomie najbliższym komponentowi \textit{FlightController} (Rys. 19.) ważne są wyróżnienia klasy \textit{MqttService} (Kod. 6.) i jej klasa wewnętrzna \textit{Topic} (Kod 5.). 
+ W tej sekcji zaperzenotwano klasy związane z obsługą komunikacji za pomocą MQTT. Na poziomie najbliższym komponentowi \textit{FlightController} (Rys. 20.) ważne są wyróżnienia klasy \textit{MqttService} (Kod. 6.) i jej klasa wewnętrzna \textit{Topic} (Kod 5.). 
  
  Ta wewnętrzna klasa dostarcza metody, które umożliwiają komunikacje na wybranych Topic-ach z minimalnym wysiłkiem dla programisty. Jako argmuent w swoim konstruktorze przyjmuje ścieżke Topica MQTT. Dzięki temu meotdy odpowiedzialne za publikowanie wiadmości MQTT (linie nr 2-8) ograniczone są do jednego argmuentu, ich treści. Pozostałe metody, jak np. włączenia subskrybcji(linie 14-15), sprawdzenia czy dany Topic jest subskrybowany (10-12) czy pobierania wiadmości nie potrzebują żadnych dodatkowych argumentów. Klasa te też jest bardzo krótka ponieważ wszystkie skąplikowane operacja są wykonywane przez \textit{MqttService}. 
  
@@ -1139,8 +1153,27 @@ class CommandHandler(
 \source{Badania własne.}
 
 \subsection{Interfejs użytkownika}
-TODO
+ Graficzny interfejs użytkownika ograniczony jest do dwóch aktywności na urządzeniu mobilnym. 
+ 
+ Pierwsza (Rys. 27.) przedstawia interfejsu umożliwiające logowanie do serwera MQTT. Po wpisaniu danych należy sprawdzić połączenie za pomocą przycisku \textit{CHECK CONNECTION}. Dopiero przy poprawnie zwalidowanym połączeniu możliwe jest przejście do kolejnej aktywności za pomocą drugiego przycisku \textit{START}.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=16cm]{./Obrazy/droman2.jpg}
+  \caption{Bayraktar TB2}
+  \source{\myurl{https://www.instalki.pl/images/newsy/03-2022/Bayraktar_TB2_ukraina.jpg}}
+  \end{figure}
+
+Druga, właściwa aktywność (Rys. 28.), przedstawia wszystkie elementy umożliwiające sterowanie ręczne dronem w tym logi wykonywanych operacji. W trakcie właśnie tego widoku trwa komunikacja drona z serwerem MQTT, ale nadal można używać kontrolera jak przy klasycznym użytkowaniu.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=14cm]{./Obrazy/droman1.jpg}
+  \caption{Bayraktar TB2}
+  \source{\myurl{https://www.instalki.pl/images/newsy/03-2022/Bayraktar_TB2_ukraina.jpg}}
+  \end{figure}
   
+\clearpage
 \newpage
 \section{Testy systemu oraz prezentacja użycia na wybranym case study}
 W poniższym rozdziale zaprezentowano, omówiono i przeprowadzono testy systemu, które świadczą o jego poprawnym działaniu.
@@ -1484,11 +1517,25 @@ if __name__ == '__main__':
 \end{lstlisting}
 \source{Badania własne.}
 
-
+\newpage
 \subsection{Testy manualne}
-TODO
+Ostatnim przeprowadzonym testem było przesłanie ręcznie na podany Topic związany z użytym dronem DJI pojedynczych treści. W tym celu skorzystano na komputerze osobistym z linuxem z pakietu \textit{mosquitto}. Następnie sprawdzono również otrzymywane dane, przy subskrybcji odpowiedniego Topic-a. Przeprowadzone działanie uświadczyło w przekonaniu, że aplikacja działa poprawnie.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=15cm]{./Obrazy/exece.png}
+  \caption{Zrzut ekranu prezentujące przesyłanie komend i odbieranie statusu staku powietrznego.}
+  \source{Badania własne}
+  \end{figure}
+
+
+
+
+
 
 \clearpage \section*{Podsumowanie} \addcontentsline{toc}{section}{Podsumowanie}
+
+TODO
 
 % Podsumowanie powinno korespondować z tematem i założonymi celami pracy. Zaleca się, aby zawierało syntetyczne podsumowanie wyników z odniesieniem do stopnia realizacji oraz wskazaniem najważniejszych osiągnięć i słabszych stron pracy. Może również obejmować omówienie podobieństw i różnic między uzyskanymi a publikowanymi wynikami innych autorów. Ponadto, winno przedstawiać dalsze interesujące kierunki rozwoju pracy.
 

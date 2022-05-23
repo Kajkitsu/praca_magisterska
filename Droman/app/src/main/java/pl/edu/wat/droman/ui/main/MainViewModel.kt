@@ -7,7 +7,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dji.sdk.sdkmanager.DJISDKManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import pl.edu.wat.droman.data.model.MqttCredentials
@@ -42,7 +41,7 @@ class MainViewModel : ViewModel() {
             mqttService = MqttService(
                 context, MqttCredentials(
                     "tcp://$uri",
-                    DJISDKManager.getInstance()?.product?.model?.displayName + ":" + UUID.randomUUID(),
+                    (clientId.value ?: "id_not_provided") + ":" + UUID.randomUUID(),
                     username,
                     password
                 )

@@ -133,7 +133,10 @@ class MainActivity : AppCompatActivity() {
             mainViewModel.fetchClientId()
             updateUI()
         }
-        mainViewModel.clientId.observe(this) { updateUI() }
+        mainViewModel.clientId.observe(this) {
+            updateUI()
+            binding.clientId.text = "Client id: ${it ?: "not set"}"
+        }
         mainViewModel.connectState.observe(this) { updateUI() }
         mainViewModel.isDuringConnecting.observe(this) {
             updateUI()
