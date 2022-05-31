@@ -4,7 +4,7 @@
 \newcommand{\stopien}{STUDIA II$^{\mathrm{o}}$} %Odpowiednie usunąć
 \newcommand{\temat}{MOBILNY SYSTEM ZARZĄDZANIA I STEROWANIA BEZPILOTOWYM STATKIEM LATAJĄCYM}
 \newcommand{\data}{Warszawa 2022}
-\newcommand{\autor}{Norbert WASZKOWIAK}
+\newcommand{\autor}{sierż.~pchor.~inż.~Norbert~WASZKOWIAK}
 \newcommand{\promotor}{dr inż. Michał DYK}
 \newcommand{\zgoda}{TAK} %W przypadku braku zgody zakomentować tą linię
 \newcommand{\specjalnosc}{SYSTEMY INFORMATYCZNE}
@@ -1118,10 +1118,11 @@ Cała komunikacja odbywać się będzie za pomocą brokera MQTT, który tak jak 
 
 Celem tej pracy jest skonstruowanie oprogramowania umożliwiającego kontrolę BSP i przesyłanie z niego danych za pomocą brokera MQTT (obszar oznaczony na rysunku kolorem pomarańczowym).
 
+\newpage
 
-\begin{figure}[!ht]
+\begin{figure}[H]
 \begin{center}
-  \includegraphics[width=9cm]{./Obrazy/highlevel.png}
+  \includegraphics[width=12cm]{./Obrazy/highlevel.png}
   \caption{Diagram architekutry wysokopoziomowej}
 \end{center}
   \source{Opracowanie własne.}
@@ -1129,13 +1130,15 @@ Celem tej pracy jest skonstruowanie oprogramowania umożliwiającego kontrolę B
 
 \newpage
 \subsection{Diagram komponentów}
-\begin{figure}[!htp]
+\begin{figure}[H]
 \begin{center}
   \includegraphics[width=14cm]{./Obrazy/Component Diagram0.png}
   \caption{Diagram komponentów}
 \end{center}
   \source{Opracowanie własne.}
 \end{figure}
+
+\newpage
 Komunikacja dronów w ramach systemu odbywa się przy pomocy brokera MQTT. Oporgramowanie za jego pośrednictwem może pobierać dane ze statku i wydawać określone komendy. W ramach urządzenia mobilnego są wyróżnione trzy komponenty:
   \begin{itemize}
   \item \textbf{Mqtt Services} to serwisy, które realizują komunikacje z brokerem MQTT. Ich projekt i implementacja dązy do tego, aby API wystawione do komponentu \textit{FlightController} wymagało minimalnej obsługi.
@@ -2309,8 +2312,6 @@ Financial Times Prentice Hall, Upper Saddle River, NJ, 2008;
 
 
 
- 
-
 \end{thebibliography}
 
 \clearpage
@@ -2318,6 +2319,7 @@ Financial Times Prentice Hall, Upper Saddle River, NJ, 2008;
 \listoffigures
 \addcontentsline{toc}{section}{Spis rysunków}
 
+\newpage
 \listoftables
 \addcontentsline{toc}{section}{Spis tabel}
 
@@ -2329,9 +2331,7 @@ Financial Times Prentice Hall, Upper Saddle River, NJ, 2008;
         \item Prezentację wyników pracy dyplomowej
         \item Kody źródłowe oprogramowania
         \item Biblioteki programowe niezbędne do zbudowania i uruchomienia oprogramowania
-        \item ...
     \end{enumerate}
-    \item ...
 \end{enumerate}
 
 \end{document}

@@ -95,6 +95,7 @@
 \newcommand{\myurl}[1]{\urlstyle{same}\url{#1}}
 
 \usepackage{hyperref}
+\usepackage{pdfpages}
 
 
 \usepackage{fancyhdr}
@@ -155,7 +156,7 @@
    
     \vspace{5mm}
 
-    \begin{longtable*}{p{.5\textwidth} p{.5\textwidth}}
+    \begin{longtable*}{p{.509\textwidth} p{.5\textwidth}}
         \textrm{Dyplomant:}\vspace{5mm} & 	\textrm{Promotor:}\\
         \textrm{\textbf{\autor}}  & \textrm{\textbf{\promotor}} \\
     \end{longtable*}
@@ -167,22 +168,9 @@
      
     \clearpage
     
-    \thispagestyle{firststyle}
-    
-    \fontsize{14}{20} \selectfont{\textbf{OŚWIADCZENIE}}\\
-    
-    \begin{center}
-        \fontsize{14}{20} \selectfont \textit{\ifdefined\zgoda  Wyrażam zgodę / \sout{nie wyrażam zgody} \else \sout{Wyrażam zgodę} / {nie wyrażam zgody} \fi $^{*}$\\na udostępnianie mojej pracy przez Archiwum WAT}
-    \end{center}
-    
-    ~\\
-    
-    \begin{longtable*}{p{.6\textwidth} c}
-    Dnia ...................... & 	....................................\\
-    ~ & \fontsize{10}{10} \selectfont (podpis)\\
-    \end{longtable*}
-    \textit{$^{*}$ Niepotrzebne skreślić}
-    \newpage
+
+    \includepdf[pages=-]{oswiadczenie.pdf}  
+
     \normalsize
     
     \tableofcontents
